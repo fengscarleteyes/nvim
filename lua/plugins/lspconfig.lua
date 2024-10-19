@@ -8,7 +8,12 @@ return {
       {
         "williamboman/mason-lspconfig.nvim",
         opts = {
-          ensure_installed = { "lua_ls", "ruff", "ruff_lsp", "pylyzer" },
+          ensure_installed = {
+            "lua_ls",
+            "ruff",
+            "ruff_lsp",
+            -- "pyright"
+          },
           automatic_installation = true,
         },
       },
@@ -20,6 +25,7 @@ return {
       -- LSP settings here
       local lspconfig = require("lspconfig")
       lspconfig.pyright.setup({})
+      -- lspconfig.basedpyright.setup({})
       lspconfig.lua_ls.setup({
         settings = {
           Lua = {
