@@ -13,4 +13,6 @@ winget install --id Microsoft.Powershell --source winget
 winget install BurntSushi.ripgrep.MSVC
 winget install sharkdp.fd
 winget install --id=7zip.7zip -e
+winget install zig.zig
+npm install -g tree-sitter-cli
 ```

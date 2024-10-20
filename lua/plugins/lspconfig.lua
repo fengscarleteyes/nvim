@@ -7,15 +7,21 @@ return {
       { "williamboman/mason.nvim", config = true },
       {
         "williamboman/mason-lspconfig.nvim",
-        opts = {
-          ensure_installed = {
-            "lua_ls",
-            "ruff",
-            "ruff_lsp",
-            -- "pyright"
-          },
-          automatic_installation = true,
-        },
+        config = true,
+      },
+      {
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        config = function()
+          require("mason-tool-installer").setup({
+            ensure_installed = {
+              "lua_ls",
+              "stylua",
+              "ruff",
+              "ruff_lsp",
+              "pyright",
+            },
+          })
+        end,
       },
     },
     init = function()
@@ -25,7 +31,6 @@ return {
       -- LSP settings here
       local lspconfig = require("lspconfig")
       lspconfig.pyright.setup({})
-      -- lspconfig.basedpyright.setup({})
       lspconfig.lua_ls.setup({
         settings = {
           Lua = {

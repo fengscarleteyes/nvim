@@ -5,8 +5,8 @@ return {
   version = false, -- telescope did only one release, so use HEAD for now
   opts = {
     defaults = {
-      -- treesitter = true,
-      treesitter = false,
+      treesitter = true,
+      -- treesitter = false,
       -- prompt_prefix = '  ',
       -- selection_caret = '  ',
       mappings = false,
@@ -14,6 +14,6 @@ return {
   },
   dependencies = {
     "nvim-lua/plenary.nvim",
-    -- 'nvim-treesitter/nvim-treesitter'
+    "nvim-treesitter/nvim-treesitter",
   },
 }
