@@ -63,7 +63,6 @@ vim.o.clipboard = "unnamedplus" -- Sync with system clipboard
 vim.o.completeopt = "menu,menuone,noselect"
 
 vim.o.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
-vim.o.showmode = true -- Dont show mode since we have a statusline
 
 -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1
@@ -74,6 +73,7 @@ vim.o.termguicolors = true
 
 -- 状态栏
 vim.o.laststatus = 3 -- global statusline
+vim.o.showmode = true -- Dont show mode since we have a statusline
 
 -- 补全菜单背景透明
 vim.o.pumblend = 50
