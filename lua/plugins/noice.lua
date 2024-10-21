@@ -2,6 +2,9 @@ return -- lazy.nvim
 {
   "folke/noice.nvim",
   event = "VeryLazy",
+  keys = {
+    { '<F6>', mode = "n", function() require("noice").cmd("dismiss") end, desc = "Oil toggle" },
+  },
   opts = {
     -- add any options here
     lsp = {

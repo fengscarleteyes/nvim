@@ -7,7 +7,8 @@ return {
       show_hidden = true,
     },
   },
-  -- Optional dependencies
-  -- dependencies = { { "echasnovski/mini.icons", opts = {} } },
+  keys = {
+    { '<F5>', mode = "n", function() require('oil').toggle_float() end, desc = "Oil toggle" },
+  },
   dependencies = { "nvim-tree/nvim-web-devicons" },
 }

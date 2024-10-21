@@ -3,37 +3,39 @@ vim.g.encoding = "UTF-8"
 vim.o.fileencoding = "utf-8"
 
 -- 禁止折行
-vim.opt.wrap = false
-vim.opt.scroll = 0 -- 1
+vim.o.wrap = false
+vim.o.scroll = 0 -- 1
 
 -- jk移动时光标下上方保留N行
-vim.opt.scrolloff = 5
-vim.opt.sidescrolloff = 5
+vim.o.scrolloff = 5
+vim.o.sidescrolloff = 5
+
+-- 行结尾可以跳到下一行
+vim.o.whichwrap = "b,s,<,>,[,],h,l"
 
 -- 使用相对行号
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.numberwidth = 2
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.numberwidth = 2
 
 -- 高亮所在行列
-vim.opt.cursorline = true
+vim.o.cursorline = true
 -- vim.o.cursorcolumn = true
-vim.opt.splitkeep = "screen"
+vim.o.splitkeep = "screen"
 
 -- 长度参考线
-vim.opt.colorcolumn = "100"
+vim.o.colorcolumn = "100"
 
 -- 禁止创建备份文件
-vim.opt.backup = false
-vim.opt.writebackup = false
-vim.opt.swapfile = false
+vim.o.backup = false
+vim.o.writebackup = false
+vim.o.swapfile = false
 
 -- 补全增强
-vim.opt.wildmenu = true
+vim.o.wildmenu = true
 
 -- 总是显示标签栏 0 1 2
 vim.o.showtabline = 2
--- vim.o.showtabline = 0
 
 -- 新行对齐当前行
 vim.o.autoindent = true
@@ -62,7 +64,7 @@ vim.o.mouse = "nv"
 vim.o.clipboard = "unnamedplus" -- Sync with system clipboard
 vim.o.completeopt = "menu,menuone,noselect"
 
-vim.o.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
+vim.o.signcolumn = "yes"
 
 -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1
@@ -72,8 +74,8 @@ vim.g.loaded_netrwPlugin = 1
 vim.o.termguicolors = true
 
 -- 状态栏
-vim.o.laststatus = 3 -- global statusline
-vim.o.showmode = true -- Dont show mode since we have a statusline
+vim.o.laststatus = 3
+vim.g.showmode = false
 
 -- 补全菜单背景透明
 vim.o.pumblend = 50
