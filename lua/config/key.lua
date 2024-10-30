@@ -1,4 +1,2 @@
--- example
--- vim.keymap.set("n", "<F5>", function()
---   require("oil").toggle_float()
--- end)
+-- Example
+-- vim.keymap.set("n", "<F7>", vim.lsp.buf.hover) -- hover
