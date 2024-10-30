@@ -53,12 +53,12 @@ return {
       { "<A-1>", vim.lsp.buf.hover, mode = "n", desc = "hover" },
       { "<A-2>", vim.lsp.buf.rename, mode = "n", desc = "rename" },
       { "<A-3>", vim.lsp.buf.definition, mode = "n", desc = "rename" },
+      { "<A-4>", vim.lsp.buf.code_action, mode = "n", desc = "code_action" },
       -- todo
       -- vim.lsp.buf.format()
       -- vim.lsp.buf.completion()
       -- vim.lsp.buf.formatting()
       -- vim.lsp.buf.references()
-      -- vim.lsp.buf.code_action()
       -- vim.lsp.buf.declaration()
       -- vim.lsp.buf.server_ready()
       -- vim.lsp.buf.typehierarchy()
