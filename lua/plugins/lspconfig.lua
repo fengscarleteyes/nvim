@@ -51,7 +51,7 @@ return {
     end,
     keys = {
       { "<A-1>", vim.lsp.buf.hover, mode = "n", desc = "hover" },
-      { "<A-2>", vim.lsp.buf.rename, mode = "n", desc = "rename" },
+      { "<A-2>", vim.lsp.buf.rename, mode = "n", desc = "definition" },
       { "<A-3>", vim.lsp.buf.definition, mode = "n", desc = "rename" },
       { "<A-4>", vim.lsp.buf.code_action, mode = "n", desc = "code_action" },
       -- todo
