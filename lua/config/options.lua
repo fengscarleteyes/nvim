@@ -59,6 +59,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 vim.o.mouse = "nv"
+vim.o.mousemoveevent = true
 
 -- vim.opt.autowrite = true -- Enable auto write
 vim.o.clipboard = "unnamedplus" -- Sync with system clipboard
