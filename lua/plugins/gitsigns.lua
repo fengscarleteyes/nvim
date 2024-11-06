@@ -1,0 +1,11 @@
+return {
+  "lewis6991/gitsigns.nvim",
+  config = function()
+    require("gitsigns").setup({
+      numhl = true, -- Toggle with `:Gitsigns toggle_numhl`
+      linehl = true, -- Toggle with `:Gitsigns toggle_linehl`
+      word_diff = true, -- Toggle with `:Gitsigns toggle_word_diff`
+      current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+    })
+  end,
+}

@@ -65,6 +65,7 @@ vim.o.mousemoveevent = true
 vim.o.clipboard = "unnamedplus" -- Sync with system clipboard
 vim.o.completeopt = "menu,menuone,noselect"
 
+-- vim.o.signcolumn = "number"
 vim.o.signcolumn = "yes"
 
 -- disable netrw at the very start of your init.lua
