@@ -2,6 +2,8 @@
 vim.g.encoding = "UTF-8"
 vim.o.fileencoding = "utf-8"
 
+vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
+
 -- 禁止折行
 vim.o.wrap = false
 vim.o.scroll = 0 -- 1
@@ -58,11 +60,13 @@ vim.o.smartcase = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-vim.o.mouse = "nv"
+-- vim.o.mouse = "nv"
+vim.o.mouse = "a"
 vim.o.mousemoveevent = true
 
 -- vim.opt.autowrite = true -- Enable auto write
-vim.o.clipboard = "unnamedplus" -- Sync with system clipboard
+-- vim.o.clipboard = "unnamedplus" -- Sync with system clipboard
+vim.o.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
 vim.o.completeopt = "menu,menuone,noselect"
 
 -- vim.o.signcolumn = "number"
