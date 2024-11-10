@@ -17,3 +17,11 @@ winget install --id=7zip.7zip -e
 winget install zig.zig
 npm install -g tree-sitter-cli
 ```
+
+- linux
+
+```shell
+# Fedora
+
+
+```
