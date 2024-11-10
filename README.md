@@ -23,5 +23,7 @@ npm install -g tree-sitter-cli
 ```shell
 # Fedora
 
-
+# install neovim nightly
+sudo dnf copr enable agriffis/neovim-nightly
+sudo dnf upgrade neovim python{2,3}-neovim
 ```
