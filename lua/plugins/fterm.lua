@@ -1,7 +1,7 @@
 return {
   "numToStr/FTerm.nvim",
-  opts = { cmd = "powershell" },
-  -- opts = { cmd = "bash" },
+  opts = { cmd = "powershell" }, -- windows
+  -- opts = { cmd = "bash" }, -- linux
   -- stylua: ignore
   keys = {
     { "<F10>", mode = "n", "<CMD>lua require('FTerm').toggle()<CR>", desc = "FTerm toggle" },

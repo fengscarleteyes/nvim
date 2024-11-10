@@ -1,13 +1,14 @@
+-- https://github.com/Exafunction/codeium.vim
 return {
   "Exafunction/codeium.vim",
-  enabled = false,
+  -- enabled = false,
   event = "BufEnter",
   -- Codeium Auth to set up the plugin and start using Codeium
 
   config = function()
     -- Change '<C-g>' here to any keycode you like.
     -- vim.g.codeium_disable_bindings = 1
-    vim.key.set({ "text" })
+    -- vim.key.set({ "text" })
 
     vim.keymap.set("i", "<C-g>", function()
       return vim.fn["codeium#Accept"]()
@@ -23,4 +24,3 @@ return {
     end, { expr = true, silent = true })
   end,
 }
--- todo
