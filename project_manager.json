@@ -1,8 +1,8 @@
 {
-    "~/python/intel_2021_1": {
-      "name": "Intel Course 2021",
-      "description": "Simple python project",
-      "file_name": "POO/main.py"
+    "~/test_python": {
+      "name": "test_python",
+      "description": "test_python  project in Linux",
+      "file_name": "hello.py"
     },
     "~/deno/example": {
       "name": "ExapleDeno",
