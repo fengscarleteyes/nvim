@@ -1,6 +1,6 @@
-return -- lazy.nvim
-{
+return {
   "folke/noice.nvim",
+  -- enabled = false,
   event = "VeryLazy",
   keys = {
     {

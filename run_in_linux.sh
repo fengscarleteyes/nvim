@@ -1,4 +1,7 @@
-export HTTP_PROXY=http://192.168.10.118:7890
-export HTTPS_PROXY=http://192.168.10.118:7890
+# export HTTP_PROXY=http://192.168.10.118:7890
+# export HTTPS_PROXY=http://192.168.10.118:7890
+
+export HTTP_PROXY=http://192.168.10.195:7890
+export HTTPS_PROXY=http://192.168.10.195:7890
 
 nvim
