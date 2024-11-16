@@ -41,27 +41,6 @@ return {
         },
       },
       lualine_x = {
-        -- {
-        --     function ()
-        --         return require("lspsaga.symbol.winbar").get_bar()
-        --     end
-        -- }
-
-        -- {
-        --   function() return require("noice").api.status.command.get() end,
-        --   cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
-        --   color = Util.fg("Statement"),
-        -- },
-        -- {
-        --   function() return require("noice").api.status.mode.get() end,
-        --   cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
-        --   color = Util.fg("Constant"),
-        -- },
-        -- {
-        --   function() return "  " .. require("dap").status() end,
-        --   cond = function () return package.loaded["dap"] and require("dap").status() ~= "" end,
-        --   color = Util.fg("Debug"),
-        -- },
         {
           "searchcount",
           maxcount = 999,
@@ -69,11 +48,11 @@ return {
         },
         {
           "diff",
-          --   symbols = {
-          --     added = icons.git.added,
-          --     modified = icons.git.modified,
-          --     removed = icons.git.removed,
-          --   },
+          symbols = {
+            added = "+",
+            modified = "*",
+            removed = "-",
+          },
         },
       },
       lualine_y = {

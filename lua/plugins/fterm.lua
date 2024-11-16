@@ -7,8 +7,4 @@ return {
       return { cmd = "bash" }
     end
   end,
-  keys = {
-    { "<F10>", mode = "n", "<CMD>lua require('FTerm').toggle()<CR>", desc = "FTerm toggle" },
-    { "<F10>", mode = "t", "<C-\\><C-n><CMD>lua require('FTerm').toggle()<CR>", desc = "FTerm toggle" },
-  },
 }
