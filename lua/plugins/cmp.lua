@@ -10,6 +10,7 @@ return {
     -- 'hrsh7th/vim-vsnip',
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-emoji",
   },
   config = function()
     local cmp = require("cmp")
@@ -35,6 +36,7 @@ return {
         -- { name = 'luasnip' }, -- For luasnip users.
         -- { name = 'ultisnips' }, -- For ultisnips users.
         -- { name = 'snippy' }, -- For snippy users.
+        { name = "emoji" },
       }, {
         { name = "buffer" },
       }),
