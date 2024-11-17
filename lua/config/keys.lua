@@ -46,6 +46,15 @@ wk.add({
   },
 
   {
+    "<F6>",
+    mode = "n",
+    function()
+      require("noice").cmd("dismiss")
+    end,
+    desc = "noice dismiss",
+  },
+
+  {
     "<leader><F1>",
     mode = "n",
     function()
@@ -169,13 +178,13 @@ wk.add({
     silent = true,
   },
 
-  -- vim.keymap.set('n', '<leader>r', ':RunCode<CR>', { noremap = true, silent = false })
-  -- vim.keymap.set('n', '<leader>rf', ':RunFile<CR>', { noremap = true, silent = false })
-  -- vim.keymap.set('n', '<leader>rft', ':RunFile tab<CR>', { noremap = true, silent = false })
-  -- vim.keymap.set('n', '<leader>rp', ':RunProject<CR>', { noremap = true, silent = false })
-  -- vim.keymap.set('n', '<leader>rc', ':RunClose<CR>', { noremap = true, silent = false })
-  -- vim.keymap.set('n', '<leader>crf', ':CRFiletype<CR>', { noremap = true, silent = false })
-  -- vim.keymap.set('n', '<leader>crp', ':CRProjects<CR>', { noremap = true, silent = false })
+  { "<leader>r", mode = "n", "<Cmd>RunCode<CR>", desc = "RunCode", noremap = true, silent = false },
+  { "<leader>rf", mode = "n", "<Cmd>RunFile<CR>", desc = "RunFile", noremap = true, silent = false },
+  { "<leader>rft", mode = "n", "<Cmd>RunFile tab<CR>", desc = "RunFile tab", noremap = true, silent = false },
+  { "<leader>rp", mode = "n", "<Cmd>RunProject<CR>", desc = "RunProject", noremap = true, silent = false },
+  { "<leader>rc", mode = "n", "<Cmd>RunClose<CR>", desc = "RunClose", noremap = true, silent = false },
+  { "<leader>crf", mode = "n", "<Cmd>CRFiletype<CR>", desc = "CRFiletype", noremap = true, silent = false },
+  { "<leader>crp", mode = "n", "<Cmd>CRProjects<CR>", desc = "CRProjects", noremap = true, silent = false },
 
   -- keys = {
   --   {
@@ -226,4 +235,6 @@ wk.add({
   -- vim.keymap.set("n", "]t", function()
   --   require("todo-comments").jump_next({keywords = { "ERROR", "WARNING" }})
   -- end, { desc = "Next error/warning todo comment" })
+
+  -- todo lspsaga
 })

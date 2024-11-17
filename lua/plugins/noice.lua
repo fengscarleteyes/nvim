@@ -2,16 +2,6 @@ return {
   "folke/noice.nvim",
   -- enabled = false,
   event = "VeryLazy",
-  keys = {
-    {
-      "<F6>",
-      mode = "n",
-      function()
-        require("noice").cmd("dismiss")
-      end,
-      desc = "noice dismiss",
-    },
-  },
   opts = {
     -- add any options here
     lsp = {
