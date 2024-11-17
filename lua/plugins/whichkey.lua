@@ -7,8 +7,9 @@ return {
     -- refer to the configuration section below
   },
   config = function(_, opts)
-    require('which-key').setup(opts)
-    require('config.keys')
+    require("which-key").setup(opts)
+    -- require("which-key").setup({})
+    require("config.keys")
   end,
   keys = {
     {
