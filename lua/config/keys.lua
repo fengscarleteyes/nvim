@@ -152,6 +152,7 @@ wk.add({
   { "<leader>rcf", mode = "n", "<Cmd>CRFiletype<CR>", desc = "CRFiletype", noremap = true, silent = false },
   { "<leader>rcp", mode = "n", "<Cmd>CRProjects<CR>", desc = "CRProjects", noremap = true, silent = false },
 
+  -- TODO: ...
   -- keys = {
   --   {
   --     "<leader>xx",
@@ -201,6 +202,4 @@ wk.add({
   -- vim.keymap.set("n", "]t", function()
   --   require("todo-comments").jump_next({keywords = { "ERROR", "WARNING" }})
   -- end, { desc = "Next error/warning todo comment" })
-
-  -- todo lspsaga
 })
