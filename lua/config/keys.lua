@@ -1,43 +1,18 @@
--- Example
--- vim.keymap.set("n", "<F7>", vim.lsp.buf.hover) -- hover
-
--- keys = {
--- keys = {
---   { "<A-1>", vim.lsp.buf.hover, mode = "n", desc = "hover" },
---   { "<A-2>", vim.lsp.buf.rename, mode = "n", desc = "definition" },
---   { "<A-3>", vim.lsp.buf.definition, mode = "n", desc = "rename" },
---   { "<A-4>", vim.lsp.buf.code_action, mode = "n", desc = "code_action" },
---   -- todo
---   -- vim.lsp.buf.format()
---   -- vim.lsp.buf.completion()
---   -- vim.lsp.buf.formatting()
---   -- vim.lsp.buf.references()
---   -- vim.lsp.buf.declaration()
---   -- vim.lsp.buf.server_ready()
---   -- vim.lsp.buf.typehierarchy()
---   -- vim.lsp.buf.implementation()
---   -- vim.lsp.buf.incoming_calls()
---   -- vim.lsp.buf.outgoing_calls()
---   -- vim.lsp.buf.signature_help()
---   -- vim.lsp.buf.document_symbol()
---   -- vim.lsp.buf.execute_command()
---   -- vim.lsp.buf.formatting_sync()
---   -- vim.lsp.buf.type_definition()
---   -- vim.lsp.buf.clear_references()
---   -- vim.lsp.buf.range_formatting()
---   -- vim.lsp.buf.workspace_symbol()
---   -- vim.lsp.buf.range_code_action()
---   -- vim.lsp.buf.document_highlight()
---   -- vim.lsp.buf.add_workspace_folder()
---   -- vim.lsp.buf.list_workspace_folders()
---   -- vim.lsp.buf.remove_workspace_folder()
--- },
-
 local wk = require("which-key")
 wk.add({
-  { "<leader>", group = "keys" }, -- group
   {
-    "<leader><F5>",
+    "<leader><Space>",
+    mode = "n",
+    function()
+      require("noice").cmd("dismiss")
+    end,
+    desc = "noice dismiss",
+  },
+
+  { "<leader>", group = "leader keys" }, -- group
+  { "<leader>f", group = "File | Find" }, -- group
+  {
+    "<leader>fo",
     mode = "n",
     function()
       require("oil").toggle_float()
@@ -46,16 +21,7 @@ wk.add({
   },
 
   {
-    "<F6>",
-    mode = "n",
-    function()
-      require("noice").cmd("dismiss")
-    end,
-    desc = "noice dismiss",
-  },
-
-  {
-    "<leader><F1>",
+    "<leader>ff",
     mode = "n",
     function()
       require("telescope.builtin").find_files()
@@ -63,7 +29,7 @@ wk.add({
     desc = "telescope find files",
   },
   {
-    "<leader><F2>",
+    "<leader>fb",
     mode = "n",
     function()
       require("telescope.builtin").buffers()
@@ -71,7 +37,7 @@ wk.add({
     desc = "telescope buffers",
   },
   {
-    "<leader><F3>",
+    "<leader>fg",
     mode = "n",
     function()
       require("telescope.builtin").live_grep()
@@ -79,7 +45,7 @@ wk.add({
     desc = "telescope live grep",
   },
   {
-    "<leader><F4>",
+    "<leader>fh",
     mode = "n",
     function()
       require("telescope.builtin").help_tags()
@@ -88,7 +54,7 @@ wk.add({
   },
 
   {
-    "<leader><F10>",
+    "<A-t>",
     mode = { "t", "n" },
     function()
       require("FTerm").toggle()
@@ -130,7 +96,7 @@ wk.add({
   },
   {
     "<c-s>",
-    mode = { "c" },
+    mode = { "c" }, -- in "/" search mode toggle flash
     function()
       require("flash").toggle()
     end,
@@ -178,13 +144,13 @@ wk.add({
     silent = true,
   },
 
-  { "<leader>r", mode = "n", "<Cmd>RunCode<CR>", desc = "RunCode", noremap = true, silent = false },
-  { "<leader>rf", mode = "n", "<Cmd>RunFile<CR>", desc = "RunFile", noremap = true, silent = false },
-  { "<leader>rft", mode = "n", "<Cmd>RunFile tab<CR>", desc = "RunFile tab", noremap = true, silent = false },
-  { "<leader>rp", mode = "n", "<Cmd>RunProject<CR>", desc = "RunProject", noremap = true, silent = false },
+  { "<leader>r", group = "RunCode" },
+  { "<leader>rr", mode = "n", "<Cmd>RunCode<CR>", desc = "RunCode", noremap = true, silent = false },
+  { "<leader>rf", mode = "n", "<Cmd>RunFile tab<CR>", desc = "RunFile tab", noremap = true, silent = false },
+  { "<leader>rp", mode = "n", "<Cmd>RunProject tab<CR>", desc = "RunProject", noremap = true, silent = false },
   { "<leader>rc", mode = "n", "<Cmd>RunClose<CR>", desc = "RunClose", noremap = true, silent = false },
-  { "<leader>crf", mode = "n", "<Cmd>CRFiletype<CR>", desc = "CRFiletype", noremap = true, silent = false },
-  { "<leader>crp", mode = "n", "<Cmd>CRProjects<CR>", desc = "CRProjects", noremap = true, silent = false },
+  { "<leader>rcf", mode = "n", "<Cmd>CRFiletype<CR>", desc = "CRFiletype", noremap = true, silent = false },
+  { "<leader>rcp", mode = "n", "<Cmd>CRProjects<CR>", desc = "CRProjects", noremap = true, silent = false },
 
   -- keys = {
   --   {

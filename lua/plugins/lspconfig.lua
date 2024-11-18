@@ -36,12 +36,24 @@ return {
           Lua = {
             runtime = {
               version = "LuaJIT",
+              path = {
+                "?.lua",
+                "?/init.lua",
+                vim.fn.expand("~/.luarocks/share/lua/5.3/?.lua"),
+                vim.fn.expand("~/.luarocks/share/lua/5.3/?/init.lua"),
+                "/usr/share/5.3/?.lua",
+                "/usr/share/lua/5.3/?/init.lua",
+              },
             },
             diagnostics = {
-              globals = { "vim" },
+              globals = { "vim", "require" },
             },
             workspace = {
-              library = vim.api.nvim_get_runtime_file("", true),
+              library = {
+                vim.api.nvim_get_runtime_file("", true),
+                "/usr/share/lua/5.3",
+                vim.fn.expand("~/.luarocks/share/lua/5.3"),
+              },
               checkThirdParty = false,
             },
             telemetry = { enable = false },
