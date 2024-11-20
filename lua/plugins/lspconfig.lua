@@ -34,6 +34,7 @@ return {
       lsp.lua_ls.setup({
         settings = {
           Lua = {
+            hint = { enable = true },
             runtime = {
               version = "LuaJIT",
               path = {
