@@ -5,7 +5,8 @@ return {
     require("conform").setup({
       formatters_by_ft = {
         lua = { "stylua" },
-        python = { "ruff_format" },
+        python = { "ruff_format", "ruff_fix", "ruff_organize_imports" },
+        sh = { "shfmt" },
       },
       format_on_save = {
         -- These options will be passed to conform.format()
@@ -13,13 +14,8 @@ return {
         timeout_ms = 1000,
         lsp_format = "fallback",
       },
-      formatters = {
-        ruff_format = {
-          command = "ruff",
-          prepend_args = { "format" },
-        },
-      },
     })
+
     vim.api.nvim_create_autocmd("BufWritePre", {
       pattern = "*",
       callback = function(args)

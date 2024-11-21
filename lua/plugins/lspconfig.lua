@@ -14,11 +14,13 @@ return {
         config = function()
           require("mason-tool-installer").setup({
             ensure_installed = {
-              "lua_ls",
-              "stylua",
-              "ruff",
-              "ruff_lsp",
-              "pyright",
+              "shfmt", -- formater
+              "bash-language-server", -- lsp
+              "stylua", -- formater
+              "lua_ls", -- lsp
+              "pyright", -- lsp
+              "ruff", -- linter & formater
+              "ruff_lsp", -- linter & formater
             },
           })
         end,
@@ -30,6 +32,7 @@ return {
     config = function()
       -- here
       local lsp = require("lspconfig")
+      lsp.bashls.setup({})
       lsp.pyright.setup({})
       lsp.lua_ls.setup({
         settings = {
