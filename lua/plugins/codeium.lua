@@ -14,3 +14,5 @@ return {
   -- https://github.com/Exafunction/codeium.vim
   -- vim.g.codeium_disable_bindings = 1
 }
+
+-- the plugin in windows will show some error messages
