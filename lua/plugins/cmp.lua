@@ -31,6 +31,7 @@ return {
       },
       sources = cmp.config.sources({
         { name = "nvim_lsp" },
+        { name = "codeium" },
         { name = "path" },
         -- { name = 'vsnip' }, -- For vsnip users.
         -- { name = 'luasnip' }, -- For luasnip users.
