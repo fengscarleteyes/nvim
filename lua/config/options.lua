@@ -15,6 +15,13 @@ vim.o.sidescrolloff = 5
 -- 行结尾可以跳到下一行
 vim.o.whichwrap = "b,s,<,>,[,],h,l"
 
+-- 不可见字符的显示，这里只把空格显示为点
+vim.o.list = true
+vim.o.listchars = "space:󰧟,trail:󰃉,tab:,eol:󱨉"
+-- vim.o.listchars = 'space:󰧟,trail:󱁐,tab:,eol:󰬧'
+-- vim.o.listchars = 'space:󰧟,trail:󱁐,tab:󰧙󰢤󰧛,eol:󰬧'
+-- vim.o.listchars = "space:󰧟,tab:,eol:"
+
 -- 使用相对行号
 vim.o.number = true
 vim.o.relativenumber = true
