@@ -6,8 +6,9 @@ return {
   dependencies = {
     "neovim/nvim-lspconfig",
     "hrsh7th/cmp-nvim-lsp",
-    -- 'hrsh7th/cmp-vsnip',
-    -- 'hrsh7th/vim-vsnip',
+    "hrsh7th/cmp-cmdline",
+    { "L3MON4D3/LuaSnip", version = "v2.*" },
+    "saadparwaiz1/cmp_luasnip",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-emoji",
@@ -16,11 +17,11 @@ return {
     local cmp = require("cmp")
     cmp.setup({
       preselect = cmp.PreselectMode.None,
-      -- snippet = {
-      --   expand = function(args)
-      --     vim.fn['vsnip#anonymous'](args.body) -- REQUIRED
-      --   end,
-      -- },
+      snippet = {
+        expand = function(args)
+          require("luasnip").lsp_expand(args.body)
+        end,
+      },
       mapping = {
         ["<S-Tab>"] = cmp.mapping.select_prev_item(),
         ["<Tab>"] = cmp.mapping.select_next_item(),
@@ -33,10 +34,8 @@ return {
         { name = "nvim_lsp" },
         { name = "codeium" },
         { name = "path" },
-        -- { name = 'vsnip' }, -- For vsnip users.
-        -- { name = 'luasnip' }, -- For luasnip users.
-        -- { name = 'ultisnips' }, -- For ultisnips users.
-        -- { name = 'snippy' }, -- For snippy users.
+        { name = "cmdline" },
+        { name = "luasnip", option = { show_autosnippets = true } }, -- For luasnip users.
         { name = "emoji" },
       }, {
         { name = "buffer" },

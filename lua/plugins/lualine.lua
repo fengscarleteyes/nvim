@@ -61,6 +61,11 @@ return {
       },
       lualine_z = {
         {
+          function()
+            vim.api.nvim_call_function("codeium#GetStatusString", {})
+          end,
+        },
+        {
           require("lazy.status").updates,
           cond = require("lazy.status").has_updates,
           color = { bg = "#00FF00" },

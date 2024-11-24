@@ -30,11 +30,12 @@ return {
       --init setting
     end,
     config = function()
-      -- here
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local lsp = require("lspconfig")
-      lsp.bashls.setup({})
-      lsp.pyright.setup({})
+      lsp.bashls.setup({ capabilities = capabilities })
+      lsp.pyright.setup({ capabilities = capabilities })
       lsp.lua_ls.setup({
+        capabilities = capabilities,
         settings = {
           Lua = {
             hint = { enable = true },
