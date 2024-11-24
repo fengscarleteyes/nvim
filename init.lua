@@ -3,7 +3,7 @@ require("config.provider")
 require("config.lazy")
 
 local function hello()
-  print("neovim start !")
+  require("noice").notify("neovim start !")
 end
 
 hello()
