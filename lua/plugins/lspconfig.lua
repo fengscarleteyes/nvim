@@ -33,7 +33,13 @@ return {
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local lsp = require("lspconfig")
       lsp.bashls.setup({ capabilities = capabilities })
-      lsp.pyright.setup({ capabilities = capabilities })
+      lsp.pyright.setup({
+        capabilities = capabilities,
+        on_init = function(client)
+          --
+          client.settings.python.pythonPath = require("whichpy.lsp").find_python_path(client.config.root_dir)
+        end,
+      })
       lsp.lua_ls.setup({
         capabilities = capabilities,
         settings = {

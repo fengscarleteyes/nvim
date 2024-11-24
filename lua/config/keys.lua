@@ -12,6 +12,14 @@ wk.add({
   { "<leader>", group = "leader keys" }, -- group
   { "<leader>f", group = "File | Find" }, -- group
   {
+    "<leader>fn",
+    mode = "n",
+    -- "Neotree source=filesystem reveal=true position=right action=focus",
+    "<cmd>Neotree source=buffers reveal=true position=right action=focus<CR>",
+    desc = "Oil toggle",
+  },
+
+  {
     "<leader>fo",
     mode = "n",
     function()
