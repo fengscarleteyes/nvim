@@ -14,8 +14,8 @@ wk.add({
   {
     "<leader>fn",
     mode = "n",
-    -- "Neotree source=filesystem reveal=true position=right action=focus",
-    "<cmd>Neotree source=buffers reveal=true position=right action=focus<CR>",
+    "<cmd>Neotree source=buffers reveal=true position=right action=focus toggle=true<CR>",
+    -- TODO: add more
     desc = "Oil toggle",
   },
 
