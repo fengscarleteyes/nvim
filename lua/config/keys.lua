@@ -38,6 +38,14 @@ wk.add({
     end,
     desc = "Oil toggle",
   },
+  {
+    "<leader>fn",
+    mode = "n",
+    function()
+      require("telescope").extensions.nerdy.nerdy()
+    end,
+    desc = "Oil toggle",
+  },
 
   {
     "<leader>ff",
