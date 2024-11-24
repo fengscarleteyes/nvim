@@ -10,15 +10,26 @@ wk.add({
   },
 
   { "<leader>", group = "leader keys" }, -- group
-  { "<leader>f", group = "File | Find" }, -- group
+  { "<leader>t", group = "File | Tree" }, -- group
   {
-    "<leader>fn",
+    "<leader>tb",
     mode = "n",
-    "<cmd>Neotree source=buffers reveal=true position=right action=focus toggle=true<CR>",
-    -- TODO: add more
-    desc = "Oil toggle",
+    "<cmd>Neotree source=buffers reveal=true position=float action=focus toggle=true<CR>",
+    desc = "NeoTree | Buffers",
   },
-
+  {
+    "<leader>tg",
+    mode = "n",
+    "<cmd>Neotree source=git_status reveal=true position=float action=focus toggle=true<CR>",
+    desc = "NeoTree | Git Status",
+  },
+  {
+    "<leader>tf",
+    mode = "n",
+    "<cmd>Neotree source=filesystem reveal=true position=float action=focus toggle=true<CR>",
+    desc = "NeoTree | Filesystem",
+  },
+  { "<leader>f", group = "File | Find" }, -- group
   {
     "<leader>fo",
     mode = "n",
