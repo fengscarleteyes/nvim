@@ -31,3 +31,10 @@ npm install -g tree-sitter-cli
 sudo dnf copr enable agriffis/neovim-nightly
 sudo dnf upgrade neovim python{2,3}-neovim
 ```
+
+## TODO
+
+- https://github.com/mfussenegger/nvim-dap
+- https://github.com/rcarriga/nvim-dap-ui
+- https://github.com/theHamsta/nvim-dap-virtual-text
+
