@@ -17,7 +17,7 @@ vim.o.whichwrap = "b,s,<,>,[,],h,l"
 
 -- 不可见字符的显示，这里只把空格显示为点
 vim.o.list = true
-vim.o.listchars = "space:,trail:,tab:,eol:"
+vim.o.listchars = "space:·,trail󱄓:,tab:,eol:"
 -- vim.o.listchars = "space:󰧟,trail:󰃉,tab:,eol:󱨉"
 -- vim.o.listchars = 'space:󰧟,trail:󱁐,tab:,eol:󰬧'
 -- vim.o.listchars = 'space:󰧟,trail:󱁐,tab:󰧙󰢤󰧛,eol:󰬧'
