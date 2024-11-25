@@ -20,6 +20,15 @@ winget install sharkdp.fd
 winget install --id=7zip.7zip -e
 winget install zig.zig
 npm install -g tree-sitter-cli
+
+npm config set proxy http://192.168.10.195:7890
+npm config set https-proxy https://192.168.10.195:7890
+npm config set registry https://registry.npm.taobao.org
+npm config set registry=https://registry.npmjs.org
+
+npm config delete proxy
+npm config delete https-proxy
+
 ```
 
 - linux
