@@ -179,6 +179,8 @@ wk.add({
   { "<leader>rcf", mode = "n", "<Cmd>CRFiletype<CR>", desc = "CRFiletype", noremap = true, silent = false },
   { "<leader>rcp", mode = "n", "<Cmd>CRProjects<CR>", desc = "CRProjects", noremap = true, silent = false },
 
+  -- TODO: { "<leader>ss", mode = "n", "<Plug>(nvim-surround-normal-cur)", desc = "test", noremap = true, silent = false },
+
   -- TODO: ...
   -- keys = {
   --   {

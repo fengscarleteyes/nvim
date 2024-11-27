@@ -1,8 +1,6 @@
 vim.g.codeium_disable_bindings = 1
 vim.g.codeium_enabled = true
 
--- TODO: vim.api.nvim_call_function("codeium#GetStatusString", {})
-
 return {
   "Exafunction/codeium.vim",
   -- enabled = function()
