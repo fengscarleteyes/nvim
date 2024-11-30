@@ -3,6 +3,7 @@ vim.g.codeium_enabled = true
 
 return {
   "Exafunction/codeium.vim",
+  enabled = false,
   -- enabled = function()
   --   if vim.fn.has("win32") == 1 then
   --     return false

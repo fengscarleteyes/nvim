@@ -180,7 +180,30 @@ wk.add({
   { "<leader>rcp", mode = "n", "<Cmd>CRProjects<CR>", desc = "CRProjects", noremap = true, silent = false },
 
   { "<leader>s", group = "Surround" },
-  { "<leader>ss", mode = "n", "<Plug>(nvim-surround-normal-cur)", desc = "nvim-surround-normal-cur", noremap = true, silent = false },
+  {
+    "<leader>ss",
+    mode = "n",
+    "<Plug>(nvim-surround-normal-cur)",
+    desc = "nvim-surround-normal-cur",
+    noremap = true,
+    silent = false,
+  },
+  {
+    "<leader>sd",
+    mode = "n",
+    "<Plug>(nvim-surround-delete)",
+    desc = "nvim-surround-delete",
+    noremap = true,
+    silent = false,
+  },
+  {
+    "<leader>sl",
+    mode = "n",
+    "<Plug>(nvim-surround-normal-cur-line)",
+    desc = "nvim-surround-normal-cur-line",
+    noremap = true,
+    silent = false,
+  },
   -- <Plug>(nvim-surround-insert)
   -- <Plug>(nvim-surround-insert-line)
   -- <Plug>(nvim-surround-normal)
@@ -189,10 +212,8 @@ wk.add({
   -- <Plug>(nvim-surround-normal-cur-line)
   -- <Plug>(nvim-surround-visual)
   -- <Plug>(nvim-surround-visual-line)
-  -- <Plug>(nvim-surround-delete)
   -- <Plug>(nvim-surround-change)
   -- <Plug>(nvim-surround-change-line)
-
 
   -- TODO: ...
   -- keys = {
