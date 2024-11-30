@@ -204,6 +204,15 @@ wk.add({
     noremap = true,
     silent = false,
   },
+  {
+    "<leader>sr",
+    mode = "n",
+    "<Plug>(nvim-surround-change)",
+    desc = "nvim-surround-change",
+    noremap = true,
+    silent = false,
+  },
+
   -- <Plug>(nvim-surround-insert)
   -- <Plug>(nvim-surround-insert-line)
   -- <Plug>(nvim-surround-normal)
