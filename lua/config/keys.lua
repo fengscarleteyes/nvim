@@ -181,6 +181,7 @@ wk.add({
 
   { "<leader>s", group = "Surround" },
   { "<leader>ss", mode = "n", "<Plug>(nvim-surround-normal-cur)", desc = "nvim-surround-normal-cur", noremap = true, silent = false },
+  -- TODO: config this surround
   -- <Plug>(nvim-surround-insert)
   -- <Plug>(nvim-surround-insert-line)
   -- <Plug>(nvim-surround-normal)
