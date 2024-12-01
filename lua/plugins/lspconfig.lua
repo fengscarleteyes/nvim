@@ -21,6 +21,7 @@ return {
               "pyright", -- lsp
               "ruff", -- linter & formater
               "ruff_lsp", -- linter & formater
+              "jq", -- formater json
             },
           })
         end,
@@ -32,6 +33,15 @@ return {
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local lsp = require("lspconfig")
+      lsp.basics_ls.setup({
+        -- npm install -g basics-language-server
+        settings = {
+          snippet = {
+            enable = true,
+            sources = { "./snippets" },
+          },
+        },
+      })
       lsp.bashls.setup({ capabilities = capabilities })
       lsp.pyright.setup({
         capabilities = capabilities,

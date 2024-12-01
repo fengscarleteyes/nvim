@@ -1,9 +1,5 @@
 # README
 
-## TODO
-
-- add custom keybindings
-
 ## install
 
 - Windows
