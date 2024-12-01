@@ -33,14 +33,6 @@ return {
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local lsp = require("lspconfig")
-      lsp.basics_ls.setup({
-        settings = {
-          snippet = {
-            enable = true,
-            sources = { "./snippets" },
-          },
-        },
-      })
       lsp.bashls.setup({ capabilities = capabilities })
       lsp.pyright.setup({
         capabilities = capabilities,
