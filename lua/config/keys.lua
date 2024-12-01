@@ -130,47 +130,6 @@ wk.add({
     desc = "Toggle Flash Search",
   },
 
-  {
-    "<C-g>",
-    mode = "i",
-    function()
-      return vim.fn["codeium#Accept"]()
-    end,
-    desc = "Accept Codeium",
-    expr = true,
-    silent = true,
-  },
-  {
-    "<C-;>",
-    mode = "i",
-    function()
-      return vim.fn["codeium#CycleCompletions"](1)
-    end,
-    desc = "codeium CycleCompletions",
-    expr = true,
-    silent = true,
-  },
-  {
-    "<C-,>",
-    mode = "i",
-    function()
-      return vim.fn["codeium#CycleCompletions"](-1)
-    end,
-    desc = "codeium CycleCompletions",
-    expr = true,
-    silent = true,
-  },
-  {
-    "<C-x>",
-    mode = "i",
-    function()
-      return vim.fn["codeium#Clear"]()
-    end,
-    desc = "codeium clear",
-    expr = true,
-    silent = true,
-  },
-
   { "<leader>r", group = "RunCode" },
   { "<leader>rr", mode = "n", "<Cmd>RunCode<CR>", desc = "RunCode", noremap = true, silent = false },
   { "<leader>rf", mode = "n", "<Cmd>RunFile tab<CR>", desc = "RunFile tab", noremap = true, silent = false },
