@@ -4,7 +4,6 @@ return {
   opts = {},
   config = function(_, opts)
     require("which-key").setup(opts)
-    -- require('which-key').register()
   end,
   -- keys = {
   --   -- disable the default flash keymap

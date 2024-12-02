@@ -4,6 +4,7 @@ return {
   config = function()
     require("LspUI").setup({
       -- config options go here:wqa
+      -- TODO: this
     })
   end,
 }
