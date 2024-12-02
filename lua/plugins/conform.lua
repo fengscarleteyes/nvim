@@ -7,6 +7,7 @@ return {
         lua = { "stylua" },
         python = { "ruff_format", "ruff_fix", "ruff_organize_imports" },
         sh = { "shfmt" },
+        json = { "jq" },
       },
       format_on_save = {
         -- These options will be passed to conform.format()
