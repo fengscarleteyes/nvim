@@ -5,90 +5,23 @@ wk.add({
   { "<leader>", group = "leader keys" }, -- group
 
   { "<leader><Space>", mode = "n", function() require("noice").cmd("dismiss") end, desc = "noice dismiss" },
+  { "<A-t>", mode = { "t", "n" }, function() require("FTerm").toggle() end, desc = "FTerm toggle" },
   { "<leader>w", mode = "n", "<cmd>bd<CR>", desc = "Buffer Delete" },
 
   { "<leader>t", group = "File | Tree" }, -- group
   { "<leader>tb", mode = "n", "<cmd>Neotree source=buffers reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Buffers" },
-  {
-    "<leader>tg",
-    mode = "n",
-    "<cmd>Neotree source=git_status reveal=true position=float action=focus toggle=true<CR>",
-    desc = "NeoTree | Git Status",
-  },
-  {
-    "<leader>tf",
-    mode = "n",
-    "<cmd>Neotree source=filesystem reveal=true position=float action=focus toggle=true<CR>",
-    desc = "NeoTree | Filesystem",
-  },
+  { "<leader>tg", mode = "n", "<cmd>Neotree source=git_status reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Git Status" },
+  { "<leader>tf", mode = "n", "<cmd>Neotree source=filesystem reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Filesystem" },
+
   { "<leader>f", group = "File | Find" }, -- group
-  {
-    "<leader>fo",
-    mode = "n",
-    function()
-      require("oil").toggle_float()
-    end,
-    desc = "Oil toggle",
-  },
-  {
-    "<leader>fn",
-    mode = "n",
-    function()
-      require("telescope").extensions.nerdy.nerdy()
-    end,
-    desc = "Oil toggle",
-  },
+  { "<leader>fo", mode = "n", function() require("oil").toggle_float() end, desc = "Oil toggle" },
+  { "<leader>fn", mode = "n", function() require("telescope").extensions.nerdy.nerdy() end, desc = "Oil toggle" },
+  { "<leader>ff", mode = "n", function() require("telescope.builtin").find_files() end, desc = "telescope find files" },
+  { "<leader>fb", mode = "n", function() require("telescope.builtin").buffers() end, desc = "telescope buffers" },
+  { "<leader>fg", mode = "n", function() require("telescope.builtin").live_grep() end, desc = "telescope live grep" },
+  { "<leader>fh", mode = "n", function() require("telescope.builtin").help_tags() end, desc = "telescope help tags" },
 
-  {
-    "<leader>ff",
-    mode = "n",
-    function()
-      require("telescope.builtin").find_files()
-    end,
-    desc = "telescope find files",
-  },
-  {
-    "<leader>fb",
-    mode = "n",
-    function()
-      require("telescope.builtin").buffers()
-    end,
-    desc = "telescope buffers",
-  },
-  {
-    "<leader>fg",
-    mode = "n",
-    function()
-      require("telescope.builtin").live_grep()
-    end,
-    desc = "telescope live grep",
-  },
-  {
-    "<leader>fh",
-    mode = "n",
-    function()
-      require("telescope.builtin").help_tags()
-    end,
-    desc = "telescope help tags",
-  },
-
-  {
-    "<A-t>",
-    mode = { "t", "n" },
-    function()
-      require("FTerm").toggle()
-    end,
-    desc = "FTerm toggle",
-  },
-
-  {
-    "s",
-    mode = { "n", "x", "o" },
-    function()
-      require("flash").jump()
-    end,
-    desc = "Flash",
-  },
+  { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
   {
     "S",
     mode = { "n", "x", "o" },
