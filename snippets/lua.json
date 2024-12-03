@@ -1,0 +1,14 @@
+{
+  "lazy + add new plugin": {
+    "body": [
+      "return {",
+      "  \"$1\",",
+      "  config = true",
+      "}"
+    ],
+    "prefix": [
+      "lazy",
+      "add new plugin"
+    ]
+  }
+}

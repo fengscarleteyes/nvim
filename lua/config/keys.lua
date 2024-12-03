@@ -31,8 +31,8 @@ wk.add({
   { "<leader>rf", mode = "n", "<Cmd>RunFile tab<CR>", desc = "RunFile tab", noremap = true, silent = false },
   { "<leader>rp", mode = "n", "<Cmd>RunProject tab<CR>", desc = "RunProject", noremap = true, silent = false },
   { "<leader>rc", mode = "n", "<Cmd>RunClose<CR>", desc = "RunClose", noremap = true, silent = false },
-  { "<leader>rcf", mode = "n", "<Cmd>CRFiletype<CR>", desc = "CRFiletype", noremap = true, silent = false },
-  { "<leader>rcp", mode = "n", "<Cmd>CRProjects<CR>", desc = "CRProjects", noremap = true, silent = false },
+  { "<leader>ref", mode = "n", "<Cmd>CRFiletype<CR>", desc = "CRFiletype", noremap = true, silent = false },
+  { "<leader>rep", mode = "n", "<Cmd>CRProjects<CR>", desc = "CRProjects", noremap = true, silent = false },
 
   { "<leader>s", group = "Surround" },
   { "<leader>ss", mode = "n", "<Plug>(nvim-surround-normal-cur)", desc = "nvim-surround-normal-cur", noremap = true, silent = false },
