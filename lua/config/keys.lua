@@ -8,6 +8,12 @@ wk.add({
   { "<A-t>", mode = { "t", "n" }, function() require("FTerm").toggle() end, desc = "FTerm toggle" },
   { "<leader>w", mode = "n", "<cmd>bd<CR>", desc = "Buffer Delete" },
 
+  { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+  { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+  { "r", mode = { "o" }, function() require("flash").remote() end, desc = "Remote Flash" },
+  { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+  { "<c-s>", mode = { "c" },  function() require("flash").toggle() end, desc = "Toggle Flash Search" }, -- in "/" search mode toggle flash
+
   { "<leader>t", group = "File | Tree" }, -- group
   { "<leader>tb", mode = "n", "<cmd>Neotree source=buffers reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Buffers" },
   { "<leader>tg", mode = "n", "<cmd>Neotree source=git_status reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Git Status" },
@@ -20,40 +26,6 @@ wk.add({
   { "<leader>fb", mode = "n", function() require("telescope.builtin").buffers() end, desc = "telescope buffers" },
   { "<leader>fg", mode = "n", function() require("telescope.builtin").live_grep() end, desc = "telescope live grep" },
   { "<leader>fh", mode = "n", function() require("telescope.builtin").help_tags() end, desc = "telescope help tags" },
-
-  { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-  {
-    "S",
-    mode = { "n", "x", "o" },
-    function()
-      require("flash").treesitter()
-    end,
-    desc = "Flash Treesitter",
-  },
-  {
-    "r",
-    mode = "o",
-    function()
-      require("flash").remote()
-    end,
-    desc = "Remote Flash",
-  },
-  {
-    "R",
-    mode = { "o", "x" },
-    function()
-      require("flash").treesitter_search()
-    end,
-    desc = "Treesitter Search",
-  },
-  {
-    "<c-s>",
-    mode = { "c" }, -- in "/" search mode toggle flash
-    function()
-      require("flash").toggle()
-    end,
-    desc = "Toggle Flash Search",
-  },
 
   { "<leader>r", group = "RunCode" },
   { "<leader>rr", mode = "n", "<Cmd>RunCode<CR>", desc = "RunCode", noremap = true, silent = false },
