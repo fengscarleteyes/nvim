@@ -26,6 +26,7 @@ return {
         { name = "nvim_lsp" },
         { name = "path" },
         { name = "emoji" },
+        { name = "snippets" },
       }, {
         { name = "buffer" },
       }),
