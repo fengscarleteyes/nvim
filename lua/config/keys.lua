@@ -1,5 +1,4 @@
 local wk = require("which-key")
-
 -- stylua: ignore start
 wk.add({
   { "<leader>", group = "leader keys" }, -- group
@@ -10,7 +9,7 @@ wk.add({
 
   { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
   { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-  { "r", mode = { "o" }, function() require("flash").remote() end, desc = "Remote Flash" },
+  { "r", mode = { "o" }, function() require("flash").remote() end, desc = "Remote Flash" }, -- in omap"y, d, c ..."
   { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
   { "<c-s>", mode = { "c" },  function() require("flash").toggle() end, desc = "Toggle Flash Search" }, -- in "/" search mode toggle flash
 
@@ -36,38 +35,10 @@ wk.add({
   { "<leader>rcp", mode = "n", "<Cmd>CRProjects<CR>", desc = "CRProjects", noremap = true, silent = false },
 
   { "<leader>s", group = "Surround" },
-  {
-    "<leader>ss",
-    mode = "n",
-    "<Plug>(nvim-surround-normal-cur)",
-    desc = "nvim-surround-normal-cur",
-    noremap = true,
-    silent = false,
-  },
-  {
-    "<leader>sd",
-    mode = "n",
-    "<Plug>(nvim-surround-delete)",
-    desc = "nvim-surround-delete",
-    noremap = true,
-    silent = false,
-  },
-  {
-    "<leader>sl",
-    mode = "n",
-    "<Plug>(nvim-surround-normal-cur-line)",
-    desc = "nvim-surround-normal-cur-line",
-    noremap = true,
-    silent = false,
-  },
-  {
-    "<leader>sr",
-    mode = "n",
-    "<Plug>(nvim-surround-change)",
-    desc = "nvim-surround-change",
-    noremap = true,
-    silent = false,
-  },
+  { "<leader>ss", mode = "n", "<Plug>(nvim-surround-normal-cur)", desc = "nvim-surround-normal-cur", noremap = true, silent = false },
+  { "<leader>sd", mode = "n", "<Plug>(nvim-surround-delete)", desc = "nvim-surround-delete", noremap = true, silent = false },
+  { "<leader>sl", mode = "n", "<Plug>(nvim-surround-normal-cur-line)", desc = "nvim-surround-normal-cur-line", noremap = true, silent = false },
+  { "<leader>sr", mode = "n", "<Plug>(nvim-surround-change)", desc = "nvim-surround-change", noremap = true, silent = false },
 
   -- <Plug>(nvim-surround-insert)
   -- <Plug>(nvim-surround-insert-line)
