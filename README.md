@@ -43,3 +43,20 @@ sudo dnf upgrade neovim python{2,3}-neovim
 - https://github.com/rcarriga/nvim-dap-ui
 - https://github.com/theHamsta/nvim-dap-virtual-text
 
+## SSH
+
+```shell
+Gitee SSH:
+
+ssh-keygen -t ed25519 -C "Gitee SSH Key"
+
+
+# -t key 类型
+# -C 注释
+
+ls ~/.ssh/
+
+cat ~/.ssh/id_ed25519.pub
+
+# 复制生成后的 ssh key，通过仓库主页 「管理」->「部署公钥管理」->「添加部署公钥」 ，将生成的公钥添加到仓库中。
+```

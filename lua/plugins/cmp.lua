@@ -14,7 +14,6 @@ return {
   config = function()
     local cmp = require("cmp")
     cmp.setup({
-      preselect = cmp.PreselectMode.None,
       mapping = {
         ["<S-Tab>"] = cmp.mapping.select_prev_item(),
         ["<Tab>"] = cmp.mapping.select_next_item(),
@@ -26,11 +25,26 @@ return {
       sources = cmp.config.sources({
         { name = "nvim_lsp" },
         { name = "path" },
-        { name = "cmdline" },
         { name = "emoji" },
       }, {
         { name = "buffer" },
       }),
+    })
+
+    cmp.setup.cmdline({ "/", "?" }, {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = {
+        { name = "buffer" },
+      },
+    })
+    cmp.setup.cmdline(":", {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = cmp.config.sources({
+        { name = "path" },
+      }, {
+        { name = "cmdline" },
+      }),
+      matching = { disallow_symbol_nonprefix_matching = false },
     })
   end,
 }
