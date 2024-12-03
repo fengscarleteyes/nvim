@@ -1,22 +1,14 @@
 local wk = require("which-key")
-wk.add({
-  {
-    "<leader><Space>",
-    mode = "n",
-    function()
-      require("noice").cmd("dismiss")
-    end,
-    desc = "noice dismiss",
-  },
 
+-- stylua: ignore start
+wk.add({
   { "<leader>", group = "leader keys" }, -- group
+
+  { "<leader><Space>", mode = "n", function() require("noice").cmd("dismiss") end, desc = "noice dismiss" },
+  { "<leader>w", mode = "n", "<cmd>bd<CR>", desc = "Buffer Delete" },
+
   { "<leader>t", group = "File | Tree" }, -- group
-  {
-    "<leader>tb",
-    mode = "n",
-    "<cmd>Neotree source=buffers reveal=true position=float action=focus toggle=true<CR>",
-    desc = "NeoTree | Buffers",
-  },
+  { "<leader>tb", mode = "n", "<cmd>Neotree source=buffers reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Buffers" },
   {
     "<leader>tg",
     mode = "n",
@@ -234,3 +226,4 @@ wk.add({
   --   require("todo-comments").jump_next({keywords = { "ERROR", "WARNING" }})
   -- end, { desc = "Next error/warning todo comment" })
 })
+-- stylua: ignore end
