@@ -3,6 +3,7 @@ return {
   cmd = "Codeium",
   build = ":Codeium Auth",
   opts = {
+    -- detect_proxy = "https://192.168.10.118:7890",
     enable_cmp_source = false,
     virtual_text = {
       enabled = true,
@@ -14,7 +15,20 @@ return {
       map_keys = false,
       -- map_keys = true,
       accept_fallback = nil,
-      key_bindings = {},
+      key_bindings = {
+        -- Accept the current completion.
+        accept = "<Tab>",
+        -- Accept the next word.
+        accept_word = false,
+        -- Accept the next line.
+        accept_line = false,
+        -- Clear the virtual text.
+        clear = false,
+        -- Cycle to the next completion.
+        next = "<M-]>",
+        -- Cycle to the previous completion.
+        prev = "<M-[>",
+      },
     },
   },
 }
