@@ -2,17 +2,18 @@ return {
   "Exafunction/codeium.nvim",
   cmd = "Codeium",
   build = ":Codeium Auth",
+  enabled = function()
+    if vim.fn.has("win32") == 1 then
+      return false
+    elseif vim.fn.has("unix") == 1 then
+      return true
+    end
+  end,
+
   opts = {
     -- detect_proxy = "https://192.168.10.118:7890",
     enable_cmp_source = false,
     virtual_text = {
-      enabled = function()
-        if vim.fn.has("win32") == 1 then
-          return false
-        elseif vim.fn.has("unix") == 1 then
-          return true
-        end
-      end,
       manual = false,
       filetypes = {},
       default_filetype_enabled = true,
