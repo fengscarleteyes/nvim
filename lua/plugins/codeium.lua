@@ -6,14 +6,13 @@ return {
     -- detect_proxy = "https://192.168.10.118:7890",
     enable_cmp_source = false,
     virtual_text = {
-      enabled = true,
-      -- enabled = function()
-      --   if vim.fn.has("win32") == 1 then
-      --     return false
-      --   elseif vim.fn.has("unix") == 1 then
-      --     return true
-      --   end
-      -- end,
+      enabled = function()
+        if vim.fn.has("win32") == 1 then
+          return false
+        elseif vim.fn.has("unix") == 1 then
+          return true
+        end
+      end,
       manual = false,
       filetypes = {},
       default_filetype_enabled = true,
@@ -39,7 +38,3 @@ return {
     },
   },
 }
-
--- codeium test
--- TODO: add keys
---
