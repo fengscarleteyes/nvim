@@ -2,6 +2,8 @@ return {
   "nvim-treesitter/nvim-treesitter",
   version = false,
   build = ":TSUpdate",
+  event = "VeryLazy",
+  opts_extend = { "ensure_installed" },
   opts = {
     -- A list of parser names, or "all" (the listed parsers MUST always be installed)
     ensure_installed = {
