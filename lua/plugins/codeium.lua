@@ -32,3 +32,6 @@ return {
     },
   },
 }
+
+-- codeium test
+-- TODO: add keys
