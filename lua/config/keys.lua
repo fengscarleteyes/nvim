@@ -4,9 +4,10 @@ wk.add({
   { "<leader>", group = "leader keys" }, -- group
 
   { "<leader><Space>", mode = "n", function() require("noice").cmd("dismiss") end, desc = "noice dismiss" },
+  -- TODO: add noicedisable key and toggle enable
+  --
   { "<A-t>", mode = { "t", "n" }, function() require("FTerm").toggle() end, desc = "FTerm toggle" },
   { "<leader>w", mode = "n", "<cmd>bd<CR>", desc = "Buffer Delete" },
-  -- TODO: add noicedisable key and toggle enable
 
   { "s", mode = { "n", "x", "o" }, function() require("lua.plugins.editor_flash").jump() end, desc = "Flash" },
   { "S", mode = { "n", "x", "o" }, function() require("lua.plugins.editor_flash").treesitter() end, desc = "Flash Treesitter" },
