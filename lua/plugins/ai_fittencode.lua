@@ -7,8 +7,7 @@ return {
   --     return false
   --   end
   -- end,
-  enabled = true,
   config = function()
-    require("fittencode").setup()
+    require("fittencode").setup({ completion_mode = "inline" })
   end,
 }

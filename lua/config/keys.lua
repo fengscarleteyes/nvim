@@ -1,4 +1,6 @@
 local wk = require("which-key")
+
+local flash = require("flash")
 -- stylua: ignore start
 wk.add({
   { "<leader>", group = "leader keys" }, -- group
@@ -9,11 +11,11 @@ wk.add({
   { "<A-t>", mode = { "t", "n" }, function() require("FTerm").toggle() end, desc = "FTerm toggle" },
   { "<leader>w", mode = "n", "<cmd>bd<CR>", desc = "Buffer Delete" },
 
-  { "s", mode = { "n", "x", "o" }, function() require("lua.plugins.editor_flash").jump() end, desc = "Flash" },
-  { "S", mode = { "n", "x", "o" }, function() require("lua.plugins.editor_flash").treesitter() end, desc = "Flash Treesitter" },
-  { "r", mode = { "o" }, function() require("lua.plugins.editor_flash").remote() end, desc = "Remote Flash" }, -- in omap"y, d, c ..."
-  { "R", mode = { "o", "x" }, function() require("lua.plugins.editor_flash").treesitter_search() end, desc = "Treesitter Search" },
-  { "<c-s>", mode = { "c" },  function() require("lua.plugins.editor_flash").toggle() end, desc = "Toggle Flash Search" }, -- in "/" search mode toggle flash
+  { "s", mode = { "n", "x", "o" }, function() flash.jump()              end, desc = "Flash" },
+  { "S", mode = { "n", "x", "o" }, function() flash.treesitter()        end, desc = "Flash Treesitter" },
+  { "r", mode = { "o" },           function() flash.remote()            end, desc = "Remote Flash" }, -- in omap"y, d, c ..."
+  { "R", mode = { "o", "x" },      function() flash.treesitter_search() end, desc = "Treesitter Search" },
+  { "<c-s>", mode = { "c" },       function() flash.toggle()            end, desc = "Toggle Flash Search" }, -- in "/" search mode toggle flash
 
   { "<leader>t", group = "File | Tree" }, -- group
   { "<leader>tb", mode = "n", "<cmd>Neotree source=buffers reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Buffers" },
