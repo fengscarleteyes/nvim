@@ -19,8 +19,8 @@ return {
       default_filetype_enabled = true,
       idle_delay = 75,
       virtual_text_priority = 65535,
-      map_keys = false,
-      -- map_keys = true,
+      -- map_keys = false,
+      map_keys = true,
       accept_fallback = nil,
       key_bindings = {
         -- Accept the current completion.
