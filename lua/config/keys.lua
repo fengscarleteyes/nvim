@@ -6,12 +6,13 @@ wk.add({
   { "<leader><Space>", mode = "n", function() require("noice").cmd("dismiss") end, desc = "noice dismiss" },
   { "<A-t>", mode = { "t", "n" }, function() require("FTerm").toggle() end, desc = "FTerm toggle" },
   { "<leader>w", mode = "n", "<cmd>bd<CR>", desc = "Buffer Delete" },
+  -- TODO: add noicedisable key and toggle enable
 
-  { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-  { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-  { "r", mode = { "o" }, function() require("flash").remote() end, desc = "Remote Flash" }, -- in omap"y, d, c ..."
-  { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-  { "<c-s>", mode = { "c" },  function() require("flash").toggle() end, desc = "Toggle Flash Search" }, -- in "/" search mode toggle flash
+  { "s", mode = { "n", "x", "o" }, function() require("lua.plugins.editor_flash").jump() end, desc = "Flash" },
+  { "S", mode = { "n", "x", "o" }, function() require("lua.plugins.editor_flash").treesitter() end, desc = "Flash Treesitter" },
+  { "r", mode = { "o" }, function() require("lua.plugins.editor_flash").remote() end, desc = "Remote Flash" }, -- in omap"y, d, c ..."
+  { "R", mode = { "o", "x" }, function() require("lua.plugins.editor_flash").treesitter_search() end, desc = "Treesitter Search" },
+  { "<c-s>", mode = { "c" },  function() require("lua.plugins.editor_flash").toggle() end, desc = "Toggle Flash Search" }, -- in "/" search mode toggle flash
 
   { "<leader>t", group = "File | Tree" }, -- group
   { "<leader>tb", mode = "n", "<cmd>Neotree source=buffers reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Buffers" },
@@ -20,7 +21,7 @@ wk.add({
 
   { "<leader>f", group = "File | Find" }, -- group
   { "<leader>fo", mode = "n", function() require("oil").toggle_float() end, desc = "Oil toggle" },
-  { "<leader>fn", mode = "n", function() require("telescope").extensions.nerdy.nerdy() end, desc = "Oil toggle" },
+  { "<leader>fn", mode = "n", function() require("lua.plugins.editor_telescope").extensions.nerdy.nerdy() end, desc = "Oil toggle" },
   { "<leader>ff", mode = "n", function() require("telescope.builtin").find_files() end, desc = "telescope find files" },
   { "<leader>fb", mode = "n", function() require("telescope.builtin").buffers() end, desc = "telescope buffers" },
   { "<leader>fg", mode = "n", function() require("telescope.builtin").live_grep() end, desc = "telescope live grep" },
