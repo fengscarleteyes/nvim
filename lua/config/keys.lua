@@ -1,10 +1,10 @@
 local wk = require("which-key")
 
 -- require:
-local use_oil = require("oil")
 local use_flash = require("flash")
-local use_noice = require("noice")
 local use_fterm = require("FTerm")
+local use_noice = require("noice")
+local use_oil = require("oil")
 local use_telescope = require("telescope")
 local use_telescope_builtin = require("telescope.builtin")
 
@@ -21,7 +21,7 @@ wk.add({
   { "<leader>nt", mode = "n", function() use_noice.cmd("telescope") end, desc = "noice telescope" },
   { "<leader>nE", mode = "n", function() use_noice.cmd("errors")    end, desc = "noice errors"    },
   { "<leader>ns", mode = "n", function() use_noice.cmd("stats")     end, desc = "noice stats"     },
-  
+
   { "<A-t>", mode = { "t", "n" }, function() use_fterm.toggle() end, desc = "FTerm toggle" },
   { "<leader>w", mode = "n", "<cmd>bd<CR>", desc = "Buffer Delete" },
 
@@ -53,20 +53,17 @@ wk.add({
   { "<leader>rep", mode = "n", "<Cmd>CRProjects<CR>",     desc = "CRProjects",  noremap = true, silent = false },
 
   { "<leader>s", group = "Surround" },
-  { "<leader>ss", mode = "n", "<Plug>(nvim-surround-normal-cur)",      desc = "nvim-surround-normal-cur",      noremap = true, silent = false },
-  { "<leader>sd", mode = "n", "<Plug>(nvim-surround-delete)",          desc = "nvim-surround-delete",          noremap = true, silent = false },
-  { "<leader>sl", mode = "n", "<Plug>(nvim-surround-normal-cur-line)", desc = "nvim-surround-normal-cur-line", noremap = true, silent = false },
-  { "<leader>sr", mode = "n", "<Plug>(nvim-surround-change)",          desc = "nvim-surround-change",          noremap = true, silent = false },
+  { "<leader>ss", mode = "n", "<Plug>(nvim-surround-normal-cur)",      desc = "surround normal cur",      noremap = true, silent = false },
+  { "<leader>sS", mode = "n", "<Plug>(nvim-surround-normal)",          desc = "surround normal",          noremap = true, silent = false },
+  { "<leader>sd", mode = "n", "<Plug>(nvim-surround-delete)",          desc = "surround delete",          noremap = true, silent = false },
+  { "<leader>sl", mode = "n", "<Plug>(nvim-surround-normal-cur-line)", desc = "surround normal cur line", noremap = true, silent = false },
+  { "<leader>sL", mode = "n", "<Plug>(nvim-surround-normal-line)",     desc = "surround normal line",     noremap = true, silent = false },
+  { "<leader>sr", mode = "n", "<Plug>(nvim-surround-change)",          desc = "surround change",          noremap = true, silent = false },
+  { "<leader>sR", mode = "n", "<Plug>(nvim-surround-change-line)",     desc = "surround change line",     noremap = true, silent = false },
+  { "<leader>sv", mode = "x", "<Plug>(nvim-surround-visual-line)",     desc = "surround visual line)",    noremap = true, silent = false },
+  { "<leader>sV", mode = "x", "<Plug>(nvim-surround-visual)",          desc = "surround visual",          noremap = true, silent = false },
   -- <Plug>(nvim-surround-insert)
   -- <Plug>(nvim-surround-insert-line)
-  -- <Plug>(nvim-surround-normal)
-  -- <Plug>(nvim-surround-normal-cur)
-  -- <Plug>(nvim-surround-normal-line)
-  -- <Plug>(nvim-surround-normal-cur-line)
-  -- <Plug>(nvim-surround-visual)
-  -- <Plug>(nvim-surround-visual-line)
-  -- <Plug>(nvim-surround-change)
-  -- <Plug>(nvim-surround-change-line)
 
   -- TODO: ...
   -- keys = {
