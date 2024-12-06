@@ -8,10 +8,7 @@ return {
   --   end
   -- end,
   -- enabled = true,
-  enabled = false,
   config = function()
-    require("noice").notify("load fitten")
-    -- require("noice").notify
-    require("fittencode").setup()
+    require("fittencode").setup({ completion_mode = "inline" })
   end,
 }
