@@ -1,26 +1,27 @@
 local wk = require("which-key")
 
--- require:
-local use_flash = require("flash")
-local use_fterm = require("FTerm")
-local use_noice = require("noice")
-local use_oil = require("oil")
-local use_telescope = require("telescope")
+-- stylua: ignore start
+local use_flash             = require("flash"            )
+local use_fterm             = require("FTerm"            )
+local use_noice             = require("noice"            )
+local use_oil               = require("oil"              )
+local use_telescope         = require("telescope"        )
 local use_telescope_builtin = require("telescope.builtin")
+--stylua: ignore end
 
 -- stylua: ignore start
 wk.add({
   { "<leader>", group = "leader keys" }, -- group
 
   { "<leader>n", group = "Noice" }, -- group
-  { "<leader>nn", mode = "n", function() use_noice.cmd("dismiss")   end, desc = "noice dismiss"   },
-  { "<leader>nh", mode = "n", function() use_noice.cmd("history")   end, desc = "noice history"   },
-  { "<leader>nl", mode = "n", function() use_noice.cmd("last")      end, desc = "noice last"      },
-  { "<leader>nd", mode = "n", function() use_noice.cmd("disable")   end, desc = "noice disable"   },
-  { "<leader>ne", mode = "n", function() use_noice.cmd("enable")    end, desc = "noice enable"    },
-  { "<leader>nt", mode = "n", function() use_noice.cmd("telescope") end, desc = "noice telescope" },
-  { "<leader>nE", mode = "n", function() use_noice.cmd("errors")    end, desc = "noice errors"    },
-  { "<leader>ns", mode = "n", function() use_noice.cmd("stats")     end, desc = "noice stats"     },
+  { "<leader>nn", mode = "n", function() use_noice.cmd("dismiss"  )   end, desc = "noice dismiss"   },
+  { "<leader>nh", mode = "n", function() use_noice.cmd("history"  )   end, desc = "noice history"   },
+  { "<leader>nl", mode = "n", function() use_noice.cmd("last"     )   end, desc = "noice last"      },
+  { "<leader>nd", mode = "n", function() use_noice.cmd("disable"  )   end, desc = "noice disable"   },
+  { "<leader>ne", mode = "n", function() use_noice.cmd("enable"   )   end, desc = "noice enable"    },
+  { "<leader>nt", mode = "n", function() use_noice.cmd("telescope")   end, desc = "noice telescope" },
+  { "<leader>nE", mode = "n", function() use_noice.cmd("errors"   )   end, desc = "noice errors"    },
+  { "<leader>ns", mode = "n", function() use_noice.cmd("stats"    )   end, desc = "noice stats"     },
 
   { "<A-t>", mode = { "t", "n" }, function() use_fterm.toggle() end, desc = "FTerm toggle" },
   { "<leader>w", mode = "n", "<cmd>bd<CR>", desc = "Buffer Delete" },
