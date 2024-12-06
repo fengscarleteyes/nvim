@@ -1,15 +1,14 @@
 local wk = require("which-key")
 
-local m = {}
-
-m.x__ = { "x" }
-m.o__ = { "o" }
-m.ox_ = { "o", "x" }
-m.c__ = { "c" }
-m.n__ = { "n" }
-m.nt_ = { "n", "t" }
-m.nxo = { "n", "x", "o" }
-
+local m = {
+  x__ = { "x" },
+  o__ = { "o" },
+  ox_ = { "o", "x" },
+  c__ = { "c" },
+  n__ = { "n" },
+  nt_ = { "n", "t" },
+  nxo = { "n", "x", "o" },
+}
 -- stylua: ignore start
 local use_flash             = require("flash"            )
 local use_fterm             = require("FTerm"            )
