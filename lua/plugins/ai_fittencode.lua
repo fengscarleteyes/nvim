@@ -7,8 +7,11 @@ return {
   --     return false
   --   end
   -- end,
-  enabled = true,
+  -- enabled = true,
+  enabled = false,
   config = function()
+    require("noice").notify("load fitten")
+    -- require("noice").notify
     require("fittencode").setup()
   end,
 }
