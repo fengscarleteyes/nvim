@@ -1,49 +1,38 @@
 local wk = require("which-key")
 
--- stylua: ignore start
-local use_flash             = require("flash"            )
-local use_fterm             = require("FTerm"            )
-local use_noice             = require("noice"            )
-local use_oil               = require("oil"              )
-local use_telescope         = require("telescope"        )
-local use_telescope_builtin = require("telescope.builtin")
---stylua: ignore end
+wk.add({ { "<leader>", group = "leader keys" } })
 
--- stylua: ignore start
+--stylua: ignore start
 wk.add({
-  { "<leader>", group = "leader keys" }, -- group
-
   { "<leader>n", group = "Noice" }, -- group
-  { "<leader>nn", mode = { "n" }, function() use_noice.cmd("dismiss"  )   end, desc = "noice dismiss"   },
-  { "<leader>nh", mode = { "n" }, function() use_noice.cmd("history"  )   end, desc = "noice history"   },
-  { "<leader>nl", mode = { "n" }, function() use_noice.cmd("last"     )   end, desc = "noice last"      },
-  { "<leader>nd", mode = { "n" }, function() use_noice.cmd("disable"  )   end, desc = "noice disable"   },
-  { "<leader>ne", mode = { "n" }, function() use_noice.cmd("enable"   )   end, desc = "noice enable"    },
-  { "<leader>nt", mode = { "n" }, function() use_noice.cmd("telescope")   end, desc = "noice telescope" },
-  { "<leader>nE", mode = { "n" }, function() use_noice.cmd("errors"   )   end, desc = "noice errors"    },
-  { "<leader>ns", mode = { "n" }, function() use_noice.cmd("stats"    )   end, desc = "noice stats"     },
+  { "<leader>nn", mode = { "n" }, function() require("noice").cmd("dismiss") end, desc = "noice dismiss"   },
+  { "<leader>nh", mode = { "n" }, function() require("noice").cmd("history") end, desc = "noice history"   },
+  { "<leader>nl", mode = { "n" }, function() require("noice").cmd("last"   ) end, desc = "noice last"      },
+  { "<leader>nd", mode = { "n" }, function() require("noice").cmd("disable") end, desc = "noice disable"   },
+  { "<leader>ne", mode = { "n" }, function() require("noice").cmd("enable" ) end, desc = "noice enable"    },
+  { "<leader>nt", mode = { "n" }, function() require("noice").cmd("history") end, desc = "noice telescope" },
+  { "<leader>nE", mode = { "n" }, function() require("noice").cmd("history") end, desc = "noice errors"    },
+  { "<leader>ns", mode = { "n" }, function() require("noice").cmd("stats"  ) end, desc = "noice stats"     },
 
-  { "<A-t>", mode = { "n", "t" }, function() use_fterm.toggle() end, desc = "FTerm toggle" },
+  { "<A-t>", mode = { "n", "t" }, function() require("FTerm").toggle() end, desc = "FTerm toggle" },
   { "<leader>w", mode = { "n" }, "<cmd>bd<CR>", desc = "Buffer Delete" },
 
-  { "s",     mode =  { "n", "x", "o" }, function() use_flash.jump()              end, desc = "Flash"               },
-  { "S",     mode =  { "n", "x", "o" }, function() use_flash.treesitter()        end, desc = "Flash Treesitter"    },
-  { "r",     mode =  { "o" }, function() use_flash.remote()            end, desc = "Remote Flash"        }, -- in omap"y, d, c ..."
-  { "R",     mode =  { "o", "x" }, function() use_flash.treesitter_search() end, desc = "Treesitter Search"   },
-  { "<c-s>", mode =  { "c" }, function() use_flash.toggle()            end, desc = "Toggle Flash Search" }, -- in "/" search mode toggle flash
-
-  { "<leader>t", group = "File | Tree" }, -- group
-  { "<leader>tb", mode = { "n" }, "<cmd>Neotree source=buffers    reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Buffers"    },
-  { "<leader>tg", mode = { "n" }, "<cmd>Neotree source=git_status reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Git Status" },
-  { "<leader>tf", mode = { "n" }, "<cmd>Neotree source=filesystem reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Filesystem" },
+  { "s",     mode =  { "n", "x", "o" }, function() require("flash").jump()              end, desc = "Flash"               },
+  { "S",     mode =  { "n", "x", "o" }, function() require("flash").treesitter()        end, desc = "Flash Treesitter"    },
+  { "r",     mode =  { "o"           }, function() require("flash").remote()            end, desc = "Remote Flash"        }, -- in omap"y, d, c ..."
+  { "R",     mode =  { "o", "x"      }, function() require("flash").treesitter_search() end, desc = "Treesitter Search"   },
+  { "<c-s>", mode =  { "c"           }, function() require("flash").toggle()            end, desc = "Toggle Flash Search" }, -- in "/" search mode toggle flash
 
   { "<leader>f", group = "File | Find" }, -- group
-  { "<leader>fo", mode = { "n" }, function() use_oil.toggle_float()                 end, desc = "Oil toggle"           },
-  { "<leader>fn", mode = { "n" }, function() use_telescope.extensions.nerdy.nerdy() end, desc = "telescope find nerd"  },
-  { "<leader>ff", mode = { "n" }, function() use_telescope_builtin.find_files()     end, desc = "telescope find files" },
-  { "<leader>fb", mode = { "n" }, function() use_telescope_builtin.buffers()        end, desc = "telescope buffers"    },
-  { "<leader>fg", mode = { "n" }, function() use_telescope_builtin.live_grep()      end, desc = "telescope live grep"  },
-  { "<leader>fh", mode = { "n" }, function() use_telescope_builtin.help_tags()      end, desc = "telescope help tags"  },
+  { "<leader>fB", mode = { "n" }, "<cmd>Neotree source=buffers    reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Buffers"    },
+  { "<leader>fG", mode = { "n" }, "<cmd>Neotree source=git_status reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Git Status" },
+  { "<leader>fF", mode = { "n" }, "<cmd>Neotree source=filesystem reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Filesystem" },
+  { "<leader>fo", mode = { "n" }, function() require("oil").toggle_float()                 end, desc = "Oil       | toggle"     },
+  { "<leader>fn", mode = { "n" }, function() require("telescope").extensions.nerdy.nerdy() end, desc = "telescope | find nerd"  },
+  { "<leader>ff", mode = { "n" }, function() require("telescope.builtin").find_files()     end, desc = "telescope | find files" },
+  { "<leader>fb", mode = { "n" }, function() require("telescope.builtin").buffers()        end, desc = "telescope | buffers"    },
+  { "<leader>fg", mode = { "n" }, function() require("telescope.builtin").live_grep()      end, desc = "telescope | live grep"  },
+  { "<leader>fh", mode = { "n" }, function() require("telescope.builtin").help_tags()      end, desc = "telescope | help tags"  },
 
   { "<leader>r", group = "RunCode" },
   { "<leader>rr",  mode = { "n" }, "<Cmd>RunCode<CR>",        desc = "RunCode",     noremap = true, silent = false },
