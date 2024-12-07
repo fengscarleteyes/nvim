@@ -1,14 +1,5 @@
 local wk = require("which-key")
 
-local m = {
-  x__ = { "x" },
-  o__ = { "o" },
-  ox_ = { "o", "x" },
-  c__ = { "c" },
-  n__ = { "n" },
-  nt_ = { "n", "t" },
-  nxo = { "n", "x", "o" },
-}
 -- stylua: ignore start
 local use_flash             = require("flash"            )
 local use_fterm             = require("FTerm"            )
@@ -23,55 +14,55 @@ wk.add({
   { "<leader>", group = "leader keys" }, -- group
 
   { "<leader>n", group = "Noice" }, -- group
-  { "<leader>nn", mode = m.n__, function() use_noice.cmd("dismiss"  )   end, desc = "noice dismiss"   },
-  { "<leader>nh", mode = m.n__, function() use_noice.cmd("history"  )   end, desc = "noice history"   },
-  { "<leader>nl", mode = m.n__, function() use_noice.cmd("last"     )   end, desc = "noice last"      },
-  { "<leader>nd", mode = m.n__, function() use_noice.cmd("disable"  )   end, desc = "noice disable"   },
-  { "<leader>ne", mode = m.n__, function() use_noice.cmd("enable"   )   end, desc = "noice enable"    },
-  { "<leader>nt", mode = m.n__, function() use_noice.cmd("telescope")   end, desc = "noice telescope" },
-  { "<leader>nE", mode = m.n__, function() use_noice.cmd("errors"   )   end, desc = "noice errors"    },
-  { "<leader>ns", mode = m.n__, function() use_noice.cmd("stats"    )   end, desc = "noice stats"     },
+  { "<leader>nn", mode = { "n" }, function() use_noice.cmd("dismiss"  )   end, desc = "noice dismiss"   },
+  { "<leader>nh", mode = { "n" }, function() use_noice.cmd("history"  )   end, desc = "noice history"   },
+  { "<leader>nl", mode = { "n" }, function() use_noice.cmd("last"     )   end, desc = "noice last"      },
+  { "<leader>nd", mode = { "n" }, function() use_noice.cmd("disable"  )   end, desc = "noice disable"   },
+  { "<leader>ne", mode = { "n" }, function() use_noice.cmd("enable"   )   end, desc = "noice enable"    },
+  { "<leader>nt", mode = { "n" }, function() use_noice.cmd("telescope")   end, desc = "noice telescope" },
+  { "<leader>nE", mode = { "n" }, function() use_noice.cmd("errors"   )   end, desc = "noice errors"    },
+  { "<leader>ns", mode = { "n" }, function() use_noice.cmd("stats"    )   end, desc = "noice stats"     },
 
-  { "<A-t>", mode = m.nt_, function() use_fterm.toggle() end, desc = "FTerm toggle" },
-  { "<leader>w", mode = m.n__, "<cmd>bd<CR>", desc = "Buffer Delete" },
+  { "<A-t>", mode = { "n", "t" }, function() use_fterm.toggle() end, desc = "FTerm toggle" },
+  { "<leader>w", mode = { "n" }, "<cmd>bd<CR>", desc = "Buffer Delete" },
 
-  { "s",     mode = m.nxo, function() use_flash.jump()              end, desc = "Flash"               },
-  { "S",     mode = m.nxo, function() use_flash.treesitter()        end, desc = "Flash Treesitter"    },
-  { "r",     mode = m.o__, function() use_flash.remote()            end, desc = "Remote Flash"        }, -- in omap"y, d, c ..."
-  { "R",     mode = m.ox_, function() use_flash.treesitter_search() end, desc = "Treesitter Search"   },
-  { "<c-s>", mode = m.c__, function() use_flash.toggle()            end, desc = "Toggle Flash Search" }, -- in "/" search mode toggle flash
+  { "s",     mode =  { "n", "x", "o" }, function() use_flash.jump()              end, desc = "Flash"               },
+  { "S",     mode =  { "n", "x", "o" }, function() use_flash.treesitter()        end, desc = "Flash Treesitter"    },
+  { "r",     mode =  { "o" }, function() use_flash.remote()            end, desc = "Remote Flash"        }, -- in omap"y, d, c ..."
+  { "R",     mode =  { "o", "x" }, function() use_flash.treesitter_search() end, desc = "Treesitter Search"   },
+  { "<c-s>", mode =  { "c" }, function() use_flash.toggle()            end, desc = "Toggle Flash Search" }, -- in "/" search mode toggle flash
 
   { "<leader>t", group = "File | Tree" }, -- group
-  { "<leader>tb", mode = m.n__, "<cmd>Neotree source=buffers    reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Buffers"    },
-  { "<leader>tg", mode = m.n__, "<cmd>Neotree source=git_status reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Git Status" },
-  { "<leader>tf", mode = m.n__, "<cmd>Neotree source=filesystem reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Filesystem" },
+  { "<leader>tb", mode = { "n" }, "<cmd>Neotree source=buffers    reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Buffers"    },
+  { "<leader>tg", mode = { "n" }, "<cmd>Neotree source=git_status reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Git Status" },
+  { "<leader>tf", mode = { "n" }, "<cmd>Neotree source=filesystem reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Filesystem" },
 
   { "<leader>f", group = "File | Find" }, -- group
-  { "<leader>fo", mode = m.n__, function() use_oil.toggle_float()                 end, desc = "Oil toggle"           },
-  { "<leader>fn", mode = m.n__, function() use_telescope.extensions.nerdy.nerdy() end, desc = "telescope find nerd"  },
-  { "<leader>ff", mode = m.n__, function() use_telescope_builtin.find_files()     end, desc = "telescope find files" },
-  { "<leader>fb", mode = m.n__, function() use_telescope_builtin.buffers()        end, desc = "telescope buffers"    },
-  { "<leader>fg", mode = m.n__, function() use_telescope_builtin.live_grep()      end, desc = "telescope live grep"  },
-  { "<leader>fh", mode = m.n__, function() use_telescope_builtin.help_tags()      end, desc = "telescope help tags"  },
+  { "<leader>fo", mode = { "n" }, function() use_oil.toggle_float()                 end, desc = "Oil toggle"           },
+  { "<leader>fn", mode = { "n" }, function() use_telescope.extensions.nerdy.nerdy() end, desc = "telescope find nerd"  },
+  { "<leader>ff", mode = { "n" }, function() use_telescope_builtin.find_files()     end, desc = "telescope find files" },
+  { "<leader>fb", mode = { "n" }, function() use_telescope_builtin.buffers()        end, desc = "telescope buffers"    },
+  { "<leader>fg", mode = { "n" }, function() use_telescope_builtin.live_grep()      end, desc = "telescope live grep"  },
+  { "<leader>fh", mode = { "n" }, function() use_telescope_builtin.help_tags()      end, desc = "telescope help tags"  },
 
   { "<leader>r", group = "RunCode" },
-  { "<leader>rr",  mode = m.n__, "<Cmd>RunCode<CR>",        desc = "RunCode",     noremap = true, silent = false },
-  { "<leader>rf",  mode = m.n__, "<Cmd>RunFile tab<CR>",    desc = "RunFile tab", noremap = true, silent = false },
-  { "<leader>rp",  mode = m.n__, "<Cmd>RunProject tab<CR>", desc = "RunProject",  noremap = true, silent = false },
-  { "<leader>rc",  mode = m.n__, "<Cmd>RunClose<CR>",       desc = "RunClose",    noremap = true, silent = false },
-  { "<leader>ref", mode = m.n__, "<Cmd>CRFiletype<CR>",     desc = "CRFiletype",  noremap = true, silent = false },
-  { "<leader>rep", mode = m.n__, "<Cmd>CRProjects<CR>",     desc = "CRProjects",  noremap = true, silent = false },
+  { "<leader>rr",  mode = { "n" }, "<Cmd>RunCode<CR>",        desc = "RunCode",     noremap = true, silent = false },
+  { "<leader>rf",  mode = { "n" }, "<Cmd>RunFile tab<CR>",    desc = "RunFile tab", noremap = true, silent = false },
+  { "<leader>rp",  mode = { "n" }, "<Cmd>RunProject tab<CR>", desc = "RunProject",  noremap = true, silent = false },
+  { "<leader>rc",  mode = { "n" }, "<Cmd>RunClose<CR>",       desc = "RunClose",    noremap = true, silent = false },
+  { "<leader>ref", mode = { "n" }, "<Cmd>CRFiletype<CR>",     desc = "CRFiletype",  noremap = true, silent = false },
+  { "<leader>rep", mode = { "n" }, "<Cmd>CRProjects<CR>",     desc = "CRProjects",  noremap = true, silent = false },
 
   { "<leader>s", group = "Surround" },
-  { "<leader>ss", mode = m.n__, "<Plug>(nvim-surround-normal-cur)",      desc = "surround normal cur",      noremap = true, silent = false },
-  { "<leader>sS", mode = m.n__, "<Plug>(nvim-surround-normal)",          desc = "surround normal",          noremap = true, silent = false },
-  { "<leader>sd", mode = m.n__, "<Plug>(nvim-surround-delete)",          desc = "surround delete",          noremap = true, silent = false },
-  { "<leader>sl", mode = m.n__, "<Plug>(nvim-surround-normal-cur-line)", desc = "surround normal cur line", noremap = true, silent = false },
-  { "<leader>sL", mode = m.n__, "<Plug>(nvim-surround-normal-line)",     desc = "surround normal line",     noremap = true, silent = false },
-  { "<leader>sr", mode = m.n__, "<Plug>(nvim-surround-change)",          desc = "surround change",          noremap = true, silent = false },
-  { "<leader>sR", mode = m.n__, "<Plug>(nvim-surround-change-line)",     desc = "surround change line",     noremap = true, silent = false },
-  { "<leader>sv", mode = m.x__, "<Plug>(nvim-surround-visual-line)",     desc = "surround visual line)",    noremap = true, silent = false },
-  { "<leader>sV", mode = m.x__, "<Plug>(nvim-surround-visual)",          desc = "surround visual",          noremap = true, silent = false },
+  { "<leader>ss", mode = { "n" }, "<Plug>(nvim-surround-normal-cur)",      desc = "surround normal cur",      noremap = true, silent = false },
+  { "<leader>sS", mode = { "n" }, "<Plug>(nvim-surround-normal)",          desc = "surround normal",          noremap = true, silent = false },
+  { "<leader>sd", mode = { "n" }, "<Plug>(nvim-surround-delete)",          desc = "surround delete",          noremap = true, silent = false },
+  { "<leader>sl", mode = { "n" }, "<Plug>(nvim-surround-normal-cur-line)", desc = "surround normal cur line", noremap = true, silent = false },
+  { "<leader>sL", mode = { "n" }, "<Plug>(nvim-surround-normal-line)",     desc = "surround normal line",     noremap = true, silent = false },
+  { "<leader>sr", mode = { "n" }, "<Plug>(nvim-surround-change)",          desc = "surround change",          noremap = true, silent = false },
+  { "<leader>sR", mode = { "n" }, "<Plug>(nvim-surround-change-line)",     desc = "surround change line",     noremap = true, silent = false },
+  { "<leader>sv", mode =  { "x" }, "<Plug>(nvim-surround-visual-line)",     desc = "surround visual line)",    noremap = true, silent = false },
+  { "<leader>sV", mode =  { "x" }, "<Plug>(nvim-surround-visual)",          desc = "surround visual",          noremap = true, silent = false },
   -- <Plug>(nvim-surround-insert)
   -- <Plug>(nvim-surround-insert-line)
 
