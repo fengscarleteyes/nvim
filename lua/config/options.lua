@@ -29,7 +29,7 @@ vim.o.numberwidth = 2
 
 -- 高亮所在行列
 vim.o.cursorline = true
--- vim.o.cursorcolumn = true
+vim.o.cursorcolumn = true
 vim.o.splitkeep = "screen"
 
 -- 长度参考线

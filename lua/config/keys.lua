@@ -5,17 +5,17 @@ wk.add({ { "<leader>", group = "leader keys" } })
 --stylua: ignore start
 wk.add({
   { "<leader>n", group = "Noice" }, -- group
-  { "<leader>nn", mode = { "n" }, function() require("noice").cmd("dismiss") end, desc = "noice dismiss"   },
-  { "<leader>nh", mode = { "n" }, function() require("noice").cmd("history") end, desc = "noice history"   },
-  { "<leader>nl", mode = { "n" }, function() require("noice").cmd("last"   ) end, desc = "noice last"      },
-  { "<leader>nd", mode = { "n" }, function() require("noice").cmd("disable") end, desc = "noice disable"   },
-  { "<leader>ne", mode = { "n" }, function() require("noice").cmd("enable" ) end, desc = "noice enable"    },
-  { "<leader>nt", mode = { "n" }, function() require("noice").cmd("history") end, desc = "noice telescope" },
-  { "<leader>nE", mode = { "n" }, function() require("noice").cmd("history") end, desc = "noice errors"    },
-  { "<leader>ns", mode = { "n" }, function() require("noice").cmd("stats"  ) end, desc = "noice stats"     },
+  { "<leader>nn", mode = { "n" }, function() require("noice").cmd("dismiss")   end, desc = "noice dismiss"   },
+  { "<leader>nh", mode = { "n" }, function() require("noice").cmd("history")   end, desc = "noice history"   },
+  { "<leader>nl", mode = { "n" }, function() require("noice").cmd("last"   )   end, desc = "noice last"      },
+  { "<leader>nd", mode = { "n" }, function() require("noice").cmd("disable")   end, desc = "noice disable"   },
+  { "<leader>ne", mode = { "n" }, function() require("noice").cmd("enable" )   end, desc = "noice enable"    },
+  { "<leader>nt", mode = { "n" }, function() require("noice").cmd("telescope") end, desc = "noice telescope" },
+  { "<leader>nE", mode = { "n" }, function() require("noice").cmd("erroes")    end, desc = "noice errors"    },
+  { "<leader>ns", mode = { "n" }, function() require("noice").cmd("stats"  )   end, desc = "noice stats"     },
 
-  { "<A-t>", mode = { "n", "t" }, function() require("FTerm").toggle() end, desc = "FTerm toggle" },
-  { "<leader>w", mode = { "n" }, "<cmd>bd<CR>", desc = "Buffer Delete" },
+  { "<A-t>",     mode = { "n", "t" }, function() require("FTerm").toggle() end, desc = "FTerm toggle"  },
+  { "<leader>w", mode = { "n"      }, "<cmd>bdelete<CR>",                       desc = "Buffer Delete" },
 
   { "s",     mode =  { "n", "x", "o" }, function() require("flash").jump()              end, desc = "Flash"               },
   { "S",     mode =  { "n", "x", "o" }, function() require("flash").treesitter()        end, desc = "Flash Treesitter"    },
@@ -50,8 +50,8 @@ wk.add({
   { "<leader>sL", mode = { "n" }, "<Plug>(nvim-surround-normal-line)",     desc = "surround normal line",     noremap = true, silent = false },
   { "<leader>sr", mode = { "n" }, "<Plug>(nvim-surround-change)",          desc = "surround change",          noremap = true, silent = false },
   { "<leader>sR", mode = { "n" }, "<Plug>(nvim-surround-change-line)",     desc = "surround change line",     noremap = true, silent = false },
-  { "<leader>sv", mode =  { "x" }, "<Plug>(nvim-surround-visual-line)",     desc = "surround visual line)",    noremap = true, silent = false },
-  { "<leader>sV", mode =  { "x" }, "<Plug>(nvim-surround-visual)",          desc = "surround visual",          noremap = true, silent = false },
+  { "<leader>sv", mode = { "x" }, "<Plug>(nvim-surround-visual-line)",     desc = "surround visual line)",    noremap = true, silent = false },
+  { "<leader>sV", mode = { "x" }, "<Plug>(nvim-surround-visual)",          desc = "surround visual",          noremap = true, silent = false },
   -- <Plug>(nvim-surround-insert)
   -- <Plug>(nvim-surround-insert-line)
 

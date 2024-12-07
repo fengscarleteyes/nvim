@@ -44,7 +44,7 @@ return {
         capabilities = capabilities,
         settings = {
           Lua = {
-            hint = { enable = true },
+            -- hint = { enable = true },
             runtime = {
               version = "LuaJIT",
               path = {
