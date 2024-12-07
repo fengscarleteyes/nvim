@@ -1,3 +1,7 @@
+vim.api.nvim_create_autocmd("ColorScheme", {
+  command = [[highlight CursorLine guibg=NONE cterm=underline]],
+})
+
 local wk = require("which-key")
 
 wk.add({ { "<leader>", group = "leader keys" } })

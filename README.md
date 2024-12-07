@@ -15,6 +15,8 @@ winget install BurntSushi.ripgrep.MSVC
 winget install sharkdp.fd
 winget install --id=7zip.7zip -e
 winget install zig.zig
+sudo dnf copr enable atim/lazygit -y
+sudo dnf install lazygit
 npm install -g tree-sitter-cli
 
 npm config set proxy http://192.168.10.195:7890
@@ -35,6 +37,9 @@ npm config delete https-proxy
 # install neovim nightly
 sudo dnf copr enable agriffis/neovim-nightly
 sudo dnf upgrade neovim python{2,3}-neovim
+
+sudo dnf copr enable atim/lazygit -y
+sudo dnf install lazygit
 ```
 
 ## TODO
