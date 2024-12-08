@@ -27,6 +27,10 @@ wk.add({
   { "R",     mode =  { "o", "x"      }, function() require("flash").treesitter_search() end, desc = "Treesitter Search"   },
   { "<c-s>", mode =  { "c"           }, function() require("flash").toggle()            end, desc = "Toggle Flash Search" }, -- in "/" search mode toggle flash
 
+
+  { "<leader>b", group = "buffer" },
+  { "<leader>bw", mode = { "n" }, function() Snacks.bufdelete() end, desc = "Snacks delete Buffer" },
+
   { "<leader>f", group = "File | Find" }, -- group
   { "<leader>fB", mode = { "n" }, "<cmd>Neotree source=buffers    reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Buffers"    },
   { "<leader>fG", mode = { "n" }, "<cmd>Neotree source=git_status reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Git Status" },
