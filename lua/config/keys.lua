@@ -25,7 +25,10 @@ wk.add({
 
 
   { "<leader>b", group = "buffer" },
-  { "<leader>bw", mode = { "n" }, ":lua Snacks.bufdelete()<CR>", desc = "Snacks delete Buffer" },
+  { "<leader>bb", mode = { "n" }, ":lua Snacks.bufdelete()<CR>",        desc = "Snacks delete Buffer"        },
+  { "<leader>ba", mode = { "n" }, ":lua Snacks.bufdelete.all()<CR>",    desc = "Snacks delete Buffer All"    },
+  { "<leader>bd", mode = { "n" }, ":lua Snacks.bufdelete.delete()<CR>", desc = "Snacks delete Buffer delete" },
+  { "<leader>bo", mode = { "n" }, ":lua Snacks.bufdelete.other()<CR>",  desc = "Snacks delete Buffer other"  },
 
   { "<leader>f", group = "File | Find" }, -- group
   { "<leader>fB", mode = { "n" }, "<cmd>Neotree source=buffers    reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Buffers"    },

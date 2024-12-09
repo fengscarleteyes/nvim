@@ -10,7 +10,8 @@ return {
     notifier = { enabled = true },
     -- noitfy = { enabled = true },
     -- quickfile = { enabled = true },
-    -- statuscolumn = { enabled = true },
+    statuscolumn = { enabled = true },
+    --
     -- words = { enabled = true },
     -- lazygit = { enabled = true },
   },
