@@ -1,7 +1,3 @@
-vim.api.nvim_create_autocmd("ColorScheme", {
-  command = [[highlight CursorLine guibg=NONE cterm=underline]],
-})
-
 local wk = require("which-key")
 
 wk.add({ { "<leader>", group = "leader keys" } })
@@ -29,7 +25,7 @@ wk.add({
 
 
   { "<leader>b", group = "buffer" },
-  { "<leader>bw", mode = { "n" }, function() Snacks.bufdelete() end, desc = "Snacks delete Buffer" },
+  { "<leader>bw", mode = { "n" }, ":lua Snacks.bufdelete()<CR>", desc = "Snacks delete Buffer" },
 
   { "<leader>f", group = "File | Find" }, -- group
   { "<leader>fB", mode = { "n" }, "<cmd>Neotree source=buffers    reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Buffers"    },

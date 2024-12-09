@@ -6,8 +6,8 @@ return {
   opts = {
     bigfile = { enabled = true },
     bufdelete = { enabled = true },
-    -- dashboard = { enabled = true },
-    -- notifier = { enabled = true },
+    dashboard = { enabled = false },
+    notifier = { enabled = true },
     -- noitfy = { enabled = true },
     -- quickfile = { enabled = true },
     -- statuscolumn = { enabled = true },

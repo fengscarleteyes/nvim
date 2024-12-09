@@ -61,9 +61,9 @@ return {
             },
             workspace = {
               library = {
-                "${3rd}/luv/library",
-                "${3rd}/busted/library",
-                vim.env.VIMRUNTIME,
+                -- "${3rd}/luv/library",
+                -- "${3rd}/busted/library",
+                -- vim.env.VIMRUNTIME,
                 vim.api.nvim_get_runtime_file("", true),
                 "/usr/share/lua/5.3",
                 vim.fn.expand("~/.luarocks/share/lua/5.3"),
