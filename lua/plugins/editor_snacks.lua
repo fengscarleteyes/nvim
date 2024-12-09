@@ -1,4 +1,3 @@
--- TODO: add handle enable & delete other plugin like Fterm,noice ...
 return {
   "folke/snacks.nvim",
   priority = 1000,
@@ -8,7 +7,6 @@ return {
     bufdelete = { enabled = true },
     dashboard = { enabled = false },
     notifier = { enabled = true },
-    -- noitfy = { enabled = true },
     -- quickfile = { enabled = true },
     statuscolumn = { enabled = true },
     --

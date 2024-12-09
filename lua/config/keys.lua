@@ -4,18 +4,18 @@ wk.add({ { "<leader>", group = "leader keys" } })
 
 --stylua: ignore start
 wk.add({
-  -- { "<leader>n", group = "Noice" }, -- group
-  -- { "<leader>nn", mode = { "n" }, function() require("noice").cmd("dismiss")   end, desc = "noice dismiss"   },
-  -- { "<leader>nh", mode = { "n" }, function() require("noice").cmd("history")   end, desc = "noice history"   },
-  -- { "<leader>nl", mode = { "n" }, function() require("noice").cmd("last"   )   end, desc = "noice last"      },
-  -- { "<leader>nd", mode = { "n" }, function() require("noice").cmd("disable")   end, desc = "noice disable"   },
-  -- { "<leader>ne", mode = { "n" }, function() require("noice").cmd("enable" )   end, desc = "noice enable"    },
-  -- { "<leader>nt", mode = { "n" }, function() require("noice").cmd("telescope") end, desc = "noice telescope" },
-  -- { "<leader>nE", mode = { "n" }, function() require("noice").cmd("erroes")    end, desc = "noice errors"    },
-  -- { "<leader>ns", mode = { "n" }, function() require("noice").cmd("stats"  )   end, desc = "noice stats"     },
+  { "<leader>n", group = "Noice" }, -- group
+  { "<leader>nn", mode = { "n" }, function() require("noice").cmd("dismiss")   end, desc = "noice dismiss"   },
+  { "<leader>nh", mode = { "n" }, function() require("noice").cmd("history")   end, desc = "noice history"   },
+  { "<leader>nl", mode = { "n" }, function() require("noice").cmd("last"   )   end, desc = "noice last"      },
+  { "<leader>nd", mode = { "n" }, function() require("noice").cmd("disable")   end, desc = "noice disable"   },
+  { "<leader>ne", mode = { "n" }, function() require("noice").cmd("enable" )   end, desc = "noice enable"    },
+  { "<leader>nt", mode = { "n" }, function() require("noice").cmd("telescope") end, desc = "noice telescope" },
+  { "<leader>nE", mode = { "n" }, function() require("noice").cmd("erroes")    end, desc = "noice errors"    },
+  { "<leader>ns", mode = { "n" }, function() require("noice").cmd("stats"  )   end, desc = "noice stats"     },
 
   { "<A-t>",     mode = { "n", "t" }, function() require("FTerm").toggle() end, desc = "FTerm toggle"  },
-  { "<leader>w", mode = { "n"      }, "<cmd>bdelete<CR>",                       desc = "Buffer Delete" },
+  -- { "<leader>w", mode = { "n"      }, "<cmd>bdelete<CR>",                       desc = "Buffer Delete" },
 
   { "s",     mode =  { "n", "x", "o" }, function() require("flash").jump()              end, desc = "Flash"               },
   { "S",     mode =  { "n", "x", "o" }, function() require("flash").treesitter()        end, desc = "Flash Treesitter"    },
@@ -23,12 +23,47 @@ wk.add({
   { "R",     mode =  { "o", "x"      }, function() require("flash").treesitter_search() end, desc = "Treesitter Search"   },
   { "<c-s>", mode =  { "c"           }, function() require("flash").toggle()            end, desc = "Toggle Flash Search" }, -- in "/" search mode toggle flash
 
+  { "<leader>g", group = "Git" },
+  { "<leader>gb", mode = { "n" }, ":lua Snacks.git.blame_line()<CR>",    desc = "Snacks git blame line"  },
+  { "<leader>gr", mode = { "n" }, ":lua Snacks.git.get_root()<CR>",      desc = "Snacks git get root"    },
+  { "<leader>gB", mode = { "n" }, ":lua Snacks.gitbrowse()<CR>",         desc = "Snacks git browse"      },
+  { "<leader>gu", mode = { "n" }, ":lua Snacks.gitbrowse.get_url()<CR>", desc = "Snacks git get url"     },
+  { "<leader>go", mode = { "n" }, ":lua Snacks.gitbrowse.open()<CR>",    desc = "Snacks git browse open" },
+  { "<leader>gl", mode = { "n" }, ":lua Snacks.lazygit()<CR>",           desc = "Snacks git lazygit"     },
+  -- 
+  -- Snacks.lazygit.log()
+  -- Snacks.lazygit.log_file()
+  -- Snacks.lazygit.open()
 
   { "<leader>b", group = "buffer" },
   { "<leader>bb", mode = { "n" }, ":lua Snacks.bufdelete()<CR>",        desc = "Snacks delete Buffer"        },
   { "<leader>ba", mode = { "n" }, ":lua Snacks.bufdelete.all()<CR>",    desc = "Snacks delete Buffer All"    },
   { "<leader>bd", mode = { "n" }, ":lua Snacks.bufdelete.delete()<CR>", desc = "Snacks delete Buffer delete" },
   { "<leader>bo", mode = { "n" }, ":lua Snacks.bufdelete.other()<CR>",  desc = "Snacks delete Buffer other"  },
+  { "<leader>b1", mode = { "n" }, "<Cmd>BufferGoto 1<CR>",              desc = "BarBar BufferGoto 1", noremap = true, silent = true },
+  { "<leader>b2", mode = { "n" }, "<Cmd>BufferGoto 2<CR>",              desc = "BarBar BufferGoto 2", noremap = true, silent = true },
+  { "<leader>b3", mode = { "n" }, "<Cmd>BufferGoto 3<CR>",              desc = "BarBar BufferGoto 3", noremap = true, silent = true },
+  { "<leader>b4", mode = { "n" }, "<Cmd>BufferGoto 4<CR>",              desc = "BarBar BufferGoto 4", noremap = true, silent = true },
+  { "<leader>b5", mode = { "n" }, "<Cmd>BufferGoto 5<CR>",              desc = "BarBar BufferGoto 5", noremap = true, silent = true },
+  { "<leader>b6", mode = { "n" }, "<Cmd>BufferGoto 6<CR>",              desc = "BarBar BufferGoto 6", noremap = true, silent = true },
+  { "<leader>b7", mode = { "n" }, "<Cmd>BufferGoto 7<CR>",              desc = "BarBar BufferGoto 7", noremap = true, silent = true },
+  { "<leader>b8", mode = { "n" }, "<Cmd>BufferGoto 8<CR>",              desc = "BarBar BufferGoto 8", noremap = true, silent = true },
+  { "<leader>b9", mode = { "n" }, "<Cmd>BufferGoto 9<CR>",              desc = "BarBar BufferGoto 9", noremap = true, silent = true },
+  { "<leader>b0", mode = { "n" }, "<Cmd>BufferLast<CR>",                desc = "BarBar Buffer Last",  noremap = true, silent = true },
+  -- { "key", mode = 'n', '<A-,>',     '<Cmd>BufferPrevious<CR>', noremap = true, silend = true },
+  -- { "key", mode = 'n', '<A-.>',     '<Cmd>BufferNext<CR>', noremap = true, silend = true },
+  -- { "key", mode = 'n', '<A-<>',     '<Cmd>BufferMovePrevious<CR>', noremap = true, silend = true },
+  -- { "key", mode = 'n', '<A->>',     '<Cmd>BufferMoveNext<CR>', noremap = true, silend = true },
+  -- { "key", mode = 'n', '<A-p>',     '<Cmd>BufferPin<CR>', noremap = true, silend = true },
+  -- { "key", mode = 'n', '<A-c>',     '<Cmd>BufferClose<CR>', noremap = true, silend = true },
+  -- { "key", mode = 'n', '<C-p>',     '<Cmd>BufferPick<CR>', noremap = true, silend = true },
+  -- { "key", mode = 'n', '<C-s-p>'  , '<Cmd>BufferPickDelete<CR>', noremap = true, silend = true },
+  -- { "key", mode = 'n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', noremap = true, silend = true },
+  -- { "key", mode = 'n', '<Space>bn', '<Cmd>BufferOrderByName<CR>', noremap = true, silend = true },
+  -- { "key", mode = 'n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>', noremap = true, silend = true },
+  -- { "key", mode = 'n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>', noremap = true, silend = true },
+  -- { "key", mode = 'n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', noremap = true, silend = true },
+
 
   { "<leader>f", group = "File | Find" }, -- group
   { "<leader>fB", mode = { "n" }, "<cmd>Neotree source=buffers    reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Buffers"    },
