@@ -11,6 +11,5 @@ return {
     { "S", mode = { "n", "x", "o" }, false },
     { "r", mode = { "n", "x", "o" }, false },
     { "R", mode = { "n", "x", "o" }, false },
-    -- { "R", mode = { "n", "x", "o" }, false },
   },
 }

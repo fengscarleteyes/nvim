@@ -46,11 +46,11 @@
   "oil.nvim": { "branch": "master", "commit": "9a59256c8e88b29d2150e99b5960b2f111e51f75" },
   "plenary.nvim": { "branch": "master", "commit": "2d9b06177a975543726ce5c73fca176cedbffe9d" },
   "rainbow-delimiters.nvim": { "branch": "master", "commit": "e9dfb4582b9ca0ab7e987c65999f662242bd6f61" },
-  "snacks.nvim": { "branch": "main", "commit": "9651a931043359fcc094ab5c67ac22554a602745" },
+  "snacks.nvim": { "branch": "main", "commit": "fc71e36c90f44e0e6180ac6c5f035817709569d8" },
   "telescope.nvim": { "branch": "master", "commit": "2eca9ba22002184ac05eddbe47a7fe2d5a384dfc" },
   "todo-comments.nvim": { "branch": "main", "commit": "ae0a2afb47cf7395dc400e5dc4e05274bf4fb9e0" },
   "tokyonight.nvim": { "branch": "main", "commit": "355e2842291dbf51b2c5878e9e37281bbef09783" },
   "trouble.nvim": { "branch": "main", "commit": "46cf952fc115f4c2b98d4e208ed1e2dce08c9bf6" },
   "which-key.nvim": { "branch": "main", "commit": "9b365a6428a9633e3eeb34dbef1b791511c54f70" },
-  "whichpy.nvim": { "branch": "main", "commit": "68eb57d0d3ae98dc6c6f40db03f30487f222b366" }
+  "whichpy.nvim": { "branch": "main", "commit": "3120d4c4ee685df4ff03a0380fdd505390184195" }
 }

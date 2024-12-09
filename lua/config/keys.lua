@@ -30,12 +30,15 @@ wk.add({
   { "<leader>gu", mode = { "n" }, ":lua Snacks.gitbrowse.get_url()<CR>", desc = "Snacks git get url"     },
   { "<leader>go", mode = { "n" }, ":lua Snacks.gitbrowse.open()<CR>",    desc = "Snacks git browse open" },
   { "<leader>gl", mode = { "n" }, ":lua Snacks.lazygit()<CR>",           desc = "Snacks git lazygit"     },
-  -- 
   -- Snacks.lazygit.log()
   -- Snacks.lazygit.log_file()
   -- Snacks.lazygit.open()
 
   { "<leader>b", group = "buffer" },
+  -- Snacks.scratch()
+  -- Snacks.scratch.list()
+  -- Snacks.scratch.open()
+  -- Snacks.scratch.select()
   { "<leader>bb", mode = { "n" }, ":lua Snacks.bufdelete()<CR>",        desc = "Snacks delete Buffer"        },
   { "<leader>ba", mode = { "n" }, ":lua Snacks.bufdelete.all()<CR>",    desc = "Snacks delete Buffer All"    },
   { "<leader>bd", mode = { "n" }, ":lua Snacks.bufdelete.delete()<CR>", desc = "Snacks delete Buffer delete" },
@@ -50,19 +53,19 @@ wk.add({
   { "<leader>b8", mode = { "n" }, "<Cmd>BufferGoto 8<CR>",              desc = "BarBar BufferGoto 8", noremap = true, silent = true },
   { "<leader>b9", mode = { "n" }, "<Cmd>BufferGoto 9<CR>",              desc = "BarBar BufferGoto 9", noremap = true, silent = true },
   { "<leader>b0", mode = { "n" }, "<Cmd>BufferLast<CR>",                desc = "BarBar Buffer Last",  noremap = true, silent = true },
-  -- { "key", mode = 'n', '<A-,>',     '<Cmd>BufferPrevious<CR>', noremap = true, silend = true },
-  -- { "key", mode = 'n', '<A-.>',     '<Cmd>BufferNext<CR>', noremap = true, silend = true },
-  -- { "key", mode = 'n', '<A-<>',     '<Cmd>BufferMovePrevious<CR>', noremap = true, silend = true },
-  -- { "key", mode = 'n', '<A->>',     '<Cmd>BufferMoveNext<CR>', noremap = true, silend = true },
-  -- { "key", mode = 'n', '<A-p>',     '<Cmd>BufferPin<CR>', noremap = true, silend = true },
-  -- { "key", mode = 'n', '<A-c>',     '<Cmd>BufferClose<CR>', noremap = true, silend = true },
-  -- { "key", mode = 'n', '<C-p>',     '<Cmd>BufferPick<CR>', noremap = true, silend = true },
-  -- { "key", mode = 'n', '<C-s-p>'  , '<Cmd>BufferPickDelete<CR>', noremap = true, silend = true },
-  -- { "key", mode = 'n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', noremap = true, silend = true },
-  -- { "key", mode = 'n', '<Space>bn', '<Cmd>BufferOrderByName<CR>', noremap = true, silend = true },
-  -- { "key", mode = 'n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>', noremap = true, silend = true },
-  -- { "key", mode = 'n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>', noremap = true, silend = true },
-  -- { "key", mode = 'n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', noremap = true, silend = true },
+  -- { "key", mode = 'n', '<A-,>',     '<Cmd>BufferPrevious<CR>',            desc = "BufferPrevious",            noremap = true, silend = true },
+  -- { "key", mode = 'n', '<A-.>',     '<Cmd>BufferNext<CR>',                desc = "BufferNext",                noremap = true, silend = true },
+  -- { "key", mode = 'n', '<A-<>',     '<Cmd>BufferMovePrevious<CR>',        desc = "BufferMovePrevious",        noremap = true, silend = true },
+  -- { "key", mode = 'n', '<A->>',     '<Cmd>BufferMoveNext<CR>',            desc = "BufferMoveNext",            noremap = true, silend = true },
+  -- { "key", mode = 'n', '<A-p>',     '<Cmd>BufferPin<CR>',                 desc = "BufferPin",                 noremap = true, silend = true },
+  -- { "key", mode = 'n', '<A-c>',     '<Cmd>BufferClose<CR>',               desc = "BufferClose",               noremap = true, silend = true },
+  -- { "key", mode = 'n', '<C-p>',     '<Cmd>BufferPick<CR>',                desc = "BufferPick",                noremap = true, silend = true },
+  -- { "key", mode = 'n', '<C-s-p>'  , '<Cmd>BufferPickDelete<CR>',          desc = "BufferPickDelete",          noremap = true, silend = true },
+  -- { "key", mode = 'n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', desc = "BufferOrderByBufferNumber", noremap = true, silend = true },
+  -- { "key", mode = 'n', '<Space>bn', '<Cmd>BufferOrderByName<CR>',         desc = "BufferOrderByName",         noremap = true, silend = true },
+  -- { "key", mode = 'n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>',    desc = "BufferOrderByDirectory",    noremap = true, silend = true },
+  -- { "key", mode = 'n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>',     desc = "BufferOrderByLanguage",     noremap = true, silend = true },
+  -- { "key", mode = 'n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', desc = "BufferOrderByWindowNumber", noremap = true, silend = true },
 
 
   { "<leader>f", group = "File | Find" }, -- group
@@ -91,10 +94,12 @@ wk.add({
   { "<leader>sL", mode = { "n" }, "<Plug>(nvim-surround-normal-line)",     desc = "surround normal line",     noremap = true, silent = false },
   { "<leader>sr", mode = { "n" }, "<Plug>(nvim-surround-change)",          desc = "surround change",          noremap = true, silent = false },
   { "<leader>sR", mode = { "n" }, "<Plug>(nvim-surround-change-line)",     desc = "surround change line",     noremap = true, silent = false },
-  { "<leader>sv", mode = { "x" }, "<Plug>(nvim-surround-visual-line)",     desc = "surround visual line)",    noremap = true, silent = false },
+  { "<leader>sv", mode = { "x" }, "<Plug>(nvim-surround-visual-line)",     desc = "surround visual line",     noremap = true, silent = false },
   { "<leader>sV", mode = { "x" }, "<Plug>(nvim-surround-visual)",          desc = "surround visual",          noremap = true, silent = false },
-  -- <Plug>(nvim-surround-insert)
-  -- <Plug>(nvim-surround-insert-line)
+  -- { "setket",     mode = { "i" }, "<Plug>(nvim-surround-insert)",          desc = "surround insert",          noremap = true, silent = false },
+  -- { "setket",     mode = { "i" }, "<Plug>(nvim-surround-insert-line)",     desc = "surround insert line",     noremap = true, silent = false },
+
+
 
   -- TODO: ...
   -- keys = {

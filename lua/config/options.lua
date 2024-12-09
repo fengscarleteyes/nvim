@@ -1,4 +1,5 @@
-vim.o.shell = "/bin/bash"
+-- vim.o.shell = "/bin/bash"
+
 vim.g.encoding = "UTF-8"
 vim.o.fileencoding = "utf-8"
 
