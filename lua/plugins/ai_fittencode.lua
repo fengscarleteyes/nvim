@@ -8,7 +8,7 @@ return {
   --   end
   -- end,
   -- enabled = true,
-  config = function()
-    require("fittencode").setup({ completion_mode = "inline" })
-  end,
+  opts = { completion_mode = "inline" },
 }
+
+-- TODO: config keybind
