@@ -31,20 +31,33 @@ return {
       --init setting
     end,
     config = function()
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local lsp = require("lspconfig")
-      lsp.bashls.setup({ capabilities = capabilities })
+      lsp.bashls.setup({})
       lsp.pyright.setup({
-        capabilities = capabilities,
         on_init = function(client)
           client.settings.python.pythonPath = require("whichpy.lsp").find_python_path(client.config.root_dir)
         end,
       })
       lsp.lua_ls.setup({
-        capabilities = capabilities,
         settings = {
           Lua = {
-            -- hint = { enable = true },
+            hint = {
+              enable = true,
+              setType = false,
+              paramType = true,
+              paramName = "Disable",
+              semicolon = "Disable",
+              arrayIndex = "Disable",
+            },
+            codeLens = {
+              enable = true,
+            },
+            completion = {
+              callSnippet = "Replace",
+            },
+            doc = {
+              privateName = { "^_" },
+            },
             runtime = {
               version = "LuaJIT",
               path = {
@@ -59,6 +72,7 @@ return {
             diagnostics = {
               globals = { "vim", "require" },
             },
+
             workspace = {
               library = {
                 -- "${3rd}/luv/library",
