@@ -1,5 +1,3 @@
--- vim.o.shell = "/bin/bash"
-
 vim.g.encoding = "UTF-8"
 vim.o.fileencoding = "utf-8"
 
@@ -16,7 +14,7 @@ vim.o.sidescrolloff = 5
 -- 行结尾可以跳到下一行
 vim.o.whichwrap = "b,s,<,>,[,],h,l"
 
--- 不可见字符的显示，这里只把空格显示为点
+-- 不可见字符的显示
 vim.o.list = true
 vim.o.listchars = "space:·,trail:󰢤,tab:,eol:"
 -- vim.o.listchars = "space:󰧟,trail:󰃉,tab:,eol:󱨉"
@@ -96,4 +94,4 @@ vim.g.showmode = true
 vim.o.pumblend = 50
 vim.o.pumheight = 5
 
-vim.lsp.inlay_hint.enable(true)
+-- vim.lsp.inlay_hint.enable(true)
