@@ -66,8 +66,6 @@ wk.add({
 
 
   { "<leader>f", group = "File | Find" }, -- group
-  { "<leader>fB", mode = { "n" }, "<cmd>Neotree source=buffers    reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Buffers"    },
-  { "<leader>fG", mode = { "n" }, "<cmd>Neotree source=git_status reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Git Status" },
   { "<leader>fF", mode = { "n" }, "<cmd>Neotree source=filesystem reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Filesystem" },
   { "<leader>fo", mode = { "n" }, function() require("oil").toggle_float()                 end, desc = "Oil       | toggle"     },
   { "<leader>fn", mode = { "n" }, function() require("telescope").extensions.nerdy.nerdy() end, desc = "telescope | find nerd"  },
