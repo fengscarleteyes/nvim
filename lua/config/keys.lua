@@ -2,6 +2,7 @@ local wk = require("which-key")
 
 wk.add({ { "<leader>", group = "leader keys" } })
 
+
 --stylua: ignore start
 wk.add({
   { "<leader>n", group = "Noice" }, -- group
@@ -15,7 +16,6 @@ wk.add({
   { "<leader>ns", mode = { "n" }, function() require("noice").cmd("stats"  )   end, desc = "noice stats"     },
 
   { "<A-t>",     mode = { "n", "t" }, function() require("FTerm").toggle() end, desc = "FTerm toggle"  },
-  -- { "<leader>w", mode = { "n"      }, "<cmd>bdelete<CR>",                       desc = "Buffer Delete" },
 
   { "s",     mode =  { "n", "x", "o" }, function() require("flash").jump()              end, desc = "Flash"               },
   { "S",     mode =  { "n", "x", "o" }, function() require("flash").treesitter()        end, desc = "Flash Treesitter"    },
@@ -99,6 +99,25 @@ wk.add({
   -- { "setket",     mode = { "i" }, "<Plug>(nvim-surround-insert)",          desc = "surround insert",          noremap = true, silent = false },
   -- { "setket",     mode = { "i" }, "<Plug>(nvim-surround-insert-line)",     desc = "surround insert line",     noremap = true, silent = false },
 
+  -- keymaps = {
+  -- -- TODO: oil key mapping
+  --   ["g?"] = { "actions.show_help", mode = "n" },
+  --   ["<CR>"] = "actions.select",
+  --   ["<C-s>"] = { "actions.select", opts = { vertical = true } },
+  --   ["<C-h>"] = { "actions.select", opts = { horizontal = true } },
+  --   ["<C-t>"] = { "actions.select", opts = { tab = true } },
+  --   ["<C-p>"] = "actions.preview",
+  --   ["<C-c>"] = { "actions.close", mode = "n" },
+  --   ["<C-l>"] = "actions.refresh",
+  --   ["-"] = { "actions.parent", mode = "n" },
+  --   ["_"] = { "actions.open_cwd", mode = "n" },
+  --   ["`"] = { "actions.cd", mode = "n" },
+  --   ["~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
+  --   ["gs"] = { "actions.change_sort", mode = "n" },
+  --   ["gx"] = "actions.open_external",
+  --   ["g."] = { "actions.toggle_hidden", mode = "n" },
+  --   ["g\\"] = { "actions.toggle_trash", mode = "n" },
+  -- },
 
 
   -- TODO: ...
