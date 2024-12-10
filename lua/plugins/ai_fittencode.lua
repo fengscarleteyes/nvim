@@ -11,4 +11,4 @@ return {
   opts = { completion_mode = "inline" },
 }
 
--- TODO: config keybind
+-- TODO: config keybinding
