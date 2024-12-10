@@ -52,9 +52,9 @@ return {
             codeLens = {
               enable = true,
             },
-            completion = {
-              callSnippet = "Replace",
-            },
+            -- completion = {
+            --   callSnippet = "Replace",
+            -- },
             doc = {
               privateName = { "^_" },
             },
@@ -70,9 +70,11 @@ return {
               },
             },
             diagnostics = {
-              globals = { "vim", "require" },
+              globals = {
+                "vim",
+                "require",
+              },
             },
-
             workspace = {
               library = {
                 -- "${3rd}/luv/library",

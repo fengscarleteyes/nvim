@@ -3,10 +3,9 @@ return {
   event = "VeryLazy",
   opts = {
     win = {
-      -- don't allow the popup to overlap with the cursor
       no_overlap = true,
       width = 50,
-      height = { min = 4, max = 25 },
+      height = { min = 5, max = 25 },
       col = 1,
       -- row = math.huge,
       border = "single",
