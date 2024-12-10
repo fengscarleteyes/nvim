@@ -17,12 +17,11 @@ return {
         { section = "startup" },
       },
     },
-    -- dashboard = { enabled = false },
-    notifier = { enabled = true, timeout = 3000 },
+    input = { enabled = true },
+    notifier = { timeout = 3000 },
     quickfile = { enabled = true },
-    words = { enabled = true, notify_jump = true },
+    words = { notify_jump = true },
     statuscolumn = {
-      enabled = true,
       folds = {
         open = true,
         git_hl = true,
