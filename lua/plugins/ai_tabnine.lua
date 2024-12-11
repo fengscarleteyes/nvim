@@ -28,7 +28,6 @@ return {
     dismiss_keymap = "<C-[>",
     debounce_ms = 800,
     suggestion_color = { gui = "#00FF00", cterm = 244 },
-
     exclude_filetypes = { "TelescopePrompt", "NvimTree" },
     log_file_path = nil, -- absolute path to Tabnine log file
     ignore_certificate_errors = false,
@@ -37,3 +36,7 @@ return {
     require("tabnine").setup(opts)
   end,
 }
+
+-- api.nvim_set_keymap("x", "<leader>q", "", { noremap = true, callback = require("tabnine.chat").open })
+-- api.nvim_set_keymap("i", "<leader>q", "", { noremap = true, callback = require("tabnine.chat").open })
+-- api.nvim_set_keymap("n", "<leader>q", "", { noremap = true, callback = require("tabnine.chat").open })

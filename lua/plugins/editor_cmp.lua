@@ -21,8 +21,11 @@ return {
           behavior = cmp.ConfirmBehavior.Insert,
           select = true,
         }),
+        -- Accept multi-line completion
+        ["<c-y>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = false }),
       },
       sources = cmp.config.sources({
+        { name = "fittencode", group_index = 1 },
         { name = "nvim_lsp" },
         { name = "path" },
         { name = "emoji" },
