@@ -5,9 +5,19 @@
 - Windows
 
 ```shell
+# set proxy
+
+# linux
+export NO_PROXY="localhost,127.0.0.1"
+export HTTPS_PROXY="http://192.168.43.1:7890"
+export HTTP_PROXY="http://192.168.43.1:7890"
+ 
+```
+```shell
 # windows
 $env:HTTP_PROXY="http://192.168.10.195:7890"
 $env:HTTPS_PROXY="http://192.168.10.195:7890"
+$env:NO_PROXY="localhost,127.0.0.1"
 
 winget install --id Microsoft.Powershell --source winget
 winget install -e --id OpenJS.NodeJS

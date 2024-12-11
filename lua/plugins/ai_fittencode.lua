@@ -1,5 +1,6 @@
 return {
   "luozhiya/fittencode.nvim",
+  enabled = false,
   -- enabled = function()
   --   if vim.fn.has("win32") == 1 then
   --     return true
