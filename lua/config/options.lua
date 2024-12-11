@@ -16,6 +16,7 @@ vim.o.whichwrap = "b,s,<,>,[,],h,l"
 
 -- 不可见字符的显示
 vim.o.list = true
+
 vim.o.listchars = "space:·,trail:,tab:,eol:"
 -- vim.o.listchars = "space:󰧟,trail:󰃉,tab:,eol:󱨉"
 -- vim.o.listchars = 'space:󰧟,trail:󱁐,tab:,eol:󰬧'
