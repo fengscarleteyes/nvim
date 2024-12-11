@@ -21,37 +21,27 @@ return {
     notifier = { timeout = 3000 },
     quickfile = { enabled = true },
     words = { notify_jump = true },
+    scroll = { enabled = true },
     statuscolumn = {
       folds = {
         open = true,
         git_hl = true,
       },
     },
-    terminal = {
-      enabled = true,
-      -- win = {
-      --   style = {
-      --     position = "float",
-      --     backdrop = 60,
-      --     height = 0.9,
-      --     width = 0.9,
-      --     zindex = 50,
-      --   },
-      -- },
-    },
+    terminal = { enabled = true },
   },
   init = function()
     vim.api.nvim_create_autocmd("User", {
       pattern = "VeryLazy",
       callback = function()
-        -- -- Setup some globals for debugging (lazy-loaded)
-        -- _G.dd = function(...)
-        --   Snacks.debug.inspect(...)
-        -- end
-        -- _G.bt = function()
-        --   Snacks.debug.backtrace()
-        -- end
-        -- vim.print = _G.dd -- Override print to use snacks for `:=` command
+        -- Setup some globals for debugging (lazy-loaded)
+        _G.dd = function(...)
+          Snacks.debug.inspect(...)
+        end
+        _G.bt = function()
+          Snacks.debug.backtrace()
+        end
+        vim.print = _G.dd -- Override print to use snacks for `:=` command
 
         -- Create some toggle mappings
         Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us") -- pinxiejiancha
