@@ -2,6 +2,7 @@ return {
   "Exafunction/codeium.nvim",
   cmd = "Codeium",
   build = ":Codeium Auth",
+  enabled = false,
   dependencies = {
     "nvim-lua/plenary.nvim",
     "hrsh7th/nvim-cmp",
