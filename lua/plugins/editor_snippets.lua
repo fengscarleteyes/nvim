@@ -1,9 +1,7 @@
-local snippets_dir = vim.fs.joinpath(vim.fn.stdpath("config"), "snippets")
-
 return {
   "garymjr/nvim-snippets",
   opts = {
-    search_paths = { snippets_dir },
+    search_paths = { vim.fn.stdpath("config") .. "/snippets" },
     create_cmp_source = true,
   },
 }

@@ -30,4 +30,7 @@ return {
     completion_mode = "source",
     -- completion_mode = "inline",
   },
+  config = function(_, opts)
+    require("fittencode").setup(opts)
+  end,
 }

@@ -15,7 +15,7 @@ return {
     local cmp = require("cmp")
     cmp.setup({
       mapping = {
-        ["<A-q>"] = cmp.mapping.close(),
+        ["<C-CR>"] = cmp.mapping.close(),
         ["<S-Tab>"] = cmp.mapping.select_prev_item(),
         ["<Tab>"] = cmp.mapping.select_next_item(),
         ["<CR>"] = cmp.mapping.confirm({
