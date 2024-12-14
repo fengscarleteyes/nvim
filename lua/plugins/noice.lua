@@ -3,6 +3,9 @@ return {
   -- enabled = false,
   event = "VeryLazy",
   opts = {
+    messages = {
+      enabled = false, -- enables the Noice messages UI
+    },
     lsp = {
       override = {
         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
