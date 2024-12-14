@@ -5,7 +5,6 @@ return {
     "nvim-telescope/telescope.nvim",
   },
   opts = {
-    -- snippetDir = vim.fs.joinpath(vim.fn.stdpath("config"), "snippets"),
     snippetDir = vim.fn.stdpath("config") .. "/snippets",
     jsonFormatter = "jq",
   },

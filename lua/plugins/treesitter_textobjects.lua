@@ -3,6 +3,7 @@ return {
   "nvim-treesitter/nvim-treesitter-textobjects",
   dependencies = { "nvim-treesitter/nvim-treesitter" },
   config = function()
+    -- TODO: set keymapping
     require("nvim-treesitter.configs").setup({
       textobjects = {
         select = { enable = false },

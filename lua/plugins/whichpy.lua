@@ -1,5 +1,5 @@
 return {
   "neolooong/whichpy.nvim",
-  -- enabled = false,
+  enabled = false,
   opts = {},
 }

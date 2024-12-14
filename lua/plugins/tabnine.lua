@@ -1,9 +1,8 @@
 -- https://github.com/codota/tabnine-nvim
+
 -- Windows
--- The build script needs a set execution policy. Here is an example on how to set it
 -- Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
--- Get platform dependant build script
 local function tabnine_build_path()
   -- Replace vim.uv with vim.loop if using NVIM 0.9.0 or below
   if vim.uv.os_uname().sysname == "Windows_NT" then
