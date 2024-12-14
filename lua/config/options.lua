@@ -73,7 +73,7 @@ vim.g.maplocalleader = "\\"
 vim.o.mouse = "a"
 vim.o.mousemoveevent = true
 vim.cmd("aunmenu PopUp.How-to\\ disable\\ mouse")
-vim.cmd("aunmenu PopUp.-2-")
+-- vim.cmd("aunmenu PopUp.-2-")
 
 -- vim.opt.autowrite = true -- Enable auto write
 -- vim.o.clipboard = "unnamedplus" -- Sync with system clipboard
