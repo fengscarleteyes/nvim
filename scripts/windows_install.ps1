@@ -1,8 +1,9 @@
 # https://dev.to/kaiwalter/get-neovim-plugins-with-build-processes-working-on-windows-i39
 
 # # 设置代理地址和端口
-# $env:HTTP_PROXY = "http://192.168.10.118:7890"
-# $env:HTTPS_PROXY = "http://192.168.10.118:7890"
+# $env:MyProxy = "http://192.168.10.118:7890"
+# $env:HTTP_PROXY = $env:MyProxy
+# $env:HTTPS_PROXY = $env:MyProxy
 
 # $env:NO_PROXY="localhost,127.0.0.1"
 
@@ -24,7 +25,7 @@ winget install --id Microsoft.Powershell --source winget
 
 # install NeoVim with WinGet, if not already present on system
 if (!$(Get-Command nvim -ErrorAction SilentlyContinue)) {
-    winget install Neovim.Neovim
+    winget install Neovim.Neovim --proxy $env:MyProxy
     # winget install Neovim.Neovim.Nightly
 }
 
