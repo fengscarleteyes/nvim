@@ -10,15 +10,17 @@ wk.add({
   { "<C-k>", mode = { "i" }, "<C-o>k", desc = "Up" },
   { "<C-j>", mode = { "i" }, "<C-o>j", desc = "Down" },
 
-  { "<leader>n", group = "Noice" }, -- group
-  { "<leader>nn", mode = { "n" }, function() require("noice").cmd("dismiss")   end, desc = "noice dismiss"   },
-  { "<leader>nh", mode = { "n" }, function() require("noice").cmd("history")   end, desc = "noice history"   },
-  { "<leader>nl", mode = { "n" }, function() require("noice").cmd("last"   )   end, desc = "noice last"      },
-  { "<leader>nd", mode = { "n" }, function() require("noice").cmd("disable")   end, desc = "noice disable"   },
-  { "<leader>ne", mode = { "n" }, function() require("noice").cmd("enable" )   end, desc = "noice enable"    },
-  { "<leader>nt", mode = { "n" }, function() require("noice").cmd("telescope") end, desc = "noice telescope" },
-  { "<leader>nE", mode = { "n" }, function() require("noice").cmd("erroes")    end, desc = "noice errors"    },
-  { "<leader>ns", mode = { "n" }, function() require("noice").cmd("stats"  )   end, desc = "noice stats"     },
+  { "<leader>n", group = "Notification" }, -- group
+  { "<leader>nn", mode = { "n" }, ":lua Snacks.notifier.hide()<CR>", desc = "Hide notifications" },
+  -- TODO: add snacks handler for notifications
+  -- { "<leader>nn", mode = { "n" }, function() require("noice").cmd("dismiss")   end, desc = "noice dismiss"   },
+  -- { "<leader>nh", mode = { "n" }, function() require("noice").cmd("history")   end, desc = "noice history"   },
+  -- { "<leader>nl", mode = { "n" }, function() require("noice").cmd("last"   )   end, desc = "noice last"      },
+  -- { "<leader>nd", mode = { "n" }, function() require("noice").cmd("disable")   end, desc = "noice disable"   },
+  -- { "<leader>ne", mode = { "n" }, function() require("noice").cmd("enable" )   end, desc = "noice enable"    },
+  -- { "<leader>nt", mode = { "n" }, function() require("noice").cmd("telescope") end, desc = "noice telescope" },
+  -- { "<leader>nE", mode = { "n" }, function() require("noice").cmd("erroes")    end, desc = "noice errors"    },
+  -- { "<leader>ns", mode = { "n" }, function() require("noice").cmd("stats"  )   end, desc = "noice stats"     },
 
   { "<A-t>",     mode = { "n", "t" }, function() require("FTerm").toggle() end, desc = "FTerm toggle"  },
 
