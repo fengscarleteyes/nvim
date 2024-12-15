@@ -28,7 +28,7 @@ winget install BurntSushi.ripgrep.MSVC
 winget install sharkdp.fd
 winget install --id=7zip.7zip -e
 winget install zig.zig
-winget install -e --id=JesseDuffield.lazygit
+winget install --id=JesseDuffield.lazygit -e 
 
 sudo dnf copr enable atim/lazygit -y
 sudo dnf install lazygit
