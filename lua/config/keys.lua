@@ -5,6 +5,11 @@ wk.add({ { "<leader>", group = "leader keys" } })
 
 --stylua: ignore start
 wk.add({
+  { "<C-h>", mode = { "i" }, "<C-o>h", desc = "Left" },
+  { "<C-l>", mode = { "i" }, "<C-o>l", desc = "Right" },
+  { "<C-k>", mode = { "i" }, "<C-o>k", desc = "Up" },
+  { "<C-j>", mode = { "i" }, "<C-o>j", desc = "Down" },
+
   { "<leader>n", group = "Noice" }, -- group
   { "<leader>nn", mode = { "n" }, function() require("noice").cmd("dismiss")   end, desc = "noice dismiss"   },
   { "<leader>nh", mode = { "n" }, function() require("noice").cmd("history")   end, desc = "noice history"   },
