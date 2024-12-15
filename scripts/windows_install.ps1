@@ -24,8 +24,8 @@ winget install --id Microsoft.Powershell --source winget
 
 # install NeoVim with WinGet, if not already present on system
 if (!$(Get-Command nvim -ErrorAction SilentlyContinue)) {
-    # winget install Neovim.Neovim
-    winget install Neovim.Neovim.Nightly
+    winget install Neovim.Neovim
+    # winget install Neovim.Neovim.Nightly
 }
 
 # install ripgrep
