@@ -2,7 +2,6 @@ local wk = require("which-key")
 
 wk.add({ { "<leader>", group = "leader keys" } })
 
-
 --stylua: ignore start
 wk.add({
   { "<C-h>", mode = { "i" }, "<C-o>h", desc = "Left" },
