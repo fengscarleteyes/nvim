@@ -1,4 +1,4 @@
--- TODO: add this plugin and setting this
+-- TODO: settinngs for yanky.nvim
 return {
   "gbprod/yanky.nvim",
   -- enabled = false,
