@@ -73,7 +73,6 @@ wk.add({
   -- { "key", mode = 'n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>',     desc = "BufferOrderByLanguage",     noremap = true, silend = true },
   -- { "key", mode = 'n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', desc = "BufferOrderByWindowNumber", noremap = true, silend = true },
 
-
   { "<leader>f", group = "File | Find" }, -- group
   { "<leader>fF", mode = { "n" }, "<cmd>Neotree source=filesystem reveal=true position=float action=focus toggle=true<CR>", desc = "NeoTree | Filesystem" },
   { "<leader>fo", mode = { "n" }, function() require("oil").toggle_float()                 end, desc = "Oil       | toggle"      },
@@ -106,7 +105,24 @@ wk.add({
   -- { "setket",     mode = { "i" }, "<Plug>(nvim-surround-insert-line)",     desc = "surround insert line",     noremap = true, silent = false },
 
   { "<leader>l", group = "Lsp" },
-  { "<leader>lo", mode = { "n" }, "<cmd>Outline<CR>", desc = "Lsp | toggle outline", noremap = true, silent = false },
+  { "<leader>lo", mode = { "n" }, "<Cmd>Outline<CR>", desc = "Lsp | toggle outline", noremap = true, silent = false },
+
+  { "<leader>y", group = "yank" },
+  { "<leader>yt",      mode = { "n", "x" }, "<Cmd>Telescope yank_history<CR>",           desc = "Telescope yank_history",         noremap = true, silent = false },
+  { "<leader>yp",      mode = { "n", "x" }, "<Plug>(YankyPutAfter)",                     desc = "YankyPutAfter",                  noremap = true, silent = false },
+  { "<leader>yP",      mode = { "n", "x" }, "<Plug>(YankyPutBefore)",                    desc = "YankyPutBefore",                 noremap = true, silent = false },
+  { "<leader>ygp",     mode = { "n", "x" }, "<Plug>(YankyGPutAfter)",                    desc = "YankyGPutAfter",                 noremap = true, silent = false },
+  { "<leader>ygP",     mode = { "n", "x" }, "<Plug>(YankyGPutBefore)",                   desc = "YankyGPutBefore",                noremap = true, silent = false },
+  { "<leader>yb",      mode = { "n",     }, "<Plug>(YankyPreviousEntry)",                desc = "YankyPreviousEntry",             noremap = true, silent = false },
+  { "<leader>yf",      mode = { "n",     }, "<Plug>(YankyNextEntry)",                    desc = "YankyNextEntry",                 noremap = true, silent = false },
+  { "<leader>y]P",     mode = { "n",     }, "<Plug>(YankyPutIndentAfterLinewise)",       desc = "YankyPutIndentAfterLinewise",    noremap = true, silent = false },
+  { "<leader>y[P",     mode = { "n",     }, "<Plug>(YankyPutIndentBeforeLinewise)",      desc = "YankyPutIndentBeforeLinewise",   noremap = true, silent = false },
+  { "<leader>y>p",     mode = { "n",     }, "<Plug>(YankyPutIndentAfterShiftRight)",     desc = "YankyPutIndentAfterShiftRight",  noremap = true, silent = false },
+  { "<leader>y<p",     mode = { "n",     }, "<Plug>(YankyPutIndentAfterShiftLeft)",      desc = "YankyPutIndentAfterShiftLeft",   noremap = true, silent = false },
+  { "<leader>y>P",     mode = { "n",     }, "<Plug>(YankyPutIndentBeforeShiftRight)",    desc = "YankyPutIndentBeforeShiftRight", noremap = true, silent = false },
+  { "<leader>y<P",     mode = { "n",     }, "<Plug>(YankyPutIndentBeforeShiftLeft)",     desc = "YankyPutIndentBeforeShiftLeft",  noremap = true, silent = false },
+  { "<leader>y=p",     mode = { "n",     }, "<Plug>(YankyPutAfterFilter)",               desc = "YankyPutAfterFilter",            noremap = true, silent = false },
+  { "<leader>y=P",     mode = { "n",     }, "<Plug>(YankyPutBeforeFilter)",              desc = "YankyPutBeforeFilter",           noremap = true, silent = false },
 
   -- keymaps = {
   -- -- TODO: oil key mapping
