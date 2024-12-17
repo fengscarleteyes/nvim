@@ -105,6 +105,9 @@ wk.add({
   -- { "setket",     mode = { "i" }, "<Plug>(nvim-surround-insert)",          desc = "surround insert",          noremap = true, silent = false },
   -- { "setket",     mode = { "i" }, "<Plug>(nvim-surround-insert-line)",     desc = "surround insert line",     noremap = true, silent = false },
 
+  { "<leader>l", group = "Lsp" },
+  { "<leader>lo", mode = { "n" }, "<cmd>Outline<CR>", desc = "Lsp | toggle outline", noremap = true, silent = false },
+
   -- keymaps = {
   -- -- TODO: oil key mapping
   --   ["g?"] = { "actions.show_help", mode = "n" },
