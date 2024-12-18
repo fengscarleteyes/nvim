@@ -20,7 +20,7 @@ return {
     input = { enabled = true },
     indent = { enabled = true },
     notifier = { timeout = 3000 },
-    quickfile = { enabled = true },
+    quickfile = { exclude = { "latex" } },
     words = { notify_jump = true },
     scroll = { enabled = true },
     statuscolumn = {

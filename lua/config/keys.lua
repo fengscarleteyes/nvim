@@ -10,16 +10,8 @@ wk.add({
   { "<C-j>", mode = { "i" }, "<C-o>j", desc = "Down" },
 
   { "<leader>n", group = "Notification" }, -- group
-  { "<leader>nn", mode = { "n" }, ":lua Snacks.notifier.hide()<CR>", desc = "Hide notifications" },
-  -- TODO: add snacks handler for notifications
-  -- { "<leader>nn", mode = { "n" }, function() require("noice").cmd("dismiss")   end, desc = "noice dismiss"   },
-  -- { "<leader>nh", mode = { "n" }, function() require("noice").cmd("history")   end, desc = "noice history"   },
-  -- { "<leader>nl", mode = { "n" }, function() require("noice").cmd("last"   )   end, desc = "noice last"      },
-  -- { "<leader>nd", mode = { "n" }, function() require("noice").cmd("disable")   end, desc = "noice disable"   },
-  -- { "<leader>ne", mode = { "n" }, function() require("noice").cmd("enable" )   end, desc = "noice enable"    },
-  -- { "<leader>nt", mode = { "n" }, function() require("noice").cmd("telescope") end, desc = "noice telescope" },
-  -- { "<leader>nE", mode = { "n" }, function() require("noice").cmd("erroes")    end, desc = "noice errors"    },
-  -- { "<leader>ns", mode = { "n" }, function() require("noice").cmd("stats"  )   end, desc = "noice stats"     },
+  { "<leader>nn", mode = { "n" }, ":lua Snacks.notifier.hide()<CR>",         desc = "Hide notifications"         },
+  { "<leader>nh", mode = { "n" }, ":lua Snacks.notifier.show_history()<CR>", desc = "show notifications history" },
 
   { "<A-t>",     mode = { "n", "t" }, function() require("FTerm").toggle() end, desc = "FTerm toggle"  },
 
@@ -33,18 +25,11 @@ wk.add({
   { "<leader>gb", mode = { "n" }, ":lua Snacks.git.blame_line()<CR>",    desc = "Snacks git blame line"  },
   { "<leader>gr", mode = { "n" }, ":lua Snacks.git.get_root()<CR>",      desc = "Snacks git get root"    },
   { "<leader>gB", mode = { "n" }, ":lua Snacks.gitbrowse()<CR>",         desc = "Snacks git browse"      },
-  { "<leader>gu", mode = { "n" }, ":lua Snacks.gitbrowse.get_url()<CR>", desc = "Snacks git get url"     },
-  { "<leader>go", mode = { "n" }, ":lua Snacks.gitbrowse.open()<CR>",    desc = "Snacks git browse open" },
   { "<leader>gl", mode = { "n" }, ":lua Snacks.lazygit()<CR>",           desc = "Snacks git lazygit"     },
-  -- Snacks.lazygit.log()
-  -- Snacks.lazygit.log_file()
-  -- Snacks.lazygit.open()
 
   { "<leader>b", group = "Buffer" },
-  -- Snacks.scratch()
-  -- Snacks.scratch.list()
-  -- Snacks.scratch.open()
-  -- Snacks.scratch.select()
+  { "<leader>bs", mode = { "n" }, ":lua Snacks.scratch()<CR>",          desc = "Snacks scaratch"             },
+  { "<leader>bS", mode = { "n" }, ":lua Snacks.scratch.select()<CR>",   desc = "Snacks scaratch seleect"     },
   { "<leader>bb", mode = { "n" }, ":lua Snacks.bufdelete()<CR>",        desc = "Snacks delete Buffer"        },
   { "<leader>ba", mode = { "n" }, ":lua Snacks.bufdelete.all()<CR>",    desc = "Snacks delete Buffer All"    },
   { "<leader>bd", mode = { "n" }, ":lua Snacks.bufdelete.delete()<CR>", desc = "Snacks delete Buffer delete" },
@@ -81,7 +66,6 @@ wk.add({
   { "<leader>fb", mode = { "n" }, function() require("telescope.builtin").buffers()        end, desc = "telescope | buffers"     },
   { "<leader>fg", mode = { "n" }, function() require("telescope.builtin").live_grep()      end, desc = "telescope | live grep"   },
   { "<leader>fh", mode = { "n" }, function() require("telescope.builtin").help_tags()      end, desc = "telescope | help tags"   },
-  { "<leader>fr", mode = { "n" }, ":lua Snacks.rename.rename_file()<CR>",                       desc = "Snacks    | Rename File" },
 
   { "<leader>r", group = "RunCode" },
   { "<leader>rr",  mode = { "n" }, "<Cmd>RunCode<CR>",        desc = "RunCode",     noremap = true, silent = false },
@@ -105,7 +89,10 @@ wk.add({
   -- { "setket",     mode = { "i" }, "<Plug>(nvim-surround-insert-line)",     desc = "surround insert line",     noremap = true, silent = false },
 
   { "<leader>l", group = "Lsp" },
-  { "<leader>lo", mode = { "n" }, "<Cmd>Outline<CR>", desc = "Lsp | toggle outline", noremap = true, silent = false },
+  { "<leader>lo", mode = { "n" }, "<Cmd>Outline<CR>",                     desc = "toggle outline", noremap = true, silent = false },
+  { "<leader>lr", mode = { "n" }, ":lua Snacks.rename.rename_file()<CR>", desc = "Rename File",    noremap = true, silent = false },
+  { "<leader>lj", mode = { "n" }, ":lua Snacks.scope.jump()<CR>",         desc = "Scope Jump",     noremap = true, silent = false },
+  { "<leader>lt", mode = { "n" }, ":lua Snacks.scope.textobject()<CR>",   desc = "Scope Textobject",    noremap = true, silent = false },
 
   { "<leader>y", group = "yank" },
   { "<leader>yt",      mode = { "n", "x" }, "<Cmd>Telescope yank_history<CR>",           desc = "Telescope yank_history",         noremap = true, silent = false },
