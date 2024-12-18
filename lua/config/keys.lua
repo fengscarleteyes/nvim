@@ -40,7 +40,7 @@ wk.add({
   -- Snacks.lazygit.log_file()
   -- Snacks.lazygit.open()
 
-  { "<leader>b", group = "buffer" },
+  { "<leader>b", group = "Buffer" },
   -- Snacks.scratch()
   -- Snacks.scratch.list()
   -- Snacks.scratch.open()
