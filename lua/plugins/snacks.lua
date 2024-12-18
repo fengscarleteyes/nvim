@@ -36,6 +36,8 @@ return {
       pattern = "VeryLazy",
       callback = function()
         Snacks.indent.enable()
+        Snacks.scroll.enable()
+
         local wk = require("which-key")
         wk.add({ { "<leader>u", group = "Snacks | toggles" } })
 
