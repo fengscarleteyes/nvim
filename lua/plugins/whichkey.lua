@@ -30,7 +30,7 @@ return {
   },
   config = function(_, opts)
     require("which-key").setup(opts)
-    require("config.keys")
+    require("keymaps")
   end,
   keys = {
     {
