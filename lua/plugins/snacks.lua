@@ -23,6 +23,7 @@ return {
     quickfile = { exclude = { "latex" } },
     words = { notify_jump = true },
     scroll = { enabled = true },
+    scope = { enabled = true },
     statuscolumn = {
       folds = {
         open = true,

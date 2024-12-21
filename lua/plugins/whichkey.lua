@@ -1,6 +1,8 @@
 return {
   "folke/which-key.nvim",
   event = "VeryLazy",
+  dependencies = { { 'echasnovski/mini.icons', version = false }, "nvim-tree/nvim-web-devicons" },
+  
   opts = {
     win = {
       no_overlap = true,

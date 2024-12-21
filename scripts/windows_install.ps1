@@ -54,6 +54,7 @@ $7zipPath = "$env:ProgramFiles\7-Zip\7z.exe"
 if (!$(Get-Command 7z -ErrorAction SilentlyContinue)) {
   winget install --id=7zip.7zip -e --proxy $env:MyProxy
 }
+Write-Output $7zipPath
 
 # install npm
 if (!$(Get-Command npm -ErrorAction SilentlyContinue)) {
@@ -62,6 +63,15 @@ if (!$(Get-Command npm -ErrorAction SilentlyContinue)) {
 
 npm install -g tree-sitter-cli
 
+# install lua
+if (!$(Get-Command lua -ErrorAction SilentlyContinue)) {
+  winget install -e --id DEVCOM.Lua --proxy $env:MyProxy
+}
+
+# install luarocks
+if (!$(Get-Command luarocks -ErrorAction SilentlyContinue)) {
+  winget install -e --id DEVCOM.LuaJIT --proxy $env:MyProxy
+}
 
 # # clone my Dotfiles repo
 # $dotFilesRoot = Join-Path $HOME "dotfiles"
