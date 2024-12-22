@@ -18,7 +18,6 @@ return {
             "lua_ls", -- lsp
             "pyright", -- lsp
             "ruff", -- linter & formater
-            "ruff_lsp", -- linter & formater
             "jq", -- json formater
           },
         })
@@ -32,6 +31,7 @@ return {
     local lsp = require("lspconfig")
     lsp.bashls.setup({})
     lsp.pyright.setup({})
+    lsp.ruff.setup({})
     lsp.lua_ls.setup({
       settings = {
         Lua = {
@@ -55,12 +55,12 @@ return {
           runtime = {
             version = "LuaJIT",
             path = {
-              "?.lua",
-              "?/init.lua",
-              vim.fn.expand("~/.luarocks/share/lua/5.3/?.lua"),
-              vim.fn.expand("~/.luarocks/share/lua/5.3/?/init.lua"),
-              "/usr/share/5.3/?.lua",
-              "/usr/share/lua/5.3/?/init.lua",
+              -- "?.lua",
+              -- "?/init.lua",
+              -- vim.fn.expand("~/.luarocks/share/lua/5.3/?.lua"),
+              -- vim.fn.expand("~/.luarocks/share/lua/5.3/?/init.lua"),
+              -- "/usr/share/5.3/?.lua",
+              -- "/usr/share/lua/5.3/?/init.lua",
             },
           },
           diagnostics = {
@@ -75,8 +75,8 @@ return {
               -- "${3rd}/busted/library",
               -- vim.env.VIMRUNTIME,
               vim.api.nvim_get_runtime_file("", true),
-              "/usr/share/lua/5.3",
-              vim.fn.expand("~/.luarocks/share/lua/5.3"),
+              -- "/usr/share/lua/5.3",
+              -- vim.fn.expand("~/.luarocks/share/lua/5.3"),
             },
             checkThirdParty = false,
           },
