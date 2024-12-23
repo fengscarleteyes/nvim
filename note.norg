@@ -1,14 +1,34 @@
-# Readme
+# Neorg Note
 
-- this is my note
-- *test*
+## Neorg Note Example
 
-- ( ) todo01
-- ( ) todo02
-- ( ) todo03
+- _example_01_
+- *example_02*
+- /example_03/
+* ^example_04^
 
-* ( ) todo04
+~ (x) ,example_05,
+~ (_) ,example_06,
+~ (=) ,example_07,
+~ (!) ,example_08,
+~ (?) ,example_09,
+~ (+) ,example_10,
+  -- (x) exampl_11
+  -- ( ) exampl_12
 
-- /test/
+* ( ) Undone Heading
 
+* Shopping
+  My shopping list consists of:
+  - Milk
+  - Butter
+  - Bread
 
+* Shopping
+** Important Shopping
+      This is stuff I must immediately buy:
+      - Bread
+** Other Stuff
+      This is not as important:
+      - Milk
+      - Tomatoes (yum)
