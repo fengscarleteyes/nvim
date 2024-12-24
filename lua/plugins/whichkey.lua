@@ -29,6 +29,11 @@ return {
       marks = false,
       spelling = false,
     },
+    -- disable WhichKey for certain buf types and file types.
+    disable = {
+      -- ft = { "norg" },
+      -- bt = {},
+    },
   },
   config = function(_, opts)
     require("which-key").setup(opts)

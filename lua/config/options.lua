@@ -95,7 +95,5 @@ vim.o.laststatus = 3
 vim.g.showmode = true
 
 -- 补全菜单背景透明
-vim.o.pumblend = 50
-vim.o.pumheight = 5
-
--- vim.lsp.inlay_hint.enable(true)
+-- vim.o.pumblend = 50
+-- vim.o.pumheight = 5

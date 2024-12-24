@@ -1,11 +1,21 @@
+@document.meta
+title: index
+description: 
+authors: fengscarleteyes
+categories: 
+created: 2024-12-24T11:38:38+0800
+updated: 2024-12-24T11:38:38+0800
+version: 1.1.1
+@end
+
 # Neorg Note
 
 ## Neorg Note Example
 
-- _example_01_
+* _example_01_
 - *example_02*
 - /example_03/
-* ^example_04^
+- ^example_04^
 
 ~ (x) ,example_05,
 ~ (_) ,example_06,
@@ -15,8 +25,6 @@
 ~ (+) ,example_10,
   -- (x) exampl_11
   -- ( ) exampl_12
-
-* ( ) Undone Heading
 
 * Shopping
   My shopping list consists of:
@@ -33,4 +41,7 @@
       - Milk
       - Tomatoes (yum)
 
-- ( ) https://github.com/nvim-neorg/neorg/wiki/Default-Keybinds
+* (+) TODO:
+  - ( ) https://github.com/nvim-neorg/neorg/wiki/Default-Keybinds
+  - (x) use ftplugin to set default keybinds for neorg files
+
