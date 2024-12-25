@@ -5,6 +5,7 @@ return {
       formater = {
         "shfmt", -- bash formater
         "stylua", -- lua formater
+        "prettier", -- formater
       },
       lsp = {
         "bashls", -- lsp
@@ -19,3 +20,5 @@ return {
   },
   dependencies = { { "williamboman/mason.nvim", config = true } },
 }
+-- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
+-- TODO: use api rewrite to install formater and linters
