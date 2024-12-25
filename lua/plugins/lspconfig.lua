@@ -20,6 +20,7 @@ return {
             "ruff", -- linter & formater
             "jq", -- json formater
             "taplo", -- toml lsp formater
+            -- TODO: add https://biomejs.dev/zh-cn/
           },
         })
       end,
