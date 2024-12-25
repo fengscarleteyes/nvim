@@ -2,29 +2,30 @@ return {
   "neovim/nvim-lspconfig",
   event = "VeryLazy",
   dependencies = {
-    { "williamboman/mason.nvim", config = true },
-    {
-      "williamboman/mason-lspconfig.nvim",
-      config = true,
-    },
-    {
-      "WhoIsSethDaniel/mason-tool-installer.nvim",
-      config = function()
-        require("mason-tool-installer").setup({
-          ensure_installed = {
-            "shfmt", -- formater
-            "bash-language-server", -- lsp
-            "stylua", -- formater
-            "lua_ls", -- lsp
-            "pyright", -- lsp
-            "ruff", -- linter & formater
-            "jq", -- json formater
-            "taplo", -- toml lsp formater
-            -- TODO: add https://biomejs.dev/zh-cn/
-          },
-        })
-      end,
-    },
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    -- { "williamboman/mason.nvim", config = true },
+    -- {
+    --   "williamboman/mason-lspconfig.nvim",
+    --   config = true,
+    -- },
+    -- {
+    --   "WhoIsSethDaniel/mason-tool-installer.nvim",
+    --   config = function()
+    --     require("mason-tool-installer").setup({
+    --       ensure_installed = {
+    --         "shfmt", -- formater
+    --         "bash-language-server", -- lsp
+    --         "stylua", -- formater
+    --         "lua_ls", -- lsp
+    --         "pyright", -- lsp
+    --         "ruff", -- linter & formater
+    --         "taplo", -- toml lsp formater
+    --         "biome", -- js ts jsx json css GraphQL linter formater
+    --       },
+    --     })
+    --   end,
+    -- },
   },
   init = function()
     --init setting
@@ -32,6 +33,7 @@ return {
   config = function()
     local lsp = require("lspconfig")
     lsp.taplo.setup({})
+    lsp.biome.setup({})
     lsp.bashls.setup({})
     lsp.pyright.setup({})
     lsp.ruff.setup({})
@@ -49,9 +51,6 @@ return {
           codeLens = {
             enable = true,
           },
-          -- completion = {
-          --   callSnippet = "Replace",
-          -- },
           doc = {
             privateName = { "^_" },
           },

@@ -7,7 +7,8 @@ return {
         lua = { "stylua" },
         python = { "ruff_format", "ruff_fix", "ruff_organize_imports" },
         sh = { "shfmt" },
-        json = { "jq" },
+        -- json = { "jq" },
+        json = { "biome", "biome-check", "biome-organize-imports" },
         toml = { "taplo" },
       },
       format_on_save = {
