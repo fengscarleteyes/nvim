@@ -83,3 +83,5 @@ cat ~/.ssh/id_ed25519.pub
 - tabnine: 15916435511@163.com Redeyes@19881218
 
 - TODO: use blink.nvim
+- TODO: add encoding utf8 gbk ...
+- TODO: use blink.nvim
