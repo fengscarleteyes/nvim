@@ -19,6 +19,7 @@ return {
             "pyright", -- lsp
             "ruff", -- linter & formater
             "jq", -- json formater
+            "taplo", -- toml lsp formater
           },
         })
       end,
@@ -29,6 +30,7 @@ return {
   end,
   config = function()
     local lsp = require("lspconfig")
+    lsp.taplo.setup({})
     lsp.bashls.setup({})
     lsp.pyright.setup({})
     lsp.ruff.setup({})

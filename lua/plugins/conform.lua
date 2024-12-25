@@ -8,6 +8,7 @@ return {
         python = { "ruff_format", "ruff_fix", "ruff_organize_imports" },
         sh = { "shfmt" },
         json = { "jq" },
+        toml = { "taplo" },
       },
       format_on_save = {
         -- These options will be passed to conform.format()

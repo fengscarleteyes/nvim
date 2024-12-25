@@ -60,14 +60,6 @@ return {
         { "location", padding = { left = 0, right = 1 } },
       },
       lualine_z = {
-        -- { require("codeium.virtual_text").status_string, color = { bg = "#009900" } },
-        -- {
-        --   function()
-        --     local s = require("codeium.virtual_text").status()
-        --     return s.state
-        --   end,
-        --   color = { bg = "#009900" },
-        -- },
         {
           require("lazy.status").updates,
           cond = require("lazy.status").has_updates,

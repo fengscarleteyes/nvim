@@ -70,16 +70,16 @@ Gitee SSH:
 ssh-keygen -t ed25519 -C "Gitee SSH Key"
 
 
-# -t key 类型
-# -C 注释
+# -t key 脌脿脨脥
+# -C 脳垄脢脥
 
 ls ~/.ssh/
 
 cat ~/.ssh/id_ed25519.pub
 
-# 复制生成后的 ssh key，通过仓库主页 「管理」->「部署公钥管理」->「添加部署公钥」 ，将生成的公钥添加到仓库中。
+# 赂麓脰脝脡煤鲁脡潞贸碌脛 ssh key拢卢脥篓鹿媒虏脰驴芒脰梅脪鲁 隆赂鹿脺脌铆隆鹿->隆赂虏驴脢冒鹿芦脭驴鹿脺脌铆隆鹿->隆赂脤铆录脫虏驴脢冒鹿芦脭驴隆鹿 拢卢陆芦脡煤鲁脡碌脛鹿芦脭驴脤铆录脫碌陆虏脰驴芒脰脨隆拢
 ```
 
 - tabnine: 15916435511@163.com Redeyes@19881218
 
-
+- TODO: use blink.nvim
