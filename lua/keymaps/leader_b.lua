@@ -1,7 +1,7 @@
 --stylua: ignore start
 return {
   { "<leader>b", group = "Buffer" },
-  { "<leader>ba", mode = { "n" }, "<cmd>ASToggle<CR>",                  desc = "Toggle auto-save"            },
+  { "<leader>bt", mode = { "n" }, "<cmd>ASToggle<CR>",                  desc = "Toggle auto-save"            },
   { "<leader>bs", mode = { "n" }, ":lua Snacks.scratch()<CR>",          desc = "Snacks scaratch"             },
   { "<leader>bS", mode = { "n" }, ":lua Snacks.scratch.select()<CR>",   desc = "Snacks scaratch seleect"     },
   { "<leader>bb", mode = { "n" }, ":lua Snacks.bufdelete()<CR>",        desc = "Snacks delete Buffer"        },

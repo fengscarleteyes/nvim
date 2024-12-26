@@ -9,6 +9,7 @@ return {
         markdown = { "prettier" },
         json = { "prettier" },
         yaml = { "prettier" },
+        html = { "prettier" },
         toml = { "taplo" },
         sh = { "shfmt" },
       },

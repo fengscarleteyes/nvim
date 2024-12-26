@@ -1,6 +1,5 @@
-vim.g.encoding = "UTF-8"
-vim.o.fileencoding = "UTF-8"
-vim.fileencodings = { "GB2312", "ucs-bom", "utf-8", "cp1252", "default", "latin9" }
+vim.g.encoding = "utf-8"
+vim.o.fileencoding = "utf-8"
 
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 
