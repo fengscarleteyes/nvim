@@ -6,15 +6,16 @@ return {
       formatters_by_ft = {
         lua = { "stylua" },
         python = { "ruff_format", "ruff_fix", "ruff_organize_imports" },
-        sh = { "shfmt" },
-        -- json = { "jq" },
-        json = { "biome", "biome-check", "biome-organize-imports" },
+        markdown = { "prettier" },
+        json = { "prettier" },
+        yaml = { "prettier" },
         toml = { "taplo" },
+        sh = { "shfmt" },
       },
       format_on_save = {
         -- These options will be passed to conform.format()
-        -- timeout_ms = 500,
-        timeout_ms = 1000,
+        timeout_ms = 500,
+        -- timeout_ms = 1000,
         lsp_format = "fallback",
       },
     })

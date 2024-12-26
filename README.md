@@ -11,7 +11,7 @@
 export NO_PROXY="localhost,127.0.0.1"
 export HTTPS_PROXY="http://192.168.43.1:7890"
 export HTTP_PROXY="http://192.168.43.1:7890"
- 
+
 ```
 
 ```shell
@@ -28,7 +28,7 @@ winget install BurntSushi.ripgrep.MSVC
 winget install sharkdp.fd
 winget install --id=7zip.7zip -e
 winget install zig.zig
-winget install --id=JesseDuffield.lazygit -e 
+winget install --id=JesseDuffield.lazygit -e
 
 sudo dnf copr enable atim/lazygit -y
 sudo dnf install lazygit
@@ -84,4 +84,4 @@ cat ~/.ssh/id_ed25519.pub
 
 - TODO: use blink.nvim
 - TODO: add encoding utf8 gbk ...
-- TODO: use blink.nvim
+- TODO: lspconfig usr ftplugin
