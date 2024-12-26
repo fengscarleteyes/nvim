@@ -2,25 +2,30 @@ return {
   "williamboman/mason-lspconfig.nvim",
   opts = {
     ensure_installed = {
+      "shfmt", -- bash formater
+      "stylua", -- lua formater
+      "prettier", -- formater
+      "bashls", -- lsp
       "lua_ls", -- lsp
       "pyright", -- lsp
-      "ruff", -- linter & formater & lsp
-      "taplo", -- toml lsp & formater
-      "biome", -- js ts jsx json css GraphQL linter & formater & lsp
+      "ruff", -- linter & formater
+      "taplo", -- toml lsp formater
+      "biome", -- js ts jsx json css GraphQL linter formater
     },
-    automatic_installation = true,
   },
+  -- automatic_installation = true,
+  config = function(_, opts)
+    local ms = require("mason-registry")
+    local function auto_install_tools(tool)
+      if not ms.is_installed(tool) and ms.has_package(tool) then
+        vim.cmd([[MasonInstall ]] .. tool)
+      end
+    end
+    for tool in ipairs(opts.ensure_installed) do
+      auto_install_tools(tool)
+    end
+  end,
   dependencies = { { "williamboman/mason.nvim", config = true } },
 }
 
--- [[
-TODO:
-local m = require("mason-registry")
-if not m.is_installed("stylua") and m.has_package("stylua") then
-	print(m.get_installed_package_names())
-	vim.cmd([[<CMD>MasonInstall stylua<CR>]])
-else
-	print(1)
-end
-]]
-
+-- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
