@@ -2,43 +2,21 @@ return {
   "neovim/nvim-lspconfig",
   event = "VeryLazy",
   dependencies = {
+    "saghen/blink.cmp",
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
-    -- { "williamboman/mason.nvim", config = true },
-    -- {
-    --   "williamboman/mason-lspconfig.nvim",
-    --   config = true,
-    -- },
-    -- {
-    --   "WhoIsSethDaniel/mason-tool-installer.nvim",
-    --   config = function()
-    --     require("mason-tool-installer").setup({
-    --       ensure_installed = {
-    --         "shfmt", -- formater
-    --         "bash-language-server", -- lsp
-    --         "stylua", -- formater
-    --         "lua_ls", -- lsp
-    --         "pyright", -- lsp
-    --         "ruff", -- linter & formater
-    --         "taplo", -- toml lsp formater
-    --         "biome", -- js ts jsx json css GraphQL linter formater
-    --       },
-    --     })
-    --   end,
-    -- },
   },
   init = function()
     --init setting
   end,
-  config = function()
-    local lsp = require("lspconfig")
-    lsp.taplo.setup({})
-    lsp.biome.setup({})
-    lsp.bashls.setup({})
-    lsp.pyright.setup({})
-    lsp.ruff.setup({})
-    lsp.lua_ls.setup({
-      settings = {
+  opts = {
+    servers = {
+      taplo = {},
+      biome = {},
+      bashls = {},
+      pyright = {},
+      ruff = {},
+      lua_ls = {
         Lua = {
           hint = {
             enable = true,
@@ -57,12 +35,8 @@ return {
           runtime = {
             version = "LuaJIT",
             path = {
-              -- "?.lua",
-              -- "?/init.lua",
-              -- vim.fn.expand("~/.luarocks/share/lua/5.3/?.lua"),
-              -- vim.fn.expand("~/.luarocks/share/lua/5.3/?/init.lua"),
-              -- "/usr/share/5.3/?.lua",
-              -- "/usr/share/lua/5.3/?/init.lua",
+              "?.lua",
+              "?/init.lua",
             },
           },
           diagnostics = {
@@ -73,18 +47,21 @@ return {
           },
           workspace = {
             library = {
-              -- "${3rd}/luv/library",
-              -- "${3rd}/busted/library",
               -- vim.env.VIMRUNTIME,
               vim.api.nvim_get_runtime_file("", true),
-              -- "/usr/share/lua/5.3",
-              -- vim.fn.expand("~/.luarocks/share/lua/5.3"),
             },
             checkThirdParty = false,
           },
           telemetry = { enable = false },
         },
       },
-    })
+    },
+  },
+  config = function(_, opts)
+    local lsp = require("lspconfig")
+    for server, config in pairs(opts.servers) do
+      config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+      lsp[server].setup(config)
+    end
   end,
 }

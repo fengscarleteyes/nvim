@@ -1,6 +1,7 @@
 return {
   "iguanacucumber/magazine.nvim",
   name = "nvim-cmp", -- Otherwise highlighting gets messed up
+  enabled = false,
   -- "hrsh7th/nvim-cmp",
   -- event = 'VeryLazy',
   dependencies = {
