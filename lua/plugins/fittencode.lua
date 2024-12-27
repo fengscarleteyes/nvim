@@ -15,7 +15,7 @@ return {
     inline_completion = { enable = false },
     source_completion = {
       enable = true,
-      engine = "cmp", -- "cmp" | "blink"
+      engine = "blink", -- "cmp" | "blink"
       trigger_chars = {},
     },
     completion_mode = "source",
