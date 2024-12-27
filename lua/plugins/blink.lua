@@ -6,27 +6,18 @@ return {
   ---@type blink.cmp.Config
   opts = {
     keymap = {
+      -- https://cmp.saghen.dev/configuration/keymap.html#presets
       preset = "super-tab",
-      -- ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-      -- ["<C-e>"] = { "hide", "fallback" },
-      -- ["<Tab>"] = {
-      --   function(cmp)
-      --     if cmp.snippet_active() then
-      --       return cmp.accept()
-      --     else
-      --       return cmp.select_and_accept()
-      --     end
-      --   end,
-      --   "snippet_forward",
-      --   "fallback",
-      -- },
-      -- ["<S-Tab>"] = { "snippet_backward", "fallback" },
-      -- ["<Up>"] = { "select_prev", "fallback" },
-      -- ["<Down>"] = { "select_next", "fallback" },
-      -- ["<C-p>"] = { "select_prev", "fallback" },
-      -- ["<C-n>"] = { "select_next", "fallback" },
-      -- ["<C-b>"] = { "scroll_documentation_up", "fallback" },
-      -- ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+      -- <C-space> | show_documentation / hide_documentation
+      -- <C-e>     | hide
+      -- <Tab>     | accept
+      -- <S-Tab>   | snippet_backward
+      -- <Up>      | select_prev"
+      -- <Down>    | select_next"
+      -- <C-p>     | select_prev"
+      -- <C-n>     | select_next"
+      -- <C-b>     | scroll_documentation_up"
+      -- <C-f>     | scroll_documentation_down"
       cmdline = {
         preset = "super-tab",
       },
@@ -38,6 +29,10 @@ return {
     sources = {
       default = { "lsp", "path", "snippets", "buffer" },
       providers = {
+        fittencode = {
+          name = "fittencode",
+          module = "fittencode.sources.blink",
+        },
         snippets = {
           opts = {
             search_paths = { vim.fn.stdpath("config") .. "/snippets" },

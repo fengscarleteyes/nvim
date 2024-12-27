@@ -1,14 +1,5 @@
 return {
   "luozhiya/fittencode.nvim",
-  -- enabled = false,
-  -- enabled = function()
-  --   if vim.fn.has("win32") == 1 then
-  --     return true
-  --   elseif vim.fn.has("unix") == 1 then
-  --     return false
-  --   end
-  -- end,
-  -- enabled = true,
   opts = {
     action = {
       document_code = { show_in_editor_context_menu = false },
