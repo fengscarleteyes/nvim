@@ -85,3 +85,5 @@ cat ~/.ssh/id_ed25519.pub
 - TODO: add encoding utf8 gbk ...
 - TODO: lspconfig usr ftplugin
 - TODO: move line
+- TODO: https://quarto.org/docs/get-started/
+- TODO: custom mode
