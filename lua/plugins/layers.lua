@@ -32,3 +32,5 @@ return {
   "debugloop/layers.nvim",
   opts = {}, -- see :help Layers.config
 }
+-- https://github.com/debugloop/layers.nvim
+-- https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-clue.md
