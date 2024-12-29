@@ -1,3 +1,4 @@
+-- https://github.com/debugloop/layers.nvim
 local function active_mode_01()
   local layers = require("layers")
   local mode_1 = layers.mode.new()
@@ -7,8 +8,9 @@ local function active_mode_01()
       {
         "j",
         function()
-          local cursor_line = vim.api.nvim_win_get_cursor(0)[1]
-          local last_line = vim.api.nvim_buf_line_count(0)
+          local current_win = vim.api.nvim_get_current_win()
+          local cursor_line = vim.api.nvim_win_get_cursor(current_win)[1]
+          local last_line = vim.api.nvim_buf_line_count(vim.api.nvim_get_current_buf())
           if cursor_line ~= last_line then
             vim.cmd([[move +1]])
           end
@@ -18,7 +20,11 @@ local function active_mode_01()
       {
         "k",
         function()
-          vim.cmd([[move -2]])
+          local current_win = vim.api.nvim_get_current_win()
+          local cursor_line = vim.api.nvim_win_get_cursor(current_win)[1]
+          if cursor_line ~= 1 then
+            vim.cmd([[move -2]])
+          end
         end,
         { desc = "k move line up" },
       },
@@ -46,9 +52,3 @@ return {
     },
   },
 }
--- https://github.com/debugloop/layers.nvim
--- ahttps://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-clue.md
--- asd
---   asdasd
---
---   fdsf
