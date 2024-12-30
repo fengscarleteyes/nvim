@@ -11,8 +11,8 @@ return {
         border = "single",
         draw = {
           columns = {
-            { "label", "label_description", gap = 1 },
-            { "kind_icon", "kind", gap = 1 },
+            { "label", "label_description", gap = 2 },
+            { "kind_icon", "kind", gap = 2 },
           },
         },
       },
