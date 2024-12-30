@@ -92,6 +92,7 @@ return {
         Event = "",
         Operator = "󰆕",
         TypeParameter = "",
+        FittenCode = "",
       },
     })
   end,
