@@ -1,4 +1,4 @@
---stylua: ignore start
+-- stylua: ignore start
 return {
   { "<C-CR>", mode = { "i" },           "<C-o>o",                                            desc = "new line"            },
   { "<C-h>",  mode = { "i" },           "<C-o>h",                                            desc = "Left"                },
