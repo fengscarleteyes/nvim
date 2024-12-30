@@ -1,6 +1,6 @@
 return {
   "saghen/blink.cmp",
-  dependencies = "rafamadriz/friendly-snippets",
+  dependencies = { { "luozhiya/fittencode.nvim" }, "rafamadriz/friendly-snippets" },
   version = "*",
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
@@ -8,16 +8,19 @@ return {
     completion = {
       ghost_text = { enabled = true },
       menu = {
-        border = "single",
+        min_width = 20,
+        max_height = 15,
+        border = "double",
         draw = {
+          treesitter = { "lsp" },
           columns = {
             { "label", "label_description", gap = 2 },
             { "kind_icon", "kind", gap = 2 },
           },
         },
       },
-      documentation = { window = { border = "single" }, auto_show = true, auto_show_delay_ms = 50 },
-      -- list = { selection = "auto_insert" },
+      documentation = { window = { border = "double" }, auto_show = true, auto_show_delay_ms = 50 },
+      list = { selection = "auto_insert" },
     },
     signature = { enabled = true },
     keymap = {
@@ -43,12 +46,8 @@ return {
       nerd_font_variant = "mono",
     },
     sources = {
-      default = { "lsp", "path", "snippets", "buffer", "fittencode" },
+      default = { "lsp", "path", "snippets", "buffer" },
       providers = {
-        fittencode = {
-          name = "fittencode",
-          module = "fittencode.sources.blink",
-        },
         snippets = {
           opts = {
             search_paths = { vim.fn.stdpath("config") .. "/snippets" },

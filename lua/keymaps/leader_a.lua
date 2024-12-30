@@ -1,0 +1,51 @@
+-- TODO: add keymap
+-- Fitten document_code  Document code
+-- Fitten edit_code  Edit code
+-- Fitten explain_code Explain code
+-- Fitten find_bugs  Find bugs
+-- Fitten generate_unit_test [test_framework] [language] Generate unit test
+-- Fitten implement_features Implement features
+-- Fitten optimize_code  Optimize code
+-- Fitten refactor_code  Refactor code
+-- Fitten identify_programming_language  Identify programming language
+-- Fitten analyze_data Analyze data
+-- Fitten translate_text Translate text
+-- Fitten translate_text_into_chinese  Translate text into Chinese
+-- Fitten translate_text_into_english  Translate text into English
+-- Fitten start_chat Start chat
+-- Fitten show_chat  Show chat window
+-- Fitten toggle_chat  Toggle chat window
+
+-- TODO: add keymap
+-- login(username, password) Login to Fitten Code AI
+-- logout()  Logout from Fitten Code AI
+-- register()  Register to Fitten Code AI
+-- set_log_level(level)  Set the log level
+-- get_current_status()  Get the StatusCodes of the InlineEngine and ActionEngine
+-- triggering_completion() Manually triggering completion
+-- has_suggestions() Check if there are suggestions
+-- dismiss_suggestions() Dismiss suggestions
+-- accept_all_suggestions()  Accept all suggestions
+-- accept_line() Accept line
+-- accept_word() Accept word
+-- accept_char() Accept character
+-- revoke_line() Revoke line
+-- revoke_word() Revoke word
+-- revoke_char() Revoke character
+-- document_code(ActionOptions)  Document code
+-- edit_code(ActionOptions)  Edit code
+-- explain_code(ActionOptions) Explain code
+-- find_bugs(ActionOptions)  Find bugs
+-- generate_unit_test(GenerateUnitTestOptions) Generate unit test
+-- implement_features(ImplementFeaturesOptions)  Implement features
+-- optimize_code(ActionOptions)  Optimize code
+-- refactor_code(ActionOptions)  Refactor code
+-- identify_programming_language(ActionOptions)  Identify programming language
+-- analyze_data(ActionOptions) Analyze data
+-- translate_text(TranslateTextOptions)  Translate text
+-- translate_text_into_chinese(TranslateTextOptions) Translate text into Chinese
+-- translate_text_into_english(TranslateTextOptions) Translate text into English
+-- start_chat(ActionOptions) Start chat
+-- enable_completions(EnableCompletionsOptions)  Enable completions
+-- show_chat() Show chat window
+-- toggle_chat() Toggle chat window

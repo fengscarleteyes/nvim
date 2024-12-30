@@ -14,7 +14,7 @@ end
 
 return {
   "codota/tabnine-nvim",
-  -- enabled = false,
+  enabled = false,
   build = tabnine_build_path(),
   opts = {
     max_lines = 1000,

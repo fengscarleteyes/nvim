@@ -1,25 +1,15 @@
 return {
   "luozhiya/fittencode.nvim",
   opts = {
-    action = {
-      document_code = { show_in_editor_context_menu = false },
-      edit_code = { show_in_editor_context_menu = false },
-      explain_code = { show_in_editor_context_menu = false },
-      find_bugs = { show_in_editor_context_menu = false },
-      generate_unit_test = { show_in_editor_context_menu = false },
-      start_chat = { show_in_editor_context_menu = false },
-      identify_programming_language = {
-        identify_buffer = true,
-      },
+    actions = {},
+    use_default_keymaps = false,
+    inline_completion = { enable = true },
+    source_completion = { enable = false },
+    completion_mode = "inline",
+    log = {
+      level = vim.log.levels.WARN,
+      max_size = 10,
     },
-    inline_completion = { enable = false },
-    source_completion = {
-      enable = true,
-      engine = "blink", -- "cmp" | "blink"
-      trigger_chars = {},
-    },
-    completion_mode = "source",
-    -- completion_mode = "inline",
   },
   config = function(_, opts)
     require("fittencode").setup(opts)
