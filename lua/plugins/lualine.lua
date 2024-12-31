@@ -7,10 +7,10 @@ return {
     options = {
       theme = "auto",
       -- icons_enabled = false,
-      -- component_separators = { left = '', right = ''},
-      -- section_separators = { left = '', right = ''},
-      component_separators = { left = "", right = "" },
-      section_separators = { left = "", right = "" },
+      component_separators = { left = "", right = "" },
+      section_separators = { left = "", right = "" },
+      -- component_separators = { left = "", right = "" },
+      -- section_separators = { left = "", right = "" },
       globalstatus = true,
       disabled_filetypes = { statusline = { "dashboard", "alpha" } },
     },
@@ -27,11 +27,6 @@ return {
             hint = " ",
           },
         },
-        -- {
-        --   function()
-        --     return '|||||'
-        --   end,
-        -- },
         { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
         {
           "filename",
@@ -60,6 +55,13 @@ return {
         { "location", padding = { left = 0, right = 1 } },
       },
       lualine_z = {
+        {
+          color = { bg = "#0055FF", fg = "#FFFFFF" },
+          function()
+            local emoji = { "🚫", "⏸️ ", "⌛️", "⚠️ ", "0️⃣ ", "✅" }
+            return "🅕  " .. emoji[require("fittencode").get_current_status()]
+          end,
+        },
         {
           require("lazy.status").updates,
           cond = require("lazy.status").has_updates,
