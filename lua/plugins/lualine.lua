@@ -58,8 +58,8 @@ return {
         {
           color = { bg = "#0055FF", fg = "#FFFFFF" },
           function()
-            local emoji = { "🚫", "⏸️ ", "⌛️", "⚠️ ", "0️⃣ ", "✅" }
-            return "🅕  " .. emoji[require("fittencode").get_current_status()]
+            local emoji = { " ", "󰏤 ", " ", "⚠️ ", " ", " " }
+            return "󰚩  " .. emoji[require("fittencode").get_current_status()]
           end,
         },
         {
