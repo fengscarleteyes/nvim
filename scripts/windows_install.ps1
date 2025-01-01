@@ -25,8 +25,8 @@ winget install --id Microsoft.Powershell --source winget --proxy $env:MyProxy
 
 # install NeoVim with WinGet, if not already present on system
 if (!$(Get-Command nvim -ErrorAction SilentlyContinue)) {
-    winget install Neovim.Neovim --proxy $env:MyProxy
-    # winget install Neovim.Neovim.Nightly --proxy $env:MyProxy
+    # winget install Neovim.Neovim --proxy $env:MyProxy
+    winget install Neovim.Neovim.Nightly --proxy $env:MyProxy
 }
 
 # install ripgrep
