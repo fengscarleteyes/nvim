@@ -1,6 +1,8 @@
-$env.https_proxy = "http://192.168.10.118:7890"
-$env.http_proxy = "http://192.168.10.118:7890"
-$env.no_proxy = "localhost,127.0.0.1"
+let proxy_str = "http://192.168.10.118:7890"
+
+$env.https_proxy = $proxy_str
+$env.http_proxy  = $proxy_str
+$env.no_proxy    = $proxy_str
 
 let u = uname
 

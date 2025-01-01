@@ -58,7 +58,7 @@ return {
         {
           color = { bg = "#0055FF", fg = "#FFFFFF" },
           function()
-            local emoji = { " ", "󰏤 ", " ", "⚠️ ", " ", " " }
+            local emoji = { "󰓛 ", "󰏤 ", " ", "! ", "0 ", " " }
             return "󰚩  " .. emoji[require("fittencode").get_current_status()]
           end,
         },
