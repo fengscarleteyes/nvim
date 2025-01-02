@@ -12,6 +12,5 @@ return {
   { "<leader>fg", mode = { "n" }, function() require("telescope.builtin").live_grep()      end, desc = "live grep"          },
   { "<leader>fh", mode = { "n" }, function() require("telescope.builtin").help_tags()      end, desc = "help tags"          },
   { "<leader>ft", mode = { "n" }, "<Cmd>TodoTelescope<CR>",                                     desc = "TodoTelescope"      },
-  { "<leader>fT", mode = { "n" }, "<cmd>Trouble diagnostics toggle<cr>",                        desc = "Trouble diagnostis" },
   }
 -- stylua: ignore end
