@@ -46,8 +46,12 @@ return {
       nerd_font_variant = "mono",
     },
     sources = {
-      default = { "lsp", "path", "snippets", "buffer" },
+      default = { "lsp", "path", "snippets", "buffer", "codecompanion" },
       providers = {
+        codecompanion = {
+          name = "CodeCompanion",
+          module = "codecompanion.providers.completion.blink",
+        },
         snippets = {
           opts = {
             search_paths = { vim.fn.stdpath("config") .. "/snippets" },
