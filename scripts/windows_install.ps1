@@ -23,6 +23,9 @@ winget install --id Microsoft.Powershell --source winget --proxy $env:MyProxy
 #     $ResetState
 # )
 
+# install curl
+winget install cURL.cURL --proxy $env:MyProxy
+
 # install NeoVim with WinGet, if not already present on system
 if (!$(Get-Command nvim -ErrorAction SilentlyContinue)) {
     # winget install Neovim.Neovim --proxy $env:MyProxy
@@ -62,16 +65,6 @@ if (!$(Get-Command npm -ErrorAction SilentlyContinue)) {
 }
 
 npm install -g tree-sitter-cli
-
-# install lua
-if (!$(Get-Command lua -ErrorAction SilentlyContinue)) {
-  winget install -e --id DEVCOM.Lua --proxy $env:MyProxy
-}
-
-# install luarocks
-if (!$(Get-Command luarocks -ErrorAction SilentlyContinue)) {
-  winget install -e --id DEVCOM.LuaJIT --proxy $env:MyProxy
-}
 
 # # clone my Dotfiles repo
 # $dotFilesRoot = Join-Path $HOME "dotfiles"
