@@ -19,9 +19,7 @@ return {
     -- Function to initialize Ollama
     command = function(options)
       local body = { model = options.model, stream = true }
-      vim.notify([[curl http://%s:%s/api/chat POST -H "Content-Type: application/json" -d $body]])
       return "curl --silent --no-buffer POST http://" .. options.host .. ":" .. options.port .. "/api/chat -d $body"
-      -- return "curl --silent --no-buffer -X POST http://" .. options.host .. ":" .. options.port .. "/api/chat -d $body"
     end,
     -- The command for the Ollama service. You can use placeholders $prompt, $model and $body (shellescaped).
     -- This can also be a command string.
