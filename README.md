@@ -8,7 +8,7 @@
 
 - tabnine: 163.com R@
 
-```shell
+```bash
 # Fedora
 
 # install neovim nightly
