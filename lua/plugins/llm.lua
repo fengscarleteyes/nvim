@@ -1,5 +1,3 @@
--- https://github.com/Kurama622/llm.nvim/issues/12
-
 local function local_llm_streaming_handler(chunk, line, assistant_output, bufnr, winid, F)
   if not chunk then
     return assistant_output

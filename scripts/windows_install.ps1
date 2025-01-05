@@ -1,3 +1,4 @@
+# TODO: windows install script
 # https://dev.to/kaiwalter/get-neovim-plugins-with-build-processes-working-on-windows-i39
 
 # # 设置代理地址和端口
