@@ -16,6 +16,7 @@ return {
       bashls = {},
       pyright = {},
       ruff = {},
+      nushell = {},
       lua_ls = {
         Lua = {
           hint = {
