@@ -1,6 +1,7 @@
 {
   "Comment.nvim": { "branch": "master", "commit": "e30b7f2008e52442154b66f7c519bfd2f1e32acb" },
   "FTerm.nvim": { "branch": "master", "commit": "d1320892cc2ebab472935242d9d992a2c9570180" },
+  "LazyDo": { "branch": "main", "commit": "3746ca5a8ab06789fc40710180fbc6ea268dd1e6" },
   "SmoothCursor.nvim": { "branch": "main", "commit": "12518b284e1e3f7c6c703b346815968e1620bee2" },
   "auto-save.nvim": { "branch": "main", "commit": "5fbcaac0a2698c87a9a1bd2083cb6949505cca12" },
   "barbar.nvim": { "branch": "master", "commit": "40c176c9af7e9aefe3af9ec9d985a3edb50d66a3" },

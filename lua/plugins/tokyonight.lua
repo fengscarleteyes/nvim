@@ -5,6 +5,6 @@ return {
   opts = { transparent = vim.g.transparent_enabled },
   config = function(_, opts)
     require("tokyonight").setup(opts)
-    -- vim.cmd("colorscheme tokyonight-night")
+    vim.cmd("colorscheme tokyonight-night")
   end,
 }
