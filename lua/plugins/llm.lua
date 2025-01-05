@@ -77,9 +77,6 @@ return {
             handler = tools.flexi_handler,
             prompt = "Translate the following text to Chinese, please only return the translation",
             opts = {
-              -- args = [[curl.exe --silent --no-buffer http://localhost:11434/api/chat POST -H "Content-Type: application/json" -d '{ "model": "qwen2.5-coder:3b", "messages": [ { "role": "user", "content": "why is the sky blue?" } ] }']],
-              -- args = [=[return string.format([[curl %s POST -H "Content-Type: application/json" -d '%s']], url, vim.fn.json_encode(body):gsub ("\\", "\\\\"):gsub ("\"", "\\\""))]=],
-              -- args = [=[return string.format([[curl %s -N -X POST -H "Content-Type: application/json" -H "Authorization: Bearer %s" -d '%s']], url, LLM_KEY, vim.fn.json_encode(body))]=],
               exit_on_move = true,
               enter_flexible_window = false,
             },
@@ -114,7 +111,7 @@ return {
     keys = {
       { "<leader>ac", mode = "n", "<cmd>LLMSessionToggle<cr>" },
       { "<leader>ae", mode = "v", "<cmd>LLMSelectedTextHandler 请解释下面这段代码<cr>" },
-      { "<leader>ts", mode = "x", "<cmd>LLMSelectedTextHandler 英译汉<cr>" },
+      { "<leader>at", mode = "x", "<cmd>LLMSelectedTextHandler 英译汉<cr>" },
     },
   },
 }
