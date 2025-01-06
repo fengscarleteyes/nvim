@@ -26,6 +26,9 @@ return {
         auto_show_delay_ms = 50,
       },
       list = { selection = "auto_insert" },
+      accept = {
+        auto_brackets = { enabled = true },
+      },
     },
     signature = { enabled = true },
     keymap = {
@@ -50,9 +53,7 @@ return {
       use_nvim_cmp_as_default = true,
       nerd_font_variant = "mono",
     },
-    accept = {
-      auto_brackets = { enabled = true },
-    },
+
     sources = {
       default = { "lazydev", "lsp", "path", "snippets", "buffer", "markdown" },
       providers = {
