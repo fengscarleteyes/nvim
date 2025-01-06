@@ -46,7 +46,7 @@ return {
   keys = {
     {
       "<A-m>",
-      active_mode_01,
+      active_mode_01, -- test
       mode = "n",
       desc = "mode 01",
     },

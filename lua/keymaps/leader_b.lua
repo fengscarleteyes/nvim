@@ -1,9 +1,56 @@
+local function active_buf_mode()
+  local layers = require("layers")
+  local custom_buf_mode = layers.mode.new()
+  custom_buf_mode:auto_show_help()
+  custom_buf_mode:keymaps({
+    n = {
+      {
+        "j",
+        function()
+          vim.cmd("<Cmd>CybuNext<CR>")
+        end,
+        { desc = "j buf next" },
+      },
+      {
+        "k",
+        function()
+          vim.cmd("<Cmd>CybuPrev<CR>")
+        end,
+        { desc = "k buf prev" },
+      },
+      {
+        "J",
+        function()
+          vim.cmd("<Cmd>CybuLastusedNext<CR>")
+        end,
+        { desc = "J buf last used next" },
+      },
+      {
+        "K",
+        function()
+          vim.cmd("<Cmd>CybuLastusedPrev<CR>")
+        end,
+        { desc = "K buf last used prev" },
+      },
+
+      {
+        "<esc>",
+        function()
+          custom_buf_mode:deactivate()
+        end,
+        { desc = "exit" },
+      },
+    },
+  })
+  custom_buf_mode:activate()
+end
+
 --stylua: ignore start
 return {
   { "<leader>b", group = "Buffer" },
-  { "<leader>bt", mode = { "n" }, "<cmd>ASToggle<CR>",                  desc = "Toggle auto-save"            },
+  { "<leader>bt", mode = { "n" }, "<Cmd>ASToggle<CR>",                  desc = "Toggle auto-save"            },
   { "<leader>bs", mode = { "n" }, ":lua Snacks.scratch()<CR>",          desc = "Snacks scaratch"             },
-  { "<leader>bS", mode = { "n" }, ":lua Snacks.scratch.select()<CR>",   desc = "Snacks scaratch seleect"     },
+  { "<leader>bS", mode = { "n" }, ":lua Snacks.scratch.select()<CR>",   desc = "Snacks scaratch select"      },
   { "<leader>bb", mode = { "n" }, ":lua Snacks.bufdelete()<CR>",        desc = "Snacks delete Buffer"        },
   { "<leader>ba", mode = { "n" }, ":lua Snacks.bufdelete.all()<CR>",    desc = "Snacks delete Buffer All"    },
   { "<leader>bd", mode = { "n" }, ":lua Snacks.bufdelete.delete()<CR>", desc = "Snacks delete Buffer delete" },
@@ -18,6 +65,7 @@ return {
   { "<leader>b8", mode = { "n" }, "<Cmd>BufferGoto 8<CR>",              desc = "BarBar BufferGoto 8", noremap = true, silent = true },
   { "<leader>b9", mode = { "n" }, "<Cmd>BufferGoto 9<CR>",              desc = "BarBar BufferGoto 9", noremap = true, silent = true },
   { "<leader>b0", mode = { "n" }, "<Cmd>BufferLast<CR>",                desc = "BarBar Buffer Last",  noremap = true, silent = true },
+  { "<leader>bm", mode = { "n" }, active_buf_mode,                desc = "...",  noremap = true, silent = true },
   -- { "key", mode = 'n', '<A-,>',     '<Cmd>BufferPrevious<CR>',            desc = "BufferPrevious",            noremap = true, silend = true },
   -- { "key", mode = 'n', '<A-.>',     '<Cmd>BufferNext<CR>',                desc = "BufferNext",                noremap = true, silend = true },
   -- { "key", mode = 'n', '<A-<>',     '<Cmd>BufferMovePrevious<CR>',        desc = "BufferMovePrevious",        noremap = true, silend = true },
