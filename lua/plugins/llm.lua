@@ -44,8 +44,7 @@ return {
     dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
     cmd = { "LLMSesionToggle", "LLMSelectedTextHandler", "LLMAppHandler" },
     init = function()
-      local status, _ = pcall(io.popen, "ollama serve")
-      vim.notify(string(status))
+      pcall(io.popen, "ollama serve")
     end,
     config = function()
       local tools = require("llm.common.tools")
@@ -63,8 +62,8 @@ return {
         top_p = 0.7,
         prompt = "You are a helpful chinese assistant.",
         prefix = {
-          user = { text = "😃 ", hl = "Title" },
-          assistant = { text = "  ", hl = "Added" },
+          user = { text = "💭 ", hl = "Title" },
+          assistant = { text = "🗨️ ", hl = "Added" },
         },
         history_path = vim.fn.stdpath("config") .. "/llm-history",
         save_session = true,

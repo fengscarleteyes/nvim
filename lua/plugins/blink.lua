@@ -19,7 +19,12 @@ return {
           },
         },
       },
-      documentation = { window = { border = "double" }, auto_show = true, auto_show_delay_ms = 50 },
+      documentation = {
+        window = { border = "double" },
+        -- auto show documentation
+        auto_show = false,
+        auto_show_delay_ms = 50,
+      },
       list = { selection = "auto_insert" },
     },
     signature = { enabled = true },

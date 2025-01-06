@@ -5,8 +5,7 @@
 $env:MyProxy = "http://192.168.10.118:7890"
 $env:HTTP_PROXY = $env:MyProxy
 $env:HTTPS_PROXY = $env:MyProxy
-
-# $env:NO_PROXY="localhost,127.0.0.1"
+$env:NO_PROXY="localhost,127.0.0.1"
 
 # # 显示设置的环境变量
 # Write-Host "HTTP_PROXY: $($env:HTTP_PROXY)"
