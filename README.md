@@ -78,10 +78,6 @@ cat ~/.ssh/id_ed25519.pub
 # ¸´ÖÆÉú³ÉºóµÄ ssh key£¬Í¨¹ý²Ö¿âÖ÷Ò³ ¡¸¹ÜÀí¡¹->¡¸²¿Êð¹«Ô¿¹ÜÀí¡¹->¡¸Ìí¼Ó²¿Êð¹«Ô¿¡¹ £¬½«Éú³ÉµÄ¹«Ô¿Ìí¼Óµ½²Ö¿âÖÐ¡£
 ```
 
-- tabnine: 15916435511@163.com Redeyes@19881218
+- tabnine: 163.com R@
 
-- TODO: add encoding utf8 gbk ...
-- TODO: lspconfig usr ftplugin
-- TODO: move line
 - TODO: https://quarto.org/docs/get-started/
-- TODO: custom mode

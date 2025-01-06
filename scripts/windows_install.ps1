@@ -7,21 +7,9 @@ $env:HTTP_PROXY = $env:MyProxy
 $env:HTTPS_PROXY = $env:MyProxy
 $env:NO_PROXY="localhost,127.0.0.1"
 
-# # 显示设置的环境变量
-# Write-Host "HTTP_PROXY: $($env:HTTP_PROXY)"
-# Write-Host "HTTPS_PROXY: $($env:HTTPS_PROXY)"
-# Write-Host "NO_PROXY: $($env:NO_PROXY)"
-
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 winget install --id Microsoft.Powershell --source winget --proxy $env:MyProxy
-
-# [CmdletBinding()]
-# param (
-#     [Parameter()]
-#     [switch]
-#     $ResetState
-# )
 
 # install curl
 winget install cURL.cURL --proxy $env:MyProxy
@@ -52,12 +40,12 @@ if (!$(Get-Command zig -ErrorAction SilentlyContinue)) {
   winget install zig.zig --proxy $env:MyProxy
 }
 
-$7zipPath = "$env:ProgramFiles\7-Zip\7z.exe"
+# $7zipPath = "$env:ProgramFiles\7-Zip\7z.exe"
 # install 7z
 if (!$(Get-Command 7z -ErrorAction SilentlyContinue)) {
   winget install --id=7zip.7zip -e --proxy $env:MyProxy
 }
-Write-Output $7zipPath
+# Write-Output $7zipPath
 
 # install npm
 if (!$(Get-Command npm -ErrorAction SilentlyContinue)) {
