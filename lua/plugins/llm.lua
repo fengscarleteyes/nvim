@@ -1,3 +1,18 @@
+local function get_ollama_model_name()
+  local function split(str, pattern)
+    local result = {}
+    string.gsub(str, pattern, function(w)
+      table.insert(result, w)
+    end)
+    return result
+  end
+  local get_ollama_model_info = io.popen("ollama list"):read("*a")
+  local model_name = split(split(get_ollama_model_info, "[^\n]+")[2], "[^ ]+")[1]
+  return model_name
+end
+
+local ollama_model_name = get_ollama_model_name()
+
 local function local_llm_streaming_handler(chunk, line, assistant_output, bufnr, winid, F)
   if not chunk then
     return assistant_output
@@ -33,7 +48,9 @@ return {
       require("llm").setup({
         -- [[ local llm ]]
         url = "http://localhost:11434/api/chat",
-        model = "qwen2.5-coder:3b",
+        model = ollama_model_name,
+        -- model = "qwen2.5-coder:0.5b",
+        -- model = "qwen2.5-coder:3b",
         fetch_key = function()
           return "NONE"
         end,
