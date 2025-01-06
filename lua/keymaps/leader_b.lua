@@ -7,28 +7,28 @@ local function active_buf_mode()
       {
         "j",
         function()
-          vim.cmd("<Cmd>CybuNext<CR>")
+          vim.cmd("CybuNext")
         end,
         { desc = "j buf next" },
       },
       {
         "k",
         function()
-          vim.cmd("<Cmd>CybuPrev<CR>")
+          vim.cmd("CybuPrev")
         end,
         { desc = "k buf prev" },
       },
       {
         "J",
         function()
-          vim.cmd("<Cmd>CybuLastusedNext<CR>")
+          vim.cmd("CybuLastusedNext")
         end,
         { desc = "J buf last used next" },
       },
       {
         "K",
         function()
-          vim.cmd("<Cmd>CybuLastusedPrev<CR>")
+          vim.cmd("CybuLastusedPrev")
         end,
         { desc = "K buf last used prev" },
       },
