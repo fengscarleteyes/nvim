@@ -43,6 +43,10 @@ return {
     "Kurama622/llm.nvim",
     dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
     cmd = { "LLMSesionToggle", "LLMSelectedTextHandler", "LLMAppHandler" },
+    init = function()
+      local status, _ = pcall(io.popen, "ollama serve")
+      vim.notify(string(status))
+    end,
     config = function()
       local tools = require("llm.common.tools")
       require("llm").setup({
