@@ -54,27 +54,3 @@ if (!$(Get-Command npm -ErrorAction SilentlyContinue)) {
 
 npm install -g tree-sitter-cli
 
-# # clone my Dotfiles repo
-# $dotFilesRoot = Join-Path $HOME "dotfiles"
-
-# if (!(Test-Path $dotFilesRoot -PathType Container)) {
-#     git clone git@github.com:KaiWalter/dotfiles.git $dotFilesRoot
-# }
-
-# # link NeoVim configuration
-# $localConfiguration = Join-Path $env:LOCALAPPDATA "nvim"
-# $dotfilesConfiguration = Join-Path $dotFilesRoot ".config" "nvim"
-
-# if (!(Test-Path $localConfiguration -PathType Container)) { 
-#     Start-Process -FilePath "pwsh" -ArgumentList "-c New-Item -Path $localConfiguration -ItemType SymbolicLink -Value $dotfilesConfiguration".Split(" ") -Verb runas
-# }
-
-# # reset local state if required
-# $localState = Join-Path $env:LOCALAPPDATA "nvim-data"
-
-# if($ResetState) {
-#     if(Test-Path $localState -PathType Container) {
-#         Remove-Item $localState -Recurse -Force
-#         New-Item $localState -ItemType Directory
-#     }
-# }
