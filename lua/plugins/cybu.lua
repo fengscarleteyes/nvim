@@ -1,4 +1,4 @@
--- TODO: config keymaps
+-- TODO: config keymaps use switch mode
 
 return {
   "ghillb/cybu.nvim",
