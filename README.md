@@ -3,6 +3,7 @@
 ## TODO:
 
 - https://quarto.org/docs/get-started/
+- add python .venv selecter
 
 ## Other
 
