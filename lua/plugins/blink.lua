@@ -6,7 +6,7 @@ return {
   ---@type blink.cmp.Config
   opts = {
     completion = {
-      ghost_text = { enabled = true },
+      ghost_text = { enabled = false },
       menu = {
         min_width = 20,
         max_height = 15,
@@ -51,8 +51,14 @@ return {
       nerd_font_variant = "mono",
     },
     sources = {
-      default = { "lsp", "path", "snippets", "buffer", "markdown" },
+      default = { "lazydev", "lsp", "path", "snippets", "buffer", "markdown" },
       providers = {
+        lazydev = {
+          name = "LazyDev",
+          module = "lazydev.integrations.blink",
+          -- make lazydev completions top priority (see `:h blink.cmp`)
+          score_offset = 100,
+        },
         markdown = {
           name = "RenderMarkdown",
           module = "render-markdown.integ.blink",
