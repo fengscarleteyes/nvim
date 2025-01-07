@@ -8,9 +8,10 @@ return {
     completion = {
       ghost_text = { enabled = false },
       menu = {
-        min_width = 20,
-        max_height = 15,
-        border = "double",
+        min_width = 15,
+        max_height = 10,
+        scrollbar = false,
+        border = "single",
         draw = {
           treesitter = { "lsp" },
           columns = {
@@ -20,9 +21,8 @@ return {
         },
       },
       documentation = {
-        window = { border = "double" },
-        -- auto show documentation
-        auto_show = false,
+        window = { scrollbar = false, border = "single" },
+        auto_show = true,
         auto_show_delay_ms = 50,
       },
       list = { selection = "auto_insert" },
@@ -50,6 +50,9 @@ return {
       use_nvim_cmp_as_default = true,
       nerd_font_variant = "mono",
     },
+    accept = {
+      auto_brackets = { enabled = true },
+    },
     sources = {
       default = { "lazydev", "lsp", "path", "snippets", "buffer", "markdown" },
       providers = {
@@ -74,3 +77,4 @@ return {
   },
   opts_extend = { "sources.default" },
 }
+-- TODO: config keymaps
