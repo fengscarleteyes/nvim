@@ -54,3 +54,9 @@ if (!$(Get-Command npm -ErrorAction SilentlyContinue)) {
 
 npm install -g tree-sitter-cli
 
+# install yazi
+if (!$(Get-Command npm -ErrorAction SilentlyContinue)) {
+  winget install -e --id sxyazi.yazi --proxy $env:MyProxy
+  winget install Gyan.FFmpeg 7zip.7zip jqlang.jq sharkdp.fd BurntSushi.ripgrep.MSVC junegunn.fzf ajeetdsouza.zoxide ImageMagick.ImageMagick --proxy $env:MyProxy
+}
+

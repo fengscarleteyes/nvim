@@ -22,9 +22,12 @@ return {
     notifier = { timeout = 3000 },
     quickfile = { exclude = { "latex" } },
     words = { notify_jump = true },
-    scroll = { enabled = true },
-    scope = { enabled = true },
+    scroll = { enabled = false },
+    scope = { enabled = false },
     statuscolumn = {
+      enable = false,
+      left = { "mark", "sign" }, -- priority of signs on the left (high to low)
+      right = { "fold", "git" }, -- priority of signs on the right (high to low)
       folds = {
         open = true,
         git_hl = true,
@@ -36,8 +39,7 @@ return {
     vim.api.nvim_create_autocmd("User", {
       pattern = "VeryLazy",
       callback = function()
-        Snacks.indent.enable()
-        Snacks.scroll.enable()
+        -- Snacks.indent.enable()
 
         local wk = require("which-key")
         wk.add({ { "<leader>u", group = "Snacks | toggles" } })
