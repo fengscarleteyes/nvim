@@ -25,7 +25,16 @@ return {
         auto_show = true,
         auto_show_delay_ms = 50,
       },
-      list = { selection = "auto_insert" },
+      list = {
+        selection = {
+          preselect = function(ctx)
+            return ctx.mode ~= "cmdline"
+          end,
+          auto_insert = function(ctx)
+            return ctx.mode ~= "cmdline"
+          end,
+        },
+      },
       accept = {
         auto_brackets = { enabled = true },
       },
