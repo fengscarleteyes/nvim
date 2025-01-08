@@ -36,7 +36,7 @@ return {
         },
       },
       accept = {
-        auto_brackets = { enabled = true },
+        auto_brackets = { enabled = true, default_brackets = { "(", ")" } },
       },
     },
     signature = { enabled = true, window = { border = "single" } },
