@@ -26,14 +26,7 @@ return {
         auto_show_delay_ms = 50,
       },
       list = {
-        selection = {
-          preselect = function(ctx)
-            return ctx.mode ~= "cmdline"
-          end,
-          auto_insert = function(ctx)
-            return ctx.mode ~= "cmdline"
-          end,
-        },
+        selection = { preselect = true, auto_insert = true },
       },
       accept = {
         auto_brackets = { enabled = true, default_brackets = { "(", ")" } },
@@ -42,20 +35,47 @@ return {
     signature = { enabled = true, window = { border = "single" } },
     keymap = {
       -- https://cmp.saghen.dev/configuration/keymap.html#presets
-      preset = "super-tab",
-      -- <C-space> | show_documentation / hide_documentation
-      -- <C-e>     | hide
-      -- <Tab>     | accept
-      -- <S-Tab>   | snippet_backward
-      -- <Up>      | select_prev"
-      -- <Down>    | select_next"
-      -- <C-p>     | select_prev"
-      -- <C-n>     | select_next"
-      -- <C-b>     | scroll_documentation_up"
-      -- <C-f>     | scroll_documentation_down"
+      preset = "none", -- disable default preset
+      ["<C-d>"] = { "show", "show_documentation", "hide_documentation" },
+      ["<C-e>"] = { "hide", "fallback" },
+      ["<Tab>"] = {
+        function(cmp)
+          if cmp.snippet_active() then
+            return cmp.accept()
+          else
+            return cmp.select_and_accept()
+          end
+        end,
+        "snippet_forward",
+        "fallback",
+      },
+      ["<S-Tab>"] = { "snippet_backward", "fallback" },
+      ["<C-p>"] = { "select_prev", "fallback" },
+      ["<C-n>"] = { "select_next", "fallback" },
+      ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+      ["<C-f>"] = { "scroll_documentation_down", "fallback" },
       -- cmdline = {}, -- default Disable cmdline completions
       cmdline = {
-        preset = "super-tab",
+        -- preset = "super-tab",
+        preset = "none",
+        ["<C-d>"] = { "show", "show_documentation", "hide_documentation" },
+        ["<C-e>"] = { "hide", "fallback" },
+        ["<Tab>"] = {
+          function(cmp)
+            if cmp.snippet_active() then
+              return cmp.accept()
+            else
+              return cmp.select_and_accept()
+            end
+          end,
+          "snippet_forward",
+          "fallback",
+        },
+        ["<S-Tab>"] = { "snippet_backward", "fallback" },
+        ["<C-p>"] = { "select_prev", "fallback" },
+        ["<C-n>"] = { "select_next", "fallback" },
+        ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+        ["<C-f>"] = { "scroll_documentation_down", "fallback" },
       },
     },
     appearance = {
