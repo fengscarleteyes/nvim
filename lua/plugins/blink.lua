@@ -30,7 +30,7 @@ return {
         auto_brackets = { enabled = true },
       },
     },
-    signature = { enabled = true },
+    signature = { enabled = true, window = { border = "single" } },
     keymap = {
       -- https://cmp.saghen.dev/configuration/keymap.html#presets
       preset = "super-tab",
