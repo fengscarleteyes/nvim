@@ -1,6 +1,6 @@
 return {
   "gen740/SmoothCursor.nvim",
-  -- enabled = false,
+  enabled = false,
   opts = {
     type = "default",
     disabled_filetypes = { "lazy" },
