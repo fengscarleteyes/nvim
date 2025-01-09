@@ -14,10 +14,16 @@ return {
         enabled = true,
       },
       signature = {
-        enabled = false,
+        enabled = true,
+        auto_open = {
+          enabled = false,
+          trigger = false,
+          luasnip = false,
+          throttle = 50,
+        },
       },
       message = {
-        enabled = false,
+        enabled = true,
       },
       override = {
         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,

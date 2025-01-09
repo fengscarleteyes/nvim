@@ -6,5 +6,5 @@ return {
   },
   ---@module 'render-markdown'
   ---@type render.md.UserConfig
-  opts = {},
+  opts = { latex = { enabled = false } },
 }
