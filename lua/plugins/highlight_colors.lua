@@ -1,11 +1,14 @@
--- https://github.com/brenoprata10/nvim-highlight-colors
--- TODO: add keys to toggle highlight
 return {
   "brenoprata10/nvim-highlight-colors",
+  -- enabled = false,
   opts = {
-    render = "virtual",
+    -- render = "virtual",
     virtual_symbol = "■",
     enable_tailwind = true,
   },
 }
--- #00FF00
+
+-- :HighlightColors On
+-- :HighlightColors Off
+-- :HighlightColors Toggle
+-- :HighlightColors IsActive

@@ -3,7 +3,14 @@
 ## TODO:
 
 - https://quarto.org/docs/get-started/
-- add python .venv selecter
+
+## Python
+
+### VENV
+
+```nushell
+overlay use <path_to_venv>\Scripts\activate.nu
+```
 
 ## Other
 
