@@ -13,4 +13,7 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
   },
+  config = function(_, opts)
+    require("telescope").setup(opts)
+  end,
 }
