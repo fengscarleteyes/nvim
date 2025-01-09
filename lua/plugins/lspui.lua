@@ -7,5 +7,3 @@ return {
     require("LspUI").setup({})
   end,
 }
--- TODO:
--- https://github.com/DNLHC/glance.nvim
