@@ -7,6 +7,7 @@ return {
   { "<leader>fF", mode = { "n" }, neotree_cmd_filesystem,                                       desc = "Filesystem neotree" },
   { "<leader>fo", mode = { "n" }, function() require("oil").toggle_float()                 end, desc = "Filesystem oil"     },
   { "<leader>fn", mode = { "n" }, function() require("telescope").extensions.nerdy.nerdy() end, desc = "find nerd"          },
+  { "<leader>fd", mode = { "n" }, function() require('trouble.sources.telescope').open()   end, desc = "find trouble"       },
   { "<leader>ff", mode = { "n" }, function() require("telescope.builtin").find_files()     end, desc = "find files"         },
   { "<leader>fb", mode = { "n" }, function() require("telescope.builtin").buffers()        end, desc = "buffers"            },
   { "<leader>fg", mode = { "n" }, function() require("telescope.builtin").live_grep()      end, desc = "live grep"          },
