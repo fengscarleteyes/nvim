@@ -1,4 +1,3 @@
--- TODO: rewrite this code use lua api to load folder *.lua
 local wk = require("which-key")
 
 wk.add(require("keymaps.leader_a"))
