@@ -60,3 +60,6 @@ if (!$(Get-Command npm -ErrorAction SilentlyContinue)) {
   winget install Gyan.FFmpeg 7zip.7zip jqlang.jq sharkdp.fd BurntSushi.ripgrep.MSVC junegunn.fzf ajeetdsouza.zoxide ImageMagick.ImageMagick --proxy $env:MyProxy
 }
 
+if (!$(Get-Command fastfetch -ErrorAction SilentlyContinue)) {
+  winget install fastfetch --proxy $env:MyProxy
+}
