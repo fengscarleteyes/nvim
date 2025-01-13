@@ -1,18 +1,3 @@
-local function get_ollama_model_name()
-  local function split(str, pattern)
-    local result = {}
-    string.gsub(str, pattern, function(w)
-      table.insert(result, w)
-    end)
-    return result
-  end
-  local get_ollama_model_info = io.popen("ollama list"):read("*a")
-  local model_name = split(split(get_ollama_model_info, "[^\n]+")[2], "[^ ]+")[1]
-  return model_name
-end
-
-local ollama_model_name = get_ollama_model_name()
-
 local function local_llm_streaming_handler(chunk, line, assistant_output, bufnr, winid, F)
   if not chunk then
     return assistant_output
@@ -38,75 +23,66 @@ local function local_llm_parse_handler(chunk)
   return assistant_output
 end
 
-return {
-  {
-    "Kurama622/llm.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
-    cmd = { "LLMSesionToggle", "LLMSelectedTextHandler", "LLMAppHandler" },
-    init = function()
-      pcall(io.popen, "ollama serve")
+local function config_local_qwen()
+  local tools = require("llm.common.tools")
+  require("llm").setup({
+    -- [[ local llm ]]
+    url = "http://localhost:11434/api/chat",
+    model = "qwen2.5-coder:0.5b",
+    -- model = "qwen2.5-coder:3b",
+    fetch_key = function()
+      return "NONE"
     end,
-    config = function()
-      local tools = require("llm.common.tools")
-      require("llm").setup({
-        -- [[ local llm ]]
-        url = "http://localhost:11434/api/chat",
-        model = ollama_model_name,
-        -- model = "qwen2.5-coder:0.5b",
-        -- model = "qwen2.5-coder:3b",
-        fetch_key = function()
-          return "NONE"
-        end,
-        api_type = "ollama",
-        temperature = 0.3,
-        top_p = 0.7,
-        prompt = "You are a helpful chinese assistant.",
-        prefix = {
-          user = { text = "💭 ", hl = "Title" },
-          assistant = { text = "🗨️ ", hl = "Added" },
-        },
-        history_path = vim.fn.stdpath("config") .. "/llm-history",
-        save_session = true,
-        max_history = 15,
-        max_history_name_length = 20,
-        streaming_handler = local_llm_streaming_handler,
-        parse_handler = local_llm_parse_handler,
-        app_handler = {
-          OptimizeCode = {
-            handler = tools.side_by_side_handler,
-          },
-          TestCode = {
-            handler = tools.side_by_side_handler,
-            prompt = [[ Write some test cases for the following code, only return the test cases.
+    api_type = "ollama",
+    temperature = 0.3,
+    top_p = 0.7,
+    prompt = "You are a helpful chinese assistant.",
+    prefix = {
+      user = { text = "💭 ", hl = "Title" },
+      assistant = { text = "🗨️ ", hl = "Added" },
+    },
+    history_path = vim.fn.stdpath("config") .. "/llm-history",
+    save_session = true,
+    max_history = 15,
+    max_history_name_length = 20,
+    streaming_handler = local_llm_streaming_handler,
+    parse_handler = local_llm_parse_handler,
+    app_handler = {
+      OptimizeCode = {
+        handler = tools.side_by_side_handler,
+      },
+      TestCode = {
+        handler = tools.side_by_side_handler,
+        prompt = [[ Write some test cases for the following code, only return the test cases.
                         Give the code content directly, do not use code blocks or other tags to wrap it. ]],
-            opts = {
-              right = {
-                title = " Test Cases ",
-              },
-            },
-          },
-          Translate = {
-            handler = tools.qa_handler,
-          },
-          OptimCompare = {
-            handler = tools.action_handler,
-          },
-          WordTranslate = {
-            handler = tools.flexi_handler,
-            prompt = "Translate the following text to Chinese, please only return the translation",
-            opts = {
-              exit_on_move = true,
-              enter_flexible_window = false,
-            },
-          },
-          CodeExplain = {
-            handler = tools.flexi_handler,
-            prompt = "Explain the following code, please only return the explanation, and answer in Chinese",
-            opts = {
-              enter_flexible_window = true,
-            },
+        opts = {
+          right = {
+            title = " Test Cases ",
           },
         },
+      },
+      Translate = {
+        handler = tools.qa_handler,
+      },
+      OptimCompare = {
+        handler = tools.action_handler,
+      },
+      WordTranslate = {
+        handler = tools.flexi_handler,
+        prompt = "Translate the following text to Chinese, please only return the translation",
+        opts = {
+          exit_on_move = true,
+          enter_flexible_window = false,
+        },
+      },
+      CodeExplain = {
+        handler = tools.flexi_handler,
+        prompt = "Explain the following code, please only return the explanation, and answer in Chinese",
+        opts = {
+          enter_flexible_window = true,
+        },
+      },
+    },
         -- stylua: ignore
         keys = {
           -- The keyboard mapping for the input window.
@@ -124,8 +100,18 @@ return {
           ["Session:Toggle"]    = { mode = "n", key = "<leader>ac" },
           ["Session:Close"]     = { mode = "n", key = {"<esc>", "Q"} },
         },
-      })
+  })
+end
+
+return {
+  {
+    "Kurama622/llm.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
+    cmd = { "LLMSesionToggle", "LLMSelectedTextHandler", "LLMAppHandler" },
+    init = function()
+      pcall(io.popen, "ollama serve")
     end,
+    config = config_local_qwen,
     keys = {
       { "<leader>ac", mode = "n", "<cmd>LLMSessionToggle<cr>" },
       { "<leader>ae", mode = "v", "<cmd>LLMSelectedTextHandler 请解释下面这段代码<cr>" },
