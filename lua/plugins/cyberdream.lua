@@ -1,11 +1,10 @@
 -- colorscheme
 
 return {
-  "xero/miasma.nvim",
-  enabled = false,
+  "scottmckendry/cyberdream.nvim",
   lazy = false,
   priority = 1000,
   config = function()
-    vim.cmd("colorscheme miasma")
+    vim.cmd("colorscheme cyberdream")
   end,
 }
