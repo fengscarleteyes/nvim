@@ -1,4 +1,3 @@
--- TODO: https://github.com/deepseek-ai/awesome-deepseek-integration/blob/main/README_cn.md
 return {
   {
     "yetone/avante.nvim",
@@ -17,6 +16,12 @@ return {
         max_tokens = 4096,
         proxy = nil, -- [protocol://]host[:port] Use this proxy
         allow_insecure = false, -- Allow insecure server connections
+      },
+      windows = {
+        position = "left",
+        sidebar_header = {
+          enabled = false,
+        },
       },
     },
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
