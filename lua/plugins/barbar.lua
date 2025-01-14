@@ -10,7 +10,7 @@ return {
   opts = {
     preset = "powerline",
     animation = false,
-    auto_hide = true,
+    -- auto_hide = true,
     icons = {
       button = false,
       diagnostics = {

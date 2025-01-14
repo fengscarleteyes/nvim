@@ -6,8 +6,6 @@ return {
   { "<leader>bS", mode = { "n" }, ":lua Snacks.scratch.select()<CR>",   desc = "Snacks scaratch select"      },
   { "<leader>bb", mode = { "n" }, "<Cmd>BufferClose<CR>",               desc = "BarBar BufferClose"          },
   { "<leader>ba", mode = { "n" }, "<Cmd>BufferCloseAllButCurrent<CR>",  desc = "BarBar CloseAllButCurrent"   },
-  { "<leader>bd", mode = { "n" }, ":lua Snacks.bufdelete.delete()<CR>", desc = "Snacks delete Buffer delete" },
-  { "<leader>bo", mode = { "n" }, ":lua Snacks.bufdelete.other()<CR>",  desc = "Snacks delete Buffer other"  },
   { "<leader>b1", mode = { "n" }, "<Cmd>BufferGoto 1<CR>",              desc = "BarBar BufferGoto 1", noremap = true, silent = true },
   { "<leader>b2", mode = { "n" }, "<Cmd>BufferGoto 2<CR>",              desc = "BarBar BufferGoto 2", noremap = true, silent = true },
   { "<leader>b3", mode = { "n" }, "<Cmd>BufferGoto 3<CR>",              desc = "BarBar BufferGoto 3", noremap = true, silent = true },
@@ -23,13 +21,7 @@ return {
   -- { "key", mode = 'n', '<A-<>',     '<Cmd>BufferMovePrevious<CR>',        desc = "BufferMovePrevious",        noremap = true, silend = true },
   -- { "key", mode = 'n', '<A->>',     '<Cmd>BufferMoveNext<CR>',            desc = "BufferMoveNext",            noremap = true, silend = true },
   -- { "key", mode = 'n', '<A-p>',     '<Cmd>BufferPin<CR>',                 desc = "BufferPin",                 noremap = true, silend = true },
-  -- { "key", mode = 'n', '<A-c>',     '<Cmd>BufferClose<CR>',               desc = "BufferClose",               noremap = true, silend = true },
   -- { "key", mode = 'n', '<C-p>',     '<Cmd>BufferPick<CR>',                desc = "BufferPick",                noremap = true, silend = true },
   -- { "key", mode = 'n', '<C-s-p>'  , '<Cmd>BufferPickDelete<CR>',          desc = "BufferPickDelete",          noremap = true, silend = true },
-  -- { "key", mode = 'n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', desc = "BufferOrderByBufferNumber", noremap = true, silend = true },
-  -- { "key", mode = 'n', '<Space>bn', '<Cmd>BufferOrderByName<CR>',         desc = "BufferOrderByName",         noremap = true, silend = true },
-  -- { "key", mode = 'n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>',    desc = "BufferOrderByDirectory",    noremap = true, silend = true },
-  -- { "key", mode = 'n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>',     desc = "BufferOrderByLanguage",     noremap = true, silend = true },
-  -- { "key", mode = 'n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', desc = "BufferOrderByWindowNumber", noremap = true, silend = true },
   }
 -- stylua: ignore end
