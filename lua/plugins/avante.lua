@@ -12,7 +12,6 @@ return {
       openai = {
         endpoint = "https://api.deepseek.com/v1",
         model = "deepseek-chat",
-        api_key = "sk-9a7aa1e7ade14eb5806f5604c5a7ffac",
         timeout = 30000, -- Timeout in milliseconds
         temperature = 0,
         max_tokens = 4096,
