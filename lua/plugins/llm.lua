@@ -8,6 +8,14 @@ local function config_online_deepseek()
     end,
     temperature = 0.3,
     top_p = 0.7,
+    -- chat_ui_opts = {
+    --   relative = "editor",
+    --   position = "50%",
+    --   size = {
+    --     width = "95%",
+    --     height = "95%",
+    --   },
+    -- },
     prompt = "You are a helpful chinese assistant.",
     prefix = {
       user = { text = "💭 ", hl = "Title" },
