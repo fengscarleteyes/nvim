@@ -1,7 +1,7 @@
 return {
   {
     "yetone/avante.nvim",
-    -- enabled = false,
+    enabled = false,
     event = "VeryLazy",
     lazy = false,
     version = false, -- set this if you want to always pull the latest change
@@ -14,7 +14,7 @@ return {
         timeout = 30000, -- Timeout in milliseconds
         temperature = 0,
         max_tokens = 4096,
-        proxy = nil, -- [protocol://]host[:port] Use this proxy
+        proxy = os.getenv("HTTP_PROXY") or os.getenv("HTTPS_PROXY"),
         allow_insecure = false, -- Allow insecure server connections
       },
       windows = {

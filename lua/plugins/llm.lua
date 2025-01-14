@@ -19,7 +19,7 @@ local function config_online_deepseek()
     max_history_name_length = 20,
     keys = {
       -- The keyboard mapping for the input window.
-      ["Input:Submit"] = { mode = "i", key = "<c-g>" },
+      ["Input:Submit"] = { mode = "i", key = "<c-s>" },
       ["Input:Cancel"] = { mode = { "n", "i" }, key = "<C-c>" },
       ["Input:Resend"] = { mode = { "n", "i" }, key = "<C-r>" },
       -- only works when "save_session = true"
@@ -41,9 +41,6 @@ return {
     "Kurama622/llm.nvim",
     dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
     cmd = { "LLMSesionToggle", "LLMSelectedTextHandler", "LLMAppHandler" },
-    init = function()
-      pcall(io.popen, "ollama serve")
-    end,
     config = config_online_deepseek,
     keys = {
       { "<leader>ac", mode = "n", "<cmd>LLMSessionToggle<cr>" },
