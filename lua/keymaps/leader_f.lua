@@ -1,3 +1,4 @@
+-- test
 local neotree_cmd_filesystem =
   [[<cmd>Neotree source=filesystem reveal=true position=float action=focus toggle=true<CR>]]
 
