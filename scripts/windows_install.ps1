@@ -63,3 +63,15 @@ if (!$(Get-Command npm -ErrorAction SilentlyContinue)) {
 if (!$(Get-Command fastfetch -ErrorAction SilentlyContinue)) {
   winget install fastfetch --proxy $env:MyProxy
 }
+
+if (!$(Get-Command fzf -ErrorAction SilentlyContinue)) {
+  winget install fzf --proxy $env:MyProxy
+}
+
+if (!$(Get-Command bat -ErrorAction SilentlyContinue)) {
+  winget install sharkdp.bat --proxy $env:MyProxy
+}
+
+if (!$(Get-Command delta -ErrorAction SilentlyContinue)) {
+  winget install dandavison.delta --proxy $env:MyProxy
+}
