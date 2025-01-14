@@ -1,3 +1,4 @@
+-- https://github.com/ibhagwan/fzf-lua
 return {
   "ibhagwan/fzf-lua",
   dependencies = {
@@ -6,5 +7,7 @@ return {
     "MeanderingProgrammer/render-markdown.nvim",
     "mfussenegger/nvim-dap",
   },
-  opts = {},
+  opts = { winopts = { fullscreen = true, treesitter = {
+    enabled = true,
+  } } },
 }

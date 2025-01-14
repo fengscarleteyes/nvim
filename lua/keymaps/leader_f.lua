@@ -11,6 +11,6 @@ return {
   { "<leader>fg", mode = { "n"      }, "<Cmd>FzfLua grep<CR>",                         desc = "live grep"          },
   { "<leader>fh", mode = { "n"      }, "<Cmd>FzfLua helptags<CR>",                     desc = "help tags"          },
   { "<leader>ft", mode = { "n"      }, "<Cmd>TodoTelescope<CR>",                       desc = "TodoTelescope"      },
-  { "<leader>fs", mode = { "n", "x" }, function() require("rip-substitute").sub() end, desc = " rip substitute"   },
+  { "<leader>fs", mode = { "n", "x" }, "<Cmd>RipSubstitute<CR>",                       desc = "rip substitute"     },
   }
 -- stylua: ignore end

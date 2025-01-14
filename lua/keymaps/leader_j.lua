@@ -1,5 +1,6 @@
 --stylua: ignore start
 return {
+  { "<leader>j", group = "Jump" }, -- group
   { "<leader>jj", mode = { "n", "x", "o" }, function() require("flash").jump()              end, desc = "Flash"               },
   { "<leader>jJ", mode = { "n", "x", "o" }, function() require("flash").treesitter()        end, desc = "Flash Treesitter"    },
   { "<leader>jr", mode = { "o"           }, function() require("flash").remote()            end, desc = "Remote Flash"        }, -- in omap"y, d, c ..."
