@@ -8,7 +8,7 @@ return {
   { "<leader>fo", mode = { "n"      }, function() require("oil").toggle_float() end,   desc = "Filesystem oil"     },
   { "<leader>ff", mode = { "n"      }, "<Cmd>FzfLua files<CR>",                        desc = "find files"         },
   { "<leader>fb", mode = { "n"      }, "<Cmd>FzfLua buffers<CR>",                      desc = "buffers"            },
-  { "<leader>fg", mode = { "n"      }, "<Cmd>FzfLua grep<CR>",                         desc = "live grep"          },
+  { "<leader>fg", mode = { "n"      }, "<Cmd>FzfLua live_grep<CR>",                    desc = "live grep"          },
   { "<leader>fh", mode = { "n"      }, "<Cmd>FzfLua helptags<CR>",                     desc = "help tags"          },
   { "<leader>ft", mode = { "n"      }, "<Cmd>TodoTelescope<CR>",                       desc = "TodoTelescope"      },
   { "<leader>fs", mode = { "n", "x" }, "<Cmd>RipSubstitute<CR>",                       desc = "rip substitute"     },
