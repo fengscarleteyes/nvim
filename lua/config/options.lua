@@ -59,6 +59,7 @@ vim.o.smartindent = true
 vim.o.foldmethod = "expr"
 vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 vim.o.foldlevel = 999
+vim.opt.foldenable = false
 
 -- 当文件被外部程序修改时，自动加载
 vim.o.autoread = true
