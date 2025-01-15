@@ -18,6 +18,7 @@ return {
       },
       actions = {
         files = {
+          -- ["enter"] = actions.file_edit_or_qf,
           ["enter"] = actions.file_switch_or_edit,
           ["ctrl-s"] = actions.file_split,
           ["ctrl-v"] = actions.file_vsplit,
