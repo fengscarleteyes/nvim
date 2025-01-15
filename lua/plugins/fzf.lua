@@ -11,7 +11,7 @@ return {
     local actions = require("fzf-lua").actions
     require("fzf-lua").setup({
       winopts = {
-        fullscreen = true,
+        -- fullscreen = true,
         treesitter = {
           enabled = true,
         },
