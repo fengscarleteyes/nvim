@@ -20,7 +20,7 @@
   "layers.nvim": { "branch": "main", "commit": "ebbb386d7aea84a04bf7eab0873975b2e9d695a5" },
   "lazy.nvim": { "branch": "main", "commit": "d8f26efd456190241afd1b0f5235fe6fdba13d4a" },
   "lazydev.nvim": { "branch": "main", "commit": "8620f82ee3f59ff2187647167b6b47387a13a018" },
-  "llm.nvim": { "branch": "main", "commit": "702e3fea8286241f33158ebe3a2e027bb586d30f" },
+  "llm.nvim": { "branch": "main", "commit": "f7e32255cc26077ee113bee81d01d445fbffe81d" },
   "lualine.nvim": { "branch": "master", "commit": "2a5bae925481f999263d6f5ed8361baef8df4f83" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "e942edf5c85b6a2ab74059ea566cac5b3e1514a4" },
   "mason.nvim": { "branch": "main", "commit": "e2f7f9044ec30067bc11800a9e266664b88cda22" },
@@ -54,7 +54,7 @@
   "tiny-inline-diagnostic.nvim": { "branch": "main", "commit": "aaa6f0dd097f8ca2478cad259e61b7cb26ec0eb8" },
   "todo-comments.nvim": { "branch": "main", "commit": "304a8d204ee787d2544d8bc23cd38d2f929e7cc5" },
   "tokyonight.nvim": { "branch": "main", "commit": "7bb270adaa7692c2c33befc35f5567fc596a2504" },
-  "treewalker.nvim": { "branch": "main", "commit": "29646143c194f790aa6ce9d2fd787df23e3023bc" },
+  "treewalker.nvim": { "branch": "main", "commit": "49dda111869a2ea65785138aaea8e7e5e0de5aa8" },
   "trouble.nvim": { "branch": "main", "commit": "50481f414bd3c1a40122c1d759d7e424d5fafe84" },
   "which-key.nvim": { "branch": "main", "commit": "1f8d414f61e0b05958c342df9b6a4c89ce268766" },
   "yanky.nvim": { "branch": "main", "commit": "f9b905994cccf3c55f41af3a0a1f4c76c844e411" }
