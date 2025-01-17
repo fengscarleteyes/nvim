@@ -12,6 +12,8 @@ return {
     animation = false,
     -- auto_hide = true,
     icons = {
+      buffer_index = true,
+      buffer_number = true,
       button = false,
       diagnostics = {
         [vim.diagnostic.severity.ERROR] = { enabled = true },

@@ -10,6 +10,7 @@ wk.add(require("keymaps.leader_n"))
 wk.add(require("keymaps.leader_r"))
 wk.add(require("keymaps.leader_s"))
 wk.add(require("keymaps.leader_y"))
-wk.add(require("keymaps.leader"))
 
 wk.add(require("keymaps.no_leader"))
+
+return { "<leader>", group = "leader keys" }
