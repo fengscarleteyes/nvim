@@ -1,11 +1,12 @@
 --stylua: ignore start
 return {
   { "<leader>b", group = "Buffer" },
+  { "<leader>bl", mode = { "n" }, "<Cmd>BufferList<CR>",                desc = "bufferlist"                  },
   { "<leader>bt", mode = { "n" }, "<Cmd>ASToggle<CR>",                  desc = "Toggle auto-save"            },
   { "<leader>bs", mode = { "n" }, ":lua Snacks.scratch()<CR>",          desc = "Snacks scaratch"             },
   { "<leader>bS", mode = { "n" }, ":lua Snacks.scratch.select()<CR>",   desc = "Snacks scaratch select"      },
-  { "<leader>bb", mode = { "n" }, "<Cmd>BufferClose<CR>",               desc = "BufferClose"          },
-  { "<leader>ba", mode = { "n" }, "<Cmd>BufferCloseAllButCurrent<CR>",  desc = "CloseAllButCurrent"   },
+  { "<leader>bb", mode = { "n" }, "<Cmd>BufferClose<CR>",               desc = "BufferClose"                 },
+  { "<leader>ba", mode = { "n" }, "<Cmd>BufferCloseAllButCurrent<CR>",  desc = "CloseAllButCurrent"          },
   { "<leader>b1", mode = { "n" }, "<Cmd>BufferGoto 1<CR>",              desc = "BufferGoto 1", noremap = true, silent = true },
   { "<leader>b2", mode = { "n" }, "<Cmd>BufferGoto 2<CR>",              desc = "BufferGoto 2", noremap = true, silent = true },
   { "<leader>b3", mode = { "n" }, "<Cmd>BufferGoto 3<CR>",              desc = "BufferGoto 3", noremap = true, silent = true },
