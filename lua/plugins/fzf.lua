@@ -18,7 +18,8 @@ return {
         },
       },
       fzf_opts = {
-        ["--layout"] = "default",
+        ["--no-multi"] = "",
+        ["--layout"] = "reverse",
         ["--marker"] = "+",
         ["--highlight-line"] = true,
         ["--ansi"] = true,

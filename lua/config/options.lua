@@ -1,3 +1,15 @@
+local check_nushell = io.popen("nu --help")
+
+if check_nushell and check_nushell:read() == "The nushell language and shell." then
+  vim.o.shell = "nu"
+else
+  if vim.fn.has("win32") == 1 then
+    vim.o.shell = "powershell.exe"
+  else
+    vim.o.shell = "bash"
+  end
+end
+
 -- Neovim default updatetime is 4000
 vim.opt.updatetime = 200
 
