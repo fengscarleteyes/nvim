@@ -7,19 +7,27 @@ return {
     "MeanderingProgrammer/render-markdown.nvim",
     "mfussenegger/nvim-dap",
   },
+  -- opts = { "telescope" },
   config = function()
     local actions = require("fzf-lua").actions
     require("fzf-lua").setup({
       winopts = {
-        -- fullscreen = true,
+        fullscreen = true,
         treesitter = {
           enabled = true,
         },
       },
+      fzf_opts = {
+        ["--layout"] = "default",
+        ["--marker"] = "+",
+        ["--highlight-line"] = true,
+        ["--ansi"] = true,
+        ["--info"] = "inline-right",
+      },
       actions = {
         files = {
-          -- ["enter"] = actions.file_edit_or_qf,
-          ["enter"] = actions.file_switch_or_edit,
+          ["enter"] = actions.file_edit_or_qf,
+          -- ["enter"] = actions.file_switch_or_edit,
           ["ctrl-s"] = actions.file_split,
           ["ctrl-v"] = actions.file_vsplit,
           ["ctrl-t"] = actions.file_tabedit,
