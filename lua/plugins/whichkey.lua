@@ -3,17 +3,17 @@ return {
   dependencies = { { "echasnovski/mini.icons", version = "*" }, { "nvim-tree/nvim-web-devicons", opts = {} } },
   event = "VeryLazy",
   opts = {
-    rules = false,
-    colors = false,
     win = {
       no_overlap = true,
-      width = 50,
+      width = -2,
+      -- width = 50,
       height = { min = 5, max = 25 },
       col = 1,
       -- row = math.huge,
-      border = "single",
+      -- border = "single",
+      border = "double",
       padding = { 1, 2 }, -- extra window padding [top/bottom, right/left]
-      title = true,
+      title = false,
       title_pos = "center",
       zindex = 1000,
       -- Additional vim.wo and vim.bo options
@@ -22,6 +22,7 @@ return {
         -- winblend = 10, -- value between 0-100 0 for fully opaque and 100 for fully transparent
       },
     },
+    icons = { rules = false },
     layout = {
       width = { min = 20 }, -- min and max width of the columns
       spacing = 3, -- spacing between columns

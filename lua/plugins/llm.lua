@@ -53,10 +53,5 @@ return {
     dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
     cmd = { "LLMSesionToggle", "LLMSelectedTextHandler", "LLMAppHandler" },
     config = config_online_deepseek,
-    keys = {
-      { "<leader>ac", mode = "n", "<cmd>LLMSessionToggle<cr>" },
-      { "<leader>ae", mode = "v", "<cmd>LLMSelectedTextHandler 请解释下面这段代码<cr>" },
-      { "<leader>at", mode = "x", "<cmd>LLMSelectedTextHandler 英译汉<cr>" },
-    },
   },
 }
