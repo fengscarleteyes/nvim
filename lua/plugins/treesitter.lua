@@ -48,7 +48,6 @@ return {
         scope_incremental = "<TAB>", -- 全选 V光标空白部分后 全选
       },
     },
-    -- TODO: set keymapping
     textobjects = {
       select = {
         enable = true,
@@ -73,38 +72,31 @@ return {
       },
       move = {
         enable = true,
-        set_jumps = true, -- whether to set jumps in the jumplist
+        set_jumps = true,
         goto_next_start = {
-          ["]m"] = "@function.outer",
-          ["]]"] = { query = "@class.outer", desc = "Next class start" },
-          -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queries.
-          ["]o"] = "@loop.*",
-          -- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
-          -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
-          -- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
-          ["]s"] = { query = "@local.scope", query_group = "locals", desc = "Next scope" },
-          ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
+          ["<leader>t]f"] = { query = "@function.outer", desc = "Next function start" },
+          ["<leader>t]c"] = { query = "@class.outer", desc = "Next class start" },
+          ["<leader>t]o"] = { query = { "@loop.inner", "@loop.outer" }, desc = "Next loop start" },
+          ["<leader>t]s"] = { query = "@local.scope", query_group = "locals", desc = "Next scope" },
+          ["<leader>t]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
         },
         goto_next_end = {
-          ["]M"] = "@function.outer",
-          ["]["] = "@class.outer",
+          ["<leader>t]F"] = { query = "@function.outer", desc = "Next function end" },
+          ["<leader>t]C"] = { query = "@class.outer", desc = "Next class end" },
         },
         goto_previous_start = {
-          ["[m"] = "@function.outer",
-          ["[["] = "@class.outer",
+          ["<leader>t[f"] = { query = "@function.outer", desc = "Previous function start" },
+          ["<leader>t[c"] = { query = "@class.outer", desc = "Previous class start" },
         },
         goto_previous_end = {
-          ["[M"] = "@function.outer",
-          ["[]"] = "@class.outer",
+          ["<leader>t[F"] = { query = "@function.outer", desc = "Previous function end" },
+          ["<leader>t[C"] = { query = "@class.outer", desc = "Previous class end" },
         },
-        -- Below will go to either the start or the end, whichever is closer.
-        -- Use if you want more granular movements
-        -- Make it even more gradual by adding multiple queries and regex.
         goto_next = {
-          ["]d"] = "@conditional.outer",
+          ["<leader>t]d"] = { query = "@conditional.outer", desc = "Next conditional start" },
         },
         goto_previous = {
-          ["[d"] = "@conditional.outer",
+          ["<leader>t[d"] = { query = "@conditional.outer", desc = "Previous conditional start" },
         },
       },
     },
