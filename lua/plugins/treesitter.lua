@@ -65,10 +65,10 @@ return {
       swap = {
         enable = true,
         swap_next = {
-          ["<leader>tn"] = "@parameter.inner",
+          ["<leader>tn"] = { query = "@parameter.inner", desc = "Swap parameter inner next" },
         },
         swap_previous = {
-          ["<leader>tp"] = "@parameter.inner",
+          ["<leader>tp"] = { query = "@parameter.inner", desc = "Swap parameter inner previous" },
         },
       },
       move = {
@@ -113,3 +113,35 @@ return {
     require("nvim-treesitter.configs").setup(opts)
   end,
 }
+
+-- @assignment.inner
+-- @assignment.lhs
+-- @assignment.outer
+-- @assignment.rhs
+-- @attribute.inner
+-- @attribute.outer
+-- @block.inner
+-- @block.outer
+-- @call.inner
+-- @call.outer
+-- @class.inner
+-- @class.outer
+-- @comment.inner
+-- @comment.outer
+-- @conditional.inner
+-- @conditional.outer
+-- @frame.inner
+-- @frame.outer
+-- @function.inner
+-- @function.outer
+-- @loop.inner
+-- @loop.outer
+-- @number.inner
+-- @parameter.inner
+-- @parameter.outer
+-- @regex.inner
+-- @regex.outer
+-- @return.inner
+-- @return.outer
+-- @scopename.inner
+-- @statement.outer

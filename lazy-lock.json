@@ -12,7 +12,7 @@
   "fittencode.nvim": { "branch": "master", "commit": "71047c2689b47fcd4633e1c66663171f0bdbd833" },
   "flash.nvim": { "branch": "main", "commit": "34c7be146a91fec3555c33fe89c7d643f6ef5cf1" },
   "friendly-snippets": { "branch": "main", "commit": "efff286dd74c22f731cdec26a70b46e5b203c619" },
-  "fzf-lua": { "branch": "main", "commit": "be64468b9cf617b8fb1b1185d3e0167105aa6a8f" },
+  "fzf-lua": { "branch": "main", "commit": "b7b8891704cec3f10b79a3317ea39c22cb24eab3" },
   "gitsigns.nvim": { "branch": "main", "commit": "817bd848fffe82e697b4da656e3f2834cd0665c5" },
   "glance.nvim": { "branch": "master", "commit": "1a08824835d7582457b67acbe23ca33487912a5e" },
   "hardtime.nvim": { "branch": "main", "commit": "5d9adcbe2f12741de79e435c8b85dca69a3b22e4" },
