@@ -7,6 +7,7 @@ return {
   opts = {
     ensure_installed = {
       "bash",
+      "nu",
       "lua",
       "python",
       "vim",
@@ -49,8 +50,27 @@ return {
     },
     -- TODO: set keymapping
     textobjects = {
-      select = { enable = false },
-      swap = { enable = false },
+      select = {
+        enable = true,
+        lookahead = true,
+        keymaps = {
+          ["<leader>tfo"] = { query = "@function.outer", desc = "Select function outer" },
+          ["<leader>tfi"] = { query = "@function.inner", desc = "Select function inner" },
+          ["<leader>tco"] = { query = "@class.outer", desc = "Select class outer" },
+          ["<leader>tci"] = { query = "@class.inner", desc = "Select class inner" },
+          ["<leader>tls"] = { query = "@local.scope", desc = "Select language scope" },
+        }, -- in "v" mode
+        include_surrounding_whitespace = false,
+      },
+      swap = {
+        enable = true,
+        swap_next = {
+          ["<leader>tn"] = "@parameter.inner",
+        },
+        swap_previous = {
+          ["<leader>tp"] = "@parameter.inner",
+        },
+      },
       move = {
         enable = true,
         set_jumps = true, -- whether to set jumps in the jumplist

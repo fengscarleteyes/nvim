@@ -3,6 +3,7 @@
 ## TODO:
 
 - https://quarto.org/docs/get-started/
+- delete shada files in windows
 
 ## Python
 
