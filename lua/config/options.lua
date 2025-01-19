@@ -1,14 +1,14 @@
-local check_nushell = io.popen("nu --help")
-
-if check_nushell and check_nushell:read() == "The nushell language and shell." then
-  vim.o.shell = "nu"
-else
-  if vim.fn.has("win32") == 1 then
-    vim.o.shell = "powershell.exe"
-  else
-    vim.o.shell = "bash"
-  end
-end
+-- local check_nushell = io.popen("nu --help")
+--
+-- if check_nushell and check_nushell:read() == "The nushell language and shell." then
+--   vim.o.shell = "nu"
+-- else
+--   if vim.fn.has("win32") == 1 then
+--     vim.o.shell = "powershell.exe"
+--   else
+--     vim.o.shell = "bash"
+--   end
+-- end
 
 vim.opt.shadafile = "NONE"
 

@@ -8,6 +8,7 @@
   "code_runner.nvim": { "branch": "main", "commit": "65218f8f646fe61e506090522df357539642ae83" },
   "conform.nvim": { "branch": "master", "commit": "6dc21d4ce050c2e592d9635b7983d67baf216e3d" },
   "cyberdream.nvim": { "branch": "main", "commit": "f5e9c14a3026ef7cdb26d00145baebe166b52848" },
+  "darkearth-nvim": { "branch": "main", "commit": "a8382f396ebd9dfafcf0524dbaecd18e4168e6ae" },
   "fidget.nvim": { "branch": "main", "commit": "a0abbf18084b77d28bc70e24752e4f4fd54aea17" },
   "fittencode.nvim": { "branch": "master", "commit": "71047c2689b47fcd4633e1c66663171f0bdbd833" },
   "flash.nvim": { "branch": "main", "commit": "34c7be146a91fec3555c33fe89c7d643f6ef5cf1" },
