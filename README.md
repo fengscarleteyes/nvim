@@ -4,6 +4,7 @@
 
 - https://quarto.org/docs/get-started/
 - delete shada files in windows
+- add nvim mason plugin download path in nushell config.nu
 
 ## Python
 
