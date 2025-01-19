@@ -12,13 +12,13 @@ return {
     local actions = require("fzf-lua").actions
     require("fzf-lua").setup({
       winopts = {
-        fullscreen = true,
+        -- fullscreen = true,
         treesitter = {
           enabled = true,
         },
       },
       fzf_opts = {
-        ["--no-multi"] = "",
+        -- ["--no-multi"] = "",
         ["--layout"] = "reverse",
         ["--marker"] = "+",
         ["--highlight-line"] = true,
