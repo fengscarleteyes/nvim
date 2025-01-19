@@ -7,6 +7,6 @@ return {
   config = function()
     -- load the colorscheme here
     require("night-owl").setup()
-    vim.cmd.colorscheme("night-owl")
+    -- vim.cmd.colorscheme("night-owl")
   end,
 }
