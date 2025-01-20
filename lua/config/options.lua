@@ -2,6 +2,9 @@ local check_nushell = io.popen("nu --help")
 
 if check_nushell and check_nushell:read() == "The nushell language and shell." then
   vim.o.shell = "nu"
+  -- vim.fn.stdpath("data")
+  -- vim.o.shellcmdflag = ('--init-command="set PATH %s" -Pc'):format(vim.env.PATH)
+  -- TODO: $env.Path = ($env.Path | prepend 'C:\Program Files\Git\usr\bin')
 else
   if vim.fn.has("win32") == 1 then
     vim.o.shell = "powershell.exe"
