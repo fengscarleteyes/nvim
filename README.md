@@ -6,6 +6,7 @@
 - delete shada files in windows
 - add nvim mason plugin download path in nushell config.nu use windows
 - nushell config file add fzf path change to $env.HOME or $env.HOMEPATH[Windows]
+- obsidian
 
 ## Python
 
