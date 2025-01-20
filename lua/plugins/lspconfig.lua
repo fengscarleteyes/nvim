@@ -16,7 +16,11 @@ return {
       bashls = {},
       pyright = {},
       ruff = {},
-      nushell = {},
+      nushell = {
+        cmd = { "nu", "--lsp" },
+        filetypes = { "nu" },
+        single_file_support = true,
+      },
       lua_ls = {
         Lua = {
           hint = {
