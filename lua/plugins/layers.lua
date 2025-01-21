@@ -1,3 +1,4 @@
+-- TODO: add new mode
 -- https://github.com/debugloop/layers.nvim
 local function active_mode_01()
   local layers = require("layers")
