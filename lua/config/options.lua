@@ -49,7 +49,8 @@ vim.o.whichwrap = "b,s,<,>,[,],h,l"
 vim.o.list = false
 -- vim.o.list = true
 
-vim.o.listchars = "space:·,trail:,tab:,eol:"
+vim.o.listchars = "space:·,trail:,tab:,eol:"
+-- vim.o.listchars = "space:·,trail:,tab:,eol:"
 -- vim.o.listchars = "space:󰧟,trail:󰃉,tab:,eol:󱨉"
 -- vim.o.listchars = 'space:󰧟,trail:󱁐,tab:,eol:󰬧'
 -- vim.o.listchars = 'space:󰧟,trail:󱁐,tab:󰧙󰢤󰧛,eol:󰬧'
@@ -58,7 +59,7 @@ vim.o.listchars = "space:·,trail:,tab:,eol:"
 -- 使用相对行号
 vim.o.number = true
 vim.o.relativenumber = true
-vim.o.numberwidth = 2
+vim.o.numberwidth = 3
 
 -- 高亮所在行列
 vim.o.cursorline = true
@@ -80,6 +81,7 @@ vim.o.wildmenu = true
 vim.o.showtabline = 2
 
 -- 新行对齐当前行
+vim.o.breakindent = true
 vim.o.autoindent = true
 vim.o.smartindent = true
 
