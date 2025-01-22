@@ -8,12 +8,20 @@ return {
     vim.g.barbar_auto_setup = false
   end,
   opts = {
-    preset = "powerline",
-    animation = false,
-    -- auto_hide = true,
+    animation = true,
+    auto_hide = false,
+    tabpages = true,
+    clickable = true,
     icons = {
+      -- 
+      separator = { left = "", right = "" },
+      modified = { button = " " },
+      pinned = { button = "", filename = true },
+      -- preset = "default", -- 'default', 'powerline', or 'slanted'
+      -- preset = "slanted", -- 'default', 'powerline', or 'slanted'
+      preset = "powerline", -- 'default', 'powerline', or 'slanted'
       buffer_index = true,
-      buffer_number = true,
+      -- buffer_number = true,
       button = false,
       diagnostics = {
         [vim.diagnostic.severity.ERROR] = { enabled = true },
