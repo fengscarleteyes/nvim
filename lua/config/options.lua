@@ -24,7 +24,7 @@ else
   end
 end
 
-vim.opt.shadafile = "NONE"
+-- vim.opt.shadafile = "NONE"
 
 -- Neovim default updatetime is 4000
 vim.opt.updatetime = 200

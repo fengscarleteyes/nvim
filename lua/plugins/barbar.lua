@@ -14,7 +14,7 @@ return {
     clickable = true,
     icons = {
       -- 
-      separator = { left = "", right = "" },
+      separator = { left = "", right = "" },
       modified = { button = " " },
       pinned = { button = "", filename = true },
       -- preset = "default", -- 'default', 'powerline', or 'slanted'
