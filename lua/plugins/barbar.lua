@@ -13,7 +13,7 @@ return {
     tabpages = true,
     clickable = true,
     icons = {
-      -- 
+      -- 
       separator = { left = "", right = "" },
       modified = { button = " " },
       pinned = { button = "", filename = true },
