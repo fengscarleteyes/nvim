@@ -106,34 +106,22 @@ return {
   end,
 }
 
--- @assignment.inner
--- @assignment.lhs
--- @assignment.outer
--- @assignment.rhs
--- @attribute.inner
--- @attribute.outer
--- @block.inner
--- @block.outer
--- @call.inner
--- @call.outer
--- @class.inner
--- @class.outer
--- @comment.inner
--- @comment.outer
--- @conditional.inner
--- @conditional.outer
--- @frame.inner
--- @frame.outer
--- @function.inner
--- @function.outer
--- @loop.inner
--- @loop.outer
--- @number.inner
--- @parameter.inner
--- @parameter.outer
--- @regex.inner
--- @regex.outer
--- @return.inner
--- @return.outer
--- @scopename.inner
--- @statement.outer
+--TODO: move to keymap config
+-- 1. **@assignment.inner / @assignment.outer**: 选择赋值语句的内部或外部部分。例如，`a = b + c` 中，`inner` 可能选择 `b + c`，而 `outer` 选择整个赋值语句。
+-- 2. **@assignment.lhs / @assignment.rhs**: 分别选择赋值语句的左侧（left-hand side）和右侧（right-hand side）。例如，`a = b + c` 中，`lhs` 选择 `a`，`rhs` 选择 `b + c`。
+-- 3. **@attribute.inner / @attribute.outer**: 选择属性（如 Python 中的 `obj.attr`）的内部或外部部分。
+-- 4. **@block.inner / @block.outer**: 选择代码块（如 `{}` 包围的部分）的内部或外部部分。
+-- 5. **@call.inner / @call.outer**: 选择函数调用的内部或外部部分。例如，`foo(bar)` 中，`inner` 可能选择 `bar`，而 `outer` 选择整个 `foo(bar)`。
+-- 6. **@class.inner / @class.outer**: 选择类定义的内部或外部部分。
+-- 7. **@comment.inner / @comment.outer**: 选择注释的内部或外部部分。
+-- 8. **@conditional.inner / @conditional.outer**: 选择条件语句（如 `if` 语句）的内部或外部部分。
+-- 9. **@frame.inner / @frame.outer**: 选择代码框架（如函数或类的上下文）的内部或外部部分。
+-- 10. **@function.inner / @function.outer**: 选择函数定义的内部或外部部分。
+-- 11. **@loop.inner / @loop.outer**: 选择循环语句（如 `for` 或 `while` 循环）的内部或外部部分。
+-- 12. **@number.inner**: 选择数字的内部部分。
+-- 13. **@parameter.inner / @parameter.outer**: 选择函数参数的内部或外部部分。
+-- 14. **@regex.inner / @regex.outer**: 选择正则表达式的内部或外部部分。
+-- 15. **@return.inner / @return.outer**: 选择 `return` 语句的内部或外部部分。
+-- 16. **@scopename.inner**: 选择作用域名称的内部部分。
+-- 17. **@statement.outer**: 选择整个语句的外部部分。
+-- 这些文本对象可以帮助你在代码编辑器中更精确地选择和操作代码的不同部分，从而提高编辑效率。
