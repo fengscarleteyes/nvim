@@ -25,6 +25,7 @@ else
 end
 
 -- vim.opt.shadafile = "NONE"
+vim.cmd([[highlight Normal guibg=NONE ctermbg=NONE]])
 
 -- Neovim default updatetime is 4000
 vim.opt.updatetime = 200
