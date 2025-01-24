@@ -25,7 +25,17 @@ else
 end
 
 -- vim.opt.shadafile = "NONE"
-vim.cmd([[highlight Normal guibg=NONE ctermbg=NONE]])
+vim.cmd([[
+  highlight Normal guibg=none
+  highlight NonText guibg=none
+  highlight Normal ctermbg=none
+  highlight NonText ctermbg=none
+]])
+-- transparent background
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
+vim.api.nvim_set_hl(0, "Pmenu", { bg = "none" })
 
 -- Neovim default updatetime is 4000
 vim.opt.updatetime = 200
