@@ -1,6 +1,10 @@
 return {
   "saghen/blink.cmp",
-  dependencies = { { "luozhiya/fittencode.nvim" }, "rafamadriz/friendly-snippets" },
+  dependencies = {
+    { "echasnovski/mini.icons", version = false },
+    { "luozhiya/fittencode.nvim" },
+    "rafamadriz/friendly-snippets",
+  },
   version = "*",
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
@@ -13,6 +17,20 @@ return {
         scrollbar = false,
         border = "single",
         draw = {
+          components = {
+            kind_icon = {
+              ellipsis = false,
+              text = function(ctx)
+                local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
+                return kind_icon
+              end,
+              -- Optionally, you may also use the highlights from mini.icons
+              highlight = function(ctx)
+                local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+                return hl
+              end,
+            },
+          },
           treesitter = { "lsp" },
           columns = {
             { "label", "label_description", gap = 2 },
