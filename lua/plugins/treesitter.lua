@@ -50,7 +50,7 @@ return {
     },
     textobjects = {
       select = {
-        enable = true,
+        enable = false,
         lookahead = true,
         keymaps = {
           ["<leader>tfo"] = { query = "@function.outer", desc = "Select function outer" },
@@ -62,7 +62,7 @@ return {
         include_surrounding_whitespace = false,
       },
       swap = {
-        enable = true,
+        enable = false,
         swap_next = {
           ["<leader>tn"] = { query = "@parameter.inner", desc = "Swap parameter inner next" },
         },
@@ -71,7 +71,7 @@ return {
         },
       },
       move = {
-        enable = true,
+        enable = false,
         set_jumps = true,
         goto_next_start = {
           ["<leader>t]f"] = { query = "@function.outer", desc = "Next function start" },
