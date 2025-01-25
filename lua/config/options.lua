@@ -3,18 +3,18 @@ local check_nushell = io.popen("nu --help")
 if check_nushell and check_nushell:read() == "The nushell language and shell." then
   vim.o.shell = "nu"
   vim.opt.sh = "nu"
-  vim.opt.shelltemp = false
-  vim.opt.shellredir = "out+err> %s"
+  vim.o.shelltemp = false
+  vim.o.shellredir = "out+err> %s"
   -- flags for nu:
   -- * `--stdin`       redirect all input to -c
   -- * `--no-newline`  do not append `\n` to stdout
   -- * `--commands -c` execute a command
-  vim.opt.shellcmdflag = "--stdin --no-newline -c"
+  vim.o.shellcmdflag = "--stdin --no-newline -c"
 
   -- disable all escaping and quoting
-  vim.opt.shellxescape = ""
-  vim.opt.shellxquote = ""
-  vim.opt.shellquote = ""
+  vim.o.shellxescape = ""
+  vim.o.shellxquote = ""
+  vim.o.shellquote = ""
   -- vim.fn.stdpath("data")
 else
   if vim.fn.has("win32") == 1 then
@@ -26,20 +26,8 @@ end
 
 -- vim.o.shadafile = "NONE"
 
--- vim.cmd([[
---   highlight Normal guibg=none
---   highlight NonText guibg=none
---   highlight Normal ctermbg=none
---   highlight NonText ctermbg=none
--- ]])
--- -- transparent background
--- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
--- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
--- vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
--- vim.api.nvim_set_hl(0, "Pmenu", { bg = "none" })
-
 -- Neovim default updatetime is 4000
-vim.opt.updatetime = 200
+vim.o.updatetime = 200
 
 vim.o.expandtab = true
 vim.o.tabstop = 4
@@ -147,5 +135,5 @@ vim.o.laststatus = 3
 vim.g.showmode = true
 
 -- 补全菜单背景透明
--- vim.o.pumblend = 50
+vim.o.pumblend = 10
 -- vim.o.pumheight = 5
