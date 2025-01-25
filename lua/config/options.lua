@@ -24,7 +24,7 @@ else
   end
 end
 
--- vim.opt.shadafile = "NONE"
+-- vim.o.shadafile = "NONE"
 
 -- vim.cmd([[
 --   highlight Normal guibg=none

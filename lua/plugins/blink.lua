@@ -18,6 +18,15 @@ return {
         border = "single",
         draw = {
           components = {
+            label = {
+              -- colorful_menu setting
+              text = function(ctx)
+                return require("colorful-menu").blink_components_text(ctx)
+              end,
+              highlight = function(ctx)
+                return require("colorful-menu").blink_components_highlight(ctx)
+              end,
+            },
             kind_icon = {
               ellipsis = false,
               text = function(ctx)
