@@ -9,7 +9,7 @@ return {
   { "<C-Up>",     mode = { "i" },      function() require("fittencode").revoke_line()            end,     desc = "Fittencode revoke libe"            },
 
   -- Editor keymaps
-  { "<A-t>",      mode = { "n", "t" }, function() require('FTerm').toggle()                      end,     desc = "Toggle Terminal"                   },
+  { "<A-t>",      mode = { "n", "t" }, "<Cmd>ToggleTerm<CR>",                                             desc = "Toggle Terminal"                   },
   { "<C-CR>",     mode = { "i" },      "<C-o>o",                                                          desc = "new line"                          },
   { "<C-h>",      mode = { "i" },      "<C-o>h",                                                          desc = "Left"                              },
   { "<C-l>",      mode = { "i" },      "<C-o>l",                                                          desc = "Right"                             },
