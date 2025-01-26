@@ -6,6 +6,7 @@
   "blink.cmp": { "branch": "main", "commit": "b6f11a0aa33e601c469a126e3ed6e35208fe3ea3" },
   "bufferlist.nvim": { "branch": "master", "commit": "47b5fe71399ecdead789465c94f655c442324d74" },
   "code_runner.nvim": { "branch": "main", "commit": "65218f8f646fe61e506090522df357539642ae83" },
+  "codecompanion.nvim": { "branch": "main", "commit": "d5219e39d86a91b32cf1b54aa6234576b42f8b12" },
   "colorful-menu.nvim": { "branch": "master", "commit": "d4879afea80764b64f24c0ba902e5ed4317ffaa0" },
   "conform.nvim": { "branch": "master", "commit": "363243c03102a531a8203311d4f2ae704c620d9b" },
   "cyberdream.nvim": { "branch": "main", "commit": "5b42c2e6764312c166c25bc79dfcbaadac2d5425" },
