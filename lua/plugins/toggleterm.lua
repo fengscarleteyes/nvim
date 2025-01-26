@@ -1,5 +1,23 @@
 return {
   "akinsho/toggleterm.nvim",
   version = "*",
-  opts = { direction = "float" },
+  opts = {
+    shell = vim.o.shell,
+    highlights = {
+      Normal = {
+        guibg = "none",
+      },
+      NormalFloat = {
+        link = "Normal",
+      },
+      FloatBorder = {
+        guifg = "#00FF00",
+        guibg = "none",
+      },
+    },
+    float_opts = {
+      border = "double",
+    },
+    direction = "float",
+  },
 }
