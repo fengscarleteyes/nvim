@@ -3,6 +3,7 @@ return {
   -- enabled = false,
   event = "VeryLazy",
   opts = {
+    background_colour = "#000000",
     messages = {
       enabled = false, -- enables the Noice messages UI
     },
