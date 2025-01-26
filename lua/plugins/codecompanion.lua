@@ -7,6 +7,7 @@ return {
   },
   config = function()
     require("codecompanion").setup({
+      language = "Chinese",
       opts = {
         system_prompt = function()
           return "You are a helpful chinese assistant."
