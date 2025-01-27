@@ -21,7 +21,7 @@ local function config_online_deepseek()
       user = { text = "💭 ", hl = "Title" },
       assistant = { text = "🗨️ ", hl = "Added" },
     },
-    history_path = vim.fn.stdpath("config") .. "/llm-history",
+    history_path = vim.fn.stdpath("config") .. "/history" .. "/llm",
     save_session = true,
     max_history = 15,
     max_history_name_length = 20,
