@@ -3,7 +3,6 @@ return {
   -- enabled = false,
   event = "VeryLazy",
   opts = {
-    background_colour = "#000000",
     messages = {
       enabled = false, -- enables the Noice messages UI
     },
@@ -40,6 +39,11 @@ return {
       inc_rename = true, -- enables an input dialog for inc-rename.nvim
       lsp_doc_border = true, -- add a border to hover docs and signature help
     },
+    -- win_options = {
+    --   winhighlight = {
+    --     background_colour = "#000000",
+    --   },
+    -- },
   },
   dependencies = {
     "MunifTanjim/nui.nvim",
