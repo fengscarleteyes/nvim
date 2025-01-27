@@ -2,8 +2,9 @@ return {
   "saghen/blink.cmp",
   dependencies = {
     { "echasnovski/mini.icons", version = false },
-    { "luozhiya/fittencode.nvim" },
+    "luozhiya/fittencode.nvim",
     "rafamadriz/friendly-snippets",
+    "moyiz/blink-emoji.nvim",
   },
   version = "*",
   ---@module 'blink.cmp'
@@ -12,6 +13,7 @@ return {
     completion = {
       ghost_text = { enabled = false },
       menu = {
+        auto_show = true,
         min_width = 15,
         max_height = 10,
         scrollbar = false,
@@ -110,7 +112,7 @@ return {
     },
 
     sources = {
-      default = { "lazydev", "lsp", "path", "snippets", "buffer", "markdown" },
+      default = { "lsp", "lazydev", "path", "snippets", "buffer", "markdown", "emoji" },
       providers = {
         lazydev = {
           name = "LazyDev",
@@ -127,6 +129,12 @@ return {
           opts = {
             search_paths = { vim.fn.stdpath("config") .. "/snippets" },
           },
+        },
+        emoji = {
+          module = "blink-emoji",
+          name = "Emoji",
+          score_offset = 15, -- Tune by preference
+          opts = { insert = true }, -- Insert emoji (default) or complete its name
         },
       },
     },
