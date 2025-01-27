@@ -2,7 +2,8 @@ return {
   "akinsho/toggleterm.nvim",
   version = "*",
   opts = {
-    shell = vim.o.shell,
+    -- shell = vim.o.shell,
+    shell = "bash",
     highlights = {
       Normal = {
         guibg = "none",
