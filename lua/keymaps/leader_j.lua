@@ -1,5 +1,6 @@
 --stylua: ignore start
 return {
+  -- TODO:move to alt + s
   { "<leader>j", group = "Jump" }, -- group
   { "<leader>jj", mode = { "n", "x", "o" }, function() require("flash").jump()              end, desc = "Flash"               },
   { "<leader>jJ", mode = { "n", "x", "o" }, function() require("flash").treesitter()        end, desc = "Flash Treesitter"    },
