@@ -1,6 +1,6 @@
 return {
   "nvimdev/dashboard-nvim",
-  -- lazy = false,
+  lazy = true,
   event = "VimEnter",
   config = function()
     require("dashboard").setup({
