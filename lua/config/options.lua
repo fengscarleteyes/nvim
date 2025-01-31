@@ -26,6 +26,9 @@ end
 
 -- vim.o.shadafile = "NONE"
 
+-- 禁用启动时的版本提示
+vim.opt.shortmess:append("I")
+
 -- Neovim default updatetime is 4000
 vim.o.updatetime = 200
 
