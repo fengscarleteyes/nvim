@@ -20,8 +20,13 @@ return {
         border = "single",
         draw = {
           components = {
+            item_idx = {
+              text = function(ctx)
+                return tostring(ctx.idx)
+              end,
+              highlight = "BlinkCmpItemIdx",
+            },
             label = {
-              -- colorful_menu setting
               text = function(ctx)
                 return require("colorful-menu").blink_components_text(ctx)
               end,
@@ -35,7 +40,6 @@ return {
                 local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
                 return kind_icon
               end,
-              -- Optionally, you may also use the highlights from mini.icons
               highlight = function(ctx)
                 local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
                 return hl
@@ -44,6 +48,7 @@ return {
           },
           treesitter = { "lsp" },
           columns = {
+            { "item_idx" },
             { "kind_icon", "kind", gap = 2 },
             { "label", "label_description", gap = 2 },
           },
@@ -64,6 +69,17 @@ return {
     signature = { enabled = true, window = { border = "single" } },
     keymap = {
       preset = "none", -- disable default preset
+      -- stylua: ignore start
+      ['<A-1>'] = { function(cmp) cmp.accept({ index = 1 }) end },
+      ['<A-2>'] = { function(cmp) cmp.accept({ index = 2 }) end },
+      ['<A-3>'] = { function(cmp) cmp.accept({ index = 3 }) end },
+      ['<A-4>'] = { function(cmp) cmp.accept({ index = 4 }) end },
+      ['<A-5>'] = { function(cmp) cmp.accept({ index = 5 }) end },
+      ['<A-6>'] = { function(cmp) cmp.accept({ index = 6 }) end },
+      ['<A-7>'] = { function(cmp) cmp.accept({ index = 7 }) end },
+      ['<A-8>'] = { function(cmp) cmp.accept({ index = 8 }) end },
+      ['<A-9>'] = { function(cmp) cmp.accept({ index = 9 }) end },
+      -- stylua: ignore end
       ["<C-d>"] = { "show", "show_documentation", "hide_documentation" },
       ["<C-e>"] = { "hide", "fallback" },
       ["<Tab>"] = {
