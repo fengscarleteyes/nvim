@@ -84,6 +84,8 @@ vim.o.swapfile = false
 
 -- 补全增强
 vim.o.wildmenu = true
+vim.o.wildmode = "longest:full,full"
+vim.o.wildoptions = "pum,tagfile"
 
 -- 总是显示标签栏 0 1 2
 vim.o.showtabline = 2

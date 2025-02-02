@@ -17,7 +17,7 @@ return {
         min_width = 15,
         max_height = 10,
         scrollbar = false,
-        border = "single",
+        border = "rounded",
         draw = {
           components = {
             item_idx = {
@@ -57,13 +57,13 @@ return {
       documentation = {
         window = { scrollbar = false, border = "single" },
         auto_show = true,
-        auto_show_delay_ms = 50,
+        auto_show_delay_ms = 0,
       },
       list = {
         selection = { preselect = true, auto_insert = true },
       },
       accept = {
-        auto_brackets = { enabled = true, default_brackets = { "(", ")" } },
+        auto_brackets = { enabled = false, default_brackets = { "(", ")" } },
       },
     },
     signature = { enabled = true, window = { border = "single" } },
@@ -123,12 +123,28 @@ return {
       },
     },
     appearance = {
-      use_nvim_cmp_as_default = true,
+      -- use_nvim_cmp_as_default = true,
+      use_nvim_cmp_as_default = false,
       nerd_font_variant = "mono",
     },
 
     sources = {
+      min_keyword_length = function()
+        return vim.bo.filetype == "markdown" and 2 or 0
+      end,
       default = { "lsp", "lazydev", "path", "snippets", "buffer", "markdown", "emoji" },
+      -- cmdline = function()
+      --   local type = vim.fn.getcmdtype()
+      --   -- Search forward and backward
+      --   if type == "/" or type == "?" then
+      --     return { "buffer" }
+      --   end
+      --   -- Commands
+      --   if type == ":" or type == "@" or type == "=" then
+      --     return { "cmdline" }
+      --   end
+      --   return {}
+      -- end,
       providers = {
         lazydev = {
           name = "LazyDev",
