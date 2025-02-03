@@ -1,3 +1,4 @@
+-- TODO: add keymaps
 return {
   "Dan7h3x/neaterm.nvim",
   branch = "stable",
