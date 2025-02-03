@@ -12,6 +12,7 @@ return {
         shortcut = {
           { desc = "󰊳 Update", group = "@property", action = "Lazy update", key = "u" },
           { desc = "󰊳 Find", group = "@property", action = "FzfLua files", key = "f" },
+          { desc = "󰊳 Quit", group = "@property", action = "qa", key = "q" },
         },
       },
     })

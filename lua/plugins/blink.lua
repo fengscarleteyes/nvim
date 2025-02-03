@@ -133,6 +133,7 @@ return {
         return vim.bo.filetype == "markdown" and 2 or 0
       end,
       default = { "lsp", "lazydev", "path", "snippets", "buffer", "markdown", "emoji" },
+      cmdline = {},
       -- cmdline = function()
       --   local type = vim.fn.getcmdtype()
       --   -- Search forward and backward
