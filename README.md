@@ -8,6 +8,7 @@
 - obsidian
 - https://ohmyposh.dev/ https://www.nushell.sh/zh-CN/book/3rdpartyprompts.html
 - vim.fn.expand('%:p')
+- shadafiles clear
 
 ## Python
 

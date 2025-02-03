@@ -24,6 +24,6 @@ return {
   },
   config = function(_, opts)
     require("flow").setup(opts)
-    vim.cmd("colorscheme flow")
+    -- vim.cmd("colorscheme flow")
   end,
 }

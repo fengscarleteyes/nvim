@@ -6,9 +6,9 @@ return {
     require("dashboard").setup({
       config = {
         project = { enable = false },
-        -- week_header = {
-        --   enable = true,
-        -- },
+        week_header = {
+          enable = true,
+        },
         shortcut = {
           { desc = "󰊳 Update", group = "@property", action = "Lazy update", key = "u" },
           { desc = "󰊳 Find", group = "@property", action = "FzfLua files", key = "f" },

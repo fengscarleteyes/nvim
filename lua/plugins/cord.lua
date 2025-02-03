@@ -117,4 +117,7 @@ return {
       },
     },
   },
+  config = function(_, opts)
+    require("cord").setup(opts)
+  end,
 }
