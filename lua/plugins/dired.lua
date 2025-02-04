@@ -3,6 +3,9 @@ vim.g.dired = {
   -- keymaps = {
   --   up = { i = "<C-p>", n = "k" },
   --   down = "j", -- just normal mode
+  -- available actions
+  -- open | down | up | quite | create_file | create_dir
+  -- delete | rename | copy | cut | paste | toggle_hidden
   -- },
 }
 
