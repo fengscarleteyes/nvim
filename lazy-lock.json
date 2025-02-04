@@ -17,6 +17,7 @@
   "fittencode.nvim": { "branch": "master", "commit": "a52440968404917d0a3625a60c809edf65e52787" },
   "flash.nvim": { "branch": "main", "commit": "f899265876ecdcf7352dbc9f0adf87068cedefbb" },
   "flow.nvim": { "branch": "main", "commit": "d8b2bc1a76325361fdbb2cdadbfe242d24370edd" },
+  "fnpairs.nvim": { "branch": "main", "commit": "4ead860a5f990bb45a7772a65f75d2f5c5fb1775" },
   "friendly-snippets": { "branch": "main", "commit": "efff286dd74c22f731cdec26a70b46e5b203c619" },
   "fzf-lua": { "branch": "main", "commit": "e3fefd97875827e47dc4bbf1074ee464b2d8e6a8" },
   "gitsigns.nvim": { "branch": "main", "commit": "9b36d497495436c135659902054ee637e0ba6021" },
