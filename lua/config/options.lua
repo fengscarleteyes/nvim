@@ -2,7 +2,7 @@ local check_nushell = io.popen("nu --help")
 
 if check_nushell and check_nushell:read() == "The nushell language and shell." then
   vim.o.shell = "nu"
-  vim.opt.sh = "nu"
+  -- vim.opt.sh = "nu"
   vim.o.shelltemp = false
   vim.o.shellredir = "out+err> %s"
   -- flags for nu:
