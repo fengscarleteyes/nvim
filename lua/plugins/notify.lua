@@ -1,7 +1,7 @@
 -- https://github.com/rcarriga/nvim-notify
 return {
   "rcarriga/nvim-notify",
-  -- enabled = false,
+  enabled = false,
   opts = {
     -- background_colour = "#000000",
     -- render = "compact"
