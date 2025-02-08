@@ -31,8 +31,11 @@ return {
       defaults = {
         file_icons = true,
         -- copen = "topleft copen",
-        hidden = false,
+        hidden = true,
       },
+      -- grep = {
+      --   hidden = true,
+      -- },
     })
   end,
 }
