@@ -24,11 +24,11 @@
 --   end
 -- end
 
-if vim.fn.has("win32") == 1 then
-  vim.o.shell = "cmd.exe"
-else
-  vim.o.shell = "bash"
-end
+-- if vim.fn.has("win32") == 1 then
+--   vim.o.shell = "cmd.exe"
+-- else
+--   vim.o.shell = "bash"
+-- end
 
 -- vim.o.shadafile = "NONE"
 
