@@ -15,12 +15,14 @@ return {
     clickable = true,
     icons = {
       -- 
-      separator = { left = "", right = "" },
+      -- separator = { left = "", right = "" },
+      separator = { left = "<", right = ">" },
+      separator_at_end = true,
       modified = { button = " " },
       pinned = { button = "", filename = true },
       -- preset = "default", -- 'default', 'powerline', or 'slanted'
       -- preset = "slanted", -- 'default', 'powerline', or 'slanted'
-      preset = "powerline", -- 'default', 'powerline', or 'slanted'
+      -- preset = "powerline", -- 'default', 'powerline', or 'slanted'
       buffer_index = true,
       -- buffer_number = true,
       button = false,
