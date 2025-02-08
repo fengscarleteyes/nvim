@@ -8,6 +8,7 @@ return {
         python = { "ruff_format", "ruff_fix", "ruff_organize_imports" },
         markdown = { "prettier" },
         json = { "prettier" },
+        css = { "prettier" },
         jsonc = { "prettier" },
         yaml = { "prettier" },
         html = { "prettier" },
