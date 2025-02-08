@@ -1,27 +1,33 @@
-local check_nushell = io.popen("nu --help")
+-- local check_nushell = io.popen("nu --help")
+--
+-- if check_nushell and check_nushell:read() == "The nushell language and shell." then
+--   vim.o.shell = "nu"
+--   -- vim.opt.sh = "nu"
+--   vim.o.shelltemp = false
+--   vim.o.shellredir = "out+err> %s"
+--   -- flags for nu:
+--   -- * `--stdin`       redirect all input to -c
+--   -- * `--no-newline`  do not append `\n` to stdout
+--   -- * `--commands -c` execute a command
+--   vim.o.shellcmdflag = "--stdin --no-newline -c"
+--
+--   -- disable all escaping and quoting
+--   vim.o.shellxescape = ""
+--   vim.o.shellxquote = ""
+--   vim.o.shellquote = ""
+--   -- vim.fn.stdpath("data")
+-- else
+--   if vim.fn.has("win32") == 1 then
+--     vim.o.shell = "powershell.exe"
+--   else
+--     vim.o.shell = "bash"
+--   end
+-- end
 
-if check_nushell and check_nushell:read() == "The nushell language and shell." then
-  vim.o.shell = "nu"
-  -- vim.opt.sh = "nu"
-  vim.o.shelltemp = false
-  vim.o.shellredir = "out+err> %s"
-  -- flags for nu:
-  -- * `--stdin`       redirect all input to -c
-  -- * `--no-newline`  do not append `\n` to stdout
-  -- * `--commands -c` execute a command
-  vim.o.shellcmdflag = "--stdin --no-newline -c"
-
-  -- disable all escaping and quoting
-  vim.o.shellxescape = ""
-  vim.o.shellxquote = ""
-  vim.o.shellquote = ""
-  -- vim.fn.stdpath("data")
+if vim.fn.has("win32") == 1 then
+  vim.o.shell = "powershell.exe"
 else
-  if vim.fn.has("win32") == 1 then
-    vim.o.shell = "powershell.exe"
-  else
-    vim.o.shell = "bash"
-  end
+  vim.o.shell = "bash"
 end
 
 -- vim.o.shadafile = "NONE"
