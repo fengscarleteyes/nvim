@@ -18,6 +18,8 @@ return {
         },
       },
       fzf_opts = {
+        ["--multi"] = false,
+        ["-m"] = false,
         ["--no-multi"] = true,
         ["--layout"] = "reverse",
         ["--marker"] = "+",
