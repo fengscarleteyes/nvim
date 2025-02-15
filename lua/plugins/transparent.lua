@@ -1,6 +1,6 @@
 return {
   "xiyaowong/transparent.nvim",
-  enabled = false,
+  -- enabled = false,
   lazy = false, --this was SUPER IMPORTANT
   config = function()
     require("transparent").setup({ -- Optional, you don't have to run setup.
