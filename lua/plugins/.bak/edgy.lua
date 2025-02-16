@@ -1,22 +1,28 @@
 return {
   "folke/edgy.nvim",
-  enabled = false,
   event = "VeryLazy",
+  -- enabled = false,
   init = function()
     vim.opt.laststatus = 3
     vim.opt.splitkeep = "screen"
   end,
   opts = {
     bottom = {
-      "terminal",
-      -- {
-      --   ft = "terminal",
-      --   size = { height = 0.4 },
-      --   -- exclude floating windows
-      --   filter = function(buf, win)
-      --     return vim.api.nvim_win_get_config(win).relative == ""
-      --   end,
-      -- },
+      "Trouble",
+      {
+        ft = "neaterm",
+        size = { height = 0.3 },
+      },
+    },
+    left = {
+      {
+        title = "Neo-Tree",
+        ft = "neo-tree",
+        -- filter = function(buf)
+        --   return vim.b[buf].neo_tree_source == "filesystem"
+        -- end,
+        size = { height = 0.5 },
+      },
     },
   },
 }
