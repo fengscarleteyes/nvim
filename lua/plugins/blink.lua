@@ -14,7 +14,7 @@ return {
       ghost_text = { enabled = false },
       menu = {
         auto_show = true,
-        min_width = 15,
+        -- min_width = 15,
         max_height = 10,
         scrollbar = false,
         border = "rounded",
