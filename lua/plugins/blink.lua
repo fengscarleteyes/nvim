@@ -98,29 +98,6 @@ return {
       ["<C-n>"] = { "select_next", "fallback" },
       ["<C-b>"] = { "scroll_documentation_up", "fallback" },
       ["<C-f>"] = { "scroll_documentation_down", "fallback" },
-      -- cmdline = {}, -- default Disable cmdline completions
-      cmdline = {
-        -- preset = "super-tab",
-        preset = "none",
-        ["<C-d>"] = { "show", "show_documentation", "hide_documentation" },
-        ["<C-e>"] = { "hide", "fallback" },
-        ["<Tab>"] = {
-          function(cmp)
-            if cmp.snippet_active() then
-              return cmp.accept()
-            else
-              return cmp.select_and_accept()
-            end
-          end,
-          "snippet_forward",
-          "fallback",
-        },
-        ["<S-Tab>"] = { "snippet_backward", "fallback" },
-        ["<C-p>"] = { "select_prev", "fallback" },
-        ["<C-n>"] = { "select_next", "fallback" },
-        ["<C-b>"] = { "scroll_documentation_up", "fallback" },
-        ["<C-f>"] = { "scroll_documentation_down", "fallback" },
-      },
     },
     appearance = {
       -- use_nvim_cmp_as_default = true,
@@ -133,19 +110,6 @@ return {
         return vim.bo.filetype == "markdown" and 2 or 0
       end,
       default = { "lsp", "lazydev", "path", "snippets", "buffer", "markdown", "emoji" },
-      -- cmdline = {},
-      -- cmdline = function()
-      --   local type = vim.fn.getcmdtype()
-      --   -- Search forward and backward
-      --   if type == "/" or type == "?" then
-      --     return { "buffer" }
-      --   end
-      --   -- Commands
-      --   if type == ":" or type == "@" or type == "=" then
-      --     return { "cmdline" }
-      --   end
-      --   return {}
-      -- end,
       providers = {
         lazydev = {
           name = "LazyDev",
