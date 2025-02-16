@@ -9,10 +9,9 @@ return {
   },
   opts = { "telescope" },
   config = function()
-    -- local actions = require("fzf-lua").actions
     require("fzf-lua").setup({
       winopts = {
-        fullscreen = true,
+        -- fullscreen = true,
         treesitter = {
           enabled = true,
         },
@@ -32,12 +31,8 @@ return {
       },
       defaults = {
         file_icons = true,
-        -- copen = "topleft copen",
         hidden = true,
       },
-      -- grep = {
-      --   hidden = true,
-      -- },
     })
   end,
 }
