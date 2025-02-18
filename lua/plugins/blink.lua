@@ -109,7 +109,7 @@ return {
       min_keyword_length = function()
         return vim.bo.filetype == "markdown" and 2 or 0
       end,
-      default = { "lsp", "lazydev", "path", "snippets", "buffer", "markdown", "emoji" },
+      default = { "cmdline", "lsp", "lazydev", "path", "snippets", "buffer", "markdown", "emoji" },
       providers = {
         lazydev = {
           name = "LazyDev",
