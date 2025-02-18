@@ -1,9 +1,6 @@
 return {
   "chrisgrieser/nvim-scissors",
-  dependencies = {
-    "stevearc/dressing.nvim",
-    "ibhagwan/fzf-lua",
-  },
+  dependencies = "nvim-telescope/telescope.nvim",
   opts = {
     snippetDir = vim.fn.stdpath("config") .. "/snippets",
   },
