@@ -14,10 +14,8 @@ return {
     tabpages = true,
     clickable = true,
     icons = {
-      -- 
-      -- separator = { left = "", right = "" },
-      separator = { left = "<", right = ">" },
-      separator_at_end = true,
+      -- separator = { left = "<", right = ">" },
+      separator_at_end = false,
       modified = { button = " " },
       pinned = { button = "", filename = true },
       -- preset = "default", -- 'default', 'powerline', or 'slanted'
