@@ -1,5 +1,6 @@
--- vim.cmd([[colorscheme default]]) -- default theme
-vim.cmd([[colorscheme darkblue]]) -- default theme
+-- default theme
+-- vim.cmd([[colorscheme default]])
+-- vim.cmd([[colorscheme darkblue]])
 
 require("config.options")
 require("config.provider")
