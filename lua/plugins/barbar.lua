@@ -15,6 +15,7 @@ return {
     clickable = true,
     icons = {
       -- separator = { left = "<", right = ">" },
+      separator = { left = "", right = "" },
       separator_at_end = false,
       modified = { button = " " },
       pinned = { button = "", filename = true },
