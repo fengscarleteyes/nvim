@@ -9,13 +9,13 @@ return {
     vim.g.barbar_auto_setup = false
   end,
   opts = {
-    animation = true,
+    -- animation = true,
     auto_hide = false,
-    tabpages = true,
-    clickable = true,
+    tabpages = false,
+    clickable = false,
     icons = {
       -- separator = { left = "<", right = ">" },
-      separator = { left = "", right = "" },
+      -- separator = { left = "", right = "" },
       separator_at_end = false,
       modified = { button = " " },
       pinned = { button = "", filename = true },
