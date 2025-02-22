@@ -4,6 +4,7 @@ vim.opt.sessionoptions = "curdir,folds,globals,help,tabpages,terminal,winsize"
 
 return {
   "nanozuki/tabby.nvim",
+  enabled = false,
   event = "VimEnter", -- if you want lazy load, see below
   dependencies = "nvim-tree/nvim-web-devicons",
   config = function()
