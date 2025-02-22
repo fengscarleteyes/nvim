@@ -21,7 +21,7 @@ return {
       line = function(line)
         return {
           {
-            { "  ", hl = theme.head },
+            { "  ", hl = theme.head },
             line.sep("", theme.head, theme.fill),
           },
           line.tabs().foreach(function(tab)
@@ -55,6 +55,7 @@ return {
           hl = theme.fill,
         }
       end,
+      preset = "active_wins_at_tail",
       -- option = {}, -- setup modules' option,
     })
   end,
