@@ -13,7 +13,7 @@ return {
     cmdline = {
       enabled = true,
       completion = { ghost_text = { enabled = true }, menu = { auto_show = true } },
-      preset = "super-tab",
+      keymap = { preset = "super-tab" },
     },
     completion = {
       ghost_text = { enabled = false },
