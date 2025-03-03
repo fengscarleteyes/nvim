@@ -15,6 +15,7 @@ return {
       biome = {},
       bashls = {},
       pyright = {},
+      basedpyright = {},
       ruff = {},
       nushell = {
         cmd = { "nu", "--lsp" },
