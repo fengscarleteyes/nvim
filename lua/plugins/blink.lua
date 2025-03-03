@@ -10,6 +10,10 @@ return {
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
+    cmdline = {
+      enabled = true,
+      completion = { ghost_text = { enabled = true }, menu = { auto_show = true } },
+    },
     completion = {
       ghost_text = { enabled = false },
       menu = {
