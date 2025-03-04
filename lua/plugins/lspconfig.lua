@@ -14,7 +14,7 @@ return {
       taplo = {},
       biome = {},
       bashls = {},
-      pyright = {},
+      pyright = { enable = false },
       basedpyright = {},
       ruff = {},
       nushell = {
