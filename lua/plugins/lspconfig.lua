@@ -15,7 +15,18 @@ return {
       biome = {},
       bashls = {},
       pyright = {},
-      basedpyright = {},
+      basedpyright = {
+        settings = {
+          basedpyright = {
+            analysis = {
+              diagnosticMode = "openFilesOnly",
+              inlayHints = {
+                callArgumentNames = true,
+              },
+            },
+          },
+        },
+      },
       ruff = {},
       nushell = {
         cmd = { "nu", "--lsp" },
