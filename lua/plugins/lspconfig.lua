@@ -14,7 +14,7 @@ return {
       taplo = {},
       biome = {},
       bashls = {},
-      pyright = {},
+      -- pyright = {},
       basedpyright = {
         settings = {
           basedpyright = {
@@ -27,7 +27,6 @@ return {
           },
         },
       },
-      -- pyright = {},
       ruff = {},
       nushell = {
         cmd = { "nu", "--lsp" },
