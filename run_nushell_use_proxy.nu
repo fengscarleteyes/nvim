@@ -1,4 +1,4 @@
-let proxy_str = "http://192.168.10.118:7890"
+let proxy_str = "http://192.168.10.21:7890"
 
 $env.https_proxy = $proxy_str
 $env.http_proxy  = $proxy_str
