@@ -5,6 +5,7 @@ local neotree_cmd_filesystem =
 return {
   { "<leader>f", group = "File | Find" }, -- group
   { "<leader>fn", mode = { "n"      }, neotree_cmd_filesystem,                         desc = "Filesystem neotree" },
+  { "<leader>fe", mode = { "n"      }, ":lua Snacks.explorer()<CR>",                   desc = "Filesystem neotree" },
   { "<leader>ff", mode = { "n"      }, "<Cmd>FzfLua files<CR>",                        desc = "find files"         },
   { "<leader>fc", mode = { "n"      }, "<Cmd>FzfLua colorschemes<CR>",                 desc = "find colorschemes"  },
   { "<leader>fg", mode = { "n"      }, "<Cmd>FzfLua live_grep<CR>",                    desc = "live grep"          },

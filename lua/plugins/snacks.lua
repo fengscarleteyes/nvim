@@ -1,4 +1,5 @@
 ---@module "snacks"
+
 return {
   "folke/snacks.nvim",
   -- enabled = false,
@@ -16,7 +17,7 @@ return {
         { section = "startup" },
       },
     },
-    explorer = { enabled = true },
+    explorer = { replace_netrw = true },
     indent = { enabled = true },
     input = { enabled = true },
     picker = { enabled = true },
@@ -27,4 +28,13 @@ return {
     statuscolumn = { enabled = true },
     words = { enabled = true },
   },
+  init = function()
+    _G.dd = function(...)
+      Snacks.debug.inspect(...)
+    end
+    _G.bt = function()
+      Snacks.debug.backtrace()
+    end
+    vim.print = _G.dd
+  end,
 }
