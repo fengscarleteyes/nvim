@@ -2,17 +2,8 @@
 return {
   { "<leader>b", group = "Buffer" },
   { "<leader>bl", mode = { "n" }, "<Cmd>BufferList<CR>",                desc = "bufferlist",             noremap = true, silent = true },
-  { "<leader>bt", mode = { "n" }, "<Cmd>ASToggle<CR>",                  desc = "Toggle auto-save",       noremap = true, silent = true },
-  -- { "<leader>bs", mode = { "n" }, ":lua Snacks.scratch()<CR>",          desc = "Snacks scaratch",        noremap = true, silent = true },
-  -- { "<leader>bS", mode = { "n" }, ":lua Snacks.scratch.select()<CR>",   desc = "Snacks scaratch select", noremap = true, silent = true },
-  { "<leader>bb", mode = { "n" }, "<Cmd>BufferClose<CR>",               desc = "BufferClose",            noremap = true, silent = true },
-  { "<leader>ba", mode = { "n" }, "<Cmd>BufferCloseAllButCurrent<CR>",  desc = "CloseAllButCurrent",     noremap = true, silent = true },
-  { "<leader>bp", mode = { "n" }, "<Cmd>BufferPrevious<CR>",            desc = "BufferPrevious",         noremap = true, silent = true },
-  { "<leader>bn", mode = { "n" }, "<Cmd>BufferNext<CR>",                desc = "BufferNext",             noremap = true, silent = true },
-  { "<leader>bP", mode = { "n" }, "<Cmd>BufferMovePrevious<CR>",        desc = "BufferMovePrevious",     noremap = true, silent = true },
-  { "<leader>bN", mode = { "n" }, "<Cmd>BufferMoveNext<CR>",            desc = "BufferMoveNext",         noremap = true, silent = true },
-  { "<leader>b!", mode = { "n" }, "<Cmd>BufferPin<CR>",                 desc = "BufferPin",              noremap = true, silent = true },
-  { "<leader>b@", mode = { "n" }, "<Cmd>BufferPick<CR>",                desc = "BufferPick",             noremap = true, silent = true },
-  { "<leader>b#", mode = { "n" }, "<Cmd>BufferPickDelete<CR>",          desc = "BufferPickDelete",       noremap = true, silent = true },
+  { "<leader>bs", mode = { "n" }, ":lua Snacks.scratch()<CR>",          desc = "Snacks scaratch",        noremap = true, silent = true },
+  { "<leader>bS", mode = { "n" }, ":lua Snacks.scratch.select()<CR>",   desc = "Snacks scaratch select", noremap = true, silent = true },
+  { "<leader>bb", mode = { "n" }, ":lua Snacks.bufdelete()<CR>",        desc = "BufferClose",            noremap = true, silent = true },
   }
 -- stylua: ignore end
