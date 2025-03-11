@@ -38,3 +38,11 @@ return {
     vim.print = _G.dd
   end,
 }
+
+-- Snacks.dim.enable()
+-- Snacks.git.blame_line()
+-- Snacks.git.get_root()
+-- Snacks.gitbrowse()
+-- Snacks.gitbrowse.get_url()
+-- Snacks.gitbrowse.open()
+--
