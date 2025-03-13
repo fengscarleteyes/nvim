@@ -18,6 +18,7 @@ return {
       },
     },
     explorer = { replace_netrw = true },
+    image = { enabled = true }, -- TODO: enable in linux
     indent = { enabled = true },
     input = { enabled = true },
     picker = { enabled = true },
@@ -45,4 +46,10 @@ return {
 -- Snacks.gitbrowse()
 -- Snacks.gitbrowse.get_url()
 -- Snacks.gitbrowse.open()
+-- Snacks.indent.enable()
+-- Snacks.indent.disable()
+-- Snacks.input()
+-- Snacks.input.disable()
+-- Snacks.input.enable()
+-- Snacks.input.input()
 --
