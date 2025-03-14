@@ -1,5 +1,7 @@
 # README
 
+![Nvim](./apps-neovim-icon-1024x1024.png){width=100 height=100}
+
 ## TODO:
 
 - https://quarto.org/docs/get-started/
