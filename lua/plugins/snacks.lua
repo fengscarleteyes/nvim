@@ -52,4 +52,7 @@ return {
 -- Snacks.input.disable()
 -- Snacks.input.enable()
 -- Snacks.input.input()
---
+-- Snacks.lazygit()
+-- Snacks.lazygit.log()
+-- Snacks.lazygit.log_file()
+-- Snacks.lazygit.open()
