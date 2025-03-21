@@ -1,5 +1,5 @@
 # 设置代理地址和端口
-$MyProxy = "http://192.168.10.118:7890"
+$MyProxy = "http://192.168.43.1:7890"
 $env:HTTP_PROXY = $MyProxy
 $env:HTTPS_PROXY = $MyProxy
 $env:NO_PROXY="localhost,127.0.0.1"
