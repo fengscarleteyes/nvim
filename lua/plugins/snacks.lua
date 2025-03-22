@@ -56,3 +56,5 @@ return {
 -- Snacks.lazygit.log()
 -- Snacks.lazygit.log_file()
 -- Snacks.lazygit.open()
+
+-- TODO: Disabled this plugin.
