@@ -1,5 +1,6 @@
 return {
   "nvimdev/lspsaga.nvim",
+  enabled = false,
   event = "LspAttach",
   -- ft = {'c','cpp', 'lua', 'rust', 'go'},
   config = function()
@@ -8,5 +9,6 @@ return {
   dependencies = {
     "nvim-treesitter/nvim-treesitter", -- optional
     "nvim-tree/nvim-web-devicons", -- optional
+    "neovim/nvim-lspconfig",
   },
 }
