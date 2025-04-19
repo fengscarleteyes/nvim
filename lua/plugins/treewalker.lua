@@ -1,3 +1,5 @@
+-- https://github.com/aaronik/treewalker.nvim
+
 return {
   "aaronik/treewalker.nvim",
   opts = {
