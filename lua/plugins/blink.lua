@@ -1,8 +1,9 @@
+-- https://github.com/Saghen/blink.nvim
+-- https://github.com/saghen/blink.cmp
+
 return {
   "saghen/blink.cmp",
   dependencies = {
-    { "echasnovski/mini.icons", version = false },
-    "luozhiya/fittencode.nvim",
     "rafamadriz/friendly-snippets",
     "moyiz/blink-emoji.nvim",
   },
