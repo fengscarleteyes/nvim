@@ -6,6 +6,7 @@ return {
   dependencies = {
     "rafamadriz/friendly-snippets",
     "moyiz/blink-emoji.nvim",
+    "folke/lazydev.nvim",
   },
   version = "*",
   ---@module 'blink.cmp'
