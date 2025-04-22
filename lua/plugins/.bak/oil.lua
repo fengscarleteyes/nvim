@@ -1,6 +1,6 @@
 return {
   "stevearc/oil.nvim",
-  -- enabled = false,
+  enabled = false,
   opts = {
     -- use_default_keymaps = false,
     columns = {

@@ -1,3 +1,5 @@
+-- https://github.com/neovim/nvim-lspconfig
+
 return {
   "neovim/nvim-lspconfig",
   event = "VeryLazy",
@@ -69,45 +71,6 @@ return {
           Lua = {},
         },
       },
-      -- lua_ls = {
-      --   Lua = {
-      --     hint = {
-      --       enable = true,
-      --       setType = false,
-      --       paramType = true,
-      --       paramName = "Disable",
-      --       semicolon = "Disable",
-      --       arrayIndex = "Disable",
-      --     },
-      --     codeLens = {
-      --       enable = true,
-      --     },
-      --     doc = {
-      --       privateName = { "^_" },
-      --     },
-      --     runtime = {
-      --       version = "LuaJIT",
-      --       path = {
-      --         "?.lua",
-      --         "?/init.lua",
-      --       },
-      --     },
-      --     diagnostics = {
-      --       globals = {
-      --         "vim",
-      --         "require",
-      --       },
-      --     },
-      --     workspace = {
-      --       library = {
-      --         vim.env.VIMRUNTIME,
-      --         vim.api.nvim_get_runtime_file("", true),
-      --       },
-      --       checkThirdParty = false,
-      --     },
-      --     telemetry = { enable = false },
-      --   },
-      -- },
     },
   },
   config = function(_, opts)

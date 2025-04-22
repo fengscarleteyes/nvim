@@ -1,4 +1,5 @@
 -- https://github.com/nanozuki/tabby.nvim
+
 vim.o.showtabline = 2
 vim.opt.sessionoptions = "curdir,folds,globals,help,tabpages,terminal,winsize"
 

@@ -1,3 +1,5 @@
+-- https://github.com/gen740/SmoothCursor.nvim
+
 return {
   "gen740/SmoothCursor.nvim",
   -- enabled = false,

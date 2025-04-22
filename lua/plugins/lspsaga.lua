@@ -1,3 +1,6 @@
+-- https://github.com/nvimdev/lspsaga.nvim
+-- https://nvimdev.github.io/lspsaga/
+
 return {
   "nvimdev/lspsaga.nvim",
   -- enabled = false,
