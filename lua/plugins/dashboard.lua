@@ -17,6 +17,7 @@ return {
         shortcut = {
           -- action can be a function type
           { desc = "Lazy update", key = "U", action = "Lazy update" },
+          { desc = "Mason", key = "M", action = "Mason" },
         },
         packages = { enable = true },
         project = { enable = true, limit = 5 },
