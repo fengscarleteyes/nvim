@@ -1,6 +1,6 @@
 return {
   "luozhiya/fittencode.nvim",
-  enabled = false,
+  -- enabled = false,
   opts = {
     actions = {},
     use_default_keymaps = false,
