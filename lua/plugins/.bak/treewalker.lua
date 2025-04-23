@@ -2,6 +2,7 @@
 
 return {
   "aaronik/treewalker.nvim",
+  enabled = false,
   opts = {
     highlight = true,
     highlight_duration = 250,

@@ -1,3 +1,5 @@
+-- https://github.com/folke/which-key.nvim
+
 return {
   "folke/which-key.nvim",
   dependencies = { { "echasnovski/mini.icons", version = "*" }, { "nvim-tree/nvim-web-devicons", opts = {} } },

@@ -21,7 +21,7 @@ return {
   { "<A-r>", mode = { "o", "x"      }, function() require("flash").treesitter_search() end, desc = "Treesitter Search"   },
   { "<A-g>", mode = { "c"           }, function() require("flash").toggle()            end, desc = "Toggle Flash Search" }, -- in "/" search mode toggle flash
 
-  -- { "<A-t>",      mode = { "n", "t" }, "<Cmd>ToggleTerm<CR>",                                             desc = "Toggle Terminal"                   },
+  { "<A-t>",      mode = { "n", "t" }, "<Cmd>ToggleTerm<CR>",                                             desc = "Toggle Terminal"                   },
   { "<A-b>", mode = { "n" }, "<Cmd>BufferList<CR>", desc = "BufferGoto 1", noremap = true, silent = true },
 }
 -- stylua: ignore end
