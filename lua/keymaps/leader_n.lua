@@ -1,8 +1,8 @@
 --stylua: ignore start
 return {
     { "<leader>n", group = "Notification" }, -- group
-    -- TODO: noice
-    -- { "<leader>nn", mode = { "n" }, ":lua Snacks.notifier.hide()<CR>",         desc = "Hide notifications"         },
-    -- { "<leader>nh", mode = { "n" }, ":lua Snacks.notifier.show_history()<CR>", desc = "show notifications history" },
+    { "<leader>nn", mode = { "n" }, function() require("notify").dismiss()           end,   desc = "Hide notifications"         },
+    { "<leader>nh", mode = { "n" }, function() require("notify.integrations").pick() end, desc = "show notifications history" },
+    { "<leader>nc", mode = { "n" }, function() require("notify").clear_history()     end, desc = "show notifications history" },
   }
 -- stylua: ignore end

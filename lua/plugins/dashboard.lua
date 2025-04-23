@@ -19,6 +19,9 @@ return {
           -- action can be a function type
           { desc = "Lazy update", key = "U", action = "Lazy update" },
           { desc = "Mason", key = "M", action = "Mason" },
+          { desc = "Fzf Live Grep", key = "G", action = "FzfLua live_grep" },
+          { desc = "Fzf Files", key = "F", action = "FzfLua files" },
+          { desc = "Fzf colorschemes", key = "C", action = "FzfLua colorschemes" },
         },
         packages = { enable = true },
         project = { enable = true, limit = 5 },

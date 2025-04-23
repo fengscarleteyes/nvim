@@ -3,7 +3,5 @@
 		"indent_style": "space",
 		"indent_size": "2"
 	},
-    "diagnostics.globals": [
-        "asdsd"
-    ]
+	"diagnostics.globals": []
 }
