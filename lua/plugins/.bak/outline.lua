@@ -2,7 +2,7 @@
 
 return {
   "hedyhli/outline.nvim",
-  -- enabled = false,
+  enabled = false,
   lazy = true,
   cmd = { "Outline", "OutlineOpen" },
   opts = {

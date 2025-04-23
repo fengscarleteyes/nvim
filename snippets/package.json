@@ -2,21 +2,15 @@
   "contributes": {
     "snippets": [
       {
-        "language": [
-          "lua"
-        ],
+        "language": "lua",
         "path": "./lua.json"
       },
       {
-        "language": [
-          "markdown"
-        ],
+        "language": "markdown",
         "path": "./markdown.json"
       },
       {
-        "language": [
-          "toml"
-        ],
+        "language": "toml",
         "path": "./toml.json"
       }
     ]

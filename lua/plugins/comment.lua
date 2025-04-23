@@ -2,6 +2,6 @@
 
 return {
   "numToStr/Comment.nvim",
-  -- enabled = false,
+  enabled = false,
   config = true,
 }

@@ -1,1 +1,21 @@
-{"deepseek":{"body":"sk-9a7aa1e7ade14eb5806f5604c5a7ffac","prefix":["deepseek","api_key"]},"lazy + add new plugin":{"body":["return {","  \"$1\",","  config = true","}"],"prefix":["lazy","add new plugin"]}}
+{
+    "deepseek": {
+        "body": "sk-9a7aa1e7ade14eb5806f5604c5a7ffac",
+        "prefix": [
+            "deepseek",
+            "api_key"
+        ]
+    },
+    "lazy + add new plugin": {
+        "body": [
+            "return {",
+            "  \"$1\",",
+            "  config = true",
+            "}"
+        ],
+        "prefix": [
+            "lazy",
+            "add new plugin"
+        ]
+    }
+}
