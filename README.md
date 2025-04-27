@@ -14,6 +14,7 @@
 ```nushell
 overlay use <path_to_venv>\Scripts\activate.nu
 overlay use .venv\Scripts\activate.nu
+overlay use .venv/Scripts/activate.nu
 ```
 
 ## Other
