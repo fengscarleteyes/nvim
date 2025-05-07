@@ -13,6 +13,7 @@ return {
       -- "pyright", -- python lsp
       "basedpyright", -- python lsp
       "ruff", -- python linter & formater
+      "mypy", -- python type checker
       "taplo", -- toml lsp & formater
     },
   },
