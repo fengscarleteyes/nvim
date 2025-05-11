@@ -16,19 +16,19 @@ return {
       taplo = {},
       biome = {},
       bashls = {},
-      -- pyright = {},
-      basedpyright = {
-        settings = {
-          basedpyright = {
-            analysis = {
-              diagnosticMode = "openFilesOnly",
-              inlayHints = {
-                callArgumentNames = true,
-              },
-            },
-          },
-        },
-      },
+      pyright = {},
+      -- basedpyright = {
+      --   settings = {
+      --     basedpyright = {
+      --       analysis = {
+      --         diagnosticMode = "openFilesOnly",
+      --         inlayHints = {
+      --           callArgumentNames = true,
+      --         },
+      --       },
+      --     },
+      --   },
+      -- },
       ruff = {},
       nushell = {
         cmd = { "nu", "--lsp" },

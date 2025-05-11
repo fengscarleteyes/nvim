@@ -25,7 +25,7 @@ return {
           { desc = "Fzf colorschemes", key = "C", action = "FzfLua colorschemes" },
         },
         packages = { enable = true },
-        project = { enable = true, limit = 5 },
+        project = { enable = false, limit = 5 },
         mru = { enable = true, limit = 10, cwd_only = false },
         footer = {},
       },

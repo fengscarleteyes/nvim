@@ -10,10 +10,10 @@ return {
       "stylua", -- lua formater
       "lua-language-server", -- lsp
       "prettier", -- Angular, CSS, Flow, GraphQL, HTML, JSON, JSX, JavaScript, LESS, Markdown, SCSS, TypeScript, Vue, YAML formater
-      -- "pyright", -- python lsp
-      "basedpyright", -- python lsp
+      "pyright", -- python lsp
+      -- "basedpyright", -- python lsp
       "ruff", -- python linter & formater
-      "mypy", -- python type checker
+      -- "mypy", -- python type checker
       "taplo", -- toml lsp & formater
     },
   },
