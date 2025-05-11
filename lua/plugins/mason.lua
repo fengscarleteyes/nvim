@@ -1,12 +1,12 @@
 -- https://github.com/williamboman/mason.nvim
 
+
+-- TODO: https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
+
 return {
   "williamboman/mason.nvim",
   opts = {
     ensure_installed = {
-      -- "bash-language-server", -- bash lsp
-      -- "shellcheck", -- bash linter
-      -- "shfmt", -- bash formater
       "stylua", -- lua formater
       "lua-language-server", -- lsp
       "prettier", -- Angular, CSS, Flow, GraphQL, HTML, JSON, JSX, JavaScript, LESS, Markdown, SCSS, TypeScript, Vue, YAML formater
