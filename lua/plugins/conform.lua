@@ -15,7 +15,7 @@ return {
         yaml = { "prettier" },
         html = { "prettier" },
         toml = { "taplo" },
-        sh = { "shfmt" },
+        -- sh = { "shfmt" },
       },
       format_on_save = {
         -- These options will be passed to conform.format()
