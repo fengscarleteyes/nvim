@@ -11,7 +11,7 @@ vim.g.guard_config = {
   -- automatic linting
   auto_lint = true,
   -- how frequently can linters be called
-  lint_interval = 500
+  lint_interval = 500,
 }
 
 -- Guard fmt          -- Manually call format, also works with visual mode (best effort range formatting)
@@ -24,7 +24,7 @@ vim.g.guard_config = {
 return {
   "nvimdev/guard.nvim",
   config = function()
-    local ft = require('guard.filetype')
+    -- local ft = require("guard.filetype")
     -- ft('python'):fmt('isort')
     --             :append('black')
     --             :lint('mypy')
@@ -32,4 +32,3 @@ return {
     --             :append('dmypy')
   end,
 }
-
