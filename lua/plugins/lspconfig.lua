@@ -16,19 +16,8 @@ return {
       taplo = {},
       biome = {},
       bashls = {},
+      ty = {},
       pyright = {},
-      -- basedpyright = {
-      --   settings = {
-      --     basedpyright = {
-      --       analysis = {
-      --         diagnosticMode = "openFilesOnly",
-      --         inlayHints = {
-      --           callArgumentNames = true,
-      --         },
-      --       },
-      --     },
-      --   },
-      -- },
       ruff = {},
       nushell = {
         cmd = { "nu", "--lsp" },
@@ -79,6 +68,7 @@ return {
     local lsp = require("lspconfig")
     for server, config in pairs(opts.servers) do
       config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+      vim.lsp.enable(server)
       lsp[server].setup(config)
     end
   end,
