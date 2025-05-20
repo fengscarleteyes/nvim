@@ -6,6 +6,18 @@
             "api_key"
         ]
     },
+    "disable-line": {
+        "body": "---@diagnostic disable-line: rulename",
+        "prefix": [
+            "disable-line"
+        ]
+    },
+    "disable-next-line": {
+        "body": "---@diagnostic disable-next-line: rulename",
+        "prefix": [
+            "disable-next-line"
+        ]
+    },
     "lazy + add new plugin": {
         "body": [
             "return {",
