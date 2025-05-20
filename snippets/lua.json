@@ -18,7 +18,7 @@
             "disable-next-line"
         ]
     },
-    "lazy + add new plugin": {
+    "add new plugin": {
         "body": [
             "return {",
             "  \"$1\",",
