@@ -1,6 +1,5 @@
 -- https://github.com/williamboman/mason.nvim
 
-
 -- TODO: https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
 
 return {
@@ -11,9 +10,7 @@ return {
       "lua-language-server", -- lsp
       "prettier", -- Angular, CSS, Flow, GraphQL, HTML, JSON, JSX, JavaScript, LESS, Markdown, SCSS, TypeScript, Vue, YAML formater
       "pyright", -- python lsp
-      -- "basedpyright", -- python lsp
       "ruff", -- python linter & formater
-      -- "mypy", -- python type checker
       "taplo", -- toml lsp & formater
     },
   },
