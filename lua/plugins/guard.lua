@@ -23,6 +23,7 @@ vim.g.guard_config = {
 
 return {
   "nvimdev/guard.nvim",
+  enabled = false,
   config = function()
     -- local ft = require("guard.filetype")
     -- ft('python'):fmt('isort')

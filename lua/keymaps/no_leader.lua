@@ -16,9 +16,9 @@ return {
   { "<C-j>",  mode = { "i" }, "<C-o>j", desc = "Down"     },
 
   { "<A-j>", mode = { "n", "x", "o" }, function() require("flash").jump()              end, desc = "Flash"               },
-  { "<A-s>", mode = { "n", "x", "o" }, function() require("flash").treesitter()        end, desc = "Flash Treesitter"    },
-  { "<A-f>", mode = { "o"           }, function() require("flash").remote()            end, desc = "Remote Flash"        }, -- in omap"y, d, c ..."
-  { "<A-r>", mode = { "o", "x"      }, function() require("flash").treesitter_search() end, desc = "Treesitter Search"   },
+  { "<A-J>", mode = { "n", "x", "o" }, function() require("flash").treesitter()        end, desc = "Flash Treesitter"    },
+  { "<A-r>", mode = { "o"           }, function() require("flash").remote()            end, desc = "Remote Flash"        }, -- in omap"y, d, c ..."
+  { "<A-R>", mode = { "o", "x"      }, function() require("flash").treesitter_search() end, desc = "Treesitter Search"   },
   { "<A-g>", mode = { "c"           }, function() require("flash").toggle()            end, desc = "Toggle Flash Search" }, -- in "/" search mode toggle flash
 
   { "<A-t>",      mode = { "n", "t" }, "<Cmd>ToggleTerm<CR>",                                             desc = "Toggle Terminal"                   },

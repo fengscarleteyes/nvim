@@ -14,8 +14,33 @@ return {
   opts = {
     cmdline = {
       enabled = true,
-      completion = { ghost_text = { enabled = true }, menu = { auto_show = true } },
+      completion = {
+        trigger = {
+          show_on_blocked_trigger_characters = {},
+          show_on_x_blocked_trigger_characters = {},
+        },
+        list = {
+          selection = {
+            preselect = true,
+            auto_insert = true,
+          },
+        },
+        menu = { auto_show = true },
+        ghost_text = { enabled = true },
+      },
       keymap = { preset = "super-tab" },
+      sources = function()
+        local type = vim.fn.getcmdtype()
+        -- Search forward and backward
+        if type == "/" or type == "?" then
+          return { "buffer" }
+        end
+        -- Commands
+        if type == ":" or type == "@" then
+          return { "cmdline" }
+        end
+        return {}
+      end,
     },
     completion = {
       ghost_text = { enabled = false },
@@ -116,7 +141,7 @@ return {
       min_keyword_length = function()
         return vim.bo.filetype == "markdown" and 2 or 0
       end,
-      default = { "omni", "cmdline", "lsp", "lazydev", "path", "snippets", "buffer", "markdown", "emoji" },
+      default = { "omni", "lsp", "lazydev", "path", "snippets", "buffer", "markdown", "emoji" },
       providers = {
         lazydev = {
           name = "LazyDev",
