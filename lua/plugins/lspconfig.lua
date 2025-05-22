@@ -16,15 +16,14 @@ return {
     servers = {
       taplo = {},
       biome = {},
-      bashls = {},
-      ty = {},
+      -- bashls = {},
       pyright = {},
       ruff = {},
-      nushell = {
-        cmd = { "nu", "--lsp" },
-        filetypes = { "nu" },
-        single_file_support = true,
-      },
+      -- nushell = {
+      --   cmd = { "nu", "--lsp" },
+      --   filetypes = { "nu" },
+      --   single_file_support = true,
+      -- },
       lua_ls = {
         on_init = function(client)
           if client.workspace_folders then
