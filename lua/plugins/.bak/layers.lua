@@ -43,6 +43,7 @@ end
 
 return {
   "debugloop/layers.nvim",
+  enabled = false,
   opts = {}, -- see :help Layers.config
   keys = {
     {
