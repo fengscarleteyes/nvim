@@ -2,5 +2,6 @@
 
 return {
   "dnlhc/glance.nvim",
+  enabled = false,
   cmd = "Glance",
 }
