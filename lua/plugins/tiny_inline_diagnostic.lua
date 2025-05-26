@@ -3,7 +3,7 @@
 return {
   "rachartier/tiny-inline-diagnostic.nvim",
   event = "VeryLazy",
-  enabled = false,
+  -- enabled = false,
   priority = 1000, -- needs to be loaded in first
   config = function()
     require("tiny-inline-diagnostic").setup({ preset = "powerline" })
