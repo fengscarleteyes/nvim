@@ -6,14 +6,6 @@
 
 ## TODO:
 
-## DeepSeek
-
-- `c2stOWE3YWExZTdhZGUxNGViNTgwNmY1NjA0YzVhN2ZmYWM=`
-
-## Github settings/tokens
-
-- `Z2hwX1JRVkVjTUphTkNKVEJKUXVWUFRxY0JRclA4NjJxWjF1S2liVA==`
-
 ## Python
 
 ### VENV
