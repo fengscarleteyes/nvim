@@ -9,7 +9,6 @@
 ## DS
 
 - `c2stOWE3YWExZTdhZGUxNGViNTgwNmY1NjA0YzVhN2ZmYWM=`
-<!-- - https://github.com/settings/tokens `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` -->
 
 ## Python
 
