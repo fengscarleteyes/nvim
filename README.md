@@ -8,16 +8,18 @@
 
 ## DS
 
-<!-- - `sk-9a7aa1e7ade14eb5806f5604c5a7ffac` -->
-
 - `c2stOWE3YWExZTdhZGUxNGViNTgwNmY1NjA0YzVhN2ZmYWM=`
 
 ## Python
 
 ### VENV
 
-```nushell
-overlay use .venv/Scripts/activate.nu
+```bash
+uv venv .venv --python 3.13
+source .venv/bin/activate
+
+# nushell
+# overlay use .venv/Scripts/activate.nu
 ```
 
 ## Other
