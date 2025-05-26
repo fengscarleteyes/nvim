@@ -6,10 +6,13 @@
 
 ## TODO:
 
-## DS
+## DeepSeek
 
 - `c2stOWE3YWExZTdhZGUxNGViNTgwNmY1NjA0YzVhN2ZmYWM=`
-<!-- - https://github.com/settings/tokens `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` -->
+
+## Github settings/tokens
+
+- `Z2hwX1JRVkVjTUphTkNKVEJKUXVWUFRxY0JRclA4NjJxWjF1S2liVA==`
 
 ## Python
 
