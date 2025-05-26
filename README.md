@@ -1,5 +1,7 @@
 <img src="./apps-neovim-icon-1024x1024.png" data-canonical-src="https://camo.githubusercontent.com/..." width="100" height="100" />
 
+---
+
 # README
 
 ## TODO:
