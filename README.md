@@ -7,6 +7,12 @@
 - https://quarto.org/docs/get-started/
 - shadafiles clear vim.fn.stdpath("data")
 
+## DS
+
+```
+sk-9a7aa1e7ade14eb5806f5604c5a7ffac
+```
+
 ## Python
 
 ### VENV
