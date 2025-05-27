@@ -2,6 +2,7 @@
 
 return {
   "EL-MASTOR/bufferlist.nvim",
+  enabled = false,
   lazy = true,
   dependencies = "nvim-tree/nvim-web-devicons",
   cmd = "BufferList",

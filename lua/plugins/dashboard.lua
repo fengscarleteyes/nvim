@@ -19,7 +19,7 @@ return {
           -- action can be a function type
           { desc = "Lazy update", key = "U", action = "Lazy update" },
           { desc = "Mason", key = "M", action = "Mason" },
-          { desc = "Lazygit", key = "g", action = "Fterm lazygit" },
+          -- { desc = "Lazygit", key = "g", action = "Fterm lazygit" },
           { desc = "Fzf Live Grep", key = "G", action = "FzfLua live_grep" },
           { desc = "Fzf Files", key = "F", action = "FzfLua files" },
           { desc = "Fzf colorschemes", key = "C", action = "FzfLua colorschemes" },

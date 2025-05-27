@@ -31,6 +31,6 @@ return {
   { "<A-g>", mode = { "c"           }, function() require("flash").toggle()            end, desc = "Toggle Flash Search" }, -- in "/" search mode toggle flash
 
   { "<A-t>", mode = { "n", "t" }, "<Cmd>ToggleTerm<CR>", desc = "Toggle Terminal"                               },
-  { "<A-b>", mode = { "n"      }, "<Cmd>BufferList<CR>", desc = "BufferList",     noremap = true, silent = true },
+  -- { "<A-b>", mode = { "n"      }, "<Cmd>BufferList<CR>", desc = "BufferList",     noremap = true, silent = true },
 }
 -- stylua: ignore end
