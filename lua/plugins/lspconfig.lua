@@ -17,6 +17,7 @@ return {
       taplo = {},
       -- bashls = {},
       pyright = {},
+      ty = {},
       ruff = {},
       -- nushell = {
       --   cmd = { "nu", "--lsp" },
