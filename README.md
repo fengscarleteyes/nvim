@@ -6,6 +6,58 @@
 
 ## TODO:
 
+## version manager
+
+> https://github.com/y3owk1n/nvs
+
+```bash
+# Linux
+
+# install
+curl -fsSL https://raw.githubusercontent.com/y3owk1n/nvs/main/install.sh | bash
+
+# uninstall
+curl -fsSL https://raw.githubusercontent.com/y3owk1n/nvs/main/uninstall.sh | bash
+```
+
+### Using a released binary
+
+> https://github.com/y3owk1n/nvs/releases
+
+```bash
+$ nvs use stable
+✓ Switched to Neovim stable
+
+$ nvim -v
+NVIM v0.10.4
+Build type: Release
+LuaJIT 2.1.1713484068
+Run "nvim -V1 -v" for more info
+
+$ nvs use nightly
+✓ Switched to Neovim nightly
+
+$ nvim -v
+NVIM v0.11.0-dev-1961+g7e2b75760f
+Build type: RelWithDebInfo
+LuaJIT 2.1.1741571767
+Run "nvim -V1 -v" for more info
+
+$ nvs install 0.10.0
+ℹ Resolving version v0.10.0...
+ℹ Installing Neovim v0.10.0...
+✓ Installation successful!
+
+$ nvs use 0.10.0
+✓ Switched to Neovim v0.10.0
+
+$ nvim -v
+NVIM v0.10.0
+Build type: Release
+LuaJIT 2.1.1713484068
+Run "nvim -V1 -v" for more info
+```
+
 ## Python
 
 ### VENV
