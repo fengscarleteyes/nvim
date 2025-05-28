@@ -6,6 +6,7 @@ return {
     branch = "main",
     opts = {
       cyclic_navigation = true,
+      num_pages = 1,
       leader_key = ";",
       mapping_chars = "1234567890",
       keybindings = {
@@ -37,5 +38,3 @@ return {
     },
   },
 }
-
--- TODO: add keybindings for cyclic navigation
