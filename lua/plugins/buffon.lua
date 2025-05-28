@@ -6,6 +6,18 @@ return {
     branch = "main",
     opts = {
       cyclic_navigation = true,
+      open = {
+        by_default = false,
+        offset = {
+          x = 0,
+          y = 0,
+        },
+        ignore_ft = {
+          "gitcommit",
+          "gitrebase",
+        },
+        default_position = "top_right",
+      },
       num_pages = 1,
       leader_key = ";",
       mapping_chars = "1234567890",
