@@ -1,8 +1,22 @@
 <img src="./apps-neovim-icon-1024x1024.png" data-canonical-src="https://camo.githubusercontent.com/..." width="100" height="100" />
 
+---
+
 # README
 
 <img src="https://neovim.io/logos/neovim-mark-flat.png" align="right" width="25" />
+
+- Install
+
+```shell
+cd ~/.config/nvim # Linux
+git clone https://github.com/fengscarleteyes/nvim.git
+```
+
+```powershell
+cd ~\AppData\Local\nvim # Windows
+git clone https://github.com/fengscarleteyes/nvim.git
+```
 
 ## TODO:
 
