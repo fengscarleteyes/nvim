@@ -7,7 +7,6 @@ return {
     "folke/lazydev.nvim",
     "saghen/blink.cmp",
     "williamboman/mason.nvim",
-    -- "williamboman/mason-lspconfig.nvim",
   },
   init = function()
     --init setting
@@ -19,11 +18,6 @@ return {
       pyright = {},
       ty = {},
       ruff = {},
-      -- nushell = {
-      --   cmd = { "nu", "--lsp" },
-      --   filetypes = { "nu" },
-      --   single_file_support = true,
-      -- },
       lua_ls = {
         on_init = function(client)
           client.server_capabilities.semanticTokensProvider = nil
@@ -48,8 +42,8 @@ return {
   config = function(_, opts)
     for server, config in pairs(opts.servers) do
       config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-      vim.lsp.enable(server)
       vim.lsp.config(server, config)
+      vim.lsp.enable(server)
     end
   end,
 }
