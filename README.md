@@ -1,6 +1,7 @@
 <img src="./apps-neovim-icon-1024x1024.png" data-canonical-src="https://camo.githubusercontent.com/..." width="100" height="100" />
 
-<img src="https://neovim.io/logos/neovim-mark-flat.png" align="right" width="100" />
+<!-- <img src="https://neovim.io/logos/neovim-mark-flat.png" align="right" width="100" /> -->
+<img src="https://neovim.io/logos/neovim-mark-flat.png" width="100" />
 
 # README
 
