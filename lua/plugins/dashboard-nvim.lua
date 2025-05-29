@@ -15,14 +15,17 @@ return {
       },
       config = {
         header = {},
+        week_header = { enable = true },
+        disable_move = true,
         shortcut = {
           -- action can be a function type
-          { desc = "Lazy update", key = "U", action = "Lazy update" },
-          { desc = "Mason", key = "M", action = "Mason" },
-          -- { desc = "Lazygit", key = "g", action = "Fterm lazygit" },
-          { desc = "Fzf Live Grep", key = "G", action = "FzfLua live_grep" },
-          { desc = "Fzf Files", key = "F", action = "FzfLua files" },
-          { desc = "Fzf colorschemes", key = "C", action = "FzfLua colorschemes" },
+          { desc = "Lazy update", key = "u", action = "Lazy update", icon = " " },
+          { desc = "Mason", key = "m", action = "Mason", icon = " " },
+          { desc = "Lazygit", key = "g", action = "Fterm lazygit", icon = " " },
+          -- { desc = "Fzf Live Grep", key = "G", action = "FzfLua live_grep" },
+          { desc = "Fzf Files", key = "f", action = "FzfLua files", icon = " " },
+          { desc = "Fzf colorschemes", key = "c", action = "FzfLua colorschemes", icon = " " },
+          { desc = "Quit", key = "q", action = "q", icon = "󰈆 " },
         },
         packages = { enable = true },
         project = { enable = false, limit = 5 },
