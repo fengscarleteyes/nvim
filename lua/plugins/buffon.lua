@@ -8,7 +8,7 @@ return {
       Cyclic_navigation = true,
       new_buffer_position = "start",
       open = {
-        by_default = true,
+        by_default = false,
         offset = {
           x = -1,
           y = 2,
