@@ -5,12 +5,13 @@ return {
     "francescarpi/buffon.nvim",
     branch = "main",
     opts = {
-      cyclic_navigation = true,
+      Cyclic_navigation = true,
+      new_buffer_position = "start",
       open = {
-        by_default = false,
+        by_default = true,
         offset = {
-          x = 0,
-          y = 0,
+          x = -1,
+          y = 2,
         },
         ignore_ft = {
           "gitcommit",
