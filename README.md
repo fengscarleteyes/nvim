@@ -162,3 +162,23 @@ if ($u.kernel-name == "Windows_NT") {
   nvim
 }
 ```
+
+## Usage
+
+```lua
+vim.keymap.set({mode}, {lhs}, {rhs}, {opts})
+
+string/table	模式，如 "n"（普通模式）、"i"（插入模式）、"v"（可视模式），或组合 {"n", "v"}
+lhs	string	左边按键（触发映射的按键组合），如 "<leader>ff"
+rhs	string/function	右边内容，可以是字符串（如 ":echo 'Hello'<CR>"）或 Lua 函数
+opts	table	可选参数（见下方）
+
+opts 可选参数：
+选项	类型	默认值	作用
+noremap	boolean	true	是否禁用递归映射（推荐设为 true，避免无限循环）
+silent	boolean	false	是否静默执行（不显示命令）
+nowait	boolean	false	是否立即应用映射，不等待可能的更长匹配
+expr	boolean	false	是否将 rhs 视为表达式（VimScript）
+desc	string	nil	映射的描述（显示在 :which-key 等插件中）
+)
+```
