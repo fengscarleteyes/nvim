@@ -10,6 +10,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 return {
   "nvzone/showkeys",
   cmd = "ShowkeysToggle",
+  enabled = false,
   opts = {
     winopts = {
       focusable = false,
