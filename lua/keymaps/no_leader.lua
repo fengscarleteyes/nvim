@@ -8,12 +8,12 @@ return {
   { "<C-Left>",  mode = { "i" }, function() require("fittencode").revoke_word()            end, desc = "Fittencode revoke word"            },
   { "<C-Up>",    mode = { "i" }, function() require("fittencode").revoke_line()            end, desc = "Fittencode revoke libe"            },
 
-  -- Editor keymaps
-  { "<C-CR>", mode = { "i" }, "<C-o>o", desc = "new line" },
-  { "<C-h>",  mode = { "i" }, "<C-o>h", desc = "Left"     },
-  { "<C-l>",  mode = { "i" }, "<C-o>l", desc = "Right"    },
-  { "<C-k>",  mode = { "i" }, "<C-o>k", desc = "Up"       },
-  { "<C-j>",  mode = { "i" }, "<C-o>j", desc = "Down"     },
+  -- -- Editor keymaps
+  -- { "<C-CR>", mode = { "i" }, "<C-o>o", desc = "new line" },
+  -- { "<C-h>",  mode = { "i" }, "<C-o>h", desc = "Left"     },
+  -- { "<C-l>",  mode = { "i" }, "<C-o>l", desc = "Right"    },
+  -- { "<C-k>",  mode = { "i" }, "<C-o>k", desc = "Up"       },
+  -- { "<C-j>",  mode = { "i" }, "<C-o>j", desc = "Down"     },
 
   { "<A-j>", mode = { "n", "x", "o" }, function() require("flash").jump()              end, desc = "Flash"               },
   { "<A-J>", mode = { "n", "x", "o" }, function() require("flash").treesitter()        end, desc = "Flash Treesitter"    },
