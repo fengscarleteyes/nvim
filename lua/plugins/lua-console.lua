@@ -7,7 +7,4 @@ return {
   },
   -- opts = { preserve_context = false, clear_before_eval = true, notify_result = true },
   opts = {},
-  config = function(_, opts)
-    require("lua-console").setup(opts)
-  end,
 }
