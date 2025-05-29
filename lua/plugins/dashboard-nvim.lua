@@ -15,6 +15,8 @@ return {
       },
       config = {
         header = {},
+        week_header = { enable = true },
+        disable_move = true,
         shortcut = {
           -- action can be a function type
           { desc = "Lazy update", key = "u", action = "Lazy update", icon = " " },
