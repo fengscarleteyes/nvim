@@ -3,6 +3,7 @@
 
 return {
   "saghen/blink.cmp",
+  enabled = false,
   dependencies = {
     "rafamadriz/friendly-snippets",
     "moyiz/blink-emoji.nvim",

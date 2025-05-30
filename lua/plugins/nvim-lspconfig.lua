@@ -1,18 +1,5 @@
 -- https://github.com/neovim/nvim-lspconfig
-
-return {
-  "neovim/nvim-lspconfig",
-  event = "VeryLazy",
-  dependencies = {
-    "folke/lazydev.nvim",
-    "saghen/blink.cmp",
-    "williamboman/mason.nvim",
-  },
-  init = function()
-    --init setting
-  end,
-  opts = {
-    servers = {
+local servers = {
       taplo = {},
       -- bashls = {},
       pyright = {},
@@ -37,13 +24,19 @@ return {
           },
         },
       },
-    },
-  },
-  config = function(_, opts)
-    for server, config in pairs(opts.servers) do
-      config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-      vim.lsp.config(server, config)
-      vim.lsp.enable(server)
+    }
+
+
+local use = require('strive').use
+
+use("neovim/nvim-lspconfig")
+  :depends("folke/lazydev.nvim")
+  :config(
+    function()
+      for server, config in pairs(servers) do
+        vim.lsp.config(server, config)
+        vim.lsp.enable(server)
+      end
     end
-  end,
-}
+  )
+

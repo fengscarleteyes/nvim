@@ -1,5 +1,14 @@
-require("config.lazy")
+local strive_path = vim.fn.stdpath('data') .. '/site/pack/strive/start/strive'
+if not vim.uv.fs_stat(strive_path) then
+  vim.fn.system({
+    'git',
+    'clone',
+    '--depth=1',
+    'https://github.com/nvimdev/strive',
+    strive_path
+  })
 
-require("config.command")
-require("config.options")
-require("config.provider")
+  vim.o.rtp = strive_path .. ',' .. vim.o.rtp
+end
+
+require("plugins.nvim-lspconfig")
