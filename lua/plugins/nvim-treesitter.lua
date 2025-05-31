@@ -1,8 +1,11 @@
 -- https://github.com/nvim-treesitter/nvim-treesitter
 
+-- TODO: 精简配置
+
 return {
   "nvim-treesitter/nvim-treesitter",
   version = false,
+  enabled = false,
   build = ":TSUpdate",
   event = "VeryLazy",
   opts_extend = { "ensure_installed" },

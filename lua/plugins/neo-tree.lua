@@ -2,7 +2,13 @@
 
 return {
   "nvim-neo-tree/neo-tree.nvim",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "nvim-tree/nvim-web-devicons",
+    "MunifTanjim/nui.nvim",
+  },
   branch = "v3.x",
+  event = "VimEnter",
   opts = {
     source_selector = {
       winbar = false,
@@ -15,10 +21,5 @@ return {
         hide_gitignored = false,
       },
     },
-  },
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-    "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-    "MunifTanjim/nui.nvim",
-  },
+  }
 }
