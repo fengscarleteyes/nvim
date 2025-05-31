@@ -148,3 +148,9 @@ vim.g.showmode = true
 -- 补全菜单背景透明
 vim.o.pumblend = 10
 -- vim.o.pumheight = 5
+
+-- disable check warn
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0

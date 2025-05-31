@@ -20,5 +20,3 @@ vim.keymap.set(
         desc = "Neotree" --映射的描述（显示在 :which-key 等插件中）})
     }
 )
-
-return {}

@@ -30,3 +30,5 @@ require("lazy").setup({
 })
 
 require("keymaps")
+require("options")
+require("commands")
