@@ -28,3 +28,5 @@ require("lazy").setup({
   pkg = { enabled = false },  
   rocks = { enabled = false },
 })
+
+require("keymaps")
