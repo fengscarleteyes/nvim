@@ -103,9 +103,9 @@ vim.o.smartindent = true
 
 -- 折叠
 vim.o.foldmethod = "expr"
-vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.o.foldlevel = 999
-vim.o.foldenable = falstruee
+vim.o.foldenable = true
 -- vim.o.foldcolumn = '1'  -- 在侧边栏显示折叠指示器
 vim.o.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 

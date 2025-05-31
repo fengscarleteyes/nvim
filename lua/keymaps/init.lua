@@ -3,7 +3,7 @@ vim.keymap.set("n", "<leader>fe", "<cmd>Neotree filesystem toggle<CR>", {
   silent = true, -- 是否静默执行（不显示命令）
   nowait = false, -- 是否立即应用映射，不等待可能的更长匹配
   expr = false, -- 是否将 rhs 视为表达式（VimScript）
-  desc = "Neotree", --映射的描述（显示在 :which-key 等插件中）})
+  desc = "Neotree", --映射的描述
 })
 
 vim.keymap.set("n", "<leader>ff", "<Cmd>FzfLua files<CR>", {
@@ -11,7 +11,7 @@ vim.keymap.set("n", "<leader>ff", "<Cmd>FzfLua files<CR>", {
   silent = true, -- 是否静默执行（不显示命令）
   nowait = false, -- 是否立即应用映射，不等待可能的更长匹配
   expr = false, -- 是否将 rhs 视为表达式（VimScript）
-  desc = "FzfLua files", --映射的描述（显示在 :which-key 等插件中）})
+  desc = "FzfLua files", --映射的描述
 })
 
 vim.keymap.set("n", "<leader>fc", "<Cmd>FzfLua colorschemes<CR>", {
@@ -19,7 +19,7 @@ vim.keymap.set("n", "<leader>fc", "<Cmd>FzfLua colorschemes<CR>", {
   silent = true, -- 是否静默执行（不显示命令）
   nowait = false, -- 是否立即应用映射，不等待可能的更长匹配
   expr = false, -- 是否将 rhs 视为表达式（VimScript）
-  desc = "FzfLua colorschemes", --映射的描述（显示在 :which-key 等插件中）})
+  desc = "FzfLua colorschemes", --映射的描述
 })
 
 vim.keymap.set("n", "<leader>fg", "<Cmd>FzfLua live_grep<CR>", {
@@ -27,7 +27,7 @@ vim.keymap.set("n", "<leader>fg", "<Cmd>FzfLua live_grep<CR>", {
   silent = true, -- 是否静默执行（不显示命令）
   nowait = false, -- 是否立即应用映射，不等待可能的更长匹配
   expr = false, -- 是否将 rhs 视为表达式（VimScript）
-  desc = "FzfLua live_grep", --映射的描述（显示在 :which-key 等插件中）})
+  desc = "FzfLua live_grep", --映射的描述
 })
 
 vim.keymap.set("n", "<leader>fh", "<Cmd>FzfLua helptags<CR>", {
@@ -35,6 +35,62 @@ vim.keymap.set("n", "<leader>fh", "<Cmd>FzfLua helptags<CR>", {
   silent = true, -- 是否静默执行（不显示命令）
   nowait = false, -- 是否立即应用映射，不等待可能的更长匹配
   expr = false, -- 是否将 rhs 视为表达式（VimScript）
-  desc = "FzfLua helptags", --映射的描述（显示在 :which-key 等插件中）})
+  desc = "FzfLua helptags", --映射的描述
+})
+
+vim.keymap.set("n", "<leader>fb", "<Cmd>FzfLua buffers<CR>", {
+  noremap = true, -- 是否禁用递归映射（推荐设为 true，避免无限循环）
+  silent = true, -- 是否静默执行（不显示命令）
+  nowait = false, -- 是否立即应用映射，不等待可能的更长匹配
+  expr = false, -- 是否将 rhs 视为表达式（VimScript）
+  desc = "FzfLua buffers", --映射的描述
+})
+
+vim.keymap.set("n", "<leader>fl", "<Cmd>FzfLua lines<CR>", {
+  noremap = true, -- 是否禁用递归映射（推荐设为 true，避免无限循环）
+  silent = true, -- 是否静默执行（不显示命令）
+  nowait = false, -- 是否立即应用映射，不等待可能的更长匹配
+  expr = false, -- 是否将 rhs 视为表达式（VimScript）
+  desc = "FzfLua lines", --映射的描述
+})
+
+vim.keymap.set("n", "<leader>ft", "<Cmd>FzfLua tabs<CR>", {
+  noremap = true, -- 是否禁用递归映射（推荐设为 true，避免无限循环）
+  silent = true, -- 是否静默执行（不显示命令）
+  nowait = false, -- 是否立即应用映射，不等待可能的更长匹配
+  expr = false, -- 是否将 rhs 视为表达式（VimScript）
+  desc = "FzfLua tabs", --映射的描述
+})
+
+vim.keymap.set("n", "<leader>fj", "<Cmd>FzfLua lgrep_curbuf<CR>", {
+  noremap = true, -- 是否禁用递归映射（推荐设为 true，避免无限循环）
+  silent = true, -- 是否静默执行（不显示命令）
+  nowait = false, -- 是否立即应用映射，不等待可能的更长匹配
+  expr = false, -- 是否将 rhs 视为表达式（VimScript）
+  desc = "FzfLua lgrep_curbuf", --映射的描述
+})
+
+vim.keymap.set("n", "<leader>fd", "<Cmd>FzfLua diagnostics_document<CR>", {
+  noremap = true, -- 是否禁用递归映射（推荐设为 true，避免无限循环）
+  silent = true, -- 是否静默执行（不显示命令）
+  nowait = false, -- 是否立即应用映射，不等待可能的更长匹配
+  expr = false, -- 是否将 rhs 视为表达式（VimScript）
+  desc = "FzfLua diagnostics_document", --映射的描述
+})
+
+vim.keymap.set("n", "<leader>fD", "<Cmd>FzfLua diagnostics_workspace<CR>", {
+  noremap = true, -- 是否禁用递归映射（推荐设为 true，避免无限循环）
+  silent = true, -- 是否静默执行（不显示命令）
+  nowait = false, -- 是否立即应用映射，不等待可能的更长匹配
+  expr = false, -- 是否将 rhs 视为表达式（VimScript）
+  desc = "FzfLua diagnostics_workspace", --映射的描述
+})
+
+vim.keymap.set("n", "<leader>fk", "<Cmd>FzfLua keymaps<CR>", {
+  noremap = true, -- 是否禁用递归映射（推荐设为 true，避免无限循环）
+  silent = true, -- 是否静默执行（不显示命令）
+  nowait = false, -- 是否立即应用映射，不等待可能的更长匹配
+  expr = false, -- 是否将 rhs 视为表达式（VimScript）
+  desc = "FzfLua keymaps", --映射的描述
 })
 

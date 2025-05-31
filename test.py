@@ -1,4 +1,5 @@
 from pathlib import Path
 
+
 def test():
-  return Path(__file__)
+    return Path(__file__)
