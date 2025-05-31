@@ -1,7 +1,6 @@
 --stylua: ignore start
 return {
   { "<leader>l", group = "Lsp" },
-  { "<leader>lo", mode = { "n" },  "<Cmd>Outline<CR>",                 desc = "toggle outline",          noremap = true, silent = false },
   { "<leader>lr", mode = { "n" },  "<Cmd>Lspsaga rename<CR>",          desc = "Rename",                  noremap = true, silent = false }, -- quit = '<C-k>'
   { "<leader>ld", mode = { "n" },  "<Cmd>Lspsaga peek_definition<CR>", desc = "definition",              noremap = true, silent = false }, -- quit = '<C-k>'
   { "<leader>lin", mode = { "n" }, "<Cmd>Lspsaga incoming_calls<CR>",  desc = "incoming calls",          noremap = true, silent = false },

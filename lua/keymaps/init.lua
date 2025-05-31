@@ -1,13 +1,3 @@
--- local keymaps = {
---     { "<C-]>",     mode = { "i" }, function() require("fittencode").accept_all_suggestions() end, desc = "Fittencode accept all suggestions" },
---     { "<C-e>",     mode = { "i" }, function() require("fittencode").dismiss_suggestions()    end, desc = "Fittencode dismiss suggestions"    },
---     { "<C-Right>", mode = { "i" }, function() require("fittencode").accept_word()            end, desc = "Fittencode accept word"            },
---     { "<C-Down>",  mode = { "i" }, function() require("fittencode").accept_line()            end, desc = "Fittencode accept libe"            },
---     { "<C-Left>",  mode = { "i" }, function() require("fittencode").revoke_word()            end, desc = "Fittencode revoke word"            },
---     { "<C-Up>",    mode = { "i" }, function() require("fittencode").revoke_line()            end, desc = "Fittencode revoke libe"            },
---     { "<leader>fe", mode = { "n"      }, "<cmd>Neotree filesystem toggle<CR>",           desc = "Filesystem neotree" },
--- }
-
 vim.keymap.set(
     "n",
     "<leader>fe",
