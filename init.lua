@@ -21,14 +21,14 @@ vim.g.maplocalleader = "\\"
 require("lazy").setup({
   spec = {
     { import = "plugins" },
-    -- { import = "theme" },
+    { import = "theme" },
   },
   install = { colorscheme = { "habamax" } },
   checker = { enabled = false },
-  pkg = { enabled = false },  
+  pkg = { enabled = false },
   rocks = { enabled = false },
 })
 
-require("keymaps")
 require("options")
 require("commands")
+require("keymaps")
