@@ -94,3 +94,32 @@ vim.keymap.set("n", "<leader>fk", "<Cmd>FzfLua keymaps<CR>", {
   desc = "FzfLua keymaps", --映射的描述
 })
 
+vim.keymap.set("i", "<C-]>", function() require("fittencode").accept_all_suggestions() end, {
+  noremap = true, -- 是否禁用递归映射（推荐设为 true，避免无限循环）
+  silent = true, -- 是否静默执行（不显示命令）
+  nowait = false, -- 是否立即应用映射，不等待可能的更长匹配
+  expr = false, -- 是否将 rhs 视为表达式（VimScript）
+  desc = "Fittencode accept all suggestions", --映射的描述
+})
+
+  -- { "<C-e>",     mode = { "i" }, function() require("fittencode").dismiss_suggestions()    end, desc = "Fittencode dismiss suggestions"    },
+  -- { "<C-Right>", mode = { "i" }, function() require("fittencode").accept_word()            end, desc = "Fittencode accept word"            },
+  -- { "<C-Down>",  mode = { "i" }, function() require("fittencode").accept_line()            end, desc = "Fittencode accept libe"            },
+  -- { "<C-Left>",  mode = { "i" }, function() require("fittencode").revoke_word()            end, desc = "Fittencode revoke word"            },
+  -- { "<C-Up>",    mode = { "i" }, function() require("fittencode").revoke_line()            end, desc = "Fittencode revoke libe"            },
+
+
+-- vim.keymap.set(
+-- 	"n",
+-- 	"<leader>se",
+-- 	function() require("scissors").editSnippet() end,
+-- 	{ desc = "Snippet: Edit" }
+-- )
+
+-- -- when used in visual mode, prefills the selection as snippet body
+-- vim.keymap.set(
+-- 	{ "n", "x" },
+-- 	"<leader>sa",
+-- 	function() require("scissors").addNewSnippet() end,
+-- 	{ desc = "Snippet: Add" }
+-- )
