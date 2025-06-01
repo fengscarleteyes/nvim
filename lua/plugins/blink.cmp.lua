@@ -3,7 +3,7 @@
 
 return {
   "saghen/blink.cmp",
-  enabled = false,
+  -- enabled = false,
   dependencies = {
     "rafamadriz/friendly-snippets",
     "moyiz/blink-emoji.nvim",
@@ -51,41 +51,41 @@ return {
         max_height = 10,
         scrollbar = false,
         border = "rounded",
-        draw = {
-          components = {
-            item_idx = {
-              text = function(ctx)
-                return tostring(ctx.idx)
-              end,
-              highlight = "BlinkCmpItemIdx",
-            },
-            label = {
-              text = function(ctx)
-                return require("colorful-menu").blink_components_text(ctx)
-              end,
-              highlight = function(ctx)
-                return require("colorful-menu").blink_components_highlight(ctx)
-              end,
-            },
-            kind_icon = {
-              ellipsis = false,
-              text = function(ctx)
-                local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
-                return kind_icon
-              end,
-              highlight = function(ctx)
-                local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
-                return hl
-              end,
-            },
-          },
-          treesitter = { "lsp" },
-          columns = {
-            { "item_idx" },
-            { "kind_icon", "kind", gap = 2 },
-            { "label", "label_description", gap = 2 },
-          },
-        },
+        -- draw = {
+        --   -- components = {
+        --   --   item_idx = {
+        --   --     text = function(ctx)
+        --   --       return tostring(ctx.idx)
+        --   --     end,
+        --   --     highlight = "BlinkCmpItemIdx",
+        --   --   },
+        --   --   label = {
+        --   --     text = function(ctx)
+        --   --       return require("colorful-menu").blink_components_text(ctx)
+        --   --     end,
+        --   --     highlight = function(ctx)
+        --   --       return require("colorful-menu").blink_components_highlight(ctx)
+        --   --     end,
+        --   --   },
+        --   --   kind_icon = {
+        --   --     ellipsis = false,
+        --   --     text = function(ctx)
+        --   --       local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
+        --   --       return kind_icon
+        --   --     end,
+        --   --     highlight = function(ctx)
+        --   --       local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+        --   --       return hl
+        --   --     end,
+        --   --   },
+        --   -- },
+        --   treesitter = { "lsp" },
+        --   columns = {
+        --     { "item_idx" },
+        --     -- { "kind_icon", "kind", gap = 2 },
+        --     { "label", "label_description", gap = 2 },
+        --   },
+        -- },
       },
       documentation = {
         window = { scrollbar = false, border = "single" },
@@ -133,8 +133,7 @@ return {
       ["<C-f>"] = { "scroll_documentation_down", "fallback" },
     },
     appearance = {
-      use_nvim_cmp_as_default = true,
-      -- use_nvim_cmp_as_default = false,
+      use_nvim_cmp_as_default = false,
       nerd_font_variant = "mono",
     },
 

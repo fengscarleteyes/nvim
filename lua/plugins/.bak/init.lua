@@ -13,5 +13,5 @@ function require_plugins(path)
     end
 end
 
-require_plugins(vim.fn.stdpath("config") .. "/lua/plugins")
+-- require_plugins(vim.fn.stdpath("config") .. "/lua/plugins")
 return {}

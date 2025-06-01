@@ -11,3 +11,8 @@ a: Path = Path(__file__)
 print(a.parent)
 
 b: Path = Path(__file__)
+print(b.cwd())
+
+
+def test_2() -> bool:
+    return True

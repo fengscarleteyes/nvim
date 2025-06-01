@@ -131,7 +131,7 @@ vim.cmd("aunmenu PopUp.How-to\\ disable\\ mouse")
 -- vim.opt.autowrite = true -- Enable auto write
 -- vim.o.clipboard = "unnamedplus" -- Sync with system clipboard
 vim.o.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
-vim.o.completeopt = "menu,menuone,noselect"
+vim.o.completeopt = "menu,menuone,noselect,popup"
 
 -- vim.o.signcolumn = "number"
 vim.o.signcolumn = "yes"
