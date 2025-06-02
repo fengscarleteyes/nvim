@@ -10,6 +10,7 @@ return {
     "folke/lazydev.nvim",
   },
   version = "*",
+  event = 'LspAttach',
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
