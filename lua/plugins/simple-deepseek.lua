@@ -1,1 +1,2 @@
-return { dir = "~/Desktop/simple-deepseek.nvim", config = true }
+return {}
+-- return { dir = "~/Desktop/simple-deepseek.nvim", config = true }
