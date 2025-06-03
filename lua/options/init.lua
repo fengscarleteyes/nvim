@@ -43,8 +43,9 @@ vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.softtabstop = 4
 
-vim.g.encoding = "utf-8"
-vim.o.fileencoding = "utf-8"
+vim.opt.encoding = "utf-8"
+vim.opt.fileencoding = "utf-8"
+vim.opt.fileencodings = "ucs-bom,utf-8,default,latin1"
 
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 
