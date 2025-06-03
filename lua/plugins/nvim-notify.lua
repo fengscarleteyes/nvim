@@ -6,3 +6,5 @@ return {
     vim.notify = require("notify")
   end,
 }
+
+-- TODO: require("notify.integrations").pick()
