@@ -7,14 +7,14 @@ local function enable_lsp_server(path)
   end
 
   while true do
-    local name, _ = vim.uv.fs_scandir_next(handle)
-    if not name then
+    local file_name, _ = vim.uv.fs_scandir_next(handle)
+    if not file_name then
       break
     end
 
-    if name:match("%.lua$") then
-      local module_name = name:gsub(".lua$", "")
-      vim.lsp.enable(module_name)
+    if file_name:match("%.lua$") then
+      local server_name = file_name:gsub(".lua$", "")
+      vim.lsp.enable(server_name)
     end
   end
 end
