@@ -1,4 +1,5 @@
 -- https://github.com/YaroSpace/lua-console.nvim
+-- TODO: config lua-console.nvim & keymap
 
 return {
   "yarospace/lua-console.nvim",
