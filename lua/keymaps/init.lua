@@ -94,12 +94,44 @@ vim.keymap.set("n", "<leader>fk", "<Cmd>FzfLua keymaps<CR>", {
   desc = "FzfLua keymaps", --映射的描述
 })
 
-vim.keymap.set("i", "<C-]>", function() require("fittencode").accept_all_suggestions() end, {
+vim.keymap.set("i", "<C-]>", function()
+  require("fittencode").accept_all_suggestions()
+end, {
   noremap = true, -- 是否禁用递归映射（推荐设为 true，避免无限循环）
   silent = true, -- 是否静默执行（不显示命令）
   nowait = false, -- 是否立即应用映射，不等待可能的更长匹配
   expr = false, -- 是否将 rhs 视为表达式（VimScript）
   desc = "Fittencode accept all suggestions", --映射的描述
+})
+
+vim.keymap.set("n", "<leader>nn", function()
+  require("notify").dismiss({ pending = true, silent = true })
+end, {
+  noremap = true, -- 是否禁用递归映射（推荐设为 true，避免无限循环）
+  silent = true, -- 是否静默执行（不显示命令）
+  nowait = false, -- 是否立即应用映射，不等待可能的更长匹配
+  expr = false, -- 是否将 rhs 视为表达式（VimScript）
+  desc = "Hide notifications", --映射的描述
+})
+
+vim.keymap.set("n", "<leader>nh", function()
+  require("notify.integrations").pick()
+end, {
+  noremap = true, -- 是否禁用递归映射（推荐设为 true，避免无限循环）
+  silent = true, -- 是否静默执行（不显示命令）
+  nowait = false, -- 是否立即应用映射，不等待可能的更长匹配
+  expr = false, -- 是否将 rhs 视为表达式（VimScript）
+  desc = "show notifications history", --映射的描述
+})
+
+vim.keymap.set("n", "<leader>nh", function()
+  require("notify.integrations").pick()
+end, {
+  noremap = true, -- 是否禁用递归映射（推荐设为 true，避免无限循环）
+  silent = true, -- 是否静默执行（不显示命令）
+  nowait = false, -- 是否立即应用映射，不等待可能的更长匹配
+  expr = false, -- 是否将 rhs 视为表达式（VimScript）
+  desc = "show notifications history", --映射的描述
 })
 
 -- "<C-e>",     mode = { "i" }, function() require("fittencode").dismiss_suggestions()    end, desc = "Fittencode dismiss suggestions"    },
