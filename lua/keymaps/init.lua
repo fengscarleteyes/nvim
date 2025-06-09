@@ -214,6 +214,36 @@ local keymaps = {
       desc = "show notifications history", --映射的描述
     },
   },
+
+  -- TODO: add surround keymaps
+  -- {
+  --   { "<leader>s", group = "Surround" },
+  --   { "<leader>ss", mode = { "n" }, "<Plug>(nvim-surround-normal-cur)",      desc = "surround normal cur",      noremap = true, silent = false },
+  --   { "<leader>sS", mode = { "n" }, "<Plug>(nvim-surround-normal)",          desc = "surround normal",          noremap = true, silent = false },
+  --   { "<leader>sd", mode = { "n" }, "<Plug>(nvim-surround-delete)",          desc = "surround delete",          noremap = true, silent = false },
+  --   { "<leader>sl", mode = { "n" }, "<Plug>(nvim-surround-normal-cur-line)", desc = "surround normal cur line", noremap = true, silent = false },
+  --   { "<leader>sL", mode = { "n" }, "<Plug>(nvim-surround-normal-line)",     desc = "surround normal line",     noremap = true, silent = false },
+  --   { "<leader>sr", mode = { "n" }, "<Plug>(nvim-surround-change)",          desc = "surround change",          noremap = true, silent = false },
+  --   { "<leader>sR", mode = { "n" }, "<Plug>(nvim-surround-change-line)",     desc = "surround change line",     noremap = true, silent = false },
+  --   { "<leader>sv", mode = { "x" }, "<Plug>(nvim-surround-visual-line)",     desc = "surround visual line",     noremap = true, silent = false },
+  --   { "<leader>sV", mode = { "x" }, "<Plug>(nvim-surround-visual)",          desc = "surround visual",          noremap = true, silent = false },
+  --   -- { "setket",     mode = { "i" }, "<Plug>(nvim-surround-insert)",          desc = "surround insert",          noremap = true, silent = false },
+  --   -- { "setket",     mode = { "i" }, "<Plug>(nvim-surround-insert-line)",     desc = "surround insert line",     noremap = true, silent = false },
+  -- }
+  -- {
+  --   "n",
+  --   -- "<leader>nh",
+  --   function()
+  --     require("notify.integrations").pick()
+  --   end,
+  --   {
+  --     noremap = true, -- 是否禁用递归映射（推荐设为 true，避免无限循环）
+  --     silent = true, -- 是否静默执行（不显示命令）
+  --     nowait = false, -- 是否立即应用映射，不等待可能的更长匹配
+  --     expr = false, -- 是否将 rhs 视为表达式（VimScript）
+  --     desc = "show notifications history", --映射的描述
+  --   },
+  -- },
 }
 
 for _, keymap in ipairs(keymaps) do
