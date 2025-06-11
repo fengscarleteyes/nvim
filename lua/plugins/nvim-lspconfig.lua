@@ -25,5 +25,5 @@ enable_lsp_server(vim.fn.stdpath("config") .. "/lsp")
 return {
   "neovim/nvim-lspconfig",
   dependencies = "folke/lazydev.nvim",
-  event = "BufEnter",
+  event = "BufReadPre",
 }
