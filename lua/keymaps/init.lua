@@ -214,6 +214,71 @@ local keymaps = {
       desc = "show notifications history", --映射的描述
     },
   },
+
+  {
+    "i",
+    "<C-h>",
+    "<Left>",
+    {
+      noremap = true, -- 是否禁用递归映射（推荐设为 true，避免无限循环）
+      silent = true, -- 是否静默执行（不显示命令）
+      nowait = false, -- 是否立即应用映射，不等待可能的更长匹配
+      expr = false, -- 是否将 rhs 视为表达式（VimScript）
+      desc = "Move left", --映射的描述
+    },
+  },
+
+  {
+    "i",
+    "<C-j>",
+    "<Down>",
+    {
+      noremap = true, -- 是否禁用递归映射（推荐设为 true，避免无限循环）
+      silent = true, -- 是否静默执行（不显示命令）
+      nowait = false, -- 是否立即应用映射，不等待可能的更长匹配
+      expr = false, -- 是否将 rhs 视为表达式（VimScript）
+      desc = "Move down", --映射的描述
+    },
+  },
+
+  {
+    "i",
+    "<C-k>",
+    "<Up>",
+    {
+      noremap = true, -- 是否禁用递归映射（推荐设为 true，避免无限循环）
+      silent = true, -- 是否静默执行（不显示命令）
+      nowait = false, -- 是否立即应用映射，不等待可能的更长匹配
+      expr = false, -- 是否将 rhs 视为表达式（VimScript）
+      desc = "Move up", --映射的描述
+    },
+  },
+
+  {
+    "i",
+    "<C-l>",
+    "<Right>",
+    {
+      noremap = true, -- 是否禁用递归映射（推荐设为 true，避免无限循环）
+      silent = true, -- 是否静默执行（不显示命令）
+      nowait = false, -- 是否立即应用映射，不等待可能的更长匹配
+      expr = false, -- 是否将 rhs 视为表达式（VimScript）
+      desc = "Move right", --映射的描述
+    },
+  },
+
+  {
+    "i",
+    "<C-l>",
+    "<Right>",
+    {
+      noremap = true, -- 是否禁用递归映射（推荐设为 true，避免无限循环）
+      silent = true, -- 是否静默执行（不显示命令）
+      nowait = false, -- 是否立即应用映射，不等待可能的更长匹配
+      expr = false, -- 是否将 rhs 视为表达式（VimScript）
+      desc = "Move right", --映射的描述
+    },
+  },
 }
 
 for _, keymap in ipairs(keymaps) do
