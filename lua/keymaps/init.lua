@@ -1,3 +1,5 @@
+-- TODO: 优化 options[opts] 部分
+
 local keymaps = {
   {
     "n",
