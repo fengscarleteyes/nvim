@@ -27,6 +27,7 @@ return {
     },
     disabled_fts = {
       "startify",
+      "dashboard",
     },
   },
 }
