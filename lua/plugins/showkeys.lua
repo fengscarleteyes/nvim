@@ -2,6 +2,7 @@
 
 return {
   "nvzone/showkeys",
+  enabled = false,
   -- cmd = "ShowkeysToggle",
   opts = {
     winopts = {
