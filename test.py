@@ -16,6 +16,3 @@ print(b.cwd())
 
 def test_2() -> bool:
     return True
-
-
-asdsad123
