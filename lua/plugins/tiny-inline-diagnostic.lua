@@ -4,10 +4,28 @@
 
 return {
   "rachartier/tiny-inline-diagnostic.nvim",
-  event = "VeryLazy", -- Or `LspAttach`
-  priority = 1000, -- needs to be loaded in first
-  config = function()
-    require("tiny-inline-diagnostic").setup()
-    vim.diagnostic.config({ virtual_text = false }) -- Only if needed in your configuration, if you already have native LSP diagnostics
+  event = "LspAttach",
+  priority = 1000,
+  opts = {
+    -- "modern", "classic", "minimal", "powerline",
+    -- "ghost", "simple", "nonerdfont", "amongus"
+    preset = "classic",
+    options = {
+      show_source = {
+        enabled = true,
+        if_many = true,
+      },
+      use_icons_from_diagnostic = false,
+      multilines = {
+        enabled = true,
+        always_show = true,
+      },
+      show_all_diags_on_cursorline = true,
+    },
+    disabled_ft = {},
+  },
+  config = function(_, opts)
+    require("tiny-inline-diagnostic").setup(opts)
+    vim.diagnostic.config({ virtual_text = false })
   end,
 }
