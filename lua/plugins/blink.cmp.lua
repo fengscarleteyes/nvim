@@ -10,7 +10,7 @@ return {
     "folke/lazydev.nvim",
   },
   version = "*",
-  event = 'LspAttach',
+  event = "LspAttach",
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
@@ -52,41 +52,6 @@ return {
         max_height = 10,
         scrollbar = false,
         border = "rounded",
-        -- draw = {
-        --   -- components = {
-        --   --   item_idx = {
-        --   --     text = function(ctx)
-        --   --       return tostring(ctx.idx)
-        --   --     end,
-        --   --     highlight = "BlinkCmpItemIdx",
-        --   --   },
-        --   --   label = {
-        --   --     text = function(ctx)
-        --   --       return require("colorful-menu").blink_components_text(ctx)
-        --   --     end,
-        --   --     highlight = function(ctx)
-        --   --       return require("colorful-menu").blink_components_highlight(ctx)
-        --   --     end,
-        --   --   },
-        --   --   kind_icon = {
-        --   --     ellipsis = false,
-        --   --     text = function(ctx)
-        --   --       local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
-        --   --       return kind_icon
-        --   --     end,
-        --   --     highlight = function(ctx)
-        --   --       local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
-        --   --       return hl
-        --   --     end,
-        --   --   },
-        --   -- },
-        --   treesitter = { "lsp" },
-        --   columns = {
-        --     { "item_idx" },
-        --     -- { "kind_icon", "kind", gap = 2 },
-        --     { "label", "label_description", gap = 2 },
-        --   },
-        -- },
       },
       documentation = {
         window = { scrollbar = false, border = "single" },
@@ -103,17 +68,6 @@ return {
     signature = { enabled = true, window = { border = "single" } },
     keymap = {
       preset = "none", -- disable default preset
-      -- stylua: ignore start
-      -- ['<A-1>'] = { function(cmp) cmp.accept({ index = 1 }) end },
-      -- ['<A-2>'] = { function(cmp) cmp.accept({ index = 2 }) end },
-      -- ['<A-3>'] = { function(cmp) cmp.accept({ index = 3 }) end },
-      -- ['<A-4>'] = { function(cmp) cmp.accept({ index = 4 }) end },
-      -- ['<A-5>'] = { function(cmp) cmp.accept({ index = 5 }) end },
-      -- ['<A-6>'] = { function(cmp) cmp.accept({ index = 6 }) end },
-      -- ['<A-7>'] = { function(cmp) cmp.accept({ index = 7 }) end },
-      -- ['<A-8>'] = { function(cmp) cmp.accept({ index = 8 }) end },
-      -- ['<A-9>'] = { function(cmp) cmp.accept({ index = 9 }) end },
-      -- stylua: ignore end
       ["<C-d>"] = { "show", "show_documentation", "hide_documentation" },
       ["<C-e>"] = { "hide", "fallback" },
       ["<Tab>"] = {

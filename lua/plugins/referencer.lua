@@ -2,6 +2,7 @@
 
 return {
   "romus204/referencer.nvim",
+  -- enabled = false,
   config = function()
     require("referencer").setup({
       enable = true,
