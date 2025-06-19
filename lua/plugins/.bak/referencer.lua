@@ -3,6 +3,7 @@
 return {
   "romus204/referencer.nvim",
   -- enabled = false,
+  event = "LspAttach",
   config = function()
     require("referencer").setup({
       enable = true,
