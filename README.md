@@ -58,8 +58,8 @@ LuaJIT 2.1.1741571767
 Run "nvim -V1 -v" for more info
 
 $ nvs install 0.10.0
-ℹ Resolving version v0.10.0...
-ℹ Installing Neovim v0.10.0...
+Resolving version v0.10.0...
+Installing Neovim v0.10.0...
 ✓ Installation successful!
 
 $ nvs use 0.10.0
@@ -200,4 +200,3 @@ zC    -- 递归关闭当前折叠 (Close fold recursively)
 zO    -- 递归打开当前折叠 (Open fold recursively)
 zi    -- 全局切换折叠功能 (Toggle folding enable/disable)
 ```
-
