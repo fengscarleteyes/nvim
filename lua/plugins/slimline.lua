@@ -2,7 +2,7 @@
 
 return {
   "sschleemilch/slimline.nvim",
-  dependencies = { "lewis6991/gitsigns.nvim", "echasnovski/mini.icons", "NStefan002/screenkey.nvim" },
+  dependencies = "NStefan002/screenkey.nvim",
   event = "VimEnter",
   opts = {
     components = {
@@ -13,10 +13,8 @@ return {
       },
     },
   },
-  config = function(_,opts)
+  config = function(_, opts)
     require("slimline").setup(opts)
     vim.cmd([[Screenkey toggle_statusline_component]])
-  end
+  end,
 }
-
-
