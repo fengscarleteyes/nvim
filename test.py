@@ -16,3 +16,7 @@ print(b.cwd())
 
 def test_2() -> bool:
     return True
+
+
+def test_3() -> bool:
+    return False
