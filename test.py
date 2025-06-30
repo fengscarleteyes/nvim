@@ -20,3 +20,8 @@ def test_2() -> bool:
 
 def test_3() -> bool:
     return False
+
+
+if __name__ == "__main__":
+    print(test_2())
+    print(test_3())
