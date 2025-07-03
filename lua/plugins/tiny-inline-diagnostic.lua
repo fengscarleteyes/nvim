@@ -1,7 +1,5 @@
 -- https://github.com/rachartier/tiny-inline-diagnostic.nvim
 
--- TODO: setting
-
 return {
   "rachartier/tiny-inline-diagnostic.nvim",
   event = "LspAttach",
