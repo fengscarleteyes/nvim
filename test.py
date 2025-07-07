@@ -6,18 +6,18 @@ print(__file__)
 
 
 def asdasd() -> bool:
-  return True
+    return True
 
 
 asdasd()
 
 
-def test():
-  return Path(__file__)
+def test() -> Path:
+    return Path(__file__)
 
 
-def test_4(p):
-  return p if p else None
+def test_4(p: str) -> str | None:
+    return p if p else None
 
 
 a: Path = Path(__file__)
@@ -28,13 +28,13 @@ print(b.cwd())
 
 
 def test_2() -> bool:
-  return True
+    return True
 
 
 def test_3() -> bool:
-  return False
+    return False
 
 
 if __name__ == "__main__":
-  print(test_2())
-  print(test_3())
+    print(test_2())
+    print(test_3())
