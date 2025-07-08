@@ -20,6 +20,8 @@ def test_4(p: str) -> str | None:
     return p if p else None
 
 
+test_4("test_4")
+
 a: Path = Path(__file__)
 print(a.parent)
 
