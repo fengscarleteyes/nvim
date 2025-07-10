@@ -41,6 +41,7 @@ indent-width = 4
 # McCabe complexity (`C901`) by default.
 # select = ["E4", "E7", "E9", "F"]
 select = [
+  "A",   #flake8-builtins
   "E",   # pycodestyle errors
   "W",   # pycodestyle warnings
   "F",   # pyflakes
@@ -50,6 +51,11 @@ select = [
   "UP",  # pyupgrade
   "PL",  # pylint
   "ANN", # flake8-annotations
+  "FIX", # flake8-fixme
+  "RET", # flake8-return
+  "ARG", # flake8-unused-arguments
+  "PTH", # flake8-use-pathlib
+  "N",   # pep8-naming
 ]
 ignore = [
   # Conflicts with the formatter

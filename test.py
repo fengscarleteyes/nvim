@@ -2,14 +2,18 @@ from pathlib import Path
 
 print(__file__)
 
-# asdasd = 123123
-
 
 def asdasd() -> bool:
     return True
 
 
 asdasd()
+
+tt = 1
+
+
+def ttt():
+    return False
 
 
 def test() -> Path:
