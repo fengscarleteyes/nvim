@@ -1,4 +1,4 @@
--- https://github.com/luozhiya/fittencode.nvim-- https://github.com/luozhiya/fittencode.nvim
+-- https://github.com/luozhiya/fittencode.nvim
 
 return {
   "luozhiya/fittencode.nvim",
