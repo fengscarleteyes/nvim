@@ -2,6 +2,8 @@ from pathlib import Path
 
 print(__file__)
 
+test_type_001: int = "asd"
+
 
 def asdasd() -> bool:
     return True

@@ -6,8 +6,8 @@ return {
     ensure_installed = {
       "stylua", -- lua formater
       "lua-language-server", -- lsp
-      "prettier", -- Angular, CSS, Flow, GraphQL, HTML, JSON, JSX, JavaScript, LESS, Markdown, SCSS, TypeScript, Vue, YAML formater
-      "pyright", -- python lsp
+      -- "prettier", -- Angular, CSS, Flow, GraphQL, HTML, JSON, JSX, JavaScript, LESS, Markdown, SCSS, TypeScript, Vue, YAML formater
+      -- "pyright", -- python lsp
       "ty", -- python type checker lsp
       "ruff", -- python linter & formater
       "taplo", -- toml lsp & formater
