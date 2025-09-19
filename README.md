@@ -1,76 +1,18 @@
-<img src="./apps-neovim-icon-1024x1024.png" data-canonical-src="https://camo.githubusercontent.com/..." width="100" height="100" />
+<img src="https://neovim.io/logos/neovim-mark-flat.png" align="right" width="100" />
 
 ---
 
 # README
 
-<img src="https://neovim.io/logos/neovim-mark-flat.png" align="right" width="25" />
-
 - Install
 
 ```shell
-cd ~/.config/nvim # Linux
-git clone https://github.com/fengscarleteyes/nvim.git
+git clone git@github.com:fengscarleteyes/nvim.git
 ```
-
-```powershell
-cd ~\AppData\Local\nvim # Windows
-git clone https://github.com/fengscarleteyes/nvim.git
-```
-
-## TODO:
 
 ## version manager
 
 > https://github.com/y3owk1n/nvs
-
-```bash
-# Linux
-
-# install
-curl -fsSL https://raw.githubusercontent.com/y3owk1n/nvs/main/install.sh | bash
-
-# uninstall
-curl -fsSL https://raw.githubusercontent.com/y3owk1n/nvs/main/uninstall.sh | bash
-```
-
-### Using a released binary
-
-> https://github.com/y3owk1n/nvs/releases
-
-```bash
-$ nvs use stable
-✓ Switched to Neovim stable
-
-$ nvim -v
-NVIM v0.10.4
-Build type: Release
-LuaJIT 2.1.1713484068
-Run "nvim -V1 -v" for more info
-
-$ nvs use nightly
-✓ Switched to Neovim nightly
-
-$ nvim -v
-NVIM v0.11.0-dev-1961+g7e2b75760f
-Build type: RelWithDebInfo
-LuaJIT 2.1.1741571767
-Run "nvim -V1 -v" for more info
-
-$ nvs install 0.10.0
-Resolving version v0.10.0...
-Installing Neovim v0.10.0...
-✓ Installation successful!
-
-$ nvs use 0.10.0
-✓ Switched to Neovim v0.10.0
-
-$ nvim -v
-NVIM v0.10.0
-Build type: Release
-LuaJIT 2.1.1713484068
-Run "nvim -V1 -v" for more info
-```
 
 ## Python
 
