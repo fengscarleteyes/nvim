@@ -8,14 +8,13 @@ return {
       formatters_by_ft = {
         lua = { "stylua" },
         python = { "ruff_format", "ruff_fix", "ruff_organize_imports" },
-        markdown = { "prettier" },
-        json = { "prettier" },
-        css = { "prettier" },
-        jsonc = { "prettier" },
-        yaml = { "prettier" },
-        html = { "prettier" },
-        toml = { "taplo" },
-        -- sh = { "shfmt" },
+        -- markdown = { "prettier" },
+        -- json = { "prettier" },
+        -- jsonc = { "prettier" },
+        -- yaml = { "prettier" },
+        -- toml = { "taplo" },
+        -- html = { "prettier" },
+        -- css = { "prettier" },
       },
       format_on_save = {
         -- These options will be passed to conform.format()

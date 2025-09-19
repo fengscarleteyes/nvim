@@ -10,7 +10,7 @@ return {
       -- "pyright", -- python lsp
       "ty", -- python type checker lsp
       "ruff", -- python linter & formater
-      "taplo", -- toml lsp & formater
+      -- "taplo", -- toml lsp & formater
     },
   },
   config = function(_, opts)
