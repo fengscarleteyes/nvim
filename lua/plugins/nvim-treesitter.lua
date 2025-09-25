@@ -4,8 +4,7 @@ return {
   "nvim-treesitter/nvim-treesitter",
   branch = "main",
   build = ":TSUpdate",
-  event = { "VeryLazy" },
-  lazy = vim.fn.argc(-1) == 0, -- 从 cmdline 打开文件时提前加载 treesitter
+  lazy = false,
   config = function()
     local ts = require("nvim-treesitter")
     local ensure_installed = {

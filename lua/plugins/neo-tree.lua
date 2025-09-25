@@ -6,8 +6,10 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons",
     "MunifTanjim/nui.nvim",
+    -- "3rd/image.nvim", -- view images in neo-tree
   },
   branch = "v3.x",
+  lazy = false,
   event = "VimEnter",
   opts = {
     source_selector = {
@@ -21,5 +23,5 @@ return {
         hide_gitignored = false,
       },
     },
-  }
+  },
 }

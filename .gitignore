@@ -42,3 +42,6 @@ luac.out
 # Custom rules
 .venv
 lazy-lock.json
+package-lock.json
+package.json
+

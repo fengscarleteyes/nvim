@@ -7,6 +7,7 @@
 - Install
 
 ```shell
+sudo pacman -S zoxide
 sudo pacman -S fzf
 sudo pacman -S fd
 sudo pacman -S ripgrep
