@@ -5,6 +5,7 @@
 return -- Lazy
 {
   "piersolenski/import.nvim",
+  enabled = false,
   dependencies = {
     "ibhagwan/fzf-lua",
   },

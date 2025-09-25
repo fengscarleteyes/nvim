@@ -13,7 +13,7 @@ return {
       -- row = math.huge,
       -- border = "single",
       border = "double",
-      padding = { 1, 2 }, -- extra window padding [top/bottom, right/left]
+      padding = { 1, 1 }, -- extra window padding [top/bottom, right/left]
       title = true,
       title_pos = "center",
       zindex = 1000,

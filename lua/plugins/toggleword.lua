@@ -2,6 +2,7 @@
 
 return {
   "iquzart/toggleword.nvim",
+  enabled = false, -- wait issue
   opts = {
     key = nil,
     toggle_groups = {
