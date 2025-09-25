@@ -2,7 +2,7 @@ from pathlib import Path
 
 print(__file__)
 
-test_type_001: int = "asd"
+test_type_001: str = "asd"
 
 
 def asdasd() -> bool:
@@ -14,7 +14,7 @@ asdasd()
 tt = 1
 
 
-def ttt():
+def ttt() -> bool:
     return False
 
 
