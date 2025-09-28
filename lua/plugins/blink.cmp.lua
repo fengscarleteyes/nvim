@@ -9,7 +9,8 @@ return {
     "moyiz/blink-emoji.nvim",
     "folke/lazydev.nvim",
   },
-  version = "*",
+  -- use a release tag to download pre-built binaries
+  version = "1.*",
   event = "LspAttach",
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
