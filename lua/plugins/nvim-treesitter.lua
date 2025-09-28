@@ -6,6 +6,15 @@ return {
   build = ":TSUpdate",
   lazy = false,
   config = function()
+    local function is_installed(check_name, check_table)
+      for key, value in ipairs(check_table) do
+        if value == check_name then
+          return true
+        end
+      end
+      return false
+    end
+    require("nvim-treesitter.install").prefer_git = true
     local ts = require("nvim-treesitter")
     local ensure_installed = {
       "vim",
@@ -18,13 +27,17 @@ return {
       "yaml",
       "toml",
       "json",
-      "jsonc",
       "markdown",
       "markdown_inline",
       "python",
       "lua",
     }
-    ts.install(ensure_installed) -- :wait(300000)
+    for _, lang_name in ipairs(ensure_installed) do
+      local installed = ts.get_installed()
+      if not is_installed(lang_name, installed) then
+        ts.install(lang_name) -- :wait(300000)
+      end
+    end
   end,
 }
 -- require'nvim-treesitter'.install { 'rust', 'javascript', 'zig' }
