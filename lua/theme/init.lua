@@ -2,6 +2,14 @@
 
 return {
   {
+    "uhs-robert/oasis.nvim",
+    config = function()
+      -- vim.cmd.colorscheme("oasis") -- or use a variant like ("oasis_desert")
+      vim.cmd.colorscheme("oasis-lagoon")
+      -- vim.cmd.colorscheme("oasis-starlight")
+    end,
+  },
+  {
     "0xstepit/flow.nvim",
     lazy = false,
     priority = 1000,
@@ -13,10 +21,10 @@ return {
         transparent = false, -- true | false
       },
     },
-    config = function(_, opts)
-      require("flow").setup(opts)
-      vim.cmd("colorscheme flow")
-    end,
+    -- config = function(_, opts)
+    --   require("flow").setup(opts)
+    --   vim.cmd("colorscheme flow")
+    -- end,
   },
   {
     "folke/tokyonight.nvim",
