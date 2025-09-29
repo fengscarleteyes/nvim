@@ -2,7 +2,7 @@
 
 return {
   "LuxVim/nvim-luxmotion",
-  -- enabled = false,
+  enabled = false,
   config = function()
     require("luxmotion").setup({
       cursor = {
