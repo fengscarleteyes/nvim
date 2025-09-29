@@ -5,9 +5,13 @@ vim.opt.sessionoptions = "curdir,folds,globals,help,tabpages,terminal,winsize"
 
 return {
   "nanozuki/tabby.nvim",
-  event = "VimEnter",
+  event = "VeryLazy",
   dependencies = "nvim-tree/nvim-web-devicons",
-  config = function()
-    require("tabby").setup({ preset = "tab_only" })
+  ---@type TabbyConfig
+  opte = {
+    preset = "tab_only",
+  },
+  config = function(_, opts)
+    require("tabby").setup(opts)
   end,
 }
