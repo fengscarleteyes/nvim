@@ -1,5 +1,7 @@
 -- https://github.com/kylechui/nvim-surround
 
+-- TODO: keymaps
+
 return {
   "kylechui/nvim-surround",
   event = "VeryLazy",
