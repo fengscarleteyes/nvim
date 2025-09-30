@@ -3,5 +3,6 @@
 return {
   "NStefan002/screenkey.nvim",
   lazy = false,
-  version = "main"
+  -- version = "main"
 }
+
