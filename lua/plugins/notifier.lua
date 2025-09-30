@@ -2,6 +2,7 @@
 
 return {
   "y3owk1n/notifier.nvim",
+  -- lazy = false,
   config = function()
     -- Basic setup with defaults, these are all you need to get started, unless you want to fine-tune the details
     require("notifier").setup({
