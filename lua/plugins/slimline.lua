@@ -10,9 +10,11 @@ return {
     -- style = "fg",
     components = {
       center = {
+        "  ",
         function()
           return require("screenkey").get_keys()
         end,
+        " 󰌓 ",
       },
     },
     -- Spacing configuration
