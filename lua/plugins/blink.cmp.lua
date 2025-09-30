@@ -63,7 +63,7 @@ return {
         selection = { preselect = true, auto_insert = true },
       },
       accept = {
-        auto_brackets = { enabled = false, default_brackets = { "(", ")" } },
+        auto_brackets = { enabled = true, default_brackets = { "(", ")" } },
       },
     },
     signature = { enabled = true, window = { border = "single" } },
