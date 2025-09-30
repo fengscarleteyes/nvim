@@ -2,6 +2,8 @@
 
 return {
   "williamboman/mason.nvim",
+  event = "VimEnter",
+  -- lazy = false,
   opts = {
     ensure_installed = {
       "stylua", -- lua formater

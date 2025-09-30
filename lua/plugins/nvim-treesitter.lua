@@ -7,7 +7,7 @@ return {
   lazy = false,
   config = function()
     local function is_installed(check_name, check_table)
-      for key, value in ipairs(check_table) do
+      for _, value in ipairs(check_table) do
         if value == check_name then
           return true
         end
