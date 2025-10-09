@@ -2,10 +2,19 @@
 
 return {
   {
+    "wurli/cobalt.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+    config = function()
+      vim.cmd.colorscheme("cobalt")
+    end,
+  },
+  {
     "uhs-robert/oasis.nvim",
     config = function()
       -- vim.cmd.colorscheme("oasis") -- or use a variant like ("oasis_desert")
-      vim.cmd.colorscheme("oasis-lagoon")
+      -- vim.cmd.colorscheme("oasis-lagoon")
       -- vim.cmd.colorscheme("oasis-starlight")
     end,
   },
