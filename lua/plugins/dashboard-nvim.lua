@@ -6,8 +6,9 @@ return {
   -- enabled = false,
   config = function()
     require("dashboard").setup({
-      shortcut_type = "number",
       theme = "hyper",
+      disable_move = true,
+      shortcut_type = "number",
       hide = {
         statusline = true, -- hide statusline default is true
         tabline = true, -- hide the tabline
@@ -15,7 +16,7 @@ return {
       },
       config = {
         header = {},
-        week_header = { enable = true },
+        week_header = { enable = false },
         disable_move = true,
         shortcut = {
           -- action can be a function type
@@ -29,7 +30,7 @@ return {
         },
         packages = { enable = true },
         project = { enable = false, limit = 5 },
-        mru = { enable = true, limit = 10, cwd_only = false },
+        mru = { enable = true, limit = 15, cwd_only = false },
         footer = {},
       },
     })
