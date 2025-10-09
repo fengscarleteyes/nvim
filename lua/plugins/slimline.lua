@@ -2,6 +2,7 @@
 
 return {
   "sschleemilch/slimline.nvim",
+  enabled = false,
   dependencies = "NStefan002/screenkey.nvim",
   event = "VimEnter",
   opts = {
