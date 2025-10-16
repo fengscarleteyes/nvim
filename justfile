@@ -1,22 +1,19 @@
 set windows-shell := ["powershell.exe", "-NoLogo", "-Command"]
+set export
 
-alias pp := powershell_porxy
-alias ppp := powershell_phone_proxy
+MyProxy := "http://192.168.43.1:7890"
+# MyProxy := "http://192.168.10.118:7890"
 
-[windows]
-powershell_porxy:
-    $MyProxy = "http://192.168.10.118:7890"
-    $env:HTTP_PROXY = $MyProxy
-    $env:HTTPS_PROXY = $MyProxy
-    $env:NO_PROXY = "localhost,127.0.0.1"
-    Set-Location ~\AppData\Local\nvim
-    nvim
+export NO_PROXY := "localhost,127.0.0.1"
+export HTTP_PROXY := MyProxy
+export HTTPS_PROXY := MyProxy
+export ALL_PROXY := MyProxy
 
-[windows]
-powershell_phone_proxy:
-    $MyProxy = "http://192.168.43.1:7890"
-    $env:HTTP_PROXY = $MyProxy
-    $env:HTTPS_PROXY = $MyProxy
-    $env:NO_PROXY="localhost,127.0.0.1"
-    Set-Location ~\AppData\Local\nvim
+# export SOCKET_PROXY=socket5://192.168.43.1:7890
+# export SOCKET5_PROXY=socket5://192.168.43.1:7890
+
+# default:
+#     just --list
+
+default:
     nvim

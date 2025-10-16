@@ -24,6 +24,7 @@ return {
       "markdown_inline",
       "python",
       "lua",
+      "just",
     }
     local ts = require("nvim-treesitter")
     local is_installed = ts.get_installed()
