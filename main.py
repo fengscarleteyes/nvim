@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 
 def main() -> None:
@@ -12,7 +13,14 @@ def main() -> None:
     os.environ["ALL_PROXY"] = myproxy
     # export SOCKET_PROXY=socket5://192.168.43.1:7890
     # export SOCKET5_PROXY=socket5://192.168.43.1:7890
-    os.system("nvim")
+    # subprocess.call("nvim")
+    result = subprocess.run(
+        "nvim",
+        # capture_output=True,
+        text=True,
+        check=True,
+    )
+    print(result)
 
 
 if __name__ == "__main__":
