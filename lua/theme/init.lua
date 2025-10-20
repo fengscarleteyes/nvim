@@ -2,13 +2,22 @@
 
 return {
   {
-    "wurli/cobalt.nvim",
+    "kuri-sun/yoda.nvim",
     lazy = false,
     priority = 1000,
     opts = {},
     config = function()
-      vim.cmd.colorscheme("cobalt")
+      vim.cmd.colorscheme("yoda")
     end,
+  },
+  {
+    "wurli/cobalt.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+    -- config = function()
+    --   vim.cmd.colorscheme("cobalt")
+    -- end,
   },
   {
     "uhs-robert/oasis.nvim",
