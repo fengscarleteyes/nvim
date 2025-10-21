@@ -45,6 +45,16 @@ vim.api.nvim_create_user_command(
   { desc = "clean nvim shada directory" }
 )
 
+-- 复制后高亮复制的文本
+vim.api.nvim_create_autocmd(
+  "TextYankPost", -- command name
+  {
+    group = vim.api.nvim_create_augroup("highlight_yank", {}),
+    callback = function()
+      vim.highlight.on_yank({ higroup = "IncSearch", timeout = 500 })
+    end,
+  }
+)
 -- 默认打开为新的tab
 -- vim.api.nvim_create_autocmd("BufAdd", {
 --   callback = function()
