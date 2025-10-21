@@ -5,10 +5,10 @@ return {
     "kuri-sun/yoda.nvim",
     lazy = false,
     priority = 1000,
-    opts = {},
-    config = function()
-      vim.cmd.colorscheme("yoda")
-    end,
+    -- opts = {},
+    -- config = function()
+    --   vim.cmd.colorscheme("yoda")
+    -- end,
   },
   {
     "wurli/cobalt.nvim",
@@ -39,10 +39,10 @@ return {
         transparent = false, -- true | false
       },
     },
-    -- config = function(_, opts)
-    --   require("flow").setup(opts)
-    --   vim.cmd("colorscheme flow")
-    -- end,
+    config = function(_, opts)
+      require("flow").setup(opts)
+      vim.cmd.colorscheme("flow")
+    end,
   },
   {
     "folke/tokyonight.nvim",
