@@ -77,6 +77,7 @@ vim.opt.relativenumber = true
 vim.opt.numberwidth = 3
 
 -- 高亮所在行列
+vim.api.nvim_set_hl(0, "CursorLine", { reverse = true })
 vim.opt.cursorline = true
 vim.opt.cursorcolumn = true
 vim.opt.splitkeep = "screen"
