@@ -68,10 +68,10 @@ end
 --- 关闭浮动终端
 function M.close()
   if float_win and vim.api.nvim_win_is_valid(float_win) then
-    -- 关键修复：终端 buffer 默认恒为 'modified'，因此 nvim_win_close 的
-    -- force 参数必须传 true（等价于 :close!）。传 false（等价于 :close）
-    -- 会触发 "E37: No write since last change"，窗口关不掉，
-    -- 且异常中断后清理代码不会执行，导致 toggle 永远"能开不能关"。
+    -- 关闭浮动窗口。force 必须传 true（等价 :close!）：
+    -- nvim_win_close(win,false) 等价 :close，当它是某个"有未保存修改的 buffer"
+    -- 的最后一个窗口时会报 E37/E948 被拦截（终端任务已退出等场景必然触发）。
+    -- 传 true 可确保关闭，这也是 toggleterm.nvim 等插件的通行做法。
     vim.api.nvim_win_close(float_win, true)
 
     -- 结束后台 shell 进程并清除 buffer，避免多次 toggle 残留孤儿进程。
@@ -98,3 +98,4 @@ function M.toggle()
 end
 
 return M
+
