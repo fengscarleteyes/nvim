@@ -55,3 +55,20 @@ vim.api.nvim_create_autocmd(
     end,
   }
 )
+
+-- 浮动终端窗口
+local floatterm = require("custom.floatterm")
+
+-- 绑定快捷键（Ctrl+\ 切换浮动终端）
+vim.keymap.set("n", "<C-\\>", function()
+  floatterm.toggle()
+end, { desc = "Toggle floating terminal" })
+
+-- 终端模式下按 Esc 回到普通模式
+-- vim.keymap.set("t", "<Esc>", [[<C-\\><C-n>]], { desc = "Exit terminal mode" })
+-- 终端模式下按 Esc 直接关闭浮动终端
+vim.keymap.set("t", "<Esc>", function()
+  local floatterm = require("custom.floatterm")
+  floatterm.close()
+end, { desc = "Close floating terminal" })
+

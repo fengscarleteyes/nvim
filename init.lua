@@ -1,4 +1,4 @@
 require("options")
 require("theme")
-require("commands")
+require("custom")
 require("plugins")
