@@ -1,3 +1,4 @@
+-- lua/floatterm.lua
 -- 浮动终端（Neovim 原生 API 实现）
 --
 -- API：
@@ -10,11 +11,13 @@
 --   * 字符串命令（如 "git status"）经系统 shell 执行，跨平台；
 --   * 参数列表（如 {"python","-m","http.server","8000"}）直接作为 argv 执行。
 -- opts 说明：
---   * close_on_exit = true：命令执行完自动关闭浮动窗口；
---     缺省：交互式 shell 退出即关（原行为），指定命令保留输出（可手动 toggle 关闭）。
+--   * close_on_exit（默认 true）：命令/终端退出后自动关闭浮动窗口，
+--     避免停留在 [Process exited N] 无法完全退出；
+--     设 false 则保留窗口便于查看输出（可手动 toggle 关闭）。
 --
 -- 示例：
---   require("floatterm").run("git status", { close_on_exit = true })
+--   require("floatterm").run("git status")                        -- 跑完自动关闭
+--   require("floatterm").run("pip list", { close_on_exit = false }) -- 保留输出
 --   require("floatterm").run("npm run dev")
 --   require("floatterm").run({ "python", "-m", "http.server", "8000" })
 --
@@ -24,9 +27,9 @@
 --   vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")  -- Esc 从终端模式退回普通模式
 local M = {}
 
-local float_win = nil -- 记录浮动窗口句柄
-local float_buf = nil -- 记录终端 buffer 句柄
-local current_cmd = nil -- 当前终端运行的命令（nil 表示交互式 shell）
+local float_win = nil  -- 记录浮动窗口句柄
+local float_buf = nil  -- 记录终端 buffer 句柄
+local current_cmd = nil  -- 当前终端运行的命令（nil 表示交互式 shell）
 
 --- 计算浮动窗口布局配置
 local function float_config()
@@ -38,7 +41,7 @@ local function float_config()
     height = height,
     col = math.floor((vim.o.columns - width) / 2),
     row = math.floor((vim.o.lines - height) / 2),
-    style = "minimal", -- 不显示边框装饰（可选 "minimal" 或去掉）
+    style = "minimal",  -- 不显示边框装饰（可选 "minimal" 或去掉）
     border = "rounded", -- 圆角边框，可选: "none", "single", "double", "rounded", "solid", "shadow"
   }
 end
@@ -75,13 +78,10 @@ function M._open(cmd, opts)
   -- 创建浮动窗口
   float_win = vim.api.nvim_open_win(float_buf, true, float_config())
 
-  -- 退出时是否自动关闭：
-  -- 显式指定 close_on_exit 则遵循；否则交互式 shell 退出即关（原行为），
-  -- 指定命令保留输出便于查看（可手动 toggle 关闭）。
-  local auto_close = opts.close_on_exit
-  if auto_close == nil then
-    auto_close = (cmd == nil)
-  end
+  -- 退出时是否自动关闭：默认 true（命令/终端退出后自动关闭浮动窗口，
+  -- 避免停留在 [Process exited N] 无法完全退出）。
+  -- 需要保留输出查看时显式传 { close_on_exit = false }。
+  local auto_close = opts.close_on_exit ~= false
   local bv = vim.b[float_buf] or {}
   bv.floatterm_close_on_exit = auto_close
 
@@ -89,10 +89,11 @@ function M._open(cmd, opts)
   vim.fn.termopen(cmd or get_shell(), {
     on_exit = function()
       -- 仅当配置了"退出即关闭"时自动关闭并清理
-      local should_close = float_buf and vim.b[float_buf] and vim.b[float_buf].floatterm_close_on_exit
+      local should_close = float_buf and vim.b[float_buf]
+        and vim.b[float_buf].floatterm_close_on_exit
       if should_close then
         if float_win and vim.api.nvim_win_is_valid(float_win) then
-          vim.api.nvim_win_close(float_win, true)
+          pcall(vim.api.nvim_win_close, float_win, true)
         end
         if float_buf and vim.api.nvim_buf_is_valid(float_buf) then
           pcall(vim.api.nvim_buf_delete, float_buf, { force = true })
@@ -163,3 +164,4 @@ function M.toggle(cmd, opts)
 end
 
 return M
+
