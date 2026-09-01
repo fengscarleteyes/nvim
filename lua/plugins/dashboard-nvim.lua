@@ -19,7 +19,14 @@ require("dashboard").setup({
     shortcut = {
       -- action can be a function type
       { desc = "Mason", key = "m", action = "Mason", icon = "  " },
-      -- { desc = "Lazygit", key = "g", action = "Fterm lazygit", icon = "  " },
+      {
+        desc = "Lazygit",
+        key = "g",
+        action = function()
+          require("custom.floatterm").run("lazygit", { close_on_exit = boolean })
+        end,
+        icon = "  ",
+      },
       -- { desc = "Fzf Live Grep", key = "G", action = "FzfLua live_grep" },
       { desc = "Fzf Files", key = "f", action = "FzfLua files", icon = "  " },
       { desc = "Fzf colorschemes", key = "c", action = "FzfLua colorschemes", icon = "  " },

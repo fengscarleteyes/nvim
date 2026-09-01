@@ -70,6 +70,5 @@ end, { desc = "Toggle floating terminal" })
 
 -- 终端模式下按 Esc 直接关闭浮动终端
 vim.keymap.set("t", "<Esc>", function()
-  local floatterm = require("custom.floatterm")
   floatterm.close()
 end, { desc = "Close floating terminal" })

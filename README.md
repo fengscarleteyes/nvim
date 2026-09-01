@@ -27,7 +27,7 @@ git clone git@github.com:fengscarleteyes/nvim.git
 ### VENV
 
 ```bash
-uv venv .venv --python 3.13
+uv venv .venv --python 3.15
 source .venv/bin/activate
 
 # nushell
@@ -38,8 +38,6 @@ source .venv/bin/activate
 
 - tabnine: 163R@
 - fittencode: fenR@
-
-## Shell
 
 ## Usage
 
