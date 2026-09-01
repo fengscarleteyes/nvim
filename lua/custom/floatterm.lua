@@ -7,8 +7,8 @@
 --   vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")  -- Esc 从终端模式退回普通模式
 local M = {}
 
-local float_win = nil  -- 记录浮动窗口句柄
-local float_buf = nil  -- 记录终端 buffer 句柄
+local float_win = nil -- 记录浮动窗口句柄
+local float_buf = nil -- 记录终端 buffer 句柄
 
 --- 打开浮动终端
 function M.open()
@@ -34,7 +34,7 @@ function M.open()
     height = height,
     col = col,
     row = row,
-    style = "minimal",  -- 不显示边框装饰（可选 "minimal" 或去掉）
+    style = "minimal", -- 不显示边框装饰（可选 "minimal" 或去掉）
     border = "rounded", -- 圆角边框，可选: "none", "single", "double", "rounded", "solid", "shadow"
   })
 
@@ -98,4 +98,3 @@ function M.toggle()
 end
 
 return M
-

@@ -64,11 +64,12 @@ vim.keymap.set("n", "<C-\\>", function()
   floatterm.toggle()
 end, { desc = "Toggle floating terminal" })
 
--- 终端模式下按 Esc 回到普通模式
--- vim.keymap.set("t", "<Esc>", [[<C-\\><C-n>]], { desc = "Exit terminal mode" })
+vim.keymap.set("t", "<C-\\>", function()
+  floatterm.toggle()
+end, { desc = "Toggle floating terminal" })
+
 -- 终端模式下按 Esc 直接关闭浮动终端
 vim.keymap.set("t", "<Esc>", function()
   local floatterm = require("custom.floatterm")
   floatterm.close()
 end, { desc = "Close floating terminal" })
-
