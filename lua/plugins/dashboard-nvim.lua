@@ -1,7 +1,7 @@
 vim.pack.add(
   {
     'https://github.com/nvimdev/dashboard-nvim',
-    "https://github.com/nvimdev/nvim-tree/nvim-web-devicons",
+    "https://github.com/nvim-tree/nvim-web-devicons",
   }
 )
 
@@ -20,9 +20,8 @@ require("dashboard").setup({
         disable_move = true,
         shortcut = {
           -- action can be a function type
-          { desc = "Lazy update", key = "u", action = "Lazy update", icon = "  " },
           { desc = "Mason", key = "m", action = "Mason", icon = "  " },
-          { desc = "Lazygit", key = "g", action = "Fterm lazygit", icon = "  " },
+          -- { desc = "Lazygit", key = "g", action = "Fterm lazygit", icon = "  " },
           -- { desc = "Fzf Live Grep", key = "G", action = "FzfLua live_grep" },
           { desc = "Fzf Files", key = "f", action = "FzfLua files", icon = "  " },
           { desc = "Fzf colorschemes", key = "c", action = "FzfLua colorschemes", icon = "  " },
@@ -35,4 +34,3 @@ require("dashboard").setup({
       },
     })
 
--- return nil
