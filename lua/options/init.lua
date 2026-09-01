@@ -114,6 +114,11 @@ vim.opt.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 -- 当文件被外部程序修改时，自动加载
 vim.opt.autoread = true
 vim.bo.autoread = true
+vim.o.autoread = true
+
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+  command = "checktime",
+})
 
 -- 搜索
 vim.opt.ignorecase = true
