@@ -10,3 +10,5 @@ require("plugins.nvim-surround")
 require("plugins.slimline")
 require("plugins.tiny-inline-diagnostic")
 require("plugins.conform")
+require("plugins.tabby")
+
