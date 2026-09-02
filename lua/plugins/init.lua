@@ -9,3 +9,5 @@ require("plugins.notifier")
 require("plugins.nvim-surround")
 require("plugins.slimline")
 require("plugins.screenkey")
+require("plugins.tiny-inline-diagnostic")
+
