@@ -3,7 +3,21 @@ vim.pack.add({
   "https://github.com/NStefan002/screenkey.nvim",
 })
 
-local sk = require("plugins.screenkey")
+require("screenkey").setup({
+  win_opts = {
+    width = 20,
+    title = "",
+    border = "none", -- "single",
+  },
+  clear_after = 1, -- seconds,
+  disable = {
+    filetypes = { "dashboard" },
+    buftypes = {},
+    modes = {},
+  },
+})
+
+require("screenkey").toggle_statusline_component()
 
 require("slimline").setup({
   bold = false,
@@ -13,7 +27,7 @@ require("slimline").setup({
     center = {
       -- "  ",
       function()
-        return " 󱩼 " .. sk.get_keys()
+        return " 󱩼 " .. require("screenkey").get_keys()
       end,
     },
   },
