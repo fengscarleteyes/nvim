@@ -3,7 +3,7 @@ vim.pack.add({
   "https://github.com/NStefan002/screenkey.nvim",
 })
 
-local sk = require("screenkey")
+local sk = require("plugins.screenkey")
 
 require("slimline").setup({
   bold = false,
