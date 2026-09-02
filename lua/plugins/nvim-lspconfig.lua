@@ -23,9 +23,19 @@ local function enable_lsp_server(path)
 end
 
 enable_lsp_server(vim.fn.stdpath("config") .. "/lsp")
---
---return {
---  "neovim/nvim-lspconfig",
---  dependencies = "folke/lazydev.nvim",
---  event = "BufReadPre",
---}
+
+-- 在 LSP 客户端 attach 时启用自动补全
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if not client then
+      return
+    end
+
+    if client:supports_method("textDocument/completion") then
+      vim.lsp.completion.enable(true, client.id, args.buf, {
+        autotrigger = true,
+      })
+    end
+  end,
+})

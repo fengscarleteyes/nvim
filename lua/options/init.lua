@@ -163,3 +163,9 @@ vim.g.loaded_python3_provider = 0
 vim.g.loaded_node_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
+
+-- 开启原生自动补全
+vim.o.autocomplete = true
+
+-- 设置补全菜单行为
+vim.o.completeopt = "menuone,noinsert,noselect"

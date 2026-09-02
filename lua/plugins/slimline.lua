@@ -3,6 +3,8 @@ vim.pack.add({
   "https://github.com/NStefan002/screenkey.nvim",
 })
 
+local sk = require("screenkey")
+
 require("slimline").setup({
   bold = false,
   style = "bg",
@@ -11,7 +13,7 @@ require("slimline").setup({
     center = {
       -- "  ",
       function()
-        return " 󱩼 " .. require("screenkey").get_keys()
+        return " 󱩼 " .. sk.get_keys()
       end,
     },
   },
