@@ -23,7 +23,7 @@ require("dashboard").setup({
         desc = "Lazygit",
         key = "g",
         action = function()
-          require("custom.floatterm").run("lazygit", { close_on_exit = boolean })
+          require("custom.floatterm").run("lazygit")
         end,
         icon = "  ",
       },

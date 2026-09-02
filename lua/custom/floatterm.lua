@@ -86,7 +86,9 @@ function M._open(cmd, opts)
   bv.floatterm_close_on_exit = auto_close
 
   -- 启动终端：缺省启动交互式 shell，否则执行给定命令
-  vim.fn.termopen(cmd or get_shell(), {
+  -- 注：termopen() 已弃用（:h deprecated），改用 jobstart() 的 term 选项
+  vim.fn.jobstart(cmd or get_shell(), {
+    term = true,
     on_exit = function()
       -- 仅当配置了"退出即关闭"时自动关闭并清理
       local should_close = float_buf and vim.b[float_buf]
