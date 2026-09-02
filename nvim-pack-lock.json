@@ -50,6 +50,14 @@
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
+    "screenkey.nvim": {
+      "rev": "740e238d1f143cb5f3a9d932f9c5142d3581b986",
+      "src": "https://github.com/NStefan002/screenkey.nvim"
+    },
+    "slimline.nvim": {
+      "rev": "6c91c731863f47636c6ae0f00774ea6c2c90cb4b",
+      "src": "https://github.com/sschleemilch/slimline.nvim"
+    },
     "tokyonight.nvim": {
       "rev": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",
       "src": "https://github.com/folke/tokyonight.nvim"

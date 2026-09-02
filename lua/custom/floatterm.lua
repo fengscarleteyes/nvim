@@ -27,9 +27,9 @@
 --   vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")  -- Esc 从终端模式退回普通模式
 local M = {}
 
-local float_win = nil  -- 记录浮动窗口句柄
-local float_buf = nil  -- 记录终端 buffer 句柄
-local current_cmd = nil  -- 当前终端运行的命令（nil 表示交互式 shell）
+local float_win = nil -- 记录浮动窗口句柄
+local float_buf = nil -- 记录终端 buffer 句柄
+local current_cmd = nil -- 当前终端运行的命令（nil 表示交互式 shell）
 
 --- 计算浮动窗口布局配置
 local function float_config()
@@ -41,7 +41,7 @@ local function float_config()
     height = height,
     col = math.floor((vim.o.columns - width) / 2),
     row = math.floor((vim.o.lines - height) / 2),
-    style = "minimal",  -- 不显示边框装饰（可选 "minimal" 或去掉）
+    style = "minimal", -- 不显示边框装饰（可选 "minimal" 或去掉）
     border = "rounded", -- 圆角边框，可选: "none", "single", "double", "rounded", "solid", "shadow"
   }
 end
@@ -91,8 +91,7 @@ function M._open(cmd, opts)
     term = true,
     on_exit = function()
       -- 仅当配置了"退出即关闭"时自动关闭并清理
-      local should_close = float_buf and vim.b[float_buf]
-        and vim.b[float_buf].floatterm_close_on_exit
+      local should_close = float_buf and vim.b[float_buf] and vim.b[float_buf].floatterm_close_on_exit
       if should_close then
         if float_win and vim.api.nvim_win_is_valid(float_win) then
           pcall(vim.api.nvim_win_close, float_win, true)
@@ -166,4 +165,3 @@ function M.toggle(cmd, opts)
 end
 
 return M
-

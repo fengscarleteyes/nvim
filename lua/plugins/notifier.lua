@@ -13,4 +13,3 @@ require("notifier").setup({
 -- vim.notify("Hello, World!")
 -- vim.notify("Warning message", vim.log.levels.WARN)
 -- vim.notify("Error occurred", vim.log.levels.ERROR)
-
