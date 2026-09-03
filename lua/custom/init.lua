@@ -72,3 +72,17 @@ end, { desc = "Toggle floating terminal" })
 vim.keymap.set("t", "<Esc>", function()
   floatterm.close()
 end, { desc = "Close floating terminal" })
+
+-- auto pairs
+local autopair = require("custom.autopair")
+autopair.enable()
+-- API：
+--   autopair.is_enabled()                  是否启用
+--   autopair.enable() / disable() / toggle()
+--   autopair.add_pair(open, close)         新增/覆盖一个配对并即时生效
+--   autopair.remove_pair(open)             移除一个配对并即时生效
+--   autopair.jump_outer_start()            跳到外部开头（开括号左侧）
+--   autopair.jump_inner_middle()           跳到内部中间
+--   autopair.jump_outer_end()              跳到外部结束（闭括号右侧）
+--   autopair.jump(which)                   通用跳转 which 同上三者之一
+--   autopair.map_jump(name, keys)          自定义跳转键；keys=false 卸载
