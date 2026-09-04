@@ -10,8 +10,7 @@
     },
     "blink.pairs": {
       "rev": "aad9046bc4670dc91301cd62a6948feb36c55f4a",
-      "src": "https://github.com/saghen/blink.pairs",
-      "version": ">=0.0.0"
+      "src": "https://github.com/saghen/blink.pairs"
     },
     "conform.nvim": {
       "rev": "016802de402556da54c36bd7359b441266b01cdd",
