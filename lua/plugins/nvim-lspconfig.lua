@@ -42,16 +42,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
---vim.keymap.set("i", "<Tab>", function()
---  if vim.fn.pumvisible() == 1 then
---    return "<C-n>"
---  end
---  return "<Tab>"
---end, { expr = true })
---
---vim.keymap.set("i", "<S-Tab>", function()
---  if vim.fn.pumvisible() == 1 then
---    return "<C-p>"
---  end
---  return "<S-Tab>"
---end, { expr = true })
+-- tab 补全触发
+vim.keymap.set("i", "<Tab>", function()
+  if vim.fn.pumvisible() == 1 then
+    return "<C-n>"
+  end
+  return "<Tab>"
+end, { expr = true })
+
+vim.keymap.set("i", "<S-Tab>", function()
+  if vim.fn.pumvisible() == 1 then
+    return "<C-p>"
+  end
+  return "<S-Tab>"
+end, { expr = true })
