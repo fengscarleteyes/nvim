@@ -18,6 +18,14 @@ require("dashboard").setup({
     disable_move = true,
     shortcut = {
       -- action can be a function type
+      {
+        desc = "vim pack update",
+        key = "u",
+        action = function()
+          vim.pack.update()
+        end,
+        icon = "󰚰",
+      },
       { desc = "Mason", key = "m", action = "Mason", icon = "  " },
       {
         desc = "Lazygit",
