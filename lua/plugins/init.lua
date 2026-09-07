@@ -12,5 +12,5 @@ require("plugins.tiny-inline-diagnostic")
 require("plugins.conform")
 require("plugins.blink")
 
-
+-- "InsertEnter", "CmdlineEnter"
 require("plugins.tabby")

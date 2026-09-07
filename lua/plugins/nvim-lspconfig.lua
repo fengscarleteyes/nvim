@@ -2,27 +2,29 @@ vim.pack.add({
   { src = "https://github.com/neovim/nvim-lspconfig" },
 })
 
-local function enable_lsp_server(path)
-  local lsp_server_table = {}
-  local handle = vim.uv.fs_scandir(path)
-  if not handle then
-    return
-  end
+vim.g.lazydev_enabled = true
 
-  while true do
-    local file_name, _ = vim.uv.fs_scandir_next(handle)
-    if not file_name then
-      break
-    end
-    if file_name:match("%.lua$") then
-      local server_name = file_name:gsub(".lua$", "")
-      table.insert(lsp_server_table, server_name)
-    end
-  end
-  vim.lsp.enable(lsp_server_table)
-end
+vim.pack.add({
+  { src = "https://github.com/folke/lazydev.nvim" },
+})
 
-enable_lsp_server(vim.fn.stdpath("config") .. "/lsp")
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "*.lua",
+  callback = function()
+    -- 打开 .lua 文件时执行
+    vim.lsp.enable("lua_ls")
+    require("lazydev").setup({
+      library = {
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+        "lazy.nvim",
+        vim.env.VIMRUNTIME,
+        vim.env.VIMRUNTIME .. "/lua",
+        vim.env.VIMRUNTIME .. "/lua/vim",
+        vim.env.VIMRUNTIME .. "/lua/vim/lsp",
+      },
+    })
+  end,
+})
 
 -- 在 LSP 客户端 attach 时启用自动补全
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -53,4 +55,3 @@ vim.api.nvim_create_autocmd("LspAttach", {
 --  end
 --  return "<S-Tab>"
 --end, { expr = true })
-
