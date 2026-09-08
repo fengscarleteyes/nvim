@@ -23,11 +23,3 @@ require("neo-tree").setup({
     },
   },
 })
-
--- vim.pack.add({ "https://github.com/Crysthamus/nvim-file-operations","https://github.com/nvim-neo-tree/neo-tree.nvim" })
-
--- require("nvim-file-operations").setup()
-
--- vim.lsp.config("*", {
---   capabilities = require("nvim-file-operations.config").default_capabilities(),
--- })
