@@ -7,10 +7,10 @@ require("plugins.nvim-lspconfig")
 require("plugins.hardtime")
 require("plugins.notifier")
 require("plugins.nvim-surround")
-require("plugins.slimline")
+-- require("plugins.slimline")
 require("plugins.tiny-inline-diagnostic")
 require("plugins.conform")
 require("plugins.blink")
-
--- "InsertEnter", "CmdlineEnter"
-require("plugins.tabby")
+-- require("plugins.tabby") -- "InsertEnter", "CmdlineEnter"
+require("plugins.render-markdown")
+require("plugins.nvim-lint")

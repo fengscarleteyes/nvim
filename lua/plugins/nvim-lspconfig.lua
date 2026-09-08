@@ -8,23 +8,40 @@ vim.pack.add({
   { src = "https://github.com/folke/lazydev.nvim" },
 })
 
-vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = "*.lua",
-  callback = function()
-    -- 打开 .lua 文件时执行
-    vim.lsp.enable("lua_ls")
-    require("lazydev").setup({
-      library = {
-        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-        "lazy.nvim",
-        vim.env.VIMRUNTIME,
-        vim.env.VIMRUNTIME .. "/lua",
-        vim.env.VIMRUNTIME .. "/lua/vim",
-        vim.env.VIMRUNTIME .. "/lua/vim/lsp",
-      },
-    })
-  end,
-})
+local lsp_configs = {
+  {
+    filetype = "lua",
+    lsp = "lua_ls",
+    extra = function()
+      require("lazydev").setup({
+        library = {
+          { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+          "lazy.nvim",
+          vim.env.VIMRUNTIME,
+          vim.env.VIMRUNTIME .. "/lua",
+          vim.env.VIMRUNTIME .. "/lua/vim",
+          vim.env.VIMRUNTIME .. "/lua/vim/lsp",
+        },
+      })
+    end,
+  },
+  {
+    filetype = "markdown",
+    lsp = "panache",
+  },
+}
+
+for _, cfg in ipairs(lsp_configs) do
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = cfg.filetype,
+    callback = function()
+      vim.lsp.enable(cfg.lsp)
+      if cfg.extra then
+        cfg.extra()
+      end
+    end,
+  })
+end
 
 -- 在 LSP 客户端 attach 时启用自动补全
 vim.api.nvim_create_autocmd("LspAttach", {

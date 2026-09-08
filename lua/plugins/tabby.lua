@@ -9,7 +9,7 @@ vim.api.nvim_create_autocmd(
     vim.pack.add(
       {
       "https://github.com/nanozuki/tabby.nvim",
-      "https://github.com/nvim-tree/nvim-web-devicons"
+      "https://github.com/nvim-tree/nvim-web-devicons",
       }
     )
     -- require("tabby").setup({preset = 'tab_only'})
