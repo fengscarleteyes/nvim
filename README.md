@@ -29,15 +29,7 @@ git clone git@github.com:fengscarleteyes/nvim.git
 ```bash
 uv venv .venv --python 3.15
 source .venv/bin/activate
-
-# nushell
-# overlay use .venv/Scripts/activate.nu
 ```
-
-## Other
-
-- tabnine: 163R@
-- fittencode: fenR@
 
 ## Usage
 
