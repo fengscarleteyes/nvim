@@ -49,7 +49,9 @@ end
 --- 根据操作系统选择 shell
 local function get_shell()
   if vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 then
-    return vim.env.COMSPEC or "cmd.exe"
+    return "powershell.exe"
+    -- return vim.env.COMSPEC or "powershell.exe"
+    -- return vim.env.COMSPEC or "cmd.exe"
   end
   return vim.env.SHELL or "/bin/sh"
 end

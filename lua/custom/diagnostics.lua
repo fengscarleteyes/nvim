@@ -64,53 +64,62 @@ vim.api.nvim_create_autocmd("DiagnosticChanged", {
     -- vim.schedule_wrap 将回调调度到 Neovim 主线程
     -- 因为 uv.timer 的回调默认在 libuv 线程中运行
     -- 直接调用 vim.notify 等 Neovim API 会报错
-    diag_timer:start(500, 0, vim.schedule_wrap(function()
-      -- 获取该缓冲区的所有诊断项，返回一个 table
-      local diagnostics = vim.diagnostic.get(buf)
+    diag_timer:start(
+      500,
+      0,
+      vim.schedule_wrap(function()
+        -- 获取该缓冲区的所有诊断项，返回一个 table
+        local diagnostics = vim.diagnostic.get(buf)
 
-      -- 诊断项总数
-      local count = #diagnostics
+        -- 诊断项总数
+        local count = #diagnostics
 
-      -- 如果没有诊断问题，弹出提示后直接返回
-      if count == 0 then
-        vim.notify("✅ 无诊断错误", vim.log.levels.INFO)
-        return
-      end
-
-      -- 按严重程度分类计数
-      local errors = 0    -- 错误数量
-      local warnings = 0  -- 警告数量
-      local hints = 0     -- 提示数量
-      local info = 0      -- 信息数量
-
-      -- 遍历所有诊断项，根据 severity 字段分类累加
-      for _, d in ipairs(diagnostics) do
-        if d.severity == vim.diagnostic.severity.ERROR then
-          errors = errors + 1
-        elseif d.severity == vim.diagnostic.severity.WARN then
-          warnings = warnings + 1
-        elseif d.severity == vim.diagnostic.severity.HINT then
-          hints = hints + 1
-        else
-          -- 其余归为 info 级别
-          info = info + 1
+        -- 如果没有诊断问题，弹出提示后直接返回
+        if count == 0 then
+          vim.notify("✅ 无诊断错误", vim.log.levels.INFO)
+          return
         end
-      end
 
-      -- 构建通知文本的各个部分
-      -- 只有数量大于 0 的类别才会加入显示
-      local parts = {}
-      if errors > 0   then table.insert(parts, string.format("✘ %d 错误", errors)) end
-      if warnings > 0 then table.insert(parts, string.format("▲ %d 警告", warnings)) end
-      if info > 0     then table.insert(parts, string.format("» %d 信息", info)) end
-      if hints > 0    then table.insert(parts, string.format("⚑ %d 提示", hints)) end
+        -- 按严重程度分类计数
+        local errors = 0 -- 错误数量
+        local warnings = 0 -- 警告数量
+        local hints = 0 -- 提示数量
+        local info = 0 -- 信息数量
 
-      -- 用两个空格拼接各分类，弹出通知
-      -- 日志级别：有错误时用 ERROR 级别，否则用 WARN 级别
-      vim.notify(
-        "诊断: " .. table.concat(parts, "  "),
-        errors > 0 and vim.log.levels.ERROR or vim.log.levels.WARN
-      )
-    end))
+        -- 遍历所有诊断项，根据 severity 字段分类累加
+        for _, d in ipairs(diagnostics) do
+          if d.severity == vim.diagnostic.severity.ERROR then
+            errors = errors + 1
+          elseif d.severity == vim.diagnostic.severity.WARN then
+            warnings = warnings + 1
+          elseif d.severity == vim.diagnostic.severity.HINT then
+            hints = hints + 1
+          else
+            -- 其余归为 info 级别
+            info = info + 1
+          end
+        end
+
+        -- 构建通知文本的各个部分
+        -- 只有数量大于 0 的类别才会加入显示
+        local parts = {}
+        if errors > 0 then
+          table.insert(parts, string.format("✘ %d 错误", errors))
+        end
+        if warnings > 0 then
+          table.insert(parts, string.format("▲ %d 警告", warnings))
+        end
+        if info > 0 then
+          table.insert(parts, string.format("» %d 信息", info))
+        end
+        if hints > 0 then
+          table.insert(parts, string.format("⚑ %d 提示", hints))
+        end
+
+        -- 用两个空格拼接各分类，弹出通知
+        -- 日志级别：有错误时用 ERROR 级别，否则用 WARN 级别
+        vim.notify("诊断: " .. table.concat(parts, "  "), errors > 0 and vim.log.levels.ERROR or vim.log.levels.WARN)
+      end)
+    )
   end,
 })

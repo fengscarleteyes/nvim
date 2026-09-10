@@ -23,4 +23,3 @@ vim.diagnostic.config({ virtual_text = false })
 --    },
 --    disabled_ft = {},
 --  }
-

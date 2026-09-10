@@ -79,8 +79,8 @@ local DEFAULTS = {
     ["'"] = "'",
     ["`"] = "`",
   },
-  smart_quotes = true,   -- 首尾同字符的配对（引号）的“单词边不成对”启发式
-  skip_closing = true,   -- 闭括号右侧正好是它时跳过
+  smart_quotes = true, -- 首尾同字符的配对（引号）的“单词边不成对”启发式
+  skip_closing = true, -- 闭括号右侧正好是它时跳过
   bs_delete_pair = true, -- 空对之间退格一次删整对
   keys = {
     outer_start = "<leader>ps",
@@ -90,22 +90,30 @@ local DEFAULTS = {
 }
 
 local cfg = vim.deepcopy(DEFAULTS)
-local configured = false   -- setup() 是否已被调用
-local owned_insert = {}    -- 我们注册过的插入模式按键（lhs 集合）
-local applied_jumps = {}   -- 已生效的跳转键 { name = lhs }
+local configured = false -- setup() 是否已被调用
+local owned_insert = {} -- 我们注册过的插入模式按键（lhs 集合）
+local applied_jumps = {} -- 已生效的跳转键 { name = lhs }
 local commands_created = false
 
 --- 合并配置：用户没给出的项沿用默认
 local function merge(opts)
   opts = opts or {}
   cfg.enabled = DEFAULTS.enabled
-  if opts.enabled ~= nil then cfg.enabled = opts.enabled end
+  if opts.enabled ~= nil then
+    cfg.enabled = opts.enabled
+  end
   cfg.smart_quotes = DEFAULTS.smart_quotes
-  if opts.smart_quotes ~= nil then cfg.smart_quotes = opts.smart_quotes end
+  if opts.smart_quotes ~= nil then
+    cfg.smart_quotes = opts.smart_quotes
+  end
   cfg.skip_closing = DEFAULTS.skip_closing
-  if opts.skip_closing ~= nil then cfg.skip_closing = opts.skip_closing end
+  if opts.skip_closing ~= nil then
+    cfg.skip_closing = opts.skip_closing
+  end
   cfg.bs_delete_pair = DEFAULTS.bs_delete_pair
-  if opts.bs_delete_pair ~= nil then cfg.bs_delete_pair = opts.bs_delete_pair end
+  if opts.bs_delete_pair ~= nil then
+    cfg.bs_delete_pair = opts.bs_delete_pair
+  end
 
   -- pairs：以默认表为底，用户项覆盖；显式 false 表示删除该对
   cfg.pairs = {}
@@ -201,24 +209,36 @@ end
 
 --- 当前是否应执行配对动作：全局启用且该 buffer 未被单独关闭
 local function active()
-  if not cfg.enabled then return false end
-  if vim.b.autopair_enabled == false then return false end
+  if not cfg.enabled then
+    return false
+  end
+  if vim.b.autopair_enabled == false then
+    return false
+  end
   return true
 end
 
 --- 输入“开字符”（如 '('、'"'），决定返回什么
 local function ins_open(ch)
-  if not active() then return ch end
+  if not active() then
+    return ch
+  end
   local close = cfg.pairs[ch]
-  if not close then return ch end
+  if not close then
+    return ch
+  end
 
   if ch == close then
     -- 引号类：右侧正好是同字符 -> 是已存在的闭号，跳过（防重复插入）
-    if cfg.skip_closing and get_ctx().under == ch then return "<Right>" end
+    if cfg.skip_closing and get_ctx().under == ch then
+      return "<Right>"
+    end
     -- 引号类：左侧或右侧是单词字符（如 it's、a'b 的撇号）只插入单个引号
     if cfg.smart_quotes then
       local ctx = get_ctx()
-      if is_word_char(ctx.before) or is_word_char(ctx.under) then return ch end
+      if is_word_char(ctx.before) or is_word_char(ctx.under) then
+        return ch
+      end
     end
     return ch .. ch .. "<Left>"
   end
@@ -229,20 +249,28 @@ end
 
 --- 输入“闭字符”（如 ')'），决定返回什么
 local function ins_close(ch)
-  if not active() then return ch end
-  if cfg.skip_closing and get_ctx().under == ch then return "<Right>" end
+  if not active() then
+    return ch
+  end
+  if cfg.skip_closing and get_ctx().under == ch then
+    return "<Right>"
+  end
   return ch
 end
 
 --- 输入退格键，决定返回什么
 local function ins_backspace()
-  if not active() then return "<BS>" end
+  if not active() then
+    return "<BS>"
+  end
   if cfg.bs_delete_pair then
     local ctx = get_ctx()
     -- 左侧是开字符且右侧正好是它的闭字符 => 位于“空对”中间，一次删整对
     if ctx.before ~= "" and ctx.under ~= "" then
       local close = cfg.pairs[ctx.before]
-      if close and close == ctx.under then return "<BS><Del>" end
+      if close and close == ctx.under then
+        return "<BS><Del>"
+      end
     end
   end
   return "<BS>"
@@ -265,10 +293,14 @@ local function apply_insert_maps()
   clear_insert_maps()
   for open, close in pairs(cfg.pairs) do
     -- 引号类 open==close：同一个处理器统一判断 配对 / 跳过 / 只插单个
-    vim.keymap.set("i", open, function() return ins_open(open) end, { expr = true })
+    vim.keymap.set("i", open, function()
+      return ins_open(open)
+    end, { expr = true })
     owned_insert[#owned_insert + 1] = open
     if open ~= close then
-      vim.keymap.set("i", close, function() return ins_close(close) end, { expr = true })
+      vim.keymap.set("i", close, function()
+        return ins_close(close)
+      end, { expr = true })
       owned_insert[#owned_insert + 1] = close
     end
   end
@@ -348,26 +380,32 @@ local function pick_pair(col, list)
   for _, p in ipairs(list) do
     if p.open < col and col <= p.close then
       local span = p.close - p.open
-      if not best
-        or span < (best.close - best.open)
-        or (span == (best.close - best.open) and p.open > best.open) then
+      if not best or span < (best.close - best.open) or (span == (best.close - best.open) and p.open > best.open) then
         best = p
       end
     end
   end
-  if best then return best end
+  if best then
+    return best
+  end
 
   -- 2) 光标右侧最近的一对：开括号在光标右侧，取开括号最靠左的
   best = nil
   for _, p in ipairs(list) do
-    if p.open >= col and (not best or p.open < best.open) then best = p end
+    if p.open >= col and (not best or p.open < best.open) then
+      best = p
+    end
   end
-  if best then return best end
+  if best then
+    return best
+  end
 
   -- 3) 光标左侧最近结束的一对：闭括号已在其左侧，取闭括号最靠右的
   best = nil
   for _, p in ipairs(list) do
-    if p.close < col and (not best or p.close > best.close) then best = p end
+    if p.close < col and (not best or p.close > best.close) then
+      best = p
+    end
   end
   return best
 end
@@ -381,7 +419,9 @@ local function target_col(p, which)
   end
   -- inner_middle：开括号之后内容的中点；空对则紧贴开括号之后
   local content_len = p.close - p.open - 1
-  if content_len <= 0 then return p.open + 1 end
+  if content_len <= 0 then
+    return p.open + 1
+  end
   return p.open + 1 + math.floor(content_len / 2)
 end
 
@@ -399,8 +439,12 @@ local function jump(which)
   end
   local target = target_col(p, which)
   local max_col = #line
-  if target < 0 then target = 0 end
-  if target > max_col then target = max_col end
+  if target < 0 then
+    target = 0
+  end
+  if target > max_col then
+    target = max_col
+  end
   vim.api.nvim_win_set_cursor(0, { row + 1, target })
   return true
 end
@@ -421,11 +465,15 @@ end
 --- 按 cfg.keys 绑定跳转键（普通模式 n）
 local function apply_jump_maps()
   clear_jump_maps()
-  if cfg.keys == false then return end
+  if cfg.keys == false then
+    return
+  end
   for _, name in ipairs(JUMP_NAMES) do
     local lhs = cfg.keys[name]
     if type(lhs) == "string" and lhs ~= "" then
-      vim.keymap.set("n", lhs, function() jump(name) end, {
+      vim.keymap.set("n", lhs, function()
+        jump(name)
+      end, {
         desc = "AutoPair: 跳到配对 " .. name,
       })
       applied_jumps[name] = lhs
@@ -453,7 +501,9 @@ end
 
 --- 启用自动配对
 function M.enable()
-  if cfg.enabled then return end
+  if cfg.enabled then
+    return
+  end
   cfg.enabled = true
   apply_insert_maps()
   notify_state()
@@ -461,7 +511,9 @@ end
 
 --- 禁用自动配对（移除插入模式映射；跳转功能仍可用）
 function M.disable()
-  if not cfg.enabled then return end
+  if not cfg.enabled then
+    return
+  end
   cfg.enabled = false
   clear_insert_maps()
   notify_state()
@@ -469,7 +521,11 @@ end
 
 --- 开关切换
 function M.toggle()
-  if cfg.enabled then M.disable() else M.enable() end
+  if cfg.enabled then
+    M.disable()
+  else
+    M.enable()
+  end
 end
 
 --- 当前是否启用
@@ -499,7 +555,9 @@ end
 --- @return boolean
 function M.jump(which)
   for _, name in ipairs(JUMP_NAMES) do
-    if name == which then return jump(which) end
+    if name == which then
+      return jump(which)
+    end
   end
   vim.notify("AutoPair: 未知跳转目标 " .. vim.inspect(which), vim.log.levels.WARN)
   return false
@@ -507,7 +565,9 @@ end
 
 --- 动态新增/覆盖一对字符
 function M.add_pair(open, close)
-  if cfg.pairs[open] and cfg.pairs[open] == close then return end
+  if cfg.pairs[open] and cfg.pairs[open] == close then
+    return
+  end
   local ok, err = sanitize({ [open] = close })
   if not ok then
     vim.notify("AutoPair.add_pair: " .. err, vim.log.levels.WARN)
@@ -520,7 +580,9 @@ end
 
 --- 动态移除一对字符
 function M.remove_pair(open)
-  if not cfg.pairs[open] then return false end
+  if not cfg.pairs[open] then
+    return false
+  end
   cfg.pairs[open] = nil
   refresh_maps()
   return true
@@ -530,16 +592,22 @@ end
 function M.map_jump(name, keys)
   local valid = false
   for _, n in ipairs(JUMP_NAMES) do
-    if n == name then valid = true end
+    if n == name then
+      valid = true
+    end
   end
   if not valid then
     vim.notify("AutoPair.map_jump: 未知名称 " .. vim.inspect(name), vim.log.levels.WARN)
     return false
   end
   if keys == false then
-    if cfg.keys ~= false then cfg.keys[name] = nil end
+    if cfg.keys ~= false then
+      cfg.keys[name] = nil
+    end
   else
-    if cfg.keys == false then cfg.keys = {} end
+    if cfg.keys == false then
+      cfg.keys = {}
+    end
     cfg.keys[name] = keys
   end
   apply_jump_maps()
@@ -568,7 +636,9 @@ end
 -- ============================================================
 
 local function ensure_commands()
-  if commands_created then return end
+  if commands_created then
+    return
+  end
   commands_created = true
   vim.api.nvim_create_user_command("AutoPairToggle", function()
     M.toggle()
