@@ -3,7 +3,7 @@ vim.pack.add({
 })
 
 require("tiny-inline-diagnostic").setup()
-vim.diagnostic.config({ virtual_text = true })
+vim.diagnostic.config({ virtual_text = false })
 
 --opts = {
 --    -- "modern", "classic", "minimal", "powerline",

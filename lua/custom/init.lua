@@ -86,3 +86,6 @@ autopair.enable()
 --   autopair.jump_outer_end()              跳到外部结束（闭括号右侧）
 --   autopair.jump(which)                   通用跳转 which 同上三者之一
 --   autopair.map_jump(name, keys)          自定义跳转键；keys=false 卸载
+
+-- 浮动终端窗口
+local diagnostics_hint = require("custom.diagnostics")
