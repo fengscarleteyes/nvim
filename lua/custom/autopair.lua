@@ -1,5 +1,5 @@
 -- autopair.lua
--- 自动补全成对字符（Auto Pair），并支持在配对的 外部开头 / 内部中间 / 外部结束 之间跳转。
+-- 自动补全成对字符（Auto Pair）。
 --
 -- 功能概览：
 --   1. 自动补全：输入 ( [ { " ' ` 等开括号/引号时自动补全右半并让光标停在中间；
@@ -8,15 +8,15 @@
 --   4. 引号启发式：" 这种首尾同字符的配对，默认只在“两侧都不是单词字符”时自动成对
 --      （输入 it's 这类撇号时只插入单个引号）；
 --   5. 开关（toggle）：可整体启用/禁用；禁用会移除全部插入映射，不影响其它插件；
---   6. 可自定义配对字符表（可动态增删）；
---   7. 跳转快捷键：在当前行内找到光标所处（或最近）的一对字符，跳到
---      外部开头（开括号左侧）/ 内部中间 / 外部结束（闭括号右侧），
---      默认键可整体/逐项禁用与自定义。
+--   6. 可自定义配对字符表（可动态增删）。
+--
+-- 标准插件写法：require 只返回 M 且本身不产生副作用，必须调用 M.setup(opts)
+-- 才会注册插入映射与用户命令（入口 lua/custom/init.lua 已统一调用 setup）。
 --
 -- 用法（nvim 配置中；mapleader 需在 require/setup 之前设好）：
 --   vim.g.mapleader = " "
---   local autopair = require("autopair")   -- 不调用 setup 也会按默认配置生效
---   autopair.setup({
+--   local autopair = require("custom.autopair")
+--   autopair.setup({                       -- 不调用 setup 则不会生效
 --     enabled = true,
 --     pairs = {                             -- 以默认表为底逐项覆盖
 --       ["("] = ")", ["["] = "]", ["{"] = "}",
@@ -27,44 +27,26 @@
 --     smart_quotes    = true,               -- 引号类仅在两侧都不是单词时自动成对
 --     skip_closing    = true,               -- 输入闭括号且右侧正好是它时跳过
 --     bs_delete_pair  = true,               -- 空对之间退格一次删整对
---     keys = {                              -- 跳转键；某项或整体设 false 即禁用
---       outer_start  = "<leader>ps",        -- 配对的外部开头（开括号左侧）
---       inner_middle = "<leader>pm",        -- 配对的内部中间
---       outer_end    = "<leader>pe",        -- 配对的外部结束（闭括号右侧）
---     },
 --   })
 --
 -- 常用命令：
 --   :AutoPairToggle   启用/禁用开关（来回切换）
---   :AutoPairEnable   启用          :AutoPairDisable  禁用
---   :AutoPairJumpStart / Inside / End  对应三种位置跳转
+--   :AutoPairEnable   启用
+--   :AutoPairDisable  禁用
 --
 -- 常用键位（普通模式）：
---   vim.keymap.set("n", "<leader>ta", function() require("autopair").toggle() end)
+--   vim.keymap.set("n", "<leader>ta", function() require("custom.autopair").toggle() end)
 --
 -- API：
+--   autopair.setup(opts)                   合并配置、注册映射与用户命令（幂等）
 --   autopair.is_enabled()                  是否启用
 --   autopair.enable() / disable() / toggle()
 --   autopair.add_pair(open, close)         新增/覆盖一个配对并即时生效
 --   autopair.remove_pair(open)             移除一个配对并即时生效
---   autopair.jump_outer_start()            跳到外部开头（开括号左侧）
---   autopair.jump_inner_middle()           跳到内部中间
---   autopair.jump_outer_end()              跳到外部结束（闭括号右侧）
---   autopair.jump(which)                   通用跳转 which 同上三者之一
---   autopair.map_jump(name, keys)          自定义跳转键；keys=false 卸载
 --
 -- 高级：
 --   对个别文件/缓冲区单独关闭自动配对（全局开关仍可用）：
 --     vim.b.autopair_enabled = false   -- 在某 autocmd 中针对当前 buffer 设置
---
--- 跳转语义（作用于光标所在行，只处理同行内闭合的一对）：
---   1) 光标在某对内部（含紧贴其闭括号）时，作用于【最内层】包含光标的对；
---   2) 否则向右找开括号在光标右侧最近的一对；
---   3) 右侧没有则向左找最近结束的一对。
--- 三个目标位置：
---   外部开头 = 开括号所在列（插入点在开括号左侧）
---   内部中间 = 开括号之后内容的中点（空对即紧贴开括号之后）
---   外部结束 = 闭括号之后一列（插入点在闭括号右侧）
 -- ============================================================
 local M = {}
 
@@ -78,22 +60,17 @@ local DEFAULTS = {
     ['"'] = '"',
     ["'"] = "'",
     ["`"] = "`",
+    ["*"] = "*",
   },
   smart_quotes = true, -- 首尾同字符的配对（引号）的“单词边不成对”启发式
   skip_closing = true, -- 闭括号右侧正好是它时跳过
   bs_delete_pair = true, -- 空对之间退格一次删整对
-  keys = {
-    outer_start = "<leader>ps",
-    inner_middle = "<leader>pm",
-    outer_end = "<leader>pe",
-  },
 }
 
 local cfg = vim.deepcopy(DEFAULTS)
-local configured = false -- setup() 是否已被调用
 local owned_insert = {} -- 我们注册过的插入模式按键（lhs 集合）
-local applied_jumps = {} -- 已生效的跳转键 { name = lhs }
 local commands_created = false
+local ensure_commands -- 前置声明：M.setup() 会调用，函数体见下方「用户命令」一节
 
 --- 合并配置：用户没给出的项沿用默认
 local function merge(opts)
@@ -126,21 +103,6 @@ local function merge(opts)
         cfg.pairs[open] = nil
       else
         cfg.pairs[open] = close
-      end
-    end
-  end
-
-  -- keys：整体 false 关闭全部跳转键；表格则逐项覆盖/禁用
-  if opts.keys == false then
-    cfg.keys = false
-  else
-    cfg.keys = {}
-    for name, key in pairs(DEFAULTS.keys) do
-      cfg.keys[name] = key
-    end
-    if type(opts.keys) == "table" then
-      for name, key in pairs(opts.keys) do
-        cfg.keys[name] = key or nil -- false/nil 都视为不绑定
       end
     end
   end
@@ -310,178 +272,6 @@ local function apply_insert_maps()
 end
 
 -- ============================================================
--- 配对解析与跳转（仅处理光标当前行）
--- ============================================================
-
---- 反向表 close -> open（由当前配对表生成）
-local function build_reverse()
-  local rev = {}
-  for open, close in pairs(cfg.pairs) do
-    rev[close] = open
-  end
-  return rev
-end
-
---- 把一行解析成若干“闭合配对” { open=开列, close=闭列 }（0 基字节列）。
---- 用栈做平衡匹配；闭合符到达时，其上方仍未闭合的内容（例如字符串里的
---- 括号）会被丢弃，从而避免错配。
---- @param line string
---- @return table[]
-local function parse_line_pairs(line)
-  local res = {}
-  local rev = build_reverse()
-  local stack = {}
-  local pos, n = 0, #line
-  while pos < n do
-    local b = string.byte(line, pos + 1)
-    local len = 1
-    if b and b >= 0xF0 then
-      len = 4
-    elseif b and b >= 0xE0 then
-      len = 3
-    elseif b and b >= 0xC0 then
-      len = 2
-    end
-    local ch = line:sub(pos + 1, pos + len)
-
-    if rev[ch] then
-      -- 可能是闭字符：自顶向下找它对应的开字符
-      local match = nil
-      for k = #stack, 1, -1 do
-        if stack[k].open == rev[ch] then
-          match = k
-          break
-        end
-      end
-      if match then
-        res[#res + 1] = { open = stack[match].idx, close = pos }
-        -- 弹出到并包括 match：其上方未闭合的内容视为“字符串噪音”丢弃
-        for k = #stack, match, -1 do
-          stack[k] = nil
-        end
-      elseif cfg.pairs[ch] then
-        -- 引号类开==闭的字符：若栈中没有等待闭合的同字符，则视为开
-        stack[#stack + 1] = { open = ch, idx = pos }
-      end
-    elseif cfg.pairs[ch] then
-      stack[#stack + 1] = { open = ch, idx = pos }
-    end
-
-    pos = pos + len
-  end
-  return res
-end
-
---- 依据光标列 col 挑选“要操作的那一对”
---- @return { open:number, close:number }|nil
-local function pick_pair(col, list)
-  -- 1) 包含光标的对：open < col 且 close >= col，取跨度最小的（最内层）
-  local best = nil
-  for _, p in ipairs(list) do
-    if p.open < col and col <= p.close then
-      local span = p.close - p.open
-      if not best or span < (best.close - best.open) or (span == (best.close - best.open) and p.open > best.open) then
-        best = p
-      end
-    end
-  end
-  if best then
-    return best
-  end
-
-  -- 2) 光标右侧最近的一对：开括号在光标右侧，取开括号最靠左的
-  best = nil
-  for _, p in ipairs(list) do
-    if p.open >= col and (not best or p.open < best.open) then
-      best = p
-    end
-  end
-  if best then
-    return best
-  end
-
-  -- 3) 光标左侧最近结束的一对：闭括号已在其左侧，取闭括号最靠右的
-  best = nil
-  for _, p in ipairs(list) do
-    if p.close < col and (not best or p.close > best.close) then
-      best = p
-    end
-  end
-  return best
-end
-
---- 计算目标列：which ∈ "outer_start" | "inner_middle" | "outer_end"
-local function target_col(p, which)
-  if which == "outer_start" then
-    return p.open
-  elseif which == "outer_end" then
-    return p.close + 1
-  end
-  -- inner_middle：开括号之后内容的中点；空对则紧贴开括号之后
-  local content_len = p.close - p.open - 1
-  if content_len <= 0 then
-    return p.open + 1
-  end
-  return p.open + 1 + math.floor(content_len / 2)
-end
-
---- 执行一次跳转（写光标列）
---- @return boolean 是否成功
-local function jump(which)
-  local cur = vim.api.nvim_win_get_cursor(0)
-  local row, col = cur[1] - 1, cur[2]
-  local line = vim.api.nvim_buf_get_lines(0, row, row + 1, false)[1] or ""
-  local pairs = parse_line_pairs(line)
-  local p = pick_pair(col, pairs)
-  if not p then
-    vim.notify("AutoPair: 当前行没有可跳转的配对", vim.log.levels.INFO)
-    return false
-  end
-  local target = target_col(p, which)
-  local max_col = #line
-  if target < 0 then
-    target = 0
-  end
-  if target > max_col then
-    target = max_col
-  end
-  vim.api.nvim_win_set_cursor(0, { row + 1, target })
-  return true
-end
-
--- ============================================================
--- 跳转快捷键的注册 / 卸载
--- ============================================================
-
-local JUMP_NAMES = { "outer_start", "inner_middle", "outer_end" }
-
-local function clear_jump_maps()
-  for name, lhs in pairs(applied_jumps) do
-    pcall(vim.keymap.del, "n", lhs)
-    applied_jumps[name] = nil
-  end
-end
-
---- 按 cfg.keys 绑定跳转键（普通模式 n）
-local function apply_jump_maps()
-  clear_jump_maps()
-  if cfg.keys == false then
-    return
-  end
-  for _, name in ipairs(JUMP_NAMES) do
-    local lhs = cfg.keys[name]
-    if type(lhs) == "string" and lhs ~= "" then
-      vim.keymap.set("n", lhs, function()
-        jump(name)
-      end, {
-        desc = "AutoPair: 跳到配对 " .. name,
-      })
-      applied_jumps[name] = lhs
-    end
-  end
-end
-
--- ============================================================
 -- 开关：启用 / 禁用 / 切换
 -- ============================================================
 
@@ -496,7 +286,6 @@ local function refresh_maps()
   else
     clear_insert_maps()
   end
-  apply_jump_maps() -- 跳转键与开关无关，始终生效
 end
 
 --- 启用自动配对
@@ -509,7 +298,7 @@ function M.enable()
   notify_state()
 end
 
---- 禁用自动配对（移除插入模式映射；跳转功能仍可用）
+--- 禁用自动配对（移除全部插入模式映射）
 function M.disable()
   if not cfg.enabled then
     return
@@ -537,32 +326,6 @@ end
 -- 公共 API
 -- ============================================================
 
---- 跳转 API：跳到配对的外部开头 / 内部中间 / 外部结束
---- @return boolean 是否成功
-function M.jump_outer_start()
-  return jump("outer_start")
-end
-
-function M.jump_inner_middle()
-  return jump("inner_middle")
-end
-
-function M.jump_outer_end()
-  return jump("outer_end")
-end
-
---- 通用跳转：which ∈ "outer_start" | "inner_middle" | "outer_end"
---- @return boolean
-function M.jump(which)
-  for _, name in ipairs(JUMP_NAMES) do
-    if name == which then
-      return jump(which)
-    end
-  end
-  vim.notify("AutoPair: 未知跳转目标 " .. vim.inspect(which), vim.log.levels.WARN)
-  return false
-end
-
 --- 动态新增/覆盖一对字符
 function M.add_pair(open, close)
   if cfg.pairs[open] and cfg.pairs[open] == close then
@@ -588,33 +351,9 @@ function M.remove_pair(open)
   return true
 end
 
---- 自定义/卸载某个跳转键；keys=false 卸载
-function M.map_jump(name, keys)
-  local valid = false
-  for _, n in ipairs(JUMP_NAMES) do
-    if n == name then
-      valid = true
-    end
-  end
-  if not valid then
-    vim.notify("AutoPair.map_jump: 未知名称 " .. vim.inspect(name), vim.log.levels.WARN)
-    return false
-  end
-  if keys == false then
-    if cfg.keys ~= false then
-      cfg.keys[name] = nil
-    end
-  else
-    if cfg.keys == false then
-      cfg.keys = {}
-    end
-    cfg.keys[name] = keys
-  end
-  apply_jump_maps()
-  return true
-end
-
---- 设置/覆盖配置并立即生效；pairs 非法时回滚为默认配置
+--- 设置/覆盖配置并立即生效（可重复调用）；pairs 非法时回滚为默认配置
+--- @param opts table|nil 见文件头部「用法」说明
+--- @return table M
 function M.setup(opts)
   opts = opts or {}
   merge(opts)
@@ -623,19 +362,19 @@ function M.setup(opts)
   if not clean then
     merge() -- 回滚
     vim.notify("AutoPair.setup: " .. err, vim.log.levels.ERROR)
-    return false
+    return M
   end
   cfg.pairs = clean
-  configured = true
+  ensure_commands() -- 注册用户命令（内部幂等，重复 setup 不会重复创建）
   refresh_maps()
-  return true
+  return M
 end
 
 -- ============================================================
 -- 用户命令
 -- ============================================================
 
-local function ensure_commands()
+function ensure_commands()
   if commands_created then
     return
   end
@@ -649,22 +388,6 @@ local function ensure_commands()
   vim.api.nvim_create_user_command("AutoPairDisable", function()
     M.disable()
   end, { desc = "AutoPair: 禁用" })
-  vim.api.nvim_create_user_command("AutoPairJumpStart", function()
-    M.jump_outer_start()
-  end, { desc = "AutoPair: 跳转到配对外部开头" })
-  vim.api.nvim_create_user_command("AutoPairJumpInside", function()
-    M.jump_inner_middle()
-  end, { desc = "AutoPair: 跳转到配对内部中间" })
-  vim.api.nvim_create_user_command("AutoPairJumpEnd", function()
-    M.jump_outer_end()
-  end, { desc = "AutoPair: 跳转到配对外部结束" })
-end
-
-ensure_commands()
-
--- 首次 require 即按默认配置生效；之后调用 setup 可覆盖并重新生效
-if not configured then
-  M.setup()
 end
 
 return M

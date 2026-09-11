@@ -1,7 +1,3 @@
-<img src="https://neovim.io/logos/neovim-mark-flat.png" align="right" width="100" />
-
---------------------------------------------------------------------------------
-
 # README
 
 - Install
@@ -20,7 +16,7 @@ git clone git@github.com:fengscarleteyes/nvim.git
 
 ## version manager
 
-> https://github.com/y3owk1n/nvs
+> <https://github.com/y3owk1n/nvs>
 
 ## Python
 
@@ -68,3 +64,4 @@ zC    -- 递归关闭当前折叠 (Close fold recursively)
 zO    -- 递归打开当前折叠 (Open fold recursively)
 zi    -- 全局切换折叠功能 (Toggle folding enable/disable)
 ```
+****

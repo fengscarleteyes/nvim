@@ -1,10 +1,24 @@
 -- ============================================
--- 诊断高亮（背景色与前景色互换）
+-- 诊断高亮与诊断提醒（标准插件写法：返回 M，由 M.setup() 生效）
+-- --------------------------------------------
+-- 1. 诊断高亮：把内置 DiagnosticUnderline<级别> 的背景色与前景色互换，
+--    注意该高亮组作用于「诊断的起止列区间」，并非整行；
+-- 2. 诊断提醒：DiagnosticChanged 时防抖统计，并按严重程度分类提示。
+--
+-- 配置（M.setup(opts)）：
+--   debounce_ms  number   500    诊断提醒的防抖时长（毫秒）
+--   notify       boolean  true   是否在诊断变化时弹出提醒（false 只保留高亮）
 -- ============================================
+local M = {}
+
+--- 默认配置
+local DEFAULTS = {
+  debounce_ms = 500,
+  notify = true,
+}
 
 -- 严重程度 -> 名称 / 图标 / 文案 / 配色（单一数据源，高亮与通知共用）
 -- name 同时用于拼接内置高亮组名：DiagnosticUnderline .. name
--- 注意：内置该高亮组作用于「诊断的起止列区间」，并非整行（整行高亮见文件末尾）
 local severity_config = {
   [vim.diagnostic.severity.ERROR] = { name = "Error", icon = "✘", label = "错误", bg = "#FF6B6B", fg = "#FFFFFF" },
   [vim.diagnostic.severity.WARN] = { name = "Warn", icon = "▲", label = "警告", bg = "#FFD93D", fg = "#000000" },
@@ -21,9 +35,7 @@ local severity_order = {
   vim.diagnostic.severity.HINT,
 }
 
--- 本文件所有自动命令共用一个 augroup
--- clear = true 保证重复 source 本文件时不会累积重复的自动命令
-local augroup = vim.api.nvim_create_augroup("custom_diagnostics", { clear = true })
+local initialized = false -- setup() 是否已完成注册
 
 --- 应用诊断高亮：各严重程度一套「背景色 + 前景色」
 local function apply_highlights()
@@ -33,44 +45,6 @@ local function apply_highlights()
     vim.api.nvim_set_hl(0, "DiagnosticUnderline" .. s.name, { bg = s.bg, fg = s.fg })
   end
 end
-
-apply_highlights()
-
--- 切换配色方案会重置全部高亮组，这里在 ColorScheme 之后重新覆盖一次
-vim.api.nvim_create_autocmd("ColorScheme", {
-  group = augroup,
-  callback = apply_highlights,
-})
-
--- ============================================
--- 可选：诊断所在整行背景高亮（默认关闭）
--- ============================================
--- 取消注释下面一段即可：通过 signs.linehl 给「放有诊断符号的整行」上背景色
--- （需保持 signs 开启，vim.diagnostic.config 默认即为 true）。
--- 注意：这些整行高亮组在切换配色方案后会被重置，
---       如需长期生效，请把 nvim_set_hl 那行一并挪进上面的 apply_highlights()。
--- local linehl = {}
--- for _, severity in ipairs(severity_order) do
---   local s = severity_config[severity]
---   vim.api.nvim_set_hl(0, "DiagnosticLine" .. s.name, { bg = s.bg })
---   linehl[severity] = "DiagnosticLine" .. s.name
--- end
--- vim.diagnostic.config({ signs = { linehl = linehl } })
-
--- ============================================
--- 诊断提醒（防抖 + 分类统计）
--- ============================================
-
--- 防抖时长（毫秒）
-local DEBOUNCE_MS = 500
-
--- 待提醒的缓冲区集合
--- 所有事件共用一个定时器做防抖，但同一防抖窗口内触发过的缓冲区都会记录下来
--- 并逐个提醒，避免后触发的缓冲区把先触发的顶掉（丢失提醒）
-local pending_bufs = {}
-
--- 用于防抖的 libuv 定时器
-local diag_timer = vim.uv.new_timer()
 
 --- 统计指定缓冲区的诊断，并按严重程度分类提醒
 --- @param buf integer 缓冲区编号
@@ -111,34 +85,73 @@ local function notify_diagnostics(buf)
   vim.notify("诊断: " .. table.concat(parts, "  "), level)
 end
 
--- 监听 DiagnosticChanged 事件
--- 当 LSP 或 linter 产生、更新、清除诊断信息时触发
-vim.api.nvim_create_autocmd("DiagnosticChanged", {
-  group = augroup,
-  callback = function(args)
-    -- args.buf 是触发事件的缓冲区编号，稍后据此获取该缓冲区的诊断
-    pending_bufs[args.buf] = true
+--- 启用诊断高亮与诊断提醒（幂等：重复调用只注册一次）
+--- @param opts table|nil 可选 { debounce_ms = number, notify = boolean }
+--- @return table M
+function M.setup(opts)
+  local cfg = vim.tbl_deep_extend("force", vim.deepcopy(DEFAULTS), opts or {})
+  if initialized then
+    return M
+  end
+  initialized = true
 
-    -- 防抖逻辑：每次触发时先停止上一次的计时器
-    -- 这样短时间内多次触发只会执行最后一次
-    diag_timer:stop()
+  -- 本模块所有自动命令共用一个 augroup
+  -- clear = true 保证重复 setup 时不会累积重复的自动命令
+  local augroup = vim.api.nvim_create_augroup("custom_diagnostics", { clear = true })
 
-    -- 重新启动计时器，DEBOUNCE_MS 后执行回调
-    -- 第二个参数 0 表示只执行一次（非重复定时器）
-    -- vim.schedule_wrap 将回调调度到 Neovim 主线程
-    -- 因为 uv.timer 的回调默认在 libuv 线程中运行
-    -- 直接调用 vim.notify 等 Neovim API 会报错
-    diag_timer:start(
-      DEBOUNCE_MS,
-      0,
-      vim.schedule_wrap(function()
-        -- 取走当前批次并清空集合，避免处理期间的新事件被丢弃
-        local bufs = pending_bufs
-        pending_bufs = {}
-        for buf in pairs(bufs) do
-          notify_diagnostics(buf)
-        end
-      end)
-    )
-  end,
-})
+  -- 高亮：立即应用一次；切换配色方案会重置全部高亮组，
+  -- 因此在 ColorScheme 之后重新覆盖一次
+  apply_highlights()
+  vim.api.nvim_create_autocmd("ColorScheme", {
+    group = augroup,
+    callback = apply_highlights,
+  })
+
+  if not cfg.notify then
+    return M
+  end
+
+  -- 待提醒的缓冲区集合
+  -- 所有事件共用一个定时器做防抖，但同一防抖窗口内触发过的缓冲区都会记录下来
+  -- 并逐个提醒，避免后触发的缓冲区把先触发的顶掉（丢失提醒）
+  local pending_bufs = {}
+
+  -- 用于防抖的 libuv 定时器
+  local diag_timer = vim.uv.new_timer()
+
+  -- 监听 DiagnosticChanged 事件
+  -- 当 LSP 或 linter 产生、更新、清除诊断信息时触发
+  vim.api.nvim_create_autocmd("DiagnosticChanged", {
+    group = augroup,
+    callback = function(args)
+      -- args.buf 是触发事件的缓冲区编号，稍后据此获取该缓冲区的诊断
+      pending_bufs[args.buf] = true
+
+      -- 防抖逻辑：每次触发时先停止上一次的计时器
+      -- 这样短时间内多次触发只会执行最后一次
+      diag_timer:stop()
+
+      -- 重新启动计时器，cfg.debounce_ms 后执行回调
+      -- 第二个参数 0 表示只执行一次（非重复定时器）
+      -- vim.schedule_wrap 将回调调度到 Neovim 主线程
+      -- 因为 uv.timer 的回调默认在 libuv 线程中运行
+      -- 直接调用 vim.notify 等 Neovim API 会报错
+      diag_timer:start(
+        cfg.debounce_ms,
+        0,
+        vim.schedule_wrap(function()
+          -- 取走当前批次并清空集合，避免处理期间的新事件被丢弃
+          local bufs = pending_bufs
+          pending_bufs = {}
+          for buf in pairs(bufs) do
+            notify_diagnostics(buf)
+          end
+        end)
+      )
+    end,
+  })
+
+  return M
+end
+
+return M
