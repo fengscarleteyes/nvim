@@ -7,6 +7,7 @@
 --   terminal.lua     终端：浮动窗口 / 右侧对半分割 / 底部 1/3 分割
 --   autopair.lua     自动配对（setup 注册映射/命令）
 --   diagnostics.lua  诊断高亮 + 诊断提醒
+--   tabline.lua      单条信息栏 tabline（buffer / tab / window 数量 + 当前文件名）
 --
 -- 模块约定（标准 Neovim 插件写法）：
 --   1. 每个模块返回 M，require 本身不产生副作用，功能由 M.setup(opts) 生效；
@@ -32,3 +33,6 @@ require("custom.autopair").setup()
 
 -- 诊断高亮 + 诊断提醒
 require("custom.diagnostics").setup()
+
+-- tabline：一条占满整行的信息栏（buffer / tab / window 数量 + 当前文件名）
+require("custom.tabline").setup()

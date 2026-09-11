@@ -64,4 +64,10 @@ zC    -- 递归关闭当前折叠 (Close fold recursively)
 zO    -- 递归打开当前折叠 (Open fold recursively)
 zi    -- 全局切换折叠功能 (Toggle folding enable/disable)
 ```
-****
+
+| line(bar) | comment |
+| --- | --- |
+| Tabline（顶部） | ← 类似浏览器标签页 |
+| Winbar（每个窗口顶部，默认隐藏） | ← Neovim 0.8+ 新增 |
+| Buffer 内容区域 | no bar |
+| Statusline（底部） | ← 最经典的 bar |
