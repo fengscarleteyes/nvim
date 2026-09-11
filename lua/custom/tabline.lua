@@ -1,7 +1,7 @@
 -- lua/custom/tabline.lua
 -- 单条信息栏 tabline（标准插件写法：返回 M，由 M.setup() 生效）
 -- 把 tabline 改成“一条占满整行的信息栏”，不再逐个显示 tab 标签：
---   开头一个装饰徽标 + 计数段（buffer / tab / window）+ 文件名段，段间用 Nerd Font 分隔字形相连；
+--   开头一个装饰徽标 + 计数段（buffer / tab / window）+ 文件名段，段间用各自可配置的 Nerd Font 字形相连；
 --   文件名段单独配色（默认深底白字），与计数段区分明显、清晰可辨。
 --   示意（默认字形）：󰫢 󱀲 1 buf  󰓩 1 tab  󰖲 1 win  󰧮 file.lua 
 --
@@ -26,6 +26,7 @@
 --   }
 --   icons = {                         各段字形（Nerd Font）；单项置 "" 去掉，整体 false 全去掉
 --     lead       = "󰫢",  -- nf-md-star_four_points（开头的装饰徽标）
+--     lead_cap   = "",  -- nf-pl-left_hard_divider（徽标 -> 计数段的过渡字形）
 --     buffers    = "󱀲",  -- nf-md-file_multiple_outline
 --     tabs       = "󰓩",  -- nf-md-tab
 --     windows    = "󰖲",  -- nf-md-window_restore
@@ -56,7 +57,7 @@
 --     },
 --   })
 --   require("custom.tabline").setup({                     -- 只换分隔字形（任意 Nerd Font 字形）
---     icons = { lead = "󰫢", sep = "", transition = "", cap = "" }, -- 当前默认值，可替换
+--     icons = { lead = "󰫢", lead_cap = "", sep = "", transition = "", cap = "" }, -- 当前默认值，可替换
 --   })
 --   require("custom.tabline").setup({                     -- 中文标签 + 相对路径 + 不补满
 --     filename = "relative",
@@ -85,6 +86,7 @@ local DEFAULTS = {
   },
   icons = { -- Nerd Font 字形；单项置 "" 去掉，整体设 false 全去掉
     lead = "󰫢", -- nf-md-star_four_points：开头的装饰徽标（置 "" 关闭）
+    lead_cap = "", -- nf-pl-left_hard_divider：徽标 -> 计数段的过渡字形（置 "" 关闭）
     buffers = "󱀲", -- nf-md-file_multiple_outline
     tabs = "󰓩", -- nf-md-tab
     windows = "󰖲", -- nf-md-window_restore
@@ -176,7 +178,7 @@ local function resolve_highlights()
 end
 
 --- 取某个字形（"" 表示不显示）
---- @param name string "buffers" | "tabs" | "windows" | "filename" | "sep" | "transition"
+--- @param name string "lead" | "lead_cap" | "buffers" | "tabs" | "windows" | "filename" | "sep" | "transition" | "cap"
 --- @return string
 local function icon_of(name)
   local icons = cfg.icons
@@ -251,8 +253,8 @@ function M.render()
     push(" ", lead_hl)
     push(lead_icon, lead_hl)
     push(" ", lead_hl)
-    -- 徽标 -> 计数段底色：与收尾字形同向（前景 = 徽标底色，背景 = 计数段底色）
-    push(icon_of("cap"), hl.lead_cap or lead_hl)
+    -- 徽标 -> 计数段底色：字形由 icons.lead_cap 单独指定（前景 = 徽标底色，背景 = 计数段底色）
+    push(icon_of("lead_cap"), hl.lead_cap or lead_hl)
     push(" ", hl.bar)
   end
 
