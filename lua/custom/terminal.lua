@@ -55,6 +55,47 @@
 --     注意：分割布局保留窗口时会一直占位，必要时自行 :close。
 --
 -- 示例：
+--
+-- 1) 配置：setup 与默认配置深合并，只写需要改的项（可反复调用，键位只绑一次）
+--   require("custom.terminal").setup({
+--     layout = "bottom", -- 默认布局："float" | "right" | "bottom"
+--     shell = "pwsh", -- 例：指定 shell；nil 表示按系统自动探测
+--     keys = {
+--       float = "<C-\\>", -- 浮动窗口（普通 + 终端模式）
+--       right = "<leader>tr", -- 右侧对半分割
+--       bottom = false, -- 不绑该键（仍可用 :TerminalBottom）
+--       close = "<Esc>", -- 终端模式关闭
+--     },
+--     layouts = {
+--       float = { width_ratio = 0.9, height_ratio = 0.85, border = "double" },
+--       right = { width_ratio = 0.4 }, -- 右侧占 columns 的 40%
+--       bottom = { height_ratio = 0.25 }, -- 底部占可用高度的 25%
+--     },
+--     win_opts = { number = true }, -- 分割窗口保留行号（默认关闭）
+--   })
+--
+-- 2) 只注册命令、不绑键位；键位完全自定义（适合写进 lua/keymaps/init.lua）
+--   require("custom.terminal").setup({ map_keys = false })
+--   vim.keymap.set({ "n", "t" }, "<F5>", function() -- 自己绑：右侧对半
+--     require("custom.terminal").toggle(nil, { layout = "right" })
+--   end, { desc = "Terminal: right split" })
+--
+-- 3) 交互式 shell 与布局查询（cmd 传 nil / "" 即交互式 shell）
+--   require("custom.terminal").toggle(nil, { layout = "bottom" }) -- 打开底部 1/3 的交互式 shell
+--   require("custom.terminal").layout() -- "float" | "right" | "bottom" | nil（未打开）
+--   require("custom.terminal").toggle() -- 已打开 => 关闭
+--   require("custom.terminal").open(nil, { layout = "right" }) -- 布局+命令相同 => 聚焦，不重建
+--
+-- 4) 常见集成：close_on_exit = false 让输出/会话留在窗口里
+--   require("custom.terminal").run("lazygit", { close_on_exit = false }) -- 浮动常驻 lazygit
+--   vim.keymap.set("n", "<leader>tt", function() -- 底部 1/3 跑测试并保留输出
+--     require("custom.terminal").toggle("pytest -q", { layout = "bottom", close_on_exit = false })
+--   end, { desc = "Terminal: pytest" })
+--   vim.api.nvim_create_user_command("Tlog", function() -- 底部 1/3 看 git log
+--     require("custom.terminal").toggle("git log --oneline -50", { layout = "bottom" })
+--   end, { desc = "Terminal: git log" })
+--
+-- 5) 跑命令速查（cmd 可为字符串[经 shell] 或 argv 列表[不经 shell]）
 --   require("custom.terminal").run("git status")                           -- 浮动，跑完自动关闭
 --   require("custom.terminal").run("pip list", { close_on_exit = false })  -- 保留输出
 --   require("custom.terminal").run("npm run dev", { layout = "right" })    -- 右侧对半
