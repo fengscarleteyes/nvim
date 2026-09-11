@@ -87,5 +87,5 @@ autopair.enable()
 --   autopair.jump(which)                   通用跳转 which 同上三者之一
 --   autopair.map_jump(name, keys)          自定义跳转键；keys=false 卸载
 
--- 浮动终端窗口
-local diagnostics_hint = require("custom.diagnostics")
+-- 诊断高亮 + 诊断提醒（纯副作用，无导出接口）
+require("custom.diagnostics")
