@@ -31,7 +31,7 @@ require("dashboard").setup({
         desc = "Lazygit",
         key = "g",
         action = function()
-          require("custom.floatterm").run("lazygit")
+          require("custom.terminal").run("lazygit")
         end,
         icon = "  ",
       },

@@ -4,7 +4,7 @@
 -- 本文件只负责按顺序加载同目录下的功能模块，不写任何具体实现。
 --   clean.lua        :RemoveStateDir / :RemoveShadaDir 维护命令
 --   yank.lua         复制（yank）后短暂高亮
---   floatterm.lua    浮动终端（setup 绑定键位）
+--   terminal.lua     终端：浮动窗口 / 右侧对半分割 / 底部 1/3 分割
 --   autopair.lua     自动配对（setup 注册映射/命令）
 --   diagnostics.lua  诊断高亮 + 诊断提醒
 --
@@ -22,9 +22,9 @@ require("custom.clean").setup()
 -- 复制后高亮被复制的内容
 require("custom.yank").setup()
 
--- 浮动终端：绑定 <C-\>（普通/终端模式切换）与终端模式 <Esc>（关闭）
--- 也可 require("custom.floatterm").setup({ map_keys = false }) 只加载不绑键
-require("custom.floatterm").setup()
+-- 终端：默认键位见该文件头部（<C-\> 浮动、<leader>tr 右侧对半、<leader>tb 底部 1/3）
+-- 也可 require("custom.terminal").setup({ map_keys = false }) 只注册命令、不绑键位
+require("custom.terminal").setup()
 
 -- 自动配对：默认配置；如需自定义，改成
 -- require("custom.autopair").setup({ ... })，可用项见该文件头部注释
