@@ -1,91 +1,33 @@
-local function remove_state_dir()
-  local state_dir = vim.fn.stdpath("state")
-  if vim.fn.isdirectory(state_dir) == 1 then
-    vim.fn.delete(state_dir, "rf")
-  end
-end
+-- ============================================================
+-- 自定义功能入口（lua/custom/）
+-- ------------------------------------------------------------
+-- 本文件只负责按顺序加载同目录下的功能模块，不写任何具体实现。
+--   clean.lua        :RemoveStateDir / :RemoveShadaDir 维护命令
+--   yank.lua         复制（yank）后短暂高亮
+--   floatterm.lua    浮动终端（setup 绑定键位）
+--   autopair.lua     自动配对（require 即按默认配置生效）
+--   diagnostics.lua  诊断高亮 + 诊断提醒
+--
+-- 模块约定：
+--   1. 功能与其键位/命令/自动命令放在同一个文件里，入口只做调用；
+--   2. 无对外 API 的用「require 即生效」的写法（不返回值）；
+--      有对外 API 的返回 M，并由入口调用其 setup()。
+--   新增功能：在 lua/custom/ 下新建模块，然后在下面补一行即可。
+-- ============================================================
 
-vim.api.nvim_create_user_command(
-  "RemoveStateDir", -- command name
-  function()
-    vim.ui.input(
-      { prompt = 'RemoveStateDir Enter "Y/y" or "N/n": ' }, -- opts
-      function(input) -- comfirm
-        if string.lower(input) == "y" then
-          remove_state_dir()
-          vim.cmd("qall!") -- 强制退出（不保存）
-        end
-      end
-    )
-  end,
-  { desc = "clean nvim state directory" }
-)
+-- 维护命令：清理 state / shada 目录
+require("custom.clean")
 
-local function remove_shada_dir()
-  local state_dir = vim.fn.stdpath("state")
-  local shada_dir = state_dir .. "/shada" -- windows
-  if vim.fn.isdirectory(shada_dir) == 1 then
-    vim.fn.delete(shada_dir, "rf")
-  end
-end
+-- 复制后高亮被复制的内容
+require("custom.yank")
 
-vim.api.nvim_create_user_command(
-  "RemoveShadaDir", -- command name
-  function()
-    vim.ui.input(
-      { prompt = 'RemoveShadaDir Enter "Y/y" or "N/n": ' }, -- opts
-      function(input) -- comfirm
-        if string.lower(input) == "y" then
-          remove_shada_dir()
-          vim.cmd("qall!") -- 强制退出（不保存）
-        end
-      end
-    )
-  end,
-  { desc = "clean nvim shada directory" }
-)
+-- 浮动终端：绑定 <C-\>（普通/终端模式切换）与终端模式 <Esc>（关闭）
+-- 也可 require("custom.floatterm").setup({ map_keys = false }) 只加载不绑键
+require("custom.floatterm").setup()
 
--- 复制后高亮复制的文本
-vim.api.nvim_create_autocmd(
-  "TextYankPost", -- command name
-  {
-    group = vim.api.nvim_create_augroup("highlight_yank", {}),
-    callback = function()
-      vim.highlight.on_yank({ higroup = "IncSearch", timeout = 2000 })
-    end,
-  }
-)
+-- 自动配对：require 即启用；如需自定义配置，改成
+-- require("custom.autopair").setup({ ... })，可用项见该文件头部注释
+require("custom.autopair")
 
--- 浮动终端窗口
-local floatterm = require("custom.floatterm")
-
--- 绑定快捷键（Ctrl+\ 切换浮动终端）
-vim.keymap.set("n", "<C-\\>", function()
-  floatterm.toggle()
-end, { desc = "Toggle floating terminal" })
-
-vim.keymap.set("t", "<C-\\>", function()
-  floatterm.toggle()
-end, { desc = "Toggle floating terminal" })
-
--- 终端模式下按 Esc 直接关闭浮动终端
-vim.keymap.set("t", "<Esc>", function()
-  floatterm.close()
-end, { desc = "Close floating terminal" })
-
--- auto pairs
-local autopair = require("custom.autopair")
-autopair.enable()
--- API：
---   autopair.is_enabled()                  是否启用
---   autopair.enable() / disable() / toggle()
---   autopair.add_pair(open, close)         新增/覆盖一个配对并即时生效
---   autopair.remove_pair(open)             移除一个配对并即时生效
---   autopair.jump_outer_start()            跳到外部开头（开括号左侧）
---   autopair.jump_inner_middle()           跳到内部中间
---   autopair.jump_outer_end()              跳到外部结束（闭括号右侧）
---   autopair.jump(which)                   通用跳转 which 同上三者之一
---   autopair.map_jump(name, keys)          自定义跳转键；keys=false 卸载
-
--- 诊断高亮 + 诊断提醒（纯副作用，无导出接口）
+-- 诊断高亮 + 诊断提醒
 require("custom.diagnostics")

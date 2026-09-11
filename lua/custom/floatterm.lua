@@ -1,11 +1,16 @@
--- lua/floatterm.lua
+-- lua/custom/floatterm.lua
 -- 浮动终端（Neovim 原生 API 实现）
 --
 -- API：
---   require("floatterm").toggle([cmd, opts])   切换开关（cmd 缺省为交互式 shell）
---   require("floatterm").run(cmd, [opts])      在浮动窗口运行指定命令
---   require("floatterm").open([cmd, opts])     打开（已打开且命令相同则聚焦，不同则重启）
---   require("floatterm").close()               关闭
+--   require("custom.floatterm").setup([opts])       绑定默认键位（opts.map_keys = false 则不绑）
+--   require("custom.floatterm").toggle([cmd, opts]) 切换开关（cmd 缺省为交互式 shell）
+--   require("custom.floatterm").run(cmd, [opts])    在浮动窗口运行指定命令
+--   require("custom.floatterm").open([cmd, opts])   打开（已打开且命令相同则聚焦，不同则重启）
+--   require("custom.floatterm").close()             关闭
+--
+-- 默认键位（调用 setup 后生效，普通模式与终端模式各一份才能真正"开关切换"）：
+--   <C-\>  普通模式 / 终端模式：打开或关闭浮动终端
+--   <Esc>  终端模式：直接关闭浮动终端
 --
 -- cmd 说明：
 --   * 字符串命令（如 "git status"）经系统 shell 执行，跨平台；
@@ -16,15 +21,10 @@
 --     设 false 则保留窗口便于查看输出（可手动 toggle 关闭）。
 --
 -- 示例：
---   require("floatterm").run("git status")                        -- 跑完自动关闭
---   require("floatterm").run("pip list", { close_on_exit = false }) -- 保留输出
---   require("floatterm").run("npm run dev")
---   require("floatterm").run({ "python", "-m", "http.server", "8000" })
---
--- 键位绑定建议（普通模式 + 终端模式各一份，才能真正"开关切换"）：
---   vim.keymap.set("n", "<C-t>", function() require("floatterm").toggle() end)
---   vim.keymap.set("t", "<C-t>", function() require("floatterm").toggle() end)
---   vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")  -- Esc 从终端模式退回普通模式
+--   require("custom.floatterm").run("git status")                         -- 跑完自动关闭
+--   require("custom.floatterm").run("pip list", { close_on_exit = false }) -- 保留输出
+--   require("custom.floatterm").run("npm run dev")
+--   require("custom.floatterm").run({ "python", "-m", "http.server", "8000" })
 local M = {}
 
 local float_win = nil -- 记录浮动窗口句柄
@@ -163,6 +163,34 @@ function M.toggle(cmd, opts)
     M.close()
   else
     M._open(cmd, opts)
+  end
+end
+
+-- ============================================================
+-- 默认键位（由入口调用 M.setup() 后生效）
+-- ============================================================
+
+--- 默认键位表：模式 / 按键 / 动作 / 描述
+local DEFAULT_KEYMAPS = {
+  { mode = "n", lhs = "<C-\\>", action = function() M.toggle() end, desc = "Toggle floating terminal" },
+  { mode = "t", lhs = "<C-\\>", action = function() M.toggle() end, desc = "Toggle floating terminal" },
+  { mode = "t", lhs = "<Esc>", action = function() M.close() end, desc = "Close floating terminal" },
+}
+
+local keys_mapped = false -- setup() 是否已绑定过键位
+
+--- 绑定默认键位（重复调用只绑定一次）
+--- 普通模式与终端模式都绑 <C-\>，才能真正"开关切换"；
+--- 终端模式的 <Esc> 用于直接关闭浮动终端（而不是退回普通模式）。
+--- @param opts table|nil 可选 { map_keys = boolean }；map_keys = false 表示只加载功能、不绑键位
+function M.setup(opts)
+  opts = opts or {}
+  if keys_mapped or opts.map_keys == false then
+    return
+  end
+  keys_mapped = true
+  for _, map in ipairs(DEFAULT_KEYMAPS) do
+    vim.keymap.set(map.mode, map.lhs, map.action, { desc = map.desc })
   end
 end
 
