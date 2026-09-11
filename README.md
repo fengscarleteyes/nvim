@@ -71,3 +71,9 @@ zi    -- 全局切换折叠功能 (Toggle folding enable/disable)
 | Winbar（每个窗口顶部，默认隐藏） | ← Neovim 0.8+ 新增 |
 | Buffer 内容区域 | no bar |
 | Statusline（底部） | ← 最经典的 bar |
+
+## TODO
+
+tabline add extend callback
+winbar add
+statusline add
