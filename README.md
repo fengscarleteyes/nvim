@@ -79,3 +79,5 @@ tablist bufferlist windowlist
 tabline add extend callback
 winbar add
 statusline add
+
+autocmd notify: filetype + insert/v/t mod?
