@@ -157,8 +157,10 @@ end
 
 --- 解析当前使用的高亮组
 --- colors 为 table 时使用自带高亮组（独立于主题），并给分隔字形/过渡单独配色；
---- 否则统一使用 highlight 指定的主题高亮组（此时 sep / transition 为 nil）
---- @return { bar:string, sep:string|nil, transition:string|nil, cap:string|nil, file:string }
+--- 否则统一使用 highlight 指定的主题高亮组
+--- （此时 sep / lead / lead_cap / transition / cap 均为 nil，调用方用 `or hl.bar` / `or hl.file` 兜底）
+--- @return { bar:string, sep:string|nil, lead:string|nil, lead_cap:string|nil,
+---   transition:string|nil, cap:string|nil, file:string }
 local function resolve_highlights()
   if type(cfg.colors) ~= "table" then
     local hl = cfg.highlight or "TabLine"

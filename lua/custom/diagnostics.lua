@@ -3,11 +3,16 @@
 -- --------------------------------------------
 -- 1. 诊断高亮：把内置 DiagnosticUnderline<级别> 的背景色与前景色互换，
 --    注意该高亮组作用于「诊断的起止列区间」，并非整行；
--- 2. 诊断提醒：DiagnosticChanged 时防抖统计，并按严重程度分类提示。
+-- 2. 诊断提醒：DiagnosticChanged 时防抖统计，并按严重程度分类提示；
+-- 3. 按文件类型禁用诊断：列表内的 filetype 关闭诊断（既不显示也不提醒），
+--    默认排除 mason / dashboard 这类没有真实代码的界面缓冲区。
 --
 -- 配置（M.setup(opts)）：
---   debounce_ms  number   500    诊断提醒的防抖时长（毫秒）
---   notify       boolean  true   是否在诊断变化时弹出提醒（false 只保留高亮）
+--   debounce_ms        number   500                   诊断提醒的防抖时长（毫秒）
+--   notify             boolean  true                  是否在诊断变化时弹出提醒（false 只保留高亮）
+--   disable_filetypes  table    { "mason", "dashboard" }
+--                                                     按文件类型禁用诊断；传入的列表整体替换默认值，
+--                                                     传 false 表示不禁用任何类型
 -- ============================================
 local M = {}
 
@@ -15,6 +20,8 @@ local M = {}
 local DEFAULTS = {
   debounce_ms = 500,
   notify = true,
+  -- 这些 filetype 的缓冲区不显示诊断、也不提醒（false 表示关闭该功能）
+  disable_filetypes = { "mason", "dashboard" },
 }
 
 -- 严重程度 -> 名称 / 图标 / 文案 / 配色（单一数据源，高亮与通知共用）
@@ -44,6 +51,20 @@ local function apply_highlights()
     -- 内置 underline 处理器会给诊断区间套用 DiagnosticUnderline<级别>
     vim.api.nvim_set_hl(0, "DiagnosticUnderline" .. s.name, { bg = s.bg, fg = s.fg })
   end
+end
+
+--- 按文件类型启用 / 禁用诊断
+--- @param buf integer 缓冲区编号
+--- @param disabled_fts table<string, boolean> 需要禁用诊断的文件类型集合（filetype -> true）
+local function apply_filetype_diagnostics(buf, disabled_fts)
+  -- 缓冲区可能已被删除
+  if not vim.api.nvim_buf_is_valid(buf) then
+    return
+  end
+
+  -- 命中禁用列表则关闭该缓冲区的诊断，否则保持开启
+  -- vim.diagnostic.enable(enable, filter)：filter.bufnr 限定只影响该缓冲区
+  vim.diagnostic.enable(not disabled_fts[vim.bo[buf].filetype], { bufnr = buf })
 end
 
 --- 统计指定缓冲区的诊断，并按严重程度分类提醒
@@ -86,10 +107,17 @@ local function notify_diagnostics(buf)
 end
 
 --- 启用诊断高亮与诊断提醒（幂等：重复调用只注册一次）
---- @param opts table|nil 可选 { debounce_ms = number, notify = boolean }
+--- @param opts table|nil 可选 { debounce_ms = number, notify = boolean, disable_filetypes = table|false }
 --- @return table M
 function M.setup(opts)
   local cfg = vim.tbl_deep_extend("force", vim.deepcopy(DEFAULTS), opts or {})
+
+  -- 列表型配置按「整体替换」处理：tbl_deep_extend 是按下标深合并的，
+  -- 传 { "oil" } 会得到 { "oil", "dashboard" }（残留默认项），不符合预期
+  if opts and opts.disable_filetypes ~= nil then
+    cfg.disable_filetypes = opts.disable_filetypes
+  end
+
   if initialized then
     return M
   end
@@ -105,6 +133,30 @@ function M.setup(opts)
   vim.api.nvim_create_autocmd("ColorScheme", {
     group = augroup,
     callback = apply_highlights,
+  })
+
+  -- 按文件类型禁用诊断：把配置里的列表转成集合，回调中 O(1) 判断
+  -- （cfg.disable_filetypes 为 false 时 ipairs 会报错，故统一走 or {}）
+  local disabled_fts = {}
+  for _, ft in ipairs(cfg.disable_filetypes or {}) do
+    disabled_fts[ft] = true
+  end
+
+  -- 已加载的缓冲区先应用一次（setup 在启动时调用，主要覆盖会话恢复出来的缓冲区）
+  -- 未加载的缓冲区等 FileType 触发时再处理
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_loaded(buf) then
+      apply_filetype_diagnostics(buf, disabled_fts)
+    end
+  end
+
+  -- filetype 的确定晚于缓冲区创建，因此监听 FileType（filetype 变化时也会再次触发）
+  vim.api.nvim_create_autocmd("FileType", {
+    group = augroup,
+    desc = "custom: 按文件类型禁用诊断",
+    callback = function(args)
+      apply_filetype_diagnostics(args.buf, disabled_fts)
+    end,
   })
 
   if not cfg.notify then
@@ -124,6 +176,11 @@ function M.setup(opts)
   vim.api.nvim_create_autocmd("DiagnosticChanged", {
     group = augroup,
     callback = function(args)
+      -- 已按文件类型禁用诊断的缓冲区（如 mason / dashboard）不提醒
+      if disabled_fts[vim.bo[args.buf].filetype] then
+        return
+      end
+
       -- args.buf 是触发事件的缓冲区编号，稍后据此获取该缓冲区的诊断
       pending_bufs[args.buf] = true
 
