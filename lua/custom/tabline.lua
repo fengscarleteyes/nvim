@@ -2,8 +2,9 @@
 -- 单条信息栏 tabline（标准插件写法：返回 M，由 M.setup() 生效）
 -- 把 tabline 改成“一条占满整行的信息栏”，不再逐个显示 tab 标签：
 --   开头一个装饰徽标 + 计数段（buffer / tab / window）+ 文件名段，段间用各自可配置的 Nerd Font 字形相连；
---   文件名段单独配色（默认深底白字），与计数段区分明显、清晰可辨。
---   示意（默认字形）：󰫢 󱀲 1 buf  󰓩 1 tab  󰖲 1 win  󰧮 file.lua 
+--   文件名段单独配色（默认深底白字），与计数段区分明显、清晰可辨；
+--   文件名前还会带上当前缓冲区的 filetype（同底色 + 亮色前景，可用 show_filetype 关闭）。
+--   示意（默认字形）：󰫢 󱀲 1 buf  󰓩 1 tab  󰖲 1 win  lua  󰧮 file.lua 
 --
 -- 实现：把 'tabline' 设成 %! 表达式（见下方 TABLINE_EXPR），每次重绘时调用 M.render()。
 --   参考 :h 'tabline'、:h statusline（"%!" 求值 与 %#高亮组# 的用法）。
@@ -19,6 +20,7 @@
 -- 配置（M.setup(opts)）：
 --   separator    string    "  "       兜底分隔符：分隔字形为空时使用
 --   filename     string    "tail"     文件名显示："tail"（仅文件名）| "relative" | "absolute"
+--   show_filetype boolean  true       文件名前显示当前缓冲区的 filetype（false 只显示文件名）
 --   buffers      string    "listed"   buffer 计数："listed"（:ls 可见）| "all"（含未列出）
 --   windows      string    "tabpage"  window 计数："tabpage"（当前标签页）| "all"（所有标签页）
 --   labels = {                        各段标签文案（整体 false 或单项 "" 即不显示）
@@ -36,11 +38,13 @@
 --     cap        = "",  -- nf-pl-left_hard_divider（文件名段末尾的收尾字形）
 --   }
 --   colors = {                        自带配色（独立于主题；整体设 false 则改用 highlight）
---     group    = "CustomTabline",     专用高亮组名前缀（Sep / Lead / Transition / Cap / Filename 派生自它）
+--     group    = "CustomTabline",     专用高亮组名前缀（Sep / Lead / Transition / Cap / Filename / Filetype 派生自它）
 --     lead     = { fg = "#7aa2f7", bg = "#1a1b26", bold = true }, -- 开头装饰徽标（默认由 bar 反色派生）
 --     bar      = { fg = "#1a1b26", bg = "#7aa2f7", bold = true }, -- 计数段：浅底深字
 --     sep      = { fg = "#3d59a1", bg = "#7aa2f7" },              -- 分隔字形：同底偏暗
 --     filename = { fg = "#ffffff", bg = "#3d59a1", bold = true }, -- 文件名段：深底白字
+--     filetype = { fg = "#7aa2f7", bg = "#3d59a1" },              -- 文件名前的 filetype：同底色 + 亮色前景
+--                                                                 （默认由 bar/filename 派生；设 false 则跟随文件名配色）
 --     cap      = { fg = "#3d59a1", bg = "#7aa2f7" },              -- 末尾收尾字形（默认由 bar/filename 派生）
 --   }
 --   highlight    string    "TabLine"  colors = false 时使用的主题高亮组
@@ -69,6 +73,9 @@
 --     colors = false,
 --     separator = " | ",
 --     highlight = "TabLineSel",
+--   })
+--   require("custom.tabline").setup({                     -- 只显示文件名（不带 filetype）
+--     show_filetype = false,
 --   })
 --   require("custom.tabline").restore()                   -- 需要撤销时还原 'tabline'
 local M = {}
@@ -103,6 +110,7 @@ local DEFAULTS = {
   },
   highlight = "TabLine", -- colors = false 时使用的主题高亮组
   fill = true, -- 用空格补满整条 tabline
+  show_filetype = true, -- 文件名前显示当前缓冲区的 filetype
   showtabline = true, -- setup 时设置 showtabline = 2
 }
 
@@ -155,19 +163,37 @@ local function current_filename()
   return vim.fn.fnamemodify(name, ":t")
 end
 
+--- 当前缓冲区的 filetype（没有则返回 ""，调用方据此决定是否显示）
+--- @return string
+local function current_filetype()
+  return vim.bo[0].filetype
+end
+
 --- 解析当前使用的高亮组
 --- colors 为 table 时使用自带高亮组（独立于主题），并给分隔字形/过渡单独配色；
 --- 否则统一使用 highlight 指定的主题高亮组
---- （此时 sep / lead / lead_cap / transition / cap 均为 nil，调用方用 `or hl.bar` / `or hl.file` 兜底）
+--- （此时 sep / lead / lead_cap / transition / cap / filetype 均为 nil，
+--- 调用方用 `or hl.bar` / `or hl.file` 兜底）
 --- @return { bar:string, sep:string|nil, lead:string|nil, lead_cap:string|nil,
----   transition:string|nil, cap:string|nil, file:string }
+---   transition:string|nil, cap:string|nil, file:string, filetype:string|nil }
 local function resolve_highlights()
   if type(cfg.colors) ~= "table" then
     local hl = cfg.highlight or "TabLine"
-    return { bar = hl, sep = nil, lead = nil, lead_cap = nil, transition = nil, cap = nil, file = hl }
+    return {
+      bar = hl,
+      sep = nil,
+      lead = nil,
+      lead_cap = nil,
+      transition = nil,
+      cap = nil,
+      file = hl,
+      filetype = nil,
+    }
   end
   local base = cfg.colors.group or "CustomTabline"
   local has_file = type(cfg.colors.filename) == "table"
+  -- filetype 前缀专用高亮组：需文件名段配色开启，且未显式设 colors.filetype = false
+  local has_filetype = has_file and cfg.colors.filetype ~= false
   return {
     bar = base,
     sep = base .. "Sep",
@@ -176,6 +202,7 @@ local function resolve_highlights()
     transition = has_file and (base .. "Transition") or nil,
     cap = has_file and (base .. "Cap") or nil,
     file = has_file and (base .. "Filename") or base,
+    filetype = has_filetype and (base .. "Filetype") or nil,
   }
 end
 
@@ -269,6 +296,19 @@ function M.render()
 
   -- 计数段 -> 文件名段：用电源线过渡字形（前景 = 计数段底色，背景 = 文件名段底色）
   divider(icon_of("transition"), hl.transition or hl.bar, hl.bar, hl.file)
+
+  -- 文件名前的 filetype 前缀（show_filetype）：用同底色 + 亮色前景区分，
+  -- 与文件名之间再插一段分隔字形（同一底色，故左右两侧都用文件名段的高亮）
+  local filetype_hl = hl.filetype or hl.file
+  local filetype = ""
+  if cfg.show_filetype then
+    filetype = current_filetype()
+  end
+  if filetype ~= "" then
+    push(filetype, filetype_hl)
+    divider(icon_of("sep"), filetype_hl, filetype_hl, hl.file)
+  end
+
   local file_icon = icon_of("filename")
   local filename = current_filename()
   push(file_icon ~= "" and (file_icon .. " " .. filename) or filename, hl.file)
@@ -317,6 +357,10 @@ function M.apply_highlights()
   if type(cfg.colors.filename) == "table" then
     local file = cfg.colors.filename
     vim.api.nvim_set_hl(0, base .. "Filename", file)
+    -- 文件名前的 filetype：同底色 + 计数段的亮色前景（设 false 则不加该高亮组，跟随文件名配色）
+    if cfg.colors.filetype ~= false then
+      vim.api.nvim_set_hl(0, base .. "Filetype", cfg.colors.filetype or { fg = bar.bg, bg = file.bg })
+    end
     -- 电源线过渡：前景 = 计数段底色，背景 = 文件名段底色
     vim.api.nvim_set_hl(0, base .. "Transition", { fg = bar.bg, bg = file.bg })
     -- 末尾收尾字形：与过渡相反，前景 = 文件名段底色，背景 = 计数段底色
@@ -381,4 +425,3 @@ function M.restore()
 end
 
 return M
-

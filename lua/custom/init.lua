@@ -8,6 +8,7 @@
 --   autopair.lua     自动配对（setup 注册映射/命令）
 --   diagnostics.lua  诊断高亮 + 诊断提醒
 --   tabline.lua      单条信息栏 tabline（buffer / tab / window 数量 + 当前文件名）
+--   autonotify.lua   模式切换时用 vim.notify 提醒 filetype + 模式（可按文件类型禁用）
 --
 -- 模块约定（标准 Neovim 插件写法）：
 --   1. 每个模块返回 M，require 本身不产生副作用，功能由 M.setup(opts) 生效；
@@ -36,3 +37,9 @@ require("custom.diagnostics").setup()
 
 -- tabline：一条占满整行的信息栏（buffer / tab / window 数量 + 当前文件名）
 require("custom.tabline").setup()
+
+-- winbar：结合 LSP 的窗口顶栏（符号面包屑 + LSP 客户端名 / 诊断计数；不含文件名，tabline 已有）
+-- 命令：:WinbarToggle :WinbarEnable :WinbarDisable :WinbarRefresh
+-- 键位默认不绑定（map_keys = false）：require("custom.winbar").setup({ map_keys = true })
+-- 才会绑 <leader>wt（开关）/ <leader>wr（重新取符号）
+require("custom.winbar").setup()
