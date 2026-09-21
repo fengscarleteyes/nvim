@@ -1,0 +1,28 @@
+-- ============================================================
+-- 插件配置入口（加载 lua/plugins/）
+-- ------------------------------------------------------------
+-- 本文件不写任何插件配置，只负责把 lua/plugins/*.lua 依次执行一遍：
+--   Neovim 的 :runtime! 会按 'runtimepath' 顺序，在每个 rtp 目录下查找
+--   lua/plugins/*.lua 并 source 之（Neovim 的 :source/:runtime 支持 .lua
+--   文件，等价于 :luafile），所以不需要自己遍历目录。
+-- 每个插件一个文件（lua/plugins/xxx.lua，内部照旧 vim.pack.add() +
+-- require(...).setup()），新增插件只需新增文件，本文件不用改。
+--
+-- 约定与注意：
+--   1. 本文件必须放在 lua/plugins/ 之外：glob lua/plugins/*.lua 会命中目录内
+--      的任何 .lua（包括 init.lua），放在里面会自我递归 source；
+--   2. 执行顺序：rtp 中靠前的目录优先，同目录内按文件名的字典序；
+--   3. 禁用某个插件：把它移出该目录（如 lua/plugins/bak/，glob 不匹配目录）
+--      或改名（如 xxx.lua.disabled），不再需要 disable_plugins 黑名单表；
+--   4. 某个文件报错不会中断其余文件（:runtime! 会继续执行后面的文件），但
+--      整体仍以报错结束，启动阶段能照旧看到错误信息。
+--
+-- 如需严格只执行「本配置目录」下的文件（不让其它 rtp 目录里的
+-- lua/plugins/*.lua 参与），可换成显式限定路径的写法：
+--   local dir = vim.fn.stdpath("config") .. "/lua/plugins"
+--   for _, file in ipairs(vim.fn.glob(dir .. "/*.lua", false, true)) do
+--     vim.cmd.source(file)
+--   end
+-- ============================================================
+
+vim.cmd("runtime! lua/plugins/*.lua")
