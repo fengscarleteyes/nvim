@@ -17,7 +17,19 @@ local opts = {
 }
 
 require("mason").setup(opts)
-vim.cmd("MasonUpdate")
+
+-- :MasonUpdate 需要联网拉取 registry，离线/网络异常时会抛错。
+-- 若直接调用，错误会经 require("plugins") 冒泡并中断 root init.lua，
+-- 后面的 require("keymaps") 就不再执行（键位全丢）。这里把错误收在本地：只警告，不抛出。
+local ok, err = pcall(vim.cmd, "MasonUpdate")
+if not ok then
+  vim.g.mason_update_error = tostring(err) -- 完整报错留在这里，便于 :lua print(vim.g.mason_update_error) 排查
+  local reason = tostring(err):match("Failed to update registries[^\n]*") or tostring(err):match("^[^\n]*")
+  vim.notify(
+    "mason: MasonUpdate 失败，已跳过（不影响其它配置）：" .. (reason or ""),
+    vim.log.levels.WARN
+  )
+end
 
 local ms = require("mason-registry")
 

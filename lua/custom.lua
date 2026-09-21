@@ -1,7 +1,14 @@
 -- ============================================================
--- 自定义功能入口（lua/custom/）
+-- 自定义功能入口（加载 lua/custom/）
 -- ------------------------------------------------------------
--- 本文件只负责按顺序加载同目录下的功能模块，不写任何具体实现。
+-- 本文件不写任何功能实现，只负责按顺序调用 lua/custom/ 下各模块的 setup()。
+-- 这里用 require + setup，而不是 lua/plugins.lua 那样的 :runtime!：
+--   1. 这些模块是「返回 M + M.setup(opts) 生效」的模块写法，:runtime! 只做 source、
+--      不会调用 setup()；
+--   2. 模块会被别处 require 复用（如 lua/plugins/dashboard-nvim.lua 里的
+--      require("custom.terminal")），用 require 能保证全局只有一个模块实例，
+--      避免「source 一份 + require 一份」造成重复注册。
+-- 模块与入口分离：lua/custom/ 下只放模块，入口是本文件（同级）。
 --   clean.lua        :RemoveStateDir / :RemoveShadaDir 维护命令
 --   yank.lua         复制（yank）后短暂高亮
 --   terminal.lua     终端：浮动窗口 / 右侧对半分割 / 底部 1/3 分割
