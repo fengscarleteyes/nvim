@@ -9,6 +9,7 @@
 --      require("custom.terminal")），用 require 能保证全局只有一个模块实例，
 --      避免「source 一份 + require 一份」造成重复注册。
 -- 模块与入口分离：lua/custom/ 下只放模块，入口是本文件（同级）。
+--   notify.lua       浮动通知（接管 vim.notify：边框按等级着色、自动关闭；:NotifyTest 查看效果）
 --   clean.lua        :RemoveStateDir / :RemoveShadaDir 维护命令
 --   yank.lua         复制（yank）后短暂高亮
 --   terminal.lua     终端：浮动窗口 / 右侧对半分割 / 底部 1/3 分割
@@ -24,6 +25,10 @@
 --   4. 功能与其键位/命令/自动命令放在同一个文件里，入口只做调用。
 --   新增功能：在 lua/custom/ 下新建模块，然后在下面补一行 setup() 调用即可。
 -- ============================================================
+
+-- 浮动通知：接管 vim.notify（放在最前，后续模块 setup 期间的通知也走浮动提示）
+-- 命令：:NotifyTest [level] / :NotifyClose / :NotifyToggle；配置项见该文件头部注释
+require("custom.notify").setup()
 
 -- 维护命令：清理 state / shada 目录
 require("custom.clean").setup()
