@@ -89,6 +89,21 @@ zi    -- 全局切换折叠功能 (Toggle folding enable/disable)
   | Buffer 内容区域                  | no bar             |
   | Statusline（底部）               | ← 最经典的 bar     |
 
+```text
+# custom目录添加新文件
+
+## 实现前提
+
+- 实现前 思考功能将实现哪些模块是否必要
+- 非必要的部分 或 扩展功能 可抛出选项和描述供我选择是否增加
+- 我确认最终实现的目标后 再开始实现代码
+- 目的是功能简洁化 以实现基础功能即可
+
+ 实现功能如下：
+
+- 提示词模板
+```
+
 ## TODO
 
 tablist bufferlist windowlist
