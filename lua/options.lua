@@ -9,7 +9,7 @@
 --   1. 本文件必须放在 lua/options/ 之外：glob lua/options/*.lua 会命中目录内的
 --      任何 .lua，放在里面会自我递归 source；
 --   2. 执行顺序：同目录内按文件名字典序，即
---      completion -> files -> folds -> general -> indent -> leader -> search -> shell -> ui；
+--      completion -> files -> folds -> general -> indent -> leader -> search -> ui；
 --      同一选项在多处重复设置时，字典序靠后的文件生效（completeopt 就属于这种情况，
 --      已按原顺序合并进 lua/options/completion.lua）；
 --   3. 禁用某项：把文件移出本目录（如 lua/options/bak/）或改名 xxx.lua.disabled；
