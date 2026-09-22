@@ -14,7 +14,7 @@
 --   yank.lua         复制（yank）后短暂高亮
 --   terminal.lua     终端：浮动窗口 / 右侧对半分割 / 底部 1/3 分割
 --   autopair.lua     自动配对（setup 注册映射/命令）
---   diagnostics.lua  诊断高亮 + 诊断提醒
+--   diagnostics.lua  诊断统计窗口（底部浮动窗显示各级别数量）+ :DiagNext/:DiagPrev/:DiagCopyLine/:DiagCopyBuffer
 --   tabline.lua      单条信息栏 tabline（buffer / tab / window 数量 + 当前文件名）
 --   autonotify.lua   模式切换时用 vim.notify 提醒 filetype + 模式（可按文件类型禁用）
 --

@@ -106,6 +106,8 @@ zi    -- 全局切换折叠功能 (Toggle folding enable/disable)
 
 ## TODO
 
-tablist bufferlist windowlist
-
-tabline add extend callback statusline add
+- tablist bufferlist windowlist
+- tabline add extend callback statusline add
+- dashboard
+- hop
+- kylechui/nvim-surround

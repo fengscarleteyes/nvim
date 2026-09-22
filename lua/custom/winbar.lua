@@ -2,23 +2,20 @@
 -- 结合 LSP 的 winbar（标准插件写法：返回 M，由 M.setup() 生效）
 -- ------------------------------------------------------------
 -- 一条 winbar 只放“LSP 语义信息”（文件名、文件图标这一套 tabline 已经有了，这里不重复）：
---   左侧：面包屑（光标所在符号的层级路径）
---   右侧：LSP 客户端名  诊断计数
+--   内容：只放面包屑（光标所在符号的层级路径）；LSP 客户端名与诊断计数已移除
+--   （诊断数量见 custom/diagnostics.lua 的底部统计窗口）
 -- 示意（默认字形）：
---     󰅩 M 󰊕 outer 󰊕 inner                             󰒕 lua_ls ✘ 1 ▲ 2
+--     󰅩 M 󰊕 outer 󰊕 inner
 --
 -- 功能：
 --   1. 面包屑：把 textDocument/documentSymbol 的结果按光标位置解析成符号链
 --      （如 Class  Method  inner），每层带 SymbolKind 字形，层与层之间用分隔字形；
 --      光标所在的最内层符号加粗显示（同底色、同色系，不做醒目提示）；
 --      层级过深时只保留最内层 max_items 层并显示省略标记；
---   2. LSP 客户端：显示当前缓冲区已 attach 的客户端名，没有 LSP 时显示占位文案；
---   3. 诊断计数：按严重程度分类显示（配色与 custom/diagnostics.lua 保持一致），
---      无诊断时显示 ok 字形（可用 show_ok 关掉）；
---   4. 按文件类型隐藏（hide_filetypes：默认排除 mason / dashboard / neo-tree / help /
+--   2. 按文件类型隐藏（hide_filetypes：默认排除 mason / dashboard / neo-tree / help /
 --      fzf / terminal 这些没有代码语义的界面缓冲区；实现上把全局 'winbar' 置空、改用
 --      窗口局部值控制，M.restore() 会把全局值还原）；
---   5. 命令：:WinbarToggle :WinbarEnable :WinbarDisable :WinbarRefresh
+--   3. 命令：:WinbarToggle :WinbarEnable :WinbarDisable :WinbarRefresh
 --      键位默认不绑定（map_keys = false）：需要时 setup({ map_keys = true }) 会绑
 --      <leader>wt（显示 / 隐藏）与 <leader>wr（重新取符号）。
 --
@@ -55,41 +52,26 @@
 --   ellipsis            string   "…"         面包屑被截断时前面的省略标记（"" 关闭）
 --   show_icons          boolean  true        面包屑显示 SymbolKind 字形
 --   max_name_len        number   40          单个符号名的最大字符数（0 不截断）
---   show_client         boolean  true        右侧显示 LSP 客户端名
---   show_diagnostics    boolean  true        右侧显示诊断计数
---   show_ok             boolean  true        无诊断时显示 ok 字形
 --   refresh_debounce_ms number   150         符号刷新的防抖时长（毫秒）
 --   icons = {                                Nerd Font 字形（整体设 false 或单项设 "" 即不显示）
 --     sep      = "<U+E0B1>", -- nf-pl-left_soft_divider（面包屑各层之间的分隔字形）
 --                            （源码里这个私用区字形写成字节转义，避免编辑器把它丢掉）
---     client   = "󰒕",   -- LSP 客户端段
---     ok       = "󰄬",   -- nf-md-check（无诊断）
---   }
---   labels = {                              各段文案
---     no_client = "no LSP",                 没有 LSP 时的占位文案（"" 则不显示）
 --   }
 --   colors = {                              自带配色（独立于主题；整体设 false 则改用主题高亮组）
---     group    = "CustomWinbar",            高亮组名前缀（Crumb / Sep / Current / Client / Diag* 派生自它）
+--     group    = "CustomWinbar",            高亮组名前缀（Crumb / Sep / Current 派生自它）
 --     base     = { fg = "#565f89", bg = "#1a1b26" },               -- 底色：填充区与右侧状态区
 --     crumb    = { fg = "#7aa2f7", bg = "#1a1b26" },               -- 面包屑（字形 + 名称）
 --     current  = { fg = "#7aa2f7", bg = "#1a1b26", bold = true },  -- 光标所在的最内层符号（同底色，仅加粗）
---     diag     = {                                                 -- 诊断计数（与 custom/diagnostics.lua 一致）
---       error = { fg = "#FF6B6B", bg = "#1a1b26" },
---       warn  = { fg = "#FFD93D", bg = "#1a1b26" },
---       info  = { fg = "#6BCB77", bg = "#1a1b26" },
---       hint  = { fg = "#4D96FF", bg = "#1a1b26" },
---       ok    = { fg = "#6BCB77", bg = "#1a1b26" },
---     },
---     -- 其余项（sep / client）默认由上面几项派生，可单独覆盖
+--     -- sep 默认由 base 派生（同底色 + 偏暗前景），可单独覆盖
 --   }
 --   highlight           string   "WinBar"    colors = false 时的当前窗口高亮组
 --   highlight_nc        string   "WinBarNC"  colors = false 时的非当前窗口高亮组
 --
 -- 示例：
 --   require("custom.winbar").setup()                      -- 全默认（不绑键位）
---   require("custom.winbar").setup({                      -- 面包屑最多 2 层、右侧不显示客户端
+--   require("custom.winbar").setup({                      -- 面包屑最多 2 层、单名最长 20 字符
 --     max_items = 2,
---     show_client = false,
+--     max_name_len = 20,
 --   })
 --   require("custom.winbar").setup({                      -- 关掉字形与自带配色，完全跟随主题
 --     show_icons = false,
@@ -136,15 +118,6 @@ local KIND_ICONS = {
   [26] = "󰅲", -- TypeParameter
 }
 
---- 诊断严重程度：显示顺序、配色键名、字形、默认前景色
---- （颜色与 custom/diagnostics.lua 的严重程度配色保持一致）
-local SEVERITY = {
-  { sev = vim.diagnostic.severity.ERROR, name = "Error", key = "error", icon = "✘", color = "#FF6B6B" },
-  { sev = vim.diagnostic.severity.WARN, name = "Warn", key = "warn", icon = "▲", color = "#FFD93D" },
-  { sev = vim.diagnostic.severity.INFO, name = "Info", key = "info", icon = "»", color = "#6BCB77" },
-  { sev = vim.diagnostic.severity.HINT, name = "Hint", key = "hint", icon = "⚑", color = "#4D96FF" },
-}
-
 --- 默认配置
 local DEFAULTS = {
   enabled = true,
@@ -154,36 +127,22 @@ local DEFAULTS = {
     refresh = "<leader>wr",
   },
   -- 这些 filetype 的缓冲区不显示 winbar（没有代码语义的界面缓冲区）
-  hide_filetypes = { "mason", "dashboard", "neo-tree", "help", "fzf", "terminal" },
+  -- custom_diag 是 custom.diagnostics 的底部/右侧面板（真实分割窗口，不需要面包屑）
+  hide_filetypes = { "mason", "dashboard", "neo-tree", "help", "fzf", "terminal", "custom_diag" },
   max_items = 3, -- 面包屑最多显示几层；0 表示不显示面包屑
   ellipsis = "…", -- 面包屑被截断时前面的省略标记（"" 关闭）
   show_icons = true, -- 面包屑显示 SymbolKind 字形
   max_name_len = 40, -- 单个符号名的最大字符数（0 不截断）
-  show_client = true, -- 右侧显示 LSP 客户端名
-  show_diagnostics = true, -- 右侧显示诊断计数
-  show_ok = true, -- 无诊断时显示 ok 字形
   refresh_debounce_ms = 150, -- 符号刷新防抖（毫秒）
   icons = { -- Nerd Font 字形；单项置 "" 去掉，整体设 false 全去掉
     -- 私用区字形写成字节转义：U+E0B1（换编辑器保存时不会被丢掉）
     sep = "", -- nf-pl-left_soft_divider：面包屑各层之间的分隔字形
-    client = "󰒕", -- LSP 客户端
-    ok = "󰄬", -- nf-md-check：无诊断
-  },
-  labels = {
-    no_client = "no LSP", -- 没有 LSP 时的占位文案
   },
   colors = { -- 自带配色（独立于主题）；整体设 false 则改用 highlight / highlight_nc
     group = "CustomWinbar", -- 高亮组名前缀
     base = { fg = "#565f89", bg = "#1a1b26" }, -- 底色：填充区与右侧状态区
     crumb = { fg = "#7aa2f7", bg = "#1a1b26" }, -- 面包屑：亮色字
     current = { fg = "#7aa2f7", bg = "#1a1b26", bold = true }, -- 光标所在符号：同底色 / 同色系，仅加粗
-    diag = { -- 诊断计数（与 custom/diagnostics.lua 的配色一致）
-      error = { fg = "#FF6B6B", bg = "#1a1b26" },
-      warn = { fg = "#FFD93D", bg = "#1a1b26" },
-      info = { fg = "#6BCB77", bg = "#1a1b26" },
-      hint = { fg = "#4D96FF", bg = "#1a1b26" },
-      ok = { fg = "#6BCB77", bg = "#1a1b26" },
-    },
   },
   highlight = "WinBar", -- colors = false 时的当前窗口高亮组
   highlight_nc = "WinBarNC", -- colors = false 时的非当前窗口高亮组
@@ -236,7 +195,7 @@ local function format_name(name, max_len)
 end
 
 --- 取某个字形（"无字形" 返回 ""）
---- @param name string "sep" | "client" | "ok"
+--- @param name string "sep"
 --- @return string
 local function icon_of(name)
   local icons = cfg.icons
@@ -245,18 +204,6 @@ local function icon_of(name)
   end
   local icon = icons[name]
   return type(icon) == "string" and icon or ""
-end
-
---- 取某段文案（nil / 非字符串一律按“不显示”处理）
---- @param name string "no_client"
---- @return string
-local function label_of(name)
-  local labels = cfg.labels
-  if type(labels) ~= "table" then
-    return ""
-  end
-  local value = labels[name]
-  return type(value) == "string" and value or ""
 end
 
 --- 在字形与文本之间补一个空格（字形为空时只返回文本）
@@ -620,26 +567,6 @@ local function refresh_if_stale(buf)
 end
 
 -- ============================================================
--- LSP 客户端
--- ============================================================
-
---- 当前缓冲区已 attach 的 LSP 客户端名（去重、排序；没有则返回 ""）
---- @param buf integer
---- @return string
-local function client_names(buf)
-  local names, seen = {}, {}
-  for _, client in ipairs(vim.lsp.get_clients({ bufnr = buf })) do
-    local name = client.name or ""
-    if name ~= "" and not seen[name] then
-      seen[name] = true
-      names[#names + 1] = name
-    end
-  end
-  table.sort(names)
-  return table.concat(names, " ")
-end
-
--- ============================================================
 -- 高亮与 winbar 选项
 -- ============================================================
 
@@ -654,19 +581,12 @@ function M.apply_highlights()
   local bg = c.base or DEFAULTS.colors.base
   local crumb = c.crumb or DEFAULTS.colors.crumb
   local current = c.current or DEFAULTS.colors.current
-  local diag = c.diag or {}
 
   vim.api.nvim_set_hl(0, base, bg)
   vim.api.nvim_set_hl(0, base .. "Crumb", crumb)
   -- 面包屑层间分隔字形 / 截断省略标记：同底色 + 偏暗前景
   vim.api.nvim_set_hl(0, base .. "Sep", c.sep or { fg = "#3d59a1", bg = bg.bg })
   vim.api.nvim_set_hl(0, base .. "Current", current)
-  vim.api.nvim_set_hl(0, base .. "Client", c.client or { fg = bg.fg, bg = bg.bg })
-  -- 诊断：每个严重程度一套（默认前景色见 SEVERITY）
-  for _, part in ipairs(SEVERITY) do
-    vim.api.nvim_set_hl(0, base .. "Diag" .. part.name, diag[part.key] or { fg = part.color, bg = bg.bg })
-  end
-  vim.api.nvim_set_hl(0, base .. "DiagOk", diag.ok or { fg = "#6BCB77", bg = bg.bg })
 
   -- %= 撑出来的填充区由 WinBar / WinBarNC 决定着色（:h 'statusline'），
   -- 这里只把它们的背景对齐到底色，保证整条 bar 底色一致（前景保持不变）
@@ -676,40 +596,26 @@ function M.apply_highlights()
   end
 end
 
---- 本次渲染用到的高亮组名（colors = false 时跟随主题的 WinBar / WinBarNC / Diagnostic*）
+--- 本次渲染用到的高亮组名（colors = false 时跟随主题的 WinBar / WinBarNC）
 --- @param in_focus boolean 该窗口是否为当前窗口
 --- @return table
 local function resolve_highlights(in_focus)
   if type(cfg.colors) ~= "table" then
     local hl = in_focus and cfg.highlight or cfg.highlight_nc
-    local diag = {}
-    for _, part in ipairs(SEVERITY) do
-      diag[part.key] = "Diagnostic" .. part.name
-    end
-    diag.ok = "DiagnosticOk"
     return {
       base = hl,
       crumb = hl,
       sep = hl,
       current = hl,
-      client = hl,
-      diag = diag,
     }
   end
 
   local base = cfg.colors.group or DEFAULTS.colors.group
-  local diag = {}
-  for _, part in ipairs(SEVERITY) do
-    diag[part.key] = base .. "Diag" .. part.name
-  end
-  diag.ok = base .. "DiagOk"
   return {
     base = base,
     crumb = base .. "Crumb",
     sep = base .. "Sep",
     current = base .. "Current",
-    client = base .. "Client",
-    diag = diag,
   }
 end
 
@@ -738,7 +644,7 @@ end
 -- 渲染：'winbar' 的 %! 表达式
 -- ============================================================
 
---- 渲染主体：左侧 = 面包屑，右侧 = 客户端 / 诊断
+--- 渲染主体：整条 winbar = 面包屑（原本右侧的客户端 / 诊断已移除）
 --- @return string
 local function render_impl()
   local win = render_win()
@@ -746,12 +652,11 @@ local function render_impl()
   local hl = resolve_highlights(win == vim.api.nvim_get_current_win())
 
   -- 先累积片段，最后统一拼装：{ text = 已转义文本, hl = 高亮组 } 或 { raw = 控制序列 }
-  local left, right = {}, {}
-  local dst = left
+  local chunks = {}
 
-  --- 原样输出控制序列（如 %= / %#分组#）
+  --- 原样输出控制序列（如 %#分组#）
   local function push_raw(text)
-    dst[#dst + 1] = { raw = text }
+    chunks[#chunks + 1] = { raw = text }
   end
 
   --- 输出一段文本（% 会被转义）
@@ -759,7 +664,7 @@ local function render_impl()
     if text == nil or text == "" then
       return
     end
-    dst[#dst + 1] = { text = escape_percent(text), hl = group }
+    chunks[#chunks + 1] = { text = escape_percent(text), hl = group }
   end
 
   -- ---------- 左侧：面包屑 ----------
@@ -796,61 +701,11 @@ local function render_impl()
     end
   end
 
-  -- ---------- 右侧：客户端 / 诊断 ----------
-  dst = right
-  local first_status = true
-
-  --- 输出右侧的一段（段间用底色的空格分隔）
-  local function push_status(text, group)
-    if text == nil or text == "" then
-      return
-    end
-    if not first_status then
-      push(" ", hl.base)
-    end
-    first_status = false
-    push(text, group)
-  end
-
-  -- LSP 客户端：没有 LSP 时显示占位文案
-  if cfg.show_client then
-    local names = client_names(buf)
-    if names == "" then
-      push_status(with_icon(icon_of("client"), label_of("no_client")), hl.client)
-    else
-      push_status(with_icon(icon_of("client"), names), hl.client)
-    end
-  end
-
-  -- 诊断计数：按严重程度分类；没有诊断时显示 ok 字形
-  if cfg.show_diagnostics then
-    local counts = vim.diagnostic.count(buf)
-    local found = false
-    for _, part in ipairs(SEVERITY) do
-      local count = counts[part.sev]
-      if count and count > 0 then
-        found = true
-        push_status(part.icon .. " " .. count, hl.diag[part.key])
-      end
-    end
-    if not found and cfg.show_ok then
-      push_status(icon_of("ok"), hl.diag.ok)
-    end
-  end
-
   -- ---------- 拼装 ----------
-  dst = left
-  if #right > 0 then
-    -- %= 让右侧靠右；填充区由 WinBar / WinBarNC 决定（见 M.apply_highlights()）
-    push_raw("%=")
-    for _, chunk in ipairs(right) do
-      left[#left + 1] = chunk
-    end
-  end
   push_raw("%#" .. hl.base .. "#") -- 末尾空白也用底色
 
   local out = {}
-  for _, chunk in ipairs(left) do
+  for _, chunk in ipairs(chunks) do
     if chunk.raw then
       out[#out + 1] = chunk.raw
     else
@@ -1014,15 +869,6 @@ local function ensure_autocmds()
         last_symbol[win] = key
         pcall(vim.cmd, "redrawstatus")
       end
-    end,
-  })
-
-  -- 诊断变化：刷新右侧计数
-  vim.api.nvim_create_autocmd("DiagnosticChanged", {
-    group = augroup,
-    desc = "custom.winbar: 诊断变化后重绘",
-    callback = function()
-      pcall(vim.cmd, "redrawstatus")
     end,
   })
 

@@ -1,11 +1,13 @@
-vim.pack.add({
-  {
-    src = "https://github.com/kylechui/nvim-surround",
-    version = vim.version.range("4.x"), -- Use for stability; omit to use `main` branch for the latest features
-  },
-})
+return nil
 
-vim.g.nvim_surround_no_mappings = true
+-- vim.pack.add({
+--   {
+--     src = "https://github.com/kylechui/nvim-surround",
+--     version = vim.version.range("4.x"), -- Use for stability; omit to use `main` branch for the latest features
+--   },
+-- })
+
+-- vim.g.nvim_surround_no_mappings = true
 
 -- Optional: See `:h nvim-surround.configuration` and `:h nvim-surround.setup` for details
 --require("nvim-surround").setup({})

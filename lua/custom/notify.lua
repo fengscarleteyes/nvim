@@ -408,7 +408,14 @@ local function arm_timer(rec)
     return
   end
 
-  local timer = vim.uv.new_timer()
+  -- vim.uv.new_timer() 的返回类型是 uv_timer_t|nil（极端情况下创建失败）
+  -- 失败就当作常驻通知：不自动关闭，也不让通知路径报错
+  local handle = vim.uv.new_timer()
+  if not handle then
+    return
+  end
+  --- @type uv.uv_timer_t
+  local timer = handle
   rec.timer = timer
   timer:start(
     ms,
@@ -559,6 +566,9 @@ function M.setup(opts)
   })
 
   -- 接管 vim.notify（原生实现保存在 orig_notify，用于停用 / 无 UI 时透传）
+  -- 注：本文件里 vim.notify 还会在 M.restore() 中还原一次，LuaLS 会把这种
+  --     「接管 + 还原」的成对赋值报成 duplicate-set-field，属误报，这里显式忽略
+  ---@diagnostic disable-next-line: duplicate-set-field
   vim.notify = function(msg, level, nopts)
     return M.notify(msg, level, nopts)
   end
