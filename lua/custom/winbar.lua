@@ -400,9 +400,10 @@ local function normalize_symbols(raw)
             name = item.name,
             kind = item.kind,
             range = flat_range(item.range),
-            sel = item.selectionRange
-                and { line = item.selectionRange.start.line, character = item.selectionRange.start.character }
-              or { line = item.range.start.line, character = item.range.start.character },
+            sel = item.selectionRange and {
+              line = item.selectionRange.start.line,
+              character = item.selectionRange.start.character,
+            } or { line = item.range.start.line, character = item.range.start.character },
             parent = parent,
             depth = depth,
           }

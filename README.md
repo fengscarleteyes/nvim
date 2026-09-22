@@ -14,6 +14,23 @@ sudo pacman -S chafa viu ueberzugpp
 git clone git@github.com:fengscarleteyes/nvim.git
 ```
 
+```shell
+# 格式化当前目录及其所有子文件夹
+stylua .
+
+# 格式化指定的项目目录
+stylua D:\my_lua_project\src
+
+# 仅格式化 .lua 文件（排除其他后缀）
+stylua --glob **/*.lua -- .
+
+# 格式化 .lua 文件，但排除所有 .spec.lua 测试文件
+stylua -g *.lua -g !*.spec.lua -- .
+
+# 检查当前目录下哪些文件不符合规范
+stylua --check .
+```
+
 ## version manager
 
 > <https://github.com/y3owk1n/nvs>

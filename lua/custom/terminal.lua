@@ -155,7 +155,10 @@ local function resolve_layout(layout)
     return layout
   end
   local fallback = is_valid_layout(DEFAULTS.layout) and DEFAULTS.layout or "float"
-  vim.notify(string.format('Terminal: 未知布局 %s，改用 "%s"', vim.inspect(layout), fallback), vim.log.levels.WARN)
+  vim.notify(
+    string.format('Terminal: 未知布局 %s，改用 "%s"', vim.inspect(layout), fallback),
+    vim.log.levels.WARN
+  )
   return fallback
 end
 
@@ -371,7 +374,14 @@ local function build_keymaps()
     { mode = { "n", "t" }, lhs = keys.float, action = toggle("float"), desc = "Terminal: toggle float" },
     { mode = { "n", "t" }, lhs = keys.right, action = toggle("right"), desc = "Terminal: toggle right split" },
     { mode = { "n", "t" }, lhs = keys.bottom, action = toggle("bottom"), desc = "Terminal: toggle bottom split" },
-    { mode = "t", lhs = keys.close, action = function() M.close() end, desc = "Terminal: close" },
+    {
+      mode = "t",
+      lhs = keys.close,
+      action = function()
+        M.close()
+      end,
+      desc = "Terminal: close",
+    },
   }
 
   local maps = {}

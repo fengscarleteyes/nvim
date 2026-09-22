@@ -8,10 +8,14 @@ require("notifier").setup({
   group_configs = {
     ["top-right"] = {
       anchor = "NE",
-      row = function() return 3 end, -- Leave more space from bottom
-      col = function() return vim.o.columns - 1 end,
+      row = function()
+        return 3
+      end, -- Leave more space from bottom
+      col = function()
+        return vim.o.columns - 1
+      end,
       winblend = 20, -- Semi-transparent
-    }
+    },
   },
   animation = {
     enabled = true,

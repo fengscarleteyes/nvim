@@ -1,0 +1,26 @@
+# 语法兼容性：支持所有 Lua 语法变体
+syntax = "All"
+
+# 行宽限制：120 字符适合现代宽屏显示器，兼顾单行信息量与可读性
+column_width = 120
+
+# 换行符：不强制指定，让 StyLua 自动适应当前操作系统（Windows/Linux）
+# 可选值：Unix (LF) 或 Windows (CRLF)，跨平台项目建议注释掉此项
+# line_endings = "Unix" 
+
+# 缩进配置：使用 4 个空格，保证不同编辑器打开时排版绝对一致
+indent_type = "Spaces"
+indent_width = 2
+
+# 字符串引号：自动选择，优先使用双引号（视觉上更柔和，符合多数主流语言习惯）
+quote_style = "AutoPreferDouble"
+
+# 函数调用括号：始终保留括号，避免在链式调用时产生歧义
+call_parentheses = "Always"
+
+# 简单语句折叠：永不折叠（如将 if 和 return 写在同一行），保持逻辑块视觉上的独立
+collapse_simple_statement = "Never"
+
+# require 语句排序：禁用自动排序，避免破坏开发者有意为之的分组逻辑
+[sort_requires]
+enabled = false
