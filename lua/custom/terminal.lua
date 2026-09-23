@@ -163,6 +163,7 @@ local function resolve_layout(layout)
 end
 
 --- 选择 shell：优先使用配置，否则按操作系统自动探测
+--- @return string
 local function get_shell()
   if cfg.shell then
     return cfg.shell
@@ -181,9 +182,19 @@ local function same_cmd(a, b)
   return type(a) == "table" and type(b) == "table" and vim.deep_equal(a, b)
 end
 
+--- 终端窗口句柄：未打开 / 窗口已失效时返回 nil
+--- 判断用返回值（而不是 is_open()），lua_ls 才能把 term_win 收窄成 integer
+--- @return integer|nil
+local function term_window()
+  if term_win ~= nil and vim.api.nvim_win_is_valid(term_win) then
+    return term_win
+  end
+  return nil
+end
+
 --- 终端当前是否已打开
 local function is_open()
-  return term_win ~= nil and vim.api.nvim_win_is_valid(term_win)
+  return term_window() ~= nil
 end
 
 --- 创建浮动窗口（居中；尺寸与边框按 layouts.float）
@@ -236,7 +247,7 @@ local function create_split_win(buf, layout)
 end
 
 --- 打开终端（内部实现，不做“已打开”判断）
---- @param cmd string|table|nil 要执行的命令；nil 或空串表示交互式 shell
+--- @param cmd string|string[]|nil 要执行的命令；nil 或空串表示交互式 shell
 --- @param opts table|nil 可选 { layout = string, close_on_exit = boolean }
 local function open_term(cmd, opts)
   opts = opts or {}
@@ -288,17 +299,18 @@ local function open_term(cmd, opts)
 end
 
 --- 打开终端；已打开时布局与命令都相同则聚焦，否则重启
---- @param cmd string|table|nil 要执行的命令
+--- @param cmd string|string[]|nil 要执行的命令
 --- @param opts table|nil 可选 { layout = string, close_on_exit = boolean }
 --- @return integer|nil 终端窗口句柄
 function M.open(cmd, opts)
   opts = opts or {}
   local layout = resolve_layout(opts.layout)
-  if is_open() then
+  local win = term_window()
+  if win then
     if current_layout == layout and same_cmd(current_cmd, cmd) then
-      vim.api.nvim_set_current_win(term_win)
+      vim.api.nvim_set_current_win(win)
       vim.cmd("startinsert")
-      return term_win
+      return win
     end
     M.close()
   end
@@ -307,7 +319,7 @@ function M.open(cmd, opts)
 end
 
 --- 在终端运行指定命令（等价 M.open(cmd, opts)，语义化别名）
---- @param cmd string|table|nil 要执行的命令
+--- @param cmd string|string[]|nil 要执行的命令
 --- @param opts table|nil 可选 { layout = string, close_on_exit = boolean }
 --- @return integer|nil 终端窗口句柄
 function M.run(cmd, opts)
@@ -316,12 +328,13 @@ end
 
 --- 关闭终端
 function M.close()
-  if is_open() then
+  local win = term_window()
+  if win then
     -- 关闭窗口。force 必须传 true（等价 :close!）：
     -- nvim_win_close(win,false) 等价 :close，当它是某个"有未保存修改的 buffer"
     -- 的最后一个窗口时会报 E37/E948 被拦截（终端任务已退出等场景必然触发）。
     -- 传 true 可确保关闭，这也是 toggleterm.nvim 等插件的通行做法。
-    vim.api.nvim_win_close(term_win, true)
+    vim.api.nvim_win_close(win, true)
 
     -- 结束后台 shell 进程并清除 buffer，避免多次 toggle 残留孤儿进程。
     -- 若希望关闭后保留终端会话（下次打开复用同一 shell），可删除下面这段。
@@ -337,7 +350,7 @@ function M.close()
 end
 
 --- 切换终端（已打开则关闭，否则按布局打开）
---- @param cmd string|table|nil 打开时执行的命令（nil 为交互式 shell）
+--- @param cmd string|string[]|nil 打开时执行的命令（nil 为交互式 shell）
 --- @param opts table|nil 可选 { layout = string, close_on_exit = boolean }
 function M.toggle(cmd, opts)
   if is_open() then

@@ -120,6 +120,14 @@ local function resolve_buf(bufnr)
   return nil
 end
 
+--- 请求重绘 winbar（出错也不影响调用方）
+--- 不要写成 pcall(vim.cmd, "redrawstatus")：vim.cmd 是函数兼表，直接传给 pcall 会被 lua_ls 判类型不符
+local function redraw_status()
+  pcall(function()
+    vim.cmd("redrawstatus")
+  end)
+end
+
 --- 该缓冲区是否显示 winbar（显示开关 + filetype 过滤）
 --- @param buf integer
 --- @return boolean
@@ -311,7 +319,7 @@ local function request_symbols(buf)
     end
     entry.tree = normalize(result)
     rendered = {} -- 缓存换了：让“光标所在符号”的比较从头开始
-    pcall(vim.cmd, "redrawstatus")
+    redraw_status()
   end
 
   local params = { textDocument = vim.lsp.util.make_text_document_params(buf) }
@@ -418,7 +426,7 @@ function M.apply()
       end
     end
   end
-  pcall(vim.cmd, "redrawstatus")
+  redraw_status()
 end
 
 --- 重新请求符号（异步）；bufnr 省略表示当前缓冲区
@@ -475,7 +483,7 @@ local function ensure_autocmds()
     desc = "custom.winbar: 文本变化后刷新符号",
     callback = function(args)
       refresh_if_stale(args.buf)
-      pcall(vim.cmd, "redrawstatus")
+      redraw_status()
     end,
   })
 
@@ -505,7 +513,7 @@ local function ensure_autocmds()
       local win = vim.api.nvim_get_current_win()
       local ok, text = pcall(crumb_text, win)
       if ok and rendered[win] ~= text then
-        pcall(vim.cmd, "redrawstatus")
+        redraw_status()
       end
     end,
   })
@@ -561,7 +569,7 @@ function M.restore()
   cache, pending, rendered = {}, {}, {}
   render_failed = false
   initialized = false
-  pcall(vim.cmd, "redrawstatus")
+  redraw_status()
 end
 
 return M
