@@ -111,3 +111,4 @@ zi    -- 全局切换折叠功能 (Toggle folding enable/disable)
 - dashboard
 - hop
 - kylechui/nvim-surround
+-

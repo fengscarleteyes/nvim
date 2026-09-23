@@ -222,7 +222,7 @@ local function ensure_window()
 
   -- 面板窗口属性：固定尺寸、无行号、无 winbar
   -- （custom.winbar 在 BufWinEnter / WinNew 时会给非浮动窗加 winbar，这里清掉；
-  --   缓冲区用专用 filetype，winbar 的 hide_filetypes 也会排除它，双保险）
+  --   缓冲区用专用 filetype，winbar 的 NO_WINBAR_FILETYPES 也会排除它，双保险）
   vim.wo[win].winbar = ""
   vim.wo[win].number = false
   vim.wo[win].relativenumber = false

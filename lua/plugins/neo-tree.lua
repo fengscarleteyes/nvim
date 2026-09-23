@@ -14,6 +14,7 @@ require("neo-tree").setup({
   source_selector = {
     winbar = false,
     statusline = false,
+    truncation_character = "…",
   },
   filesystem = {
     filtered_items = {
