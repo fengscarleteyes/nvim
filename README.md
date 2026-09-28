@@ -187,4 +187,4 @@ zi    -- 全局切换折叠功能 (Toggle folding enable/disable)
   - lsp diagnostics
   - lsp jump
   - other
--
+- 

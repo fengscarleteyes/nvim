@@ -46,7 +46,7 @@ require("custom.terminal").setup()
 require("custom.autopair").setup()
 
 -- 诊断高亮 + 诊断提醒（默认按文件类型禁用诊断：mason / dashboard）
-require("custom.diagnostics").setup()
+require("custom.diagnostics").setup({ border = "rounded" })
 
 -- tabline：一条占满整行的信息栏（buffer / tab / window 数量 + 当前文件名）
 require("custom.tabline").setup()
