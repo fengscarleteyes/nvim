@@ -17,10 +17,12 @@
 -- API：
 --   require("custom.diagnostics").setup([opts])  合并配置并生效（幂等）
 --   require("custom.diagnostics").update()       按当前缓冲区立即刷新
---   require("custom.diagnostics").hide()         立即关闭
+--   require("custom.diagnostics").hide()         立即关闭（下次刷新可能再显示）
+--   require("custom.diagnostics").toggle()       手动开关：隐藏后不再自动弹出
 --
 -- 用户命令：
---   :DiagNext / :DiagPrev          跳到下一条 / 上一条诊断
+--   :DiagToggle                      显示 / 隐藏面板（手动开关，隐藏后不自动弹出）
+--   :DiagNext / :DiagPrev            跳到下一条 / 上一条诊断
 --   :DiagCopyLine / :DiagCopyBuffer  复制当前行 / 整个缓冲区的诊断到剪贴板
 --
 -- 配置（M.setup(opts)，括号内为默认值）：
@@ -32,7 +34,7 @@
 --   labels            table          { ERROR = "错误", WARN = "警告", INFO = "信息", HINT = "提示" }
 --   debounce_ms       number         200      诊断变化后的刷新防抖（0 = 立即刷新）
 --   map_keys          boolean        false    是否绑定默认键位
---   keys              table          { copy_line = "<leader>dc", copy_buffer = "<leader>dC" }
+--   keys              table          { copy_line = "<leader>dc", copy_buffer = "<leader>dC", toggle = "<leader>do" }
 --
 -- 示例：
 --   require("custom.diagnostics").setup()
@@ -53,6 +55,7 @@ local DEFAULTS = {
   keys = {
     copy_line = "<leader>dc",
     copy_buffer = "<leader>dC",
+    toggle = "<leader>do",
   },
 }
 
@@ -74,6 +77,7 @@ local float_border = nil -- 浮动窗口当前使用的边框（配置变了要�
 local timer = nil -- 防抖定时器
 local retry_used = false
 local retry_later
+local suppressed = false -- 手动隐藏（M.toggle）：为真时不再自动弹出
 local ns = vim.api.nvim_create_namespace("custom_diagnostics")
 local list_ns = vim.api.nvim_create_namespace("custom_diagnostics_list")
 
@@ -300,6 +304,12 @@ local function update()
     return
   end
 
+  -- 手动隐藏（M.toggle）期间保持关闭，避免被刷新事件重新弹出
+  if suppressed then
+    M.hide()
+    return
+  end
+
   -- 当前窗口是浮动窗（fzf / :Mason 等）或面板自身时保持原样
   local cur_win = vim.api.nvim_get_current_win()
   if vim.api.nvim_win_get_config(cur_win).relative ~= "" then
@@ -392,6 +402,22 @@ end
 
 --- 立即刷新窗口
 M.update = update
+
+--- 切换显示 / 隐藏浮动面板（手动开关：隐藏后不再自动弹出，直到再次调用）
+function M.toggle()
+  if float_win and vim.api.nvim_win_is_valid(float_win) then
+    suppressed = true
+    M.hide()
+    vim.notify("诊断面板: 已隐藏", vim.log.levels.INFO)
+    return
+  end
+
+  suppressed = false
+  update()
+  if float_win and vim.api.nvim_win_is_valid(float_win) then
+    vim.notify("诊断面板: 已显示", vim.log.levels.INFO)
+  end
+end
 
 --- 事件驱动的刷新入口
 local function refresh()
@@ -576,6 +602,10 @@ local function ensure_commands()
   end
   commands_created = true
 
+  vim.api.nvim_create_user_command("DiagToggle", function()
+    M.toggle()
+  end, { desc = "Diagnostics: 切换显示/隐藏浮动面板" })
+
   vim.api.nvim_create_user_command("DiagNext", function()
     vim.diagnostic.jump({ count = 1, float = false })
   end, { desc = "Diagnostics: 跳到下一条诊断" })
@@ -605,6 +635,7 @@ local function ensure_keymaps()
       vim.keymap.set("n", lhs, "<Cmd>" .. cmd .. "<CR>", { silent = true, desc = desc })
     end
   end
+  map(keys.toggle, "DiagToggle", "Diagnostics: 切换显示/隐藏浮动面板")
   map(keys.copy_line, "DiagCopyLine", "Diagnostics: 复制当前行诊断")
   map(keys.copy_buffer, "DiagCopyBuffer", "Diagnostics: 复制缓冲区全部诊断")
 end

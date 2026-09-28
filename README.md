@@ -184,7 +184,6 @@ zi    -- 全局切换折叠功能 (Toggle folding enable/disable)
 - checkhealth tools add
 - lua\custom\diagnostics.lua Del file
   - lsp hove doc
-  - lsp diagnostics
   - lsp jump
   - other
 - 
