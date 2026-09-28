@@ -54,3 +54,5 @@ require("custom.tabline").setup()
 -- winbar：窗口顶栏面包屑（LSP documentSymbol 的符号层级路径；不含文件名，tabline 已有）
 -- 命令：:WinbarToggle（显示 / 隐藏）:WinbarRefresh（重新取符号）
 require("custom.winbar").setup()
+
+require("custom.lsp").setup()
