@@ -4,7 +4,8 @@
 --   * 只统计当前缓冲区；有诊断才显示，诊断消失即关闭；
 --   * 上半：居中显示各级别数量（如 "2 错误  1 警告"），不抢焦点；
 --   * 中间：一条跟随边框样式的分隔线（border 为 none / solid / shadow 时不画）；
---   * 下半：诊断列表，j/k 移动光标即跳到对应诊断行，回车再跳一次；
+--   * 下半：诊断列表；面板内移动光标只换选中项（不跳转、不抢焦点），
+--     <CR> 才跳过去，<Esc> / q 退回来源窗口（面板保持打开）；
 --   * 切换缓冲区 / 窗口 / filetype、终端缩放、诊断变化（防抖）时自动刷新；
 --   * filetype 在 disable_filetypes 内、无 UI（headless / -es）时不显示；
 --   * 配色跟随主题：DiagnosticError / DiagnosticWarn / DiagnosticInfo / DiagnosticHint。
@@ -291,7 +292,7 @@ local function ensure_window()
   vim.wo[win].wrap = false
   vim.wo[win].list = false
   vim.wo[win].spell = false
-  vim.wo[win].cursorline = false
+  vim.wo[win].cursorline = true -- 选中项高亮（面板内移动光标只换选中项）
 
   return win, buf
 end
@@ -390,14 +391,22 @@ local function update()
     vim.api.nvim_buf_set_extmark(buf, list_ns, row0, 0, { end_col = #severity, hl_group = hl })
   end
 
-  -- 面板状态（1-based）：列表起始行 / 行数 / 当前条目 / 来源缓冲区
+  -- 面板状态（1-based）：列表起始行 / 行数 / 当前选中项 / 来源缓冲区
+  -- 选中项尽量保留（换来源缓冲区或条目变少时才回到第一条）
+  local prev_buf = tonumber(vim.w[win].diag_source_bufnr)
+  local prev_idx = tonumber(vim.w[win].diag_current_idx) or 1
+  local idx = 1
+  if prev_buf == bufnr then
+    idx = math.max(1, math.min(prev_idx, math.max(1, max_lines)))
+  end
+
   vim.w[win].diag_list_start = header + 1
   vim.w[win].diag_list_height = max_lines
-  vim.w[win].diag_current_idx = 1
+  vim.w[win].diag_current_idx = idx
   vim.w[win].diag_source_bufnr = bufnr
   vim.w[win].diag_list = diags
 
-  vim.api.nvim_win_set_cursor(win, { header + 1, 0 })
+  vim.api.nvim_win_set_cursor(win, { header + idx, 0 })
 end
 
 --- 立即刷新窗口
@@ -475,8 +484,8 @@ local function jump_to_diag(idx)
     return
   end
 
-  local bufnr = tonumber(vim.api.nvim_win_get_var(float_win, "diag_source_bufnr"))
-  local diags = vim.api.nvim_win_get_var(float_win, "diag_list")
+  local bufnr = tonumber(vim.w[float_win].diag_source_bufnr)
+  local diags = vim.w[float_win].diag_list
   local diag_idx = tonumber(idx)
 
   if not bufnr or not vim.api.nvim_buf_is_valid(bufnr) then
@@ -487,6 +496,10 @@ local function jump_to_diag(idx)
   end
 
   local d = diags[diag_idx]
+  -- 行列都夹回合法范围（LSP 的 col 可能指向行尾之后，直接 set_cursor 会报错）
+  local lnum = math.max(1, math.min((d.lnum or 0) + 1, vim.api.nvim_buf_line_count(bufnr)))
+  local line = vim.api.nvim_buf_get_lines(bufnr, lnum - 1, lnum, false)[1] or ""
+  local col = math.max(0, math.min(d.col or 0, #line))
 
   -- 聚焦来源缓冲区所在窗口；没有窗口显示它时才用 :buffer 打开
   local target_win
@@ -503,36 +516,36 @@ local function jump_to_diag(idx)
     target_win = vim.api.nvim_get_current_win()
   end
 
-  vim.api.nvim_win_set_cursor(target_win, { d.lnum + 1, d.col })
+  vim.cmd("normal! m'") -- 记入跳转列表：<C-o> 可回到跳转前的位置
+  vim.api.nvim_win_set_cursor(target_win, { lnum, col })
   vim.cmd("normal! zvzz") -- 打开折叠并居中
 end
 
---- 处理浮动窗口内的光标移动：光标落在列表区域内就跳到对应诊断
+--- 面板内光标移动：只同步「选中项」（不抢焦点、不跳转）；
+--- 光标跑到统计行或列表下方空白时拉回选中项
 local function handle_cursor_move()
   if not float_win or not vim.api.nvim_win_is_valid(float_win) then
     return
   end
 
-  local start = vim.api.nvim_win_get_var(float_win, "diag_list_start") -- 列表首行（1-based）
-  local height = vim.api.nvim_win_get_var(float_win, "diag_list_height")
-  local current = vim.api.nvim_win_get_var(float_win, "diag_current_idx")
-  local diags = vim.api.nvim_win_get_var(float_win, "diag_list")
-
-  if not start or not height or not diags or #diags == 0 then
+  local state = vim.w[float_win] -- 未设置时读出来是 nil（nvim_win_get_var 会抛错）
+  local start = tonumber(state.diag_list_start) -- 列表首行（1-based）
+  local height = tonumber(state.diag_list_height)
+  if not start or not height or height == 0 then
     return
   end
 
+  local idx = math.max(1, math.min(height, tonumber(state.diag_current_idx) or 1))
   local row = vim.api.nvim_win_get_cursor(float_win)[1]
+
   if row < start or row >= start + height then
+    vim.api.nvim_win_set_cursor(float_win, { start + idx - 1, 0 })
     return
   end
 
-  local idx = row - start + 1
-  if idx ~= current then
+  idx = row - start + 1
+  if idx ~= state.diag_current_idx then
     vim.api.nvim_win_set_var(float_win, "diag_current_idx", idx)
-    vim.schedule(function()
-      jump_to_diag(idx)
-    end)
   end
 end
 
@@ -595,6 +608,78 @@ end
 -- ============================================================
 -- 命令与键位
 -- ============================================================
+
+--- 面板内导航键（进入面板时绑定）：
+---   j / k      只移动选中项（不跳转、不抢焦点）
+---   <CR>       跳到选中项所在处
+---   <Esc> / q  退回来源缓冲区所在窗口（面板保持打开）
+--- @param buf integer
+local function bind_panel_maps(buf)
+  --- 列表首行 / 列表行数 / 当前选中项（面板未就绪时返回 nil）
+  local function selection()
+    if not float_win or not vim.api.nvim_win_is_valid(float_win) then
+      return nil
+    end
+    local state = vim.w[float_win]
+    local start = tonumber(state.diag_list_start)
+    local height = tonumber(state.diag_list_height)
+    if not start or not height or height == 0 then
+      return nil
+    end
+    return start, height, math.max(1, math.min(height, tonumber(state.diag_current_idx) or 1))
+  end
+
+  --- 上下移动选中项（到边界就停住，不出列表区）
+  local function select(delta)
+    if not float_win or not vim.api.nvim_win_is_valid(float_win) then
+      return
+    end
+    local start, height, idx = selection()
+    if not start or not height then
+      return
+    end
+    local want = math.max(1, math.min(height, idx + delta))
+    if want == idx then
+      return
+    end
+    vim.api.nvim_win_set_cursor(float_win, { start + want - 1, 0 })
+    vim.api.nvim_win_set_var(float_win, "diag_current_idx", want)
+  end
+
+  --- 退回来源缓冲区所在窗口（面板保持打开）
+  local function leave()
+    if not float_win or not vim.api.nvim_win_is_valid(float_win) then
+      return
+    end
+    local bufnr = tonumber(vim.w[float_win].diag_source_bufnr)
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+      if win ~= float_win and vim.api.nvim_win_get_buf(win) == bufnr then
+        vim.api.nvim_set_current_win(win)
+        return
+      end
+    end
+    vim.cmd("wincmd p") -- 来源缓冲区没在别的窗口显示时退回上一个窗口
+  end
+
+  local opts = { buffer = buf, silent = true, nowait = true }
+  local function map(lhs, fn, desc)
+    vim.keymap.set("n", lhs, fn, vim.tbl_extend("force", opts, { desc = desc }))
+  end
+  map("j", function()
+    select(1)
+  end, "Diagnostics: 选中下一项")
+  map("k", function()
+    select(-1)
+  end, "Diagnostics: 选中上一项")
+  map("<CR>", function()
+    local _, _, idx = selection()
+    if idx then
+      jump_to_diag(idx)
+    end
+  end, "Diagnostics: 跳到选中项")
+  map("<Esc>", leave, "Diagnostics: 退回来源窗口")
+  map("q", leave, "Diagnostics: 退回来源窗口")
+end
 
 local function ensure_commands()
   if commands_created then
@@ -687,7 +772,7 @@ function M.setup(opts)
   vim.api.nvim_create_autocmd("CursorMoved", {
     group = augroup,
     desc = "custom.diagnostics: 浮动窗口内光标移动",
-    callback = function(args)
+    callback = function()
       if float_win and vim.api.nvim_win_is_valid(float_win) then
         local cur_win = vim.api.nvim_get_current_win()
         if cur_win == float_win then
@@ -697,18 +782,13 @@ function M.setup(opts)
     end,
   })
 
-  -- 回车键跳转
+  -- 面板内的导航键（j / k / <CR> / <Esc> / q），进入面板时绑定
   vim.api.nvim_create_autocmd("BufEnter", {
     group = augroup,
-    desc = "custom.diagnostics: 设置回车键跳转",
+    desc = "custom.diagnostics: 进入面板时绑定导航键",
     callback = function(args)
-      if args.buf == float_buf and float_buf then
-        vim.keymap.set("n", "<CR>", function()
-          local idx = vim.api.nvim_win_get_var(float_win, "diag_current_idx")
-          if idx then
-            jump_to_diag(idx)
-          end
-        end, { buffer = float_buf, nowait = true })
+      if float_buf and args.buf == float_buf then
+        bind_panel_maps(args.buf)
       end
     end,
   })

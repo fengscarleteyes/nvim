@@ -17,7 +17,7 @@
 --   diagnostics.lua  诊断统计窗口（右侧浮动窗显示各级别数量）+ :DiagToggle/:DiagNext/:DiagPrev/:DiagCopyLine/:DiagCopyBuffer
 --   tabline.lua      单条信息栏 tabline（buffer / tab / window 数量 + 当前文件名）
 --   winbar.lua       窗口顶栏面包屑（LSP documentSymbol 的符号层级路径）
---   autonotify.lua   模式切换时用 vim.notify 提醒 filetype + 模式（可按文件类型禁用）
+--   lsp.lua          LSP 实用命令（悬停 / 定义 / 代码操作 / 预览 / 查找 / 重命名…）+ :Lsp* 命令
 --
 -- 模块约定（标准 Neovim 插件写法）：
 --   1. 每个模块返回 M，require 本身不产生副作用，功能由 M.setup(opts) 生效；
@@ -46,6 +46,7 @@ require("custom.terminal").setup()
 require("custom.autopair").setup()
 
 -- 诊断高亮 + 诊断提醒（默认按文件类型禁用诊断：mason / dashboard）
+-- 面板内：j / k 移动选中项（不跳转），<CR> 跳到诊断处，<Esc> / q 退回来源窗口
 require("custom.diagnostics").setup({ border = "rounded" })
 
 -- tabline：一条占满整行的信息栏（buffer / tab / window 数量 + 当前文件名）
@@ -55,4 +56,7 @@ require("custom.tabline").setup()
 -- 命令：:WinbarToggle（显示 / 隐藏）:WinbarRefresh（重新取符号）
 require("custom.winbar").setup()
 
+-- LSP 实用命令：:LspHover / :LspGoto / :LspCodeAction / :LspPeek / :LspFinder / :LspRename /
+-- :LspDeclaration / :LspImplementation / :LspTypeDefinition / :LspFormat / :LspDocumentSymbol /
+-- :LspWorkspaceSymbol；默认不绑键位，要绑就 setup({ map_keys = true })
 require("custom.lsp").setup()

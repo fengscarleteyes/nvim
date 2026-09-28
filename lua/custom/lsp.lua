@@ -13,13 +13,16 @@
 -- 配色跟随主题：LspReferenceText / LspReferenceRead / LspReferenceWrite。
 --
 -- API：
---   require("custom.lsp").setup([opts])   初始化（幂等）
---   require("custom.lsp").hover()         显示悬停信息
---   require("custom.lsp").goto()         跳转到定义
---   require("custom.lsp").code_action()   显示代码操作
---   require("custom.lsp").peek()          预览定义
---   require("custom.lsp").finder()        打开 LSP 查找器
---   require("custom.lsp").rename()        重命名
+--   require("custom.lsp").setup([opts])        初始化（幂等）
+--   require("custom.lsp").hover()              显示悬停信息
+--   require("custom.lsp").goto_definition()    跳转到定义
+--   require("custom.lsp").code_action()        显示代码操作
+--   require("custom.lsp").peek()               预览定义（浮动窗口，不跳走）
+--   require("custom.lsp").finder()             打开 LSP 查找器
+--   require("custom.lsp").rename()             重命名
+--
+-- 注意：跳转定义的函数名是 goto_definition，不是 goto
+--   （goto 是 Lua 5.2+ 的保留字，写成 M.goto 会让 stylua / lua_ls 直接解析报错）。
 --
 -- 用户命令：
 --   :LspHover         显示悬停信息
@@ -28,6 +31,12 @@
 --   :LspPeek          预览定义
 --   :LspFinder        打开 LSP 查找器
 --   :LspRename        重命名
+--   :LspDeclaration   跳转到声明
+--   :LspImplementation 跳转到实现
+--   :LspTypeDefinition 跳转到类型定义
+--   :LspFormat        格式化
+--   :LspDocumentSymbol 文档符号
+--   :LspWorkspaceSymbol 工作区符号
 --
 -- 配置（M.setup(opts)，括号内为默认值）：
 --   map_keys          boolean        false    是否绑定默认快捷键
@@ -78,7 +87,7 @@ local initialized = false
 local commands_created = false
 local keymaps_created = false
 
---- 判断当前缓冲区是否可以使用 LSP 功能
+--- 判断当前缓冲区是否可以使用 LSP 功能（不在禁用列表内且有活动客户端）
 --- @return boolean
 local function can_use_lsp()
   local bufnr = vim.api.nvim_get_current_buf()
@@ -88,15 +97,7 @@ local function can_use_lsp()
     return false
   end
 
-  local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
-  return #clients > 0
-end
-
---- 获取当前缓冲区可用的 LSP 客户端
---- @return lsp.Client[] clients
-local function get_clients()
-  local bufnr = vim.api.nvim_get_current_buf()
-  return vim.lsp.get_active_clients({ bufnr = bufnr })
+  return #vim.lsp.get_clients({ bufnr = bufnr }) > 0
 end
 
 --- 显示悬停信息
@@ -106,12 +107,12 @@ function M.hover()
     return
   end
 
-  local params = vim.lsp.util.make_position_params()
-  vim.lsp.buf.hover(params)
+  -- 0.11 起 hover 只接收显示选项（border / max_width 等），位置参数由 core 按客户端编码生成
+  vim.lsp.buf.hover()
 end
 
 --- 跳转到定义
-function M.goto()
+function M.goto_definition()
   if not can_use_lsp() then
     vim.notify("当前缓冲区没有活动的 LSP 客户端", vim.log.levels.WARN)
     return
@@ -130,15 +131,24 @@ function M.code_action()
   vim.lsp.buf.code_action()
 end
 
---- 预览定义（浮动窗口）
+--- 预览定义（浮动窗口，不跳走；光标一动浮窗即关）
 function M.peek()
   if not can_use_lsp() then
     vim.notify("当前缓冲区没有活动的 LSP 客户端", vim.log.levels.WARN)
     return
   end
 
-  local params = vim.lsp.util.make_position_params()
-  vim.lsp.buf.definition(params)
+  local bufnr = vim.api.nvim_get_current_buf()
+  local win = vim.api.nvim_get_current_win()
+  vim.lsp.buf_request(bufnr, "textDocument/definition", function(client)
+    -- 位置参数要按客户端自己的 position encoding 生成（0.12 起该参数是必填的）
+    return vim.lsp.util.make_position_params(win, client.offset_encoding)
+  end, function(_, result)
+    local loc = result and (result[1] or result)
+    if type(loc) == "table" then
+      vim.lsp.util.preview_location(loc, { focus = false })
+    end
+  end)
 end
 
 --- LSP 查找器（查找定义、引用、实现等）
@@ -236,7 +246,7 @@ local function ensure_commands()
   end, { desc = "LSP: 显示悬停信息" })
 
   vim.api.nvim_create_user_command("LspGoto", function()
-    M.goto()
+    M.goto_definition()
   end, { desc = "LSP: 跳转到定义" })
 
   vim.api.nvim_create_user_command("LspCodeAction", function()
@@ -293,7 +303,7 @@ local function ensure_keymaps()
   end
 
   map(cfg.hover_keys, M.hover, "LSP: 悬停信息")
-  map(cfg.goto_keys, M.goto, "LSP: 跳转到定义")
+  map(cfg.goto_keys, M.goto_definition, "LSP: 跳转到定义")
   map(cfg.action_keys, M.code_action, "LSP: 代码操作")
   map(cfg.peek_keys, M.peek, "LSP: 预览定义")
   map(cfg.finder_keys, M.finder, "LSP: 查找引用")

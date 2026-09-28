@@ -454,8 +454,9 @@ function M.notify(msg, level, opts)
   level = level or vim.log.levels.INFO
 
   -- 停用或没有 UI（headless / -es）时透传原生实现
+  -- （原生 vim.notify 把 msg 直接交给 nvim_echo，必须是字符串，table 要先归一化）
   if not cfg.enabled or #vim.api.nvim_list_uis() == 0 then
-    return orig_notify(msg, level, opts)
+    return orig_notify(to_text(msg), level, opts)
   end
 
   local text = to_text(msg)
@@ -493,7 +494,7 @@ function M.notify(msg, level, opts)
   end)
 
   if not ok then
-    return orig_notify(msg, level, opts)
+    return orig_notify(to_text(msg), level, opts)
   end
   return rec
 end

@@ -182,8 +182,4 @@ zi    -- 全局切换折叠功能 (Toggle folding enable/disable)
 - dashboard
 - hop
 - checkhealth tools add
-- lua\custom\diagnostics.lua Del file
-  - lsp hove doc
-  - lsp jump
-  - other
 - 
