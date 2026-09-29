@@ -3,3 +3,6 @@ require("theme")
 require("custom")
 require("plugins")
 require("keymaps")
+
+-- option
+require("neovide")

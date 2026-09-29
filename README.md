@@ -176,10 +176,8 @@ zi    -- 全局切换折叠功能 (Toggle folding enable/disable)
 
 ## TODO
 
-- tablist bufferlist windowlist
 - tabline add extend callback statusline add
-- tabline style bg fg sync theme
 - dashboard
 - hop
 - checkhealth tools add
-- 
+-
