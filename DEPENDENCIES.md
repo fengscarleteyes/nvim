@@ -7,6 +7,9 @@
 > 配置文件里的硬性要求（`lua/plugins/*.lua`、`lua/custom/*.lua`、`lua/neovide.lua`）。
 > 写法：每个工具一个小节，固定四行 ------ **功能 · 主页 · Windows 安装 · Linux
 > 安装**；安装方式**优先包管理器**，Linux 按发行版分行缩进列出。
+>
+> 例外：**D 类（Pi 编码代理）** 与本配置没有依赖关系，是把终端 AI 代理一并收进来
+> 的额外清单，不装不影响 Neovim 的任何功能。
 
 ## 安装方式优先级
 
@@ -26,6 +29,7 @@
 - **A 必需**：不装，配置会报错或核心功能直接失效
 - **B 强烈建议**：配置里的功能 / 快捷键依赖它，不装会明显退化
 - **C 可选**：只影响边缘功能，或有替代品可用
+- **D 额外**：与 Neovim 配置无关，按需安装（终端 AI 编码代理，见文件末尾）
 
 ## 目录
 
@@ -35,6 +39,7 @@
   panache
 - **C 可选（10）**：Rust · Node.js/npm · Python · Go · LuaRocks · pwsh · trash
   CLI · clang/LLVM · Ruby/PHP/Java/Julia · neovide
+- **D 额外（3）**：pi · vibekit（Pi 包）· pi-file-permissions（Pi 扩展）
 
 ## A 类：必需
 
@@ -406,6 +411,119 @@ mouse-cursor-icon = "arrow"  # 鼠标图标样式: "arrow" 或 "i-beam"
 no-multigrid = false
 ```
 
+## D 类：Pi 编码代理（额外，与 Neovim 配置无关）
+
+本配置里没有任何 Pi 相关代码，这一节是按需收录：想在终端里用 AI 代理写代码
+（vibe coding）时再装。和 C 类的区别是，C 类都还围着 Neovim 转，D 类不装不影响
+编辑器。
+
+### D1. pi
+
+- **功能**：终端里的 AI 编码代理（Pi，官方叫 minimal agent harness），自带
+  `read` / `bash` / `edit` / `write` 工具，扩展、技能、提示模板都以 Pi 包（npm /
+  git）的形式分发。它是 Node 程序：走 npm / pnpm / bun 安装要求 **Node.js ≥
+  22.19**（见 C2），走官方安装脚本则由脚本锁定依赖版本。原生 Windows 下 `bash`
+  工具默认找 Git Bash，所以要先有 Git（见 A2）
+- **主页**：https://pi.dev/（仓库：https://github.com/earendil-works/pi；npm：
+  `@earendil-works/pi-coding-agent`。旧的 `@mariozechner/pi-coding-agent`
+  已废弃，不要再用）
+- **Windows 安装**：官方脚本 ------
+  `powershell -c "irm https://pi.dev/install.ps1 | iex"`；或
+  `npm install -g --ignore-scripts @earendil-works/pi-coding-agent`（pnpm /
+  bun 同理）。装完 `pi --version` 看版本，再用 `!printf 'Bash is working\n'`
+  确认 Git Bash 能被找到
+- **Linux 安装**：
+  - 通用：`curl -fsSL https://pi.dev/install.sh | sh`（依赖版本被锁定，之后用
+    `pi update` 升级）
+  - 通用（npm）：`npm install -g --ignore-scripts @earendil-works/pi-coding-agent`
+  - Nix / NixOS：`nix profile add github:earendil-works/pi/stable`（Nix 装的
+    不能用 `pi update`，改用 `nix profile upgrade pi`）
+- **首次使用**：`cd 项目目录 && pi` 启动，进去先 `/login` 选 provider（订阅或 API
+  key），`/model` 换模型，`/tree` 可回退到任意一轮
+- **配置位置**：个人配置与会话在 `~/.pi/agent/`（`settings.json`、`trust.json`）；
+  项目配置在 `.pi/`（`.pi/settings.json`、`.pi/skills`、`.pi/extensions` 等），
+  项目配置要授予 project trust（`/trust`）才加载
+- **包管理**：`pi install npm:<包名>` / `pi install git:github.com/<owner>/<repo>`
+  / `pi install ./本地目录`；`pi list` 查看，`pi remove <source>` 卸载，
+  `pi update --extensions` 同步，`pi -e <source>` 只试跑一次不入配置
+
+### D2. vibekit（Pi 包：给 vibe coding 装闸门）
+
+- **功能**：把 `一句话需求` 变成 `你批准过的设计 → 你批准过的计划 → 没看过计划的
+  agent 写的代码 → 你读得懂的验证结论` 的流水线，全部以 skill 形式提供：
+  `brainstorm` 一次问一个问题、给出可观察的成功标准（没批准就不写代码）→ `plan`
+  拆成带 `→ verify:` 的任务 → `exec` 每个任务派一个全新 subagent 执行并跑验证 →
+  `verify` 汇总证据报 `ready` / `not ready`，失败转 `debug`（只找根因、不改代码）。
+  另有常驻的 `lazy`（少写代码）和 `terse` / `plain`（少说、规矩文本）。注意作者
+  只在 Claude Code / Codex / opencode / Antigravity 上实测过，Pi 那一行标的是
+  not verified
+- **主页**：https://github.com/rizukirr/vibekit（npm：`@rizukirr/vibekit`，MIT）
+- **Windows 安装**：与系统无关，在任意终端执行
+  `pi install git:github.com/rizukirr/vibekit`（也可改用
+  `pi install npm:@rizukirr/vibekit`），之后 `pi list` 里应能看到它
+- **Linux 安装**：同 Windows，同一条命令：
+  - `pi install git:github.com/rizukirr/vibekit`
+  - 更新：重跑同一条命令，或 `pi update --extensions`
+
+### D3. pi-file-permissions（Pi 扩展：按路径限权）
+
+- **功能**：Pi 默认不给文件系统设限（工具按当前用户权限跑，不会每步弹确认）。这个
+  扩展读项目根目录的 `file-permissions.yaml`，用 `domains` 白名单限制内置工具
+  （`read` / `write` / `edit` / `find` / `grep` / `ls`）能碰哪些路径，`bash` 里的
+  `find` / `grep` / `ls` 之类命令也会被拦掉。它只管内置文件工具，管不了 skills、
+  MCP 服务和其它扩展提供的工具
+- **主页**：https://github.com/ross-jill-ws/pi-file-permissions（npm：
+  `pi-file-permissions`，MIT）
+- **Windows 安装**：`pi install npm:pi-file-permissions`（卸载用
+  `pi remove npm:pi-file-permissions`）
+- **Linux 安装**：同 Windows，同一条命令
+
+配置：项目根目录放一个 `file-permissions.yaml`，没有这个文件就完全不限制。
+
+```yaml
+# file-permissions.yaml（项目根目录）
+domains:
+  - path: ./                  # 项目根：给全套权限
+    permissions: [read, write, edit, find, grep, ls]
+  - path: ~/notes             # 只读参考目录
+    permissions: [read, find, ls]
+  - path: ~/data/fixtures     # 只读测试数据
+    permissions: [read, grep]
+```
+
+规则要点：只有 allow 语义，没列出的路径等于拒绝；`path` 可写绝对路径、`./` 相对
+路径（按项目根解析）或 `~/` 家目录；项目根和 `~/.pi` 默认全权限，但只要被显式
+domain 覆盖就按 domain 来；多个 domain 命中同一路径时最长（最具体）的赢；
+`domains:` 留空等于只允许项目根和 `~/.pi`。
+
+## Pi vibe coding 最小流程
+
+三个都装好后，一个改动的完整路径如下（都在项目目录里操作）：
+
+1. 准备：`cd 项目`，确认它在 git 仓库里（没有就 `git init`），需要的话写一份
+   `AGENTS.md` 说明项目约定（Pi 启动时会读）
+2. 装一次就够：`pi install git:github.com/rizukirr/vibekit`；要限权再加
+   `pi install npm:pi-file-permissions` 并写好 `file-permissions.yaml`
+3. 启动登录：`pi`，第一次用 `/login` 选 provider 和模型
+4. 出需求：`/skill:vibe "给设置面板加一个深色模式开关"`。vibekit 文档里写的
+   `/vibekit:vibe` 是 Claude Code 的写法，Pi 这边的 skill 调用语法是
+   `/skill:<名字>`，所以在 Pi 下同一件事写成 `/skill:vibe`
+5. 审设计再放行：brainstorm 一次一个问题地问你，最后给一版带成功标准的 spec；
+   你不批准它就不写代码。批准后 plan 出任务表，exec 逐条执行，verify 出结论
+6. 失败交给 debug：verify 报 `not ready` 会自动转 `debug`，它只定位根因（还会派
+   只读 agent 反驳自己的结论），不动代码；看完结论再决定改什么
+7. 小改动走快路：`/skill:quick "把 README 里的旧域名换掉"` 会跳过 spec / plan /
+   subagent，但仍要跑一个可运行检查，并在最后一行说明跳过了哪些阶段。要动依赖、
+   schema、权限或支付这类信任边界、跨文件太多、需求有两种读法时，它会拒绝快路并
+   让你改走 `/skill:vibe`
+8. 收尾自己看：`git diff`、测试输出和 verify 结论对一遍（vibekit 不替你 merge），
+   确认后再合并或提 PR；Pi 里 `/tree` 能回到任意一轮重来，`/export` 导出会话
+9. 日常维护：`pi list` 看已装包，`pi remove <source>` 卸载，
+   `pi update --extensions` 同步；改过 skill 后在会话里 `/reload` 重载
+10. 安全底线：Pi 的工具以你当前用户权限直接运行，不会逐条弹确认；file-permissions
+    只拦内置文件工具的路径，挡不住 skills、MCP 和其它扩展工具，也挡不住 `bash`
+    里的任意命令。跑不熟的仓库时用容器或沙箱，加上 git / 备份兜底
+
 ## 补充说明
 
 - **Linux
@@ -417,3 +535,5 @@ no-multigrid = false
   用了图标字形，Neovide 不会自动挑字体；装好字体后在 `lua/neovide.lua` 的
   `if vim.g.neovide then` 分支里加 `vim.opt.guifont = "字体名:h14"`（或
   `vim.g.neovide_scale_factor` 调整体缩放）。
+- **D 类（Pi）装完要重开终端**：`pi` 才会进 PATH；Pi 的工具是在自己的进程里跑的，
+  改完 skill / 扩展在会话里执行 `/reload` 就行，不用重启 Neovim。
