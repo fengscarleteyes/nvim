@@ -1,7 +1,7 @@
 ---
 title: DEPENDENCIES.md 文档结构重排
 date: 2026-10-05
-status: draft
+status: approved
 ---
 
 # DEPENDENCIES.md 文档结构重排: Design
