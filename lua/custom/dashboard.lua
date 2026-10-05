@@ -22,7 +22,10 @@
 --     所以 custom.winbar 不会画面包屑、custom.diagnostics 不会弹面板；
 --   * 内容水平居中、垂直居中，窗口尺寸变化时自动重排；
 --   * 打开文件（历史文件 / 快捷功能）时，dashboard 缓冲区按 bufhidden = wipe 自动清掉；
---     q / <Esc> 关闭 dashboard 时，换回打开前的那个缓冲区。
+--     q / <Esc> 关闭 dashboard 时，换回打开前的那个缓冲区；
+--   * 显示期间会临时改掉该窗口的局部选项（行号 / 光标线 / 不可见字符等，见 apply_win_opts），
+--     只改本窗口（scope = "local"，不动全局默认值），关闭 / 离开 dashboard 后原样还原
+--     （见 restore_stale_win_opts），不会影响其它窗口与之后新建的窗口。
 --
 -- API：
 --   require("custom.dashboard").setup([opts])        合并配置 + 注册命令 / 自动命令（幂等；键位来自 shortcuts）
@@ -289,6 +292,7 @@ local commands_created = false -- 用户命令是否已注册
 local dash_buf = nil -- dashboard 缓冲区
 local dash_win = nil -- dashboard 所在窗口
 local prev_buf = nil -- 打开 dashboard 前该窗口里的缓冲区（关闭时换回去）
+local saved_win_opts = {} -- [win] = { 选项名 = 占用前的窗口局部值 }：离开 dashboard 时还原（见 restore_win_opts）
 local mru_cache = {} -- 最近一次渲染出的历史文件（数字键据此打开）
 local key_plan = {} -- 最近一次渲染算出的键位分配（渲染与绑键位共用）
 local bound_maps = {} -- [bufnr] = 该缓冲区上绑过的键位（重绑前先解绑，改配置后不残留）
@@ -748,6 +752,11 @@ local function ensure_buf()
 end
 
 --- dashboard 窗口的局部选项：去掉行号 / 光标线 / 不可见字符等，保持「看板」观感
+--- 两个要点：
+---   1. 一律 scope = "local"：只改这个窗口，不动全局默认值 —— 否则以后新建的窗口 / 分割都会
+---      继承 number = false、signcolumn = "no"，看起来就像「行号要 :set number 才出来」；
+---   2. 改之前先把原值记进 saved_win_opts（每个窗口只记一次），离开 dashboard 时由
+---      restore_stale_win_opts() 还原 —— dashboard 是「顶替当前窗口」，窗口还是原来那个。
 --- @param win integer|nil
 local function apply_win_opts(win)
   if type(win) ~= "number" or not vim.api.nvim_win_is_valid(win) then
@@ -769,8 +778,87 @@ local function apply_win_opts(win)
     sidescrolloff = 0,
     winbar = "",
   }
+  if not saved_win_opts[win] then
+    local snapshot = {}
+    for name in pairs(opts) do
+      local ok, value = pcall(vim.api.nvim_get_option_value, name, { win = win, scope = "local" })
+      if ok then
+        snapshot[name] = value
+      end
+    end
+    saved_win_opts[win] = snapshot
+  end
   for name, value in pairs(opts) do
-    pcall(vim.api.nvim_set_option_value, name, value, { win = win })
+    pcall(vim.api.nvim_set_option_value, name, value, { win = win, scope = "local" })
+  end
+end
+
+--- 把一份「面板打开前的窗口局部选项」快照套回窗口
+--- 注：'winbar' 不快照还原 —— 它由 custom.winbar 按 BufEnter 自己重设，还原成 "" 会把面包屑清掉
+--- @param win integer|nil
+--- @param snapshot table|nil
+local function apply_snapshot(win, snapshot)
+  if not snapshot or not (type(win) == "number" and vim.api.nvim_win_is_valid(win)) then
+    return
+  end
+  for name, value in pairs(snapshot) do
+    if name ~= "winbar" and value ~= nil then
+      pcall(vim.api.nvim_set_option_value, name, value, { win = win, scope = "local" })
+    end
+  end
+end
+
+--- 还原某个窗口被 dashboard 改过的局部选项（没记录就什么都不做）
+--- @param win integer|nil
+local function restore_win_opts(win)
+  if type(win) ~= "number" then
+    return
+  end
+  local snapshot = saved_win_opts[win]
+  if not snapshot then
+    return
+  end
+  saved_win_opts[win] = nil
+  apply_snapshot(win, snapshot)
+end
+
+--- 某个窗口当前是否还显示着 dashboard 缓冲区
+--- @param win integer|nil
+--- @return boolean
+local function dashboard_shown_in(win)
+  return dash_buf ~= nil
+    and vim.api.nvim_buf_is_valid(dash_buf)
+    and type(win) == "number"
+    and vim.api.nvim_win_is_valid(win)
+    and vim.api.nvim_win_get_buf(win) == dash_buf
+end
+
+--- 把「已经不显示 dashboard」的窗口的局部选项还原回去
+--- 关闭面板、从面板里直接打开文件、缓冲区被 bufhidden = wipe 清掉，都会走到这里（BufEnter 自动命令调用）
+local function restore_stale_win_opts()
+  for win in pairs(saved_win_opts) do
+    if not dashboard_shown_in(win) then
+      restore_win_opts(win)
+    end
+  end
+end
+
+--- 面板显示期间新建的普通窗口会继承面板窗口的局部选项（Vim 里分割本来就会继承当前窗口）：
+--- 立刻改回面板打开前的值，免得新窗口也「没有行号」
+--- （浮动窗口不碰：通知 / 诊断面板等自己管窗口选项）
+local function normalize_new_window()
+  if next(saved_win_opts) == nil then
+    return
+  end
+  local win = vim.api.nvim_get_current_win()
+  if vim.api.nvim_win_get_config(win).relative ~= "" then
+    return -- 浮动窗口
+  end
+  for w, snapshot in pairs(saved_win_opts) do
+    if dashboard_shown_in(w) then
+      apply_snapshot(win, snapshot)
+      return
+    end
   end
 end
 
@@ -951,6 +1039,8 @@ function M.close()
     end
   end
 
+  restore_stale_win_opts() -- 还原窗口局部选项（不还原：该窗口会一直带着 number = false 等）
+
   if vim.api.nvim_buf_is_valid(buf) then
     pcall(vim.api.nvim_buf_delete, buf, { force = true })
   end
@@ -1130,6 +1220,25 @@ function M.setup(opts)
       apply_highlights()
       redraw()
     end,
+  })
+
+  -- 离开 dashboard（关闭 / 从面板里打开文件 / 缓冲区被清掉）后还原窗口局部选项：
+  -- dashboard 是「顶替当前窗口」，不还原的话该窗口会一直带着 number = false、signcolumn = "no" 等
+  vim.api.nvim_create_autocmd({ "BufEnter", "WinClosed" }, {
+    group = augroup,
+    desc = "custom.dashboard: 离开 dashboard 后还原窗口局部选项",
+    callback = function()
+      if next(saved_win_opts) ~= nil then
+        restore_stale_win_opts()
+      end
+    end,
+  })
+
+  -- 面板显示期间新建的普通窗口不要继承面板观感（分割会继承当前窗口的局部选项）
+  vim.api.nvim_create_autocmd("WinNew", {
+    group = augroup,
+    desc = "custom.dashboard: 面板显示期间新建的普通窗口改回正常选项",
+    callback = normalize_new_window,
   })
 
   ensure_commands()

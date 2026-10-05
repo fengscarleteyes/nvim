@@ -1,7 +1,7 @@
 # Neovim 配置依赖工具清单（全新机器配置用）
 
 > 用途：在一台**全新电脑**上把这份 Neovim 配置完整跑起来时，需要预先安装的外部工具。
-> 依据：`:checkhealth`（vim.health / vim.provider / lsp / mason / nvim-treesitter / conform / nvim-lint / neo-tree / fzf-lua）＋ 配置文件里的硬性要求（`lua/plugins/*.lua`、`lua/custom/*.lua`）。
+> 依据：`:checkhealth`（vim.health / vim.provider / lsp / mason / nvim-treesitter / conform / nvim-lint / neo-tree / fzf-lua）＋ 配置文件里的硬性要求（`lua/plugins/*.lua`、`lua/custom/*.lua`、`lua/neovide.lua`）。
 > 写法：每个工具一个小节，固定四行 —— **功能 · 主页 · Windows 安装 · Linux 安装**；安装方式**优先包管理器**，Linux 按发行版分行缩进列出。
 
 ## 安装方式优先级
@@ -23,7 +23,7 @@
 
 - **A 必需（10）**：neovim · git · ripgrep · fzf · tree-sitter-cli · zig · unzip · gzip · wget · 7-Zip
 - **B 强烈建议（6）**：fd · lazygit · win32yank · lua-language-server · stylua · panache
-- **C 可选（9）**：Rust · Node.js/npm · Python · Go · LuaRocks · pwsh · trash CLI · clang/LLVM · Ruby/PHP/Java/Julia
+- **C 可选（10）**：Rust · Node.js/npm · Python · Go · LuaRocks · pwsh · trash CLI · clang/LLVM · Ruby/PHP/Java/Julia · neovide
 
 ## A 类：必需
 
@@ -42,7 +42,7 @@
 
 - **功能**：版本控制；gitsigns、fzf-lua 的 git 功能、`vim.pack` 插件管理、Treesitter 的 `require("nvim-treesitter.install").prefer_git = true` 都依赖它
 - **主页**：https://git-scm.com/
-- **Windows 安装**：`winget install --id Git.Git -e`
+- **Windows 安装**：`winget install --id Git.Git -e --source winget`
 - **Linux 安装**（三发行版同名包 `git`）：
   - Arch：`sudo pacman -S git`
   - Ubuntu：`sudo apt install git`
@@ -296,7 +296,20 @@
   - Ubuntu：`sudo apt install ruby php openjdk-21-jdk julia`
   - Fedora：`sudo dnf install ruby php java-21-openjdk julia`
 
+### C10. neovide
+
+- **功能**：Neovim 的 GUI 前端（Rust 写的独立窗口，支持动效、透明、高刷新率）。本配置 `init.lua` 里有 `require("neovide")`，`lua/neovide.lua` 会在 Neovide 下设置 `neovide_refresh_rate = 144`、`neovide_opacity = 0.95` 等；这段用 `if vim.g.neovide then` 包着，**在终端里跑 Neovim 时会自动跳过，所以纯终端用户不用装**。要求 Neovim ≥ 0.10（本配置 A1 已要求 ≥ 0.12，满足）
+- **主页**：https://neovide.dev/（仓库：https://github.com/neovide/neovide）
+- **Windows 安装**：`winget install --id Neovide.Neovide -e`；或 Scoop —— `scoop bucket add extras && scoop install neovide`
+- **Linux 安装**：
+  - Arch：官方 `extra` 仓库 —— `sudo pacman -S neovide`（X11 下还需 `sudo pacman -S libxkbcommon-x11`；想跟开发版用 AUR 的 `neovide-git`）
+  - Ubuntu：官方仓库无此包 → 用下面的通用方式；snap 里有个 `neovide`（`sudo snap install neovide`）但版本很旧（0.8.0，2021 年），不建议
+  - Fedora：官方仓库无此包 → 社区 COPR（`sudo dnf copr enable agraven/neovide && sudo dnf install neovide`）或 Terra 仓库，或下面的通用方式
+  - Nix / NixOS：`nix-shell -p neovide`（NixOS 在 `environment.systemPackages` 里加 `pkgs.neovide`）
+  - 通用：从官方 Releases 下载自带依赖的二进制（https://github.com/neovide/neovide/releases）；或源码构建 `cargo install --git https://github.com/neovide/neovide.git`（需先装 Rust + CMake + LLVM，见 C1）
+
 ## 补充说明
 
 - **Linux 包名以发行版仓库为准**：上面用的都是各发行版包管理器，个别包名在不同版本里会有微调（例如 Fedora 的 7-Zip 包名是 `p7zip`）。
 - **装完外部工具要重开 Neovim**（PATH 只在进程启动时读取），再用 `:checkhealth`、`:checkhealth mason`、`:checkhealth nvim-treesitter` 复查。
+- **用 Neovide 时建议装一款 Nerd Font**：本配置的 tabline / winbar / `listchars` 用了图标字形，Neovide 不会自动挑字体；装好字体后在 `lua/neovide.lua` 的 `if vim.g.neovide then` 分支里加 `vim.opt.guifont = "字体名:h14"`（或 `vim.g.neovide_scale_factor` 调整体缩放）。
