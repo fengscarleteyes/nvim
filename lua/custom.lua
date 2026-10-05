@@ -61,11 +61,16 @@ require("custom.winbar").setup()
 -- :LspDeclaration / :LspImplementation / :LspTypeDefinition / :LspFormat / :LspDocumentSymbol /
 -- :LspWorkspaceSymbol；默认不绑键位，要绑就 setup({ map_keys = true })
 
--- 启动仪表盘：无参数启动（nvim 后不带文件名）时自动显示，显示最近文件（数字键 1..9/0 直接打开）
--- 与自定义快捷功能；配色自带、不依赖主题（colors = false 则跟随主题）。
--- 面板内：q 退出 neovim，<Esc> / <C-c> 关闭 dashboard，R 刷新；
--- map_keys = false 则一个键都不绑（只用下面的命令）；启动时当前 filetype 在 disable_filetype 里则不自动显示。
--- 命令：:Dashboard / :DashboardClose / :DashboardToggle / :DashboardRefresh
+-- 启动仪表盘：无参数启动（nvim 后不带文件名）时自动显示，显示最近文件（当前打开的文件 +
+-- shada 历史，数字键 1..9/0 直接打开）与自定义快捷功能；配色自带 dark / light 两套预设
+-- （默认 dark，require("custom.dashboard").setup({ colors = "light" }) 换一套），
+-- 也能只改 colors 里的 6 个角色（例如 { colors = { dim = { link = "Comment" } } }）；
+-- 色条与行尾箭头一定会画（箭头颜色由 colors.bar 的底色自动推出来）；
+-- 内容宽度 = 窗口宽度的百分比（默认 60%，setup({ width = 70 }) 可改）。
+-- 面板内键位全部来自 shortcuts：默认 q 退出 neovim、<Esc> 关闭面板、d 清空最近文件历史
+-- （普通模式要按键开关面板，就在 lua/keymaps/ 里自己绑 :DashboardToggle）；
+-- 每次打开都会重读历史文件，所以没有单独的刷新命令 / 键位。
+-- 命令：:Dashboard / :DashboardClose / :DashboardToggle
 -- 配置项见该文件头部注释，例如 require("custom.dashboard").setup({ mru = { limit = 12 } })
 require("custom.dashboard").setup()
 
