@@ -1,3 +1,6 @@
+-- 已停用（放在 bak/ 里不会被 plugins.lua 的 :runtime! lua/plugins/*.lua 加载，见 lua/plugins.lua 约定 3）
+-- 启动仪表盘改由 lua/custom/dashboard.lua 实现（自带历史文件数字键 + 快捷功能 + 自带配色），
+-- 下面的配置内容已全部搬到该模块的 DEFAULTS.shortcuts，保留此文件仅供对照 / 回退。
 vim.pack.add({
   "https://github.com/nvimdev/dashboard-nvim",
   "https://github.com/nvim-tree/nvim-web-devicons",

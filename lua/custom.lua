@@ -5,7 +5,7 @@
 -- 这里用 require + setup，而不是 lua/plugins.lua 那样的 :runtime!：
 --   1. 这些模块是「返回 M + M.setup(opts) 生效」的模块写法，:runtime! 只做 source、
 --      不会调用 setup()；
---   2. 模块会被别处 require 复用（如 lua/plugins/dashboard-nvim.lua 里的
+--   2. 模块会被别处 require 复用（如 lua/custom/dashboard.lua 的
 --      require("custom.terminal")），用 require 能保证全局只有一个模块实例，
 --      避免「source 一份 + require 一份」造成重复注册。
 -- 模块与入口分离：lua/custom/ 下只放模块，入口是本文件（同级）。
@@ -18,6 +18,7 @@
 --   tabline.lua      单条信息栏 tabline（buffer / tab / window 数量 + 当前文件名）
 --   winbar.lua       窗口顶栏面包屑（LSP documentSymbol 的符号层级路径）
 --   lsp.lua          LSP 实用命令（悬停 / 定义 / 代码操作 / 预览 / 查找 / 重命名…）+ :Lsp* 命令
+--   dashboard.lua    启动仪表盘（历史文件数字键 + 自定义快捷功能 + 自带配色）+:Dashboard* 命令
 --
 -- 模块约定（标准 Neovim 插件写法）：
 --   1. 每个模块返回 M，require 本身不产生副作用，功能由 M.setup(opts) 生效；
@@ -59,4 +60,13 @@ require("custom.winbar").setup()
 -- LSP 实用命令：:LspHover / :LspGoto / :LspCodeAction / :LspPeek / :LspFinder / :LspRename /
 -- :LspDeclaration / :LspImplementation / :LspTypeDefinition / :LspFormat / :LspDocumentSymbol /
 -- :LspWorkspaceSymbol；默认不绑键位，要绑就 setup({ map_keys = true })
+
+-- 启动仪表盘：无参数启动（nvim 后不带文件名）时自动显示，显示最近文件（数字键 1..9/0 直接打开）
+-- 与自定义快捷功能；配色自带、不依赖主题（colors = false 则跟随主题）。
+-- 面板内：q 退出 neovim，<Esc> / <C-c> 关闭 dashboard，R 刷新；
+-- map_keys = false 则一个键都不绑（只用下面的命令）；启动时当前 filetype 在 disable_filetype 里则不自动显示。
+-- 命令：:Dashboard / :DashboardClose / :DashboardToggle / :DashboardRefresh
+-- 配置项见该文件头部注释，例如 require("custom.dashboard").setup({ mru = { limit = 12 } })
+require("custom.dashboard").setup()
+
 require("custom.lsp").setup()
