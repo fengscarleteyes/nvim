@@ -129,6 +129,8 @@
   - Arch：`sudo pacman -S wget`
   - Ubuntu：`sudo apt install wget`
   - Fedora：`sudo dnf install wget`
+- **cURL**:
+  - windows: `winget install cURL`
 
 ### A10. 7-Zip（`7z`）
 
