@@ -31,10 +31,18 @@ require("nvim-treesitter").setup({
 -- require('nvim-treesitter').install (ts_langs)
 -- require('nvim-treesitter').install (ts_langs):wait(300000)
 
+-- parser 还没装好的语言（例如 toml / json / yaml / python）在这里会抛错，
+-- 并连带让 :edit 打开该文件失败，所以用 pcall 兜住，出错只提醒一次。
 vim.api.nvim_create_autocmd("FileType", {
   pattern = ts_langs,
   callback = function()
-    vim.treesitter.start()
+    local ok, err = pcall(vim.treesitter.start)
+    if not ok then
+      vim.notify_once(
+        ("treesitter: %s 的 parser 不可用，已跳过语法高亮：%s"):format(vim.bo.filetype, err),
+        vim.log.levels.WARN
+      )
+    end
   end,
 })
 

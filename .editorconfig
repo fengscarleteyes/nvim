@@ -8,3 +8,14 @@ charset = utf-8
 
 [*.{js,ts,lua,toml}]
 indent_size = 2
+# 行尾统一 LF（与 .stylua.toml 的 line_endings = "Unix" 一致）。
+# 不写进 [*]：editorconfig 是递归的，那样 nvim-data/ 下几千个插件文件也会被算进去。
+end_of_line = lf
+
+# 根目录的文档与其余配置：这些文件名不在上面的 glob 里，前面用 / 锚定到本文件所在目录，
+# 避免递归匹配到 nvim-data/ 下的同名文件（README.md、*.json 在插件目录里大量存在）。
+[/{README,DEPENDENCIES}.md]
+end_of_line = lf
+
+[/{LICENSE,.gitignore,.editorconfig,.gitattributes,pyrightconfig.json,.luarc.json}]
+end_of_line = lf

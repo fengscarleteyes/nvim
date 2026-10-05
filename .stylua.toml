@@ -4,11 +4,13 @@ syntax = "All"
 # 行宽限制：120 字符适合现代宽屏显示器，兼顾单行信息量与可读性
 column_width = 120
 
-# 换行符：不强制指定，让 StyLua 自动适应当前操作系统（Windows/Linux）
-# 可选值：Unix (LF) 或 Windows (CRLF)，跨平台项目建议注释掉此项
-# line_endings = "Unix" 
+# 换行符：显式固定为 Unix(LF)。注意 StyLua 不会按操作系统自动切换：
+# 不写这一项时，它用的就是自身默认值 Unix(LF)，在 Windows 上同样是 LF。
+# （此前这里写成"自动适应当前操作系统"是不准确的，导致 CRLF 文件被漏检。）
+# 可选值：Unix (LF) / Windows (CRLF)。保持 LF 可避免保存时整份文件被重排。
+line_endings = "Unix"
 
-# 缩进配置：使用 4 个空格，保证不同编辑器打开时排版绝对一致
+# 缩进配置：使用 空格，保证不同编辑器打开时排版绝对一致
 indent_type = "Spaces"
 indent_width = 2
 

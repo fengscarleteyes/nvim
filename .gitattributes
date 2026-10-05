@@ -1,0 +1,4 @@
+# 统一行尾：文本文件在仓库里一律以 LF 存储、以 LF 检出（防止 Windows 检出后变回 CRLF）。
+# text=auto 由 git 自动识别二进制文件，二进制不会被转换。
+# 对已跟踪文件要让索引也变成 LF，需要一次性重写：git add --renormalize .
+* text=auto eol=lf

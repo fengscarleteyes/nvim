@@ -608,7 +608,7 @@ end
 local function build_rows(width)
   local hl = HL -- 高亮组名固定，色条与箭头一定会画（见「高亮」）
   local rows = {}
-  local cur = nil
+  local cur = {} -- 当前行的片段：newrow() 每次赋新表（给空表是为了类型上不留 nil）
 
   --- 开始新的一行
   local function newrow()
@@ -832,7 +832,7 @@ local function render()
 end
 
 --- 绑定面板内键位（每次打开 / 刷新都重建，以最新的分配结果为准）
---- @param buf integer
+--- @param buf integer|nil 缓冲区（nil / 已失效时什么都不做）
 local function bind_keymaps(buf)
   if not (buf and vim.api.nvim_buf_is_valid(buf)) then
     return
@@ -997,7 +997,10 @@ function M.clear_history(opts)
   end
 
   if opts.persist ~= false and vim.o.shada ~= "" then
-    pcall(vim.cmd, "wshada!") -- 立刻写回 shada：不然下次启动又会从磁盘读回来
+    -- 立刻写回 shada：不然下次启动又会从磁盘读回来
+    pcall(function()
+      vim.cmd("wshada!")
+    end)
   end
 
   redraw() -- 面板开着就立刻刷新（关着时什么都不做）
