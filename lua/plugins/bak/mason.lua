@@ -1,7 +1,6 @@
--- 【已停用】mason.nvim 的职责（装工具 + 让目录进 PATH）已由 lua/custom/tools.lua 替代：
--- 按工具走 uv tool / 官方 GitHub release / winget，统一装到 ~/.local/bin
--- （:ToolsInstall 装、:ToolsStatus 查）。本文件在 bak/ 下不会被加载（glob 不匹配目录）。
--- 想回退：把本文件移回 lua/plugins/，并去掉 lua/custom.lua 里的 custom.tools setup 行。
+-- 【已停用】mason.nvim 已不再使用。外部工具（stylua / panache / ruff / lua-language-server
+-- / basedpyright）改为手动装到 ~/.local/bin，渠道、实测命令与踩坑见 docs/tools.md。
+-- 本文件在 bak/ 下不会被加载（glob 不匹配目录）。想回退：把本文件移回 lua/plugins/ 即可。
 vim.pack.add({
   "https://github.com/williamboman/mason.nvim",
 })
