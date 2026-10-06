@@ -14,8 +14,13 @@ end_of_line = lf
 
 # 根目录的文档与其余配置：这些文件名不在上面的 glob 里，前面用 / 锚定到本文件所在目录，
 # 避免递归匹配到 nvim-data/ 下的同名文件（README.md、*.json 在插件目录里大量存在）。
-[/{README,DEPENDENCIES,AGENTS}.md]
+[/{README,AGENTS}.md]
 end_of_line = lf
 
-[/{LICENSE,.gitignore,.editorconfig,.gitattributes,pyrightconfig.json,.luarc.json}]
+# docs/ 下的文档同样要 LF。DEPENDENCIES.md 已移入 docs/，不再是根目录文件，
+# 上面的根锚定列表匹配不到它，所以单独给 docs/ 一条（同样用 / 锚定，不递归到 nvim-data/）。
+[/docs/**.md]
+end_of_line = lf
+
+[/{LICENSE,.gitignore,.editorconfig,.gitattributes,.luarc.json}]
 end_of_line = lf
