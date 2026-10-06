@@ -4,7 +4,8 @@
 -- 本文件不写任何配色，只负责把 lua/theme/*.lua 依次执行一遍（写法同 lua/plugins.lua）：
 --   :runtime! 会按 'runtimepath' 顺序查找 lua/theme/*.lua 并 source 之。
 --   生效的主题放 lua/theme/ 下（当前是 colorscheme.lua），
---   备选主题放 lua/theme/tokyonight.lua.disabled，改名去掉 .disabled 即可启用。
+--   备选主题是 lua/theme/bak/tokyonight.lua：bak/ 不匹配 glob，因此不会被加载；
+--   想启用就把它移出 bak/，并让当前配色退出（否则两者会按字典序互相覆盖）。
 --   注意：同时存在多个主题文件时，字典序靠后的文件最终决定配色。
 -- ============================================================
 
