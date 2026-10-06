@@ -144,7 +144,7 @@ local DEFAULTS = {
         vim.pack.update()
       end,
     },
-    { icon = "󰏖", key = "m", desc = "Mason", action = "Mason" },
+    { icon = "󰏖", key = "m", desc = "Tools", action = "ToolsStatus" },
     {
       icon = "",
       key = "g",
