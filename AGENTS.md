@@ -81,7 +81,7 @@ options → theme → custom → plugins → keymaps → neovide
 - `lua/plugins/`：`blink`、`conform`、`fzf-lua`、`gitsigns`、`hardtime`、`hop`、
   `live-preview`、`neo-tree`、`nvim-lint`、`nvim-lspconfig`、`nvim-origami`、
   `nvim-treesitter`、`precognition`、`tiny-inline-diagnostic`、`bak/`（已停用）
-- `lua/theme/`：`colorscheme.lua`（生效中，one_monokai）、`tokyonight.lua.disabled`（备选）
+- `lua/theme/`：`colorscheme.lua`（生效中，one_monokai）、`bak/tokyonight.lua`（备选，已停用）
 
 **停用而不删除**（保留用户的选择权，不要"清理"）：
 
@@ -187,17 +187,17 @@ require("plugin").setup({ ... })
 
 ## 4. 常见任务怎么做（cookbook）
 
-  | 想做什么               | 改哪里                                                     | 关键注意                                                                                    |
-  | ---                    | ---                                                        | ---                                                                                         |
-  | 加自研功能             | 新建 `lua/custom/<name>.lua`，再在 `lua/custom.lua` 补一行 | 命令/键位/自动命令都放同一文件；配置项进 `DEFAULTS`                                         |
-  | 加第三方插件           | 新建 `lua/plugins/<name>.lua`                              | 同步 `docs/DEPENDENCIES.md`；停用就移进 `bak/`                                              |
-  | 加/改键位              | `lua/keymaps/<group>.lua`                                  | 必须带 `desc`；先查有无重复 lhs                                                             |
-  | 改选项                 | `lua/options/<topic>.lua`                                  | 同名设置按字典序覆盖，注意别被后面的文件盖掉                                                |
-  | 换主题                 | `lua/theme/colorscheme.lua`；备选主题去掉 `.disabled`      | 同目录多个主题文件时字典序最后的生效                                                        |
-  | 调 LSP / 格式化 / 检查 | `nvim-lspconfig.lua`、`conform.lua`、`nvim-lint.lua`       | 外部工具的渠道与命令见 `docs/tools.md`；新增工具要同时动它与 `docs/DEPENDENCIES.md`         |
-  | 装 / 换外部工具        | `docs/tools.md`                                            | 手动装到 `~/.local/bin`（已在 PATH 上）；装完必须能解析才算成功                             |
-  | 改 Neovide 外观        | `lua/neovide.lua`                                          | 全部在 `if vim.g.neovide then` 内，终端里无法验证，要说明这一点                             |
-  | 文档 / 依赖清单        | `README.md`、`docs/DEPENDENCIES.md`                        | 依赖变了必须动 `docs/DEPENDENCIES.md`                                                       |
+  | 想做什么               | 改哪里                                                      | 关键注意                                                                                     |
+  | ---                    | ---                                                         | ---                                                                                          |
+  | 加自研功能             | 新建 `lua/custom/<name>.lua`，再在 `lua/custom.lua` 补一行  | 命令/键位/自动命令都放同一文件；配置项进 `DEFAULTS`                                          |
+  | 加第三方插件           | 新建 `lua/plugins/<name>.lua`                               | 同步 `docs/DEPENDENCIES.md`；停用就移进 `bak/`                                               |
+  | 加/改键位              | `lua/keymaps/<group>.lua`                                   | 必须带 `desc`；先查有无重复 lhs                                                              |
+  | 改选项                 | `lua/options/<topic>.lua`                                   | 同名设置按字典序覆盖，注意别被后面的文件盖掉                                                 |
+  | 换主题                 | `lua/theme/colorscheme.lua`；备选 `bak/tokyonight.lua`      | 启用备选要先把它移出 `bak/`；同目录多个主题文件时字典序最后的生效                            |
+  | 调 LSP / 格式化 / 检查 | `nvim-lspconfig.lua`、`conform.lua`、`nvim-lint.lua`        | 外部工具的渠道与命令见 `docs/tools.md`；新增工具要同时动它与 `docs/DEPENDENCIES.md`          |
+  | 装 / 换外部工具        | `docs/tools.md`                                             | 手动装到 `~/.local/bin`（已在 PATH 上）；装完必须能解析才算成功                              |
+  | 改 Neovide 外观        | `lua/neovide.lua`                                           | 全部在 `if vim.g.neovide then` 内，终端里无法验证，要说明这一点                              |
+  | 文档 / 依赖清单        | `README.md`、`docs/DEPENDENCIES.md`                         | 依赖变了必须动 `docs/DEPENDENCIES.md`                                                        |
 
 ## 5. 工作方式（用户既有约定，优先遵守）
 
