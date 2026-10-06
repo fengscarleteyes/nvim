@@ -13,6 +13,7 @@ vim.opt.pumblend = 10
 -- vim.opt.pumheight = 5
 
 -- 开启原生自动补全
+vim.o.complete = '.,w,b,o'
 vim.o.autocomplete = true
 
 -- 设置补全菜单行为

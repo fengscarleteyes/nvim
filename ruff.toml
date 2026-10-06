@@ -16,7 +16,8 @@ line-length = 88
 #   UP   pyupgrade 用新版更简洁的语法替代旧写法
 #   B    flake8-bugbear 常见 bug 模式（可变默认参数、裸 except 等）
 #   SIM  flake8-simplify 更简洁写法的建议
-select = ["E", "F", "I", "UP", "B", "SIM"]
+#   ANN  flake8-annotations 强制类型注解（函数参数、返回值等）
+select = ["E", "F", "I", "UP", "B", "SIM", "ANN"]
 
 # 忽略的规则：这些交给 formatter 统一处理，留着会和 `ruff format` 冲突
 ignore = [

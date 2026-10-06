@@ -47,21 +47,24 @@ for _, cfg in ipairs(lsp_configs) do
   })
 end
 
--- 在 LSP 客户端 attach 时启用自动补全
-vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if not client then
-      return
-    end
+-- 在 LSP 客户端 attach 时启用自动补全（已停用）
+-- 这里 autotrigger=true 只在 LSP 的 triggerCharacters（如 "."）上触发，不是随打随补。
+-- 随打随补由 lua/options/completion.lua 的 'autocomplete' + 'omnifunc' 完成，omnifunc
+-- 会直接查询所有支持 completion 的 LSP client，无需此处 enable。本块保留注释作为备选。
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--   callback = function(args)
+--     local client = vim.lsp.get_client_by_id(args.data.client_id)
+--     if not client then
+--       return
+--     end
 
-    if client:supports_method("textDocument/completion") then
-      vim.lsp.completion.enable(true, client.id, args.buf, {
-        autotrigger = true,
-      })
-    end
-  end,
-})
+--     if client:supports_method("textDocument/completion") then
+--       vim.lsp.completion.enable(true, client.id, args.buf, {
+--         autotrigger = true,
+--       })
+--     end
+--   end,
+-- })
 
 -- tab 补全触发
 vim.keymap.set("i", "<Tab>", function()

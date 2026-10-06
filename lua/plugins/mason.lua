@@ -8,6 +8,7 @@ local opts = {
     "lua-language-server", -- lsp: lua
     "panache", -- lsp + formatter + linter: Markdown/Quarto/R Markdown
     "ruff", -- python linter & formater
+    -- "basedpyright", -- python linter & formater
   },
 }
 
