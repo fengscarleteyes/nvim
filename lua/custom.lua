@@ -75,3 +75,7 @@ require("custom.winbar").setup()
 require("custom.dashboard").setup()
 
 require("custom.lsp").setup()
+
+-- 外部工具自举（替代 mason.nvim）：把 stylua / panache / ruff / lua-language-server
+-- 装到 ~/.local/bin。启动只做本地探测；安装用 :ToolsInstall，状态用 :ToolsStatus
+require("custom.tools").setup()
