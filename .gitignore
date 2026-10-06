@@ -47,5 +47,5 @@ package.json
 node_modules
 .python-version
 uv.lock
-
+specs/
 nvim-pack-lock.json
