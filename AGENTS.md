@@ -9,7 +9,7 @@
 ## 0. 速查（TL;DR）
 
 - 这是什么：个人 Neovim 配置，**纯 Lua**，Windows 与 Arch Linux 共用一份
-- 硬前提：**Neovim ≥ 0.12**（用了内置插件管理器 `vim.pack`；本机已装 v0.12.5）
+- 硬前提：**Neovim ≥ 0.12**（用了内置插件管理器 `vim.pack`）
 - 插件管理器是 `vim.pack`，**不是** lazy.nvim / packer / LazyVim，不要"顺手迁移"
 - 改代码前的读法：`init.lua`（加载顺序）→ 对应入口 `lua/<层>.lua` → 同目录已有同类文件
 - 四个入口文件必须待在各自子目录**外面**（`lua/plugins.lua`、`lua/options.lua`、
@@ -32,9 +32,7 @@
 | 格式化 / 检查 | stylua（Lua）、panache（Markdown，走 conform + nvim-lint） |
 
 根目录其余配置文件（别乱动）：`.editorconfig` / `.gitattributes`（LF 策略）、`.stylua.toml`
-（格式化规则）、`.luarc.json`（lua_ls 缩进）、`pyproject.toml` + `ruff.toml` +
-`pyrightconfig.json`（ruff / pyright 的默认规则；本仓库没有 Python 源码，这三个文件只服务
-"在本仓库内写 Python 片段"的场景）。
+（格式化规则）、`.luarc.json`（lua_ls 缩进）
 
 ## 2. 目录结构与加载顺序
 
