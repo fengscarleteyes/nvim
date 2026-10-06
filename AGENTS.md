@@ -2,7 +2,7 @@
 
 > 本文件是给 AI 编码代理（Cline / Pi / Claude Code / Codex 等）看的**项目地图 + 工作约定**，
 > 可直接作为会话开头的 prompt 模板使用。
-> 给人看的文档在 `README.md`（用法 / TODO）和 `DEPENDENCIES.md`（外部工具安装清单）。
+> 给人看的文档在 `README.md`（用法 / TODO）和 `docs/DEPENDENCIES.md`（外部工具安装清单）。
 >
 > 一句话要求：**照着现有风格做最小改动，动手前先跟用户确认目标，改完按第 6 节自检并如实汇报。**
 
@@ -15,8 +15,9 @@
 - 四个入口文件必须待在各自子目录**外面**（`lua/plugins.lua`、`lua/options.lua`、
   `lua/keymaps.lua`、`lua/theme.lua`），放进去会自我递归 source
 - 改完必跑：`stylua --check .`（或至少对改动文件跑 `stylua`）
-- 新增插件 / 外部工具：必须同步更新 `DEPENDENCIES.md`
+- 新增插件 / 外部工具：必须同步更新 `docs/DEPENDENCIES.md`
 - 新增自研功能：先读第 5 节「工作方式」，**用户确认目标后再写代码**
+- 跑全仓库 `glob` / `grep` 时排除 `.venv/`（7000+ 文件，见第 1 节）
 
 ## 1. 项目是什么
 
@@ -32,7 +33,15 @@
 | 格式化 / 检查 | stylua（Lua）、panache（Markdown，走 conform + nvim-lint） |
 
 根目录其余配置文件（别乱动）：`.editorconfig` / `.gitattributes`（LF 策略）、`.stylua.toml`
-（格式化规则）、`.luarc.json`（lua_ls 缩进）
+（格式化规则）、`.luarc.json`（lua_ls 缩进）、`.gitignore`
+
+根目录还有两个**目录**，同样别动、也别当垃圾清理：
+
+- `.venv/`：README 里用 `uv venv .venv --python 3.15` 建的 Python 虚拟环境，site-packages
+  里有 `basedpyright`、`ruff` 和 `nodejs_wheel`（Node 24）。已在 `.gitignore` 里，但文件数
+  7000+：跑全仓库 `glob` / `grep` 时排除它，否则结果会被淹没（其中不含 `.lua`，所以
+  `stylua` 不受影响）
+- `.ruff_cache/`：ruff 的缓存目录，自带 `.gitignore`，不用管
 
 ## 2. 目录结构与加载顺序
 
@@ -73,6 +82,11 @@ options → theme → custom → plugins → keymaps → neovide
 几条容易踩的顺序规则：
 
 - 同目录内按**文件名字典序**执行，同一个设置**后加载的覆盖先加载的**
+- `options` / `plugins` / `keymaps` 三层用的是 `:runtime! lua/<层>/*.lua`，它沿
+  **`runtimepath`** 查找，不只本配置目录：rtp 中靠前的目录优先。要严格只跑本目录下的文件，
+  用 `lua/plugins.lua` 末尾给出的显式 `glob` + `vim.cmd.source` 写法
+- 同一层内某个文件报错**不会中断该层其余文件**（`:runtime!` 会把后面的跑完），但整体仍以
+  报错收尾；所以 `init.lua` 里那次 `require` 依旧可能失败，后面的层就整个不执行了（见第 7 节）
 - `custom/` 用 `require` 而不是 `:runtime!`：模块需要 `setup()` 生效，且会被别处 `require`
   复用，这样能保证全局只有一个实例
 - `lua/theme/` 同时存在多个主题文件时，字典序最后的那个决定最终配色
@@ -141,23 +155,26 @@ require("plugin").setup({ ... })
 
 - 只写 `vim.pack.add` + `setup`，没有 lazy 加载字段（`vim.pack` 是启动即加载）
 - 依赖插件在同一个文件里一起 `add`；插件配套的键位/自动命令就地写在这个文件
-- 首次 `vim.pack.add` 会联网下载，所以不要在没有网络的环境里跑 Neovim 做验证
+- 首次 `vim.pack.add` 会联网下载：验证前先确认网络前提，离线时的表现见第 7 节
 
-**文档写法**：`DEPENDENCIES.md` 里每个工具固定四行 —— **功能 · 主页 · Windows 安装 ·
-Linux 安装**，Linux 按发行版缩进分行；分类为 A 必需 / B 强烈建议 / C 可选 / D 额外。
+**文档写法**（`docs/DEPENDENCIES.md`）：按 **A 必需 / B 强烈建议 / C 可选 / D 额外** 分章。
+A / B / C 三章的结构是：先一张工具总览表（`工具 | 功能 | 备注`，工具名链到主页），再按
+**Windows / Arch / Ubuntu / Fedora / 通用** 各给一张安装表（`工具 | 安装`，单元格里直接写
+安装命令）；D 章是与 Neovim 无关的终端代理，只有一张总览表（表头 `工具 | 功能 | 安装`）。
+新增工具要同时进总览表和相关发行版的安装表，并更新开头「目录」里各档的计数。
 
 ## 4. 常见任务怎么做（cookbook）
 
 | 想做什么 | 改哪里 | 关键注意 |
 | --- | --- | --- |
 | 加自研功能 | 新建 `lua/custom/<name>.lua`，再在 `lua/custom.lua` 末尾补 `require("custom.<name>").setup()` | 命令/键位/自动命令都放同一文件；配置项进 `DEFAULTS` |
-| 加第三方插件 | 新建 `lua/plugins/<name>.lua` | 同步 `DEPENDENCIES.md`；停用就移进 `bak/` |
+| 加第三方插件 | 新建 `lua/plugins/<name>.lua` | 同步 `docs/DEPENDENCIES.md`；停用就移进 `bak/` |
 | 加/改键位 | `lua/keymaps/<group>.lua` | 必须带 `desc`；先查有无重复 lhs |
 | 改选项 | `lua/options/<topic>.lua` | 同名设置按字典序覆盖，注意别被后面的文件盖掉 |
 | 换主题 | `lua/theme/colorscheme.lua`；备选主题去掉 `.disabled` 即可 | 同目录多个主题文件时字典序最后的生效 |
-| 调 LSP / 格式化 / 检查 | `nvim-lspconfig.lua`、`conform.lua`、`nvim-lint.lua`、`mason.lua` | 新增工具要同时进 mason 的 `ensure_installed` 与 `DEPENDENCIES.md` |
+| 调 LSP / 格式化 / 检查 | `nvim-lspconfig.lua`、`conform.lua`、`nvim-lint.lua`、`mason.lua` | 新增工具要同时进 mason 的 `ensure_installed` 与 `docs/DEPENDENCIES.md` |
 | 改 Neovide 外观 | `lua/neovide.lua` | 全部在 `if vim.g.neovide then` 内，终端里无法验证，要说明这一点 |
-| 文档 / 依赖清单 | `README.md`、`DEPENDENCIES.md` | 依赖变了必须动 `DEPENDENCIES.md` |
+| 文档 / 依赖清单 | `README.md`、`docs/DEPENDENCIES.md` | 依赖变了必须动 `docs/DEPENDENCIES.md` |
 
 ## 5. 工作方式（用户既有约定，优先遵守）
 
@@ -187,12 +204,12 @@ Linux 安装**，Linux 按发行版缩进分行；分类为 A 必需 / B 强烈�
 | Lua 语法 | `nvim --headless -u NONE "+lua assert(loadfile('lua/xxx.lua'))" +qa` | `-u NONE` 不加载配置，不会触发 `vim.pack` 联网下载 |
 | 启动是否有报错 | 正常启动后看 `:messages`（或 `nvim --headless "+lua print('loaded')" +qa`，会联网，谨慎） | 配置加载期的错误会在启动时直接显示 |
 | 健康检查 | `:checkhealth`、`:checkhealth mason`、`:checkhealth vim.treesitter` | 与改动相关的项不能退化 |
-| Markdown | 写 `.md` 时 panache 会自动格式化 + lint（conform + nvim-lint） | 改 `README.md` / `DEPENDENCIES.md` / 本文件后确认没有报错 |
+| Markdown | 写 `.md` 时 panache 会自动格式化 + lint（conform + nvim-lint） | 改 `README.md` / `docs/DEPENDENCIES.md` / 本文件后确认没有报错 |
 | 行尾 | 保持 LF，`.editorconfig` + `.gitattributes` 已兜底 | 在 Windows 上编辑文档尤其注意 |
 | 手工验证 | 用命令或键位实际跑一次新功能，再看 `:messages` | 汇报写"实测通过 / 未测"，不要写"应该可以" |
 
 **Definition of Done**：格式通过 + 启动无报错 + 相关 `:checkhealth` 不退化 + 文档同步
-（`DEPENDENCIES.md`，必要时 `README.md`）+ 清楚说明哪些部分没验证到。
+（`docs/DEPENDENCIES.md`，必要时 `README.md`）+ 清楚说明哪些部分没验证到。
 
 ## 7. 已知坑（都踩过，代码注释里写了原因）
 
@@ -204,9 +221,11 @@ Linux 安装**，Linux 按发行版缩进分行；分类为 A 必需 / B 强烈�
   所以外部命令 / 网络 / parser 这类可能失败的调用要用 `pcall` 兜住并降级 `vim.notify`
   —— 见 `mason.lua` 的 `MasonUpdate`、`nvim-treesitter.lua` 的 `vim.treesitter.start`
 - 四个入口文件放进对应子目录会自我递归 source（第 2 节）
-- 同目录按字典序执行、后加载覆盖先加载：同一个选项写在两个文件里时，只改一个可能"没生效"
-- `lua/options.lua` 顶部注释里的执行顺序还写着 `folds`，该文件已不存在（注释漂移，已知问题；
-  实际顺序以目录内文件名为准）
+- 同一个选项写在两个文件里时，只改一个可能"没生效"
+  （机制：同目录按字典序执行、后加载覆盖先加载，见第 2 节）
+- 入口文件顶部注释里的执行顺序是**手工维护**的副本，会跟目录实际内容漂移：
+  发现对不上就以目录内文件名为准，并顺手把注释改对（`lua/options.lua` 就曾把已删除的
+  `folds` 留在列表里）
 - `lua/plugins/bak/`、`*.lua.disabled` 是**停用位**，不是待清理的垃圾
 - Neovide 设置只在 GUI（`vim.g.neovide` 为真）里生效，终端里测不出来；
   Neovide 自己的 `config.toml` 与本文件部分项重叠（以实际效果为准）
@@ -232,10 +251,10 @@ Neovim    ≥ 0.12（本机 0.12.5；vim.pack 依赖它）
 数据目录   Windows: %LOCALAPPDATA%\nvim-data   Linux: ~/.local/share/nvim
 Mason 工具 Windows: %LOCALAPPDATA%\nvim-data\mason\bin   Linux: ~/.local/share/nvim/mason/bin
            已装：stylua（Lua 格式化）、lua-language-server、panache（Markdown）
-外部依赖   见 DEPENDENCIES.md：A 必需（neovim / git / ripgrep / fzf / tree-sitter-cli /
-           zig / unzip / gzip / wget / 7-Zip）、B 强烈建议（fd / lazygit / win32yank /
-           lua-language-server / stylua / panache）、C 可选、D 额外（Pi 编码代理，与本配置无关）
+外部依赖   清单以 docs/DEPENDENCIES.md 为准（A 必需 / B 强烈建议 / C 可选 / D 额外，
+           逐发行版给安装命令）。本文件不复制清单，避免两处不一致
 ```
 
-<!-- 维护提示：本文件只描述"怎么在这个仓库里干活"。改了目录结构、加载方式或依赖策略后，
-     请同步更新第 2 / 6 节；不要在这里复制 `README.md` 的用法说明。 -->
+<!-- 维护提示：本文件只描述"怎么在这个仓库里干活"。改了目录结构、加载方式、文档格式或依赖
+     策略后，请同步更新第 2 / 3 / 6 / 9 节；不要在这里复制 `README.md` 的用法说明，也不要
+     复制 `docs/DEPENDENCIES.md` 的工具清单——复制来的副本一定会过期。 -->

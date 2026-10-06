@@ -22,8 +22,8 @@
 
 - A 必需（10）：neovim · git · ripgrep · fzf · tree-sitter-cli · zig · unzip ·
   gzip · wget · 7-Zip
-- B 强烈建议（6）：fd · lazygit · win32yank · lua-language-server · stylua ·
-  panache
+- B 强烈建议（7）：fd · lazygit · win32yank · lua-language-server · stylua ·
+  panache · basedpyright
 - C 可选（11）：Rust · Node.js/npm · Python · uv · Go · LuaRocks · pwsh · trash
   CLI · clang/LLVM · Ruby/PHP/Java/Julia · neovide
 - D 额外（3）：pi · vibekit · pi-file-permissions
