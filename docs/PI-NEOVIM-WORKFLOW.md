@@ -30,8 +30,8 @@ pi 已装，依赖清单见 DEPENDENCIES.md 的 D 类。neovim ≥ 0.12 加载�
 
 一次只做一件事，动手前先和 pi 确认目标，约定见 AGENTS.md 的 §5。会话内用 `@` 引用文件。
 
-- 有明确方案的复杂改动：`/vibekit:vibe`，走 brainstorm、plan、exec、verify 四步。
-- 即兴小改：`/vibekit:quick`，跳过 spec 和 plan 直接改。
+- 有明确方案的复杂改动：`/skill:vibe`，走 brainstorm、plan、exec、verify 四步。
+- 即兴小改：`/skill:quick`，跳过 brainstorm、plan、exec、verify 直接改。
 
 ## 在 neovim 里审查 pi 的改动
 

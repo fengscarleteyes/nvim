@@ -1,0 +1,5 @@
+[dependency-groups]
+dev = [
+    "basedpyright>=1.40.2",
+    "ruff>=0.16.10",
+]

@@ -4,4 +4,5 @@ vim.pack.add({
 
 require("lint").linters_by_ft = {
   markdown = { "panache" },
+  python = { "ruff" },
 }

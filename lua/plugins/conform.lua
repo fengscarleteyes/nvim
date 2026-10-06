@@ -6,7 +6,7 @@ require("conform").setup({
   formatters_by_ft = {
     lua = { "stylua" },
     markdown = { "panache" },
-    -- python = { "ruff_format", "ruff_fix", "ruff_organize_imports" },
+    python = { "ruff_format", "ruff_fix", "ruff_organize_imports" },
     -- json = { "prettier" },
     -- jsonc = { "prettier" },
     -- yaml = { "prettier" },

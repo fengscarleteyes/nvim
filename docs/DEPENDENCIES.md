@@ -24,8 +24,8 @@
   gzip · wget · 7-Zip
 - B 强烈建议（6）：fd · lazygit · win32yank · lua-language-server · stylua ·
   panache
-- C 可选（10）：Rust · Node.js/npm · Python · Go · LuaRocks · pwsh · trash CLI ·
-  clang/LLVM · Ruby/PHP/Java/Julia · neovide
+- C 可选（11）：Rust · Node.js/npm · Python · uv · Go · LuaRocks · pwsh · trash
+  CLI · clang/LLVM · Ruby/PHP/Java/Julia · neovide
 - D 额外（3）：pi · vibekit · pi-file-permissions
 
 ## A 必需
@@ -170,6 +170,7 @@
   | [Rust](https://rustup.rs/)                                                                                                         | cargo install 装上面多个工具的前提  |                      |
   | [Node.js / npm](https://nodejs.org/)                                                                                               | npm install -g 工具和 prettier 需要 |                      |
   | [Python](https://www.python.org/)                                                                                                  | pyright / ruff 等 Python 工具需要   |                      |
+  | [uv](https://docs.astral.sh/uv/)                                                                                                   | Python 包/项目管理器（可装 Python） | 替代 pip/venv/pyenv  |
   | [Go](https://go.dev/)                                                                                                              | gopls 运行时，也是 go install 前提  |                      |
   | [LuaRocks](https://luarocks.org/)                                                                                                  | Lua 相关工具运行环境                |                      |
   | [pwsh](https://github.com/PowerShell/PowerShell)                                                                                   | neo-tree 回收站后端                 |                      |
@@ -185,6 +186,7 @@
   | Rust                      | `winget install --id Rustlang.Rustup -e`                           |
   | Node.js / npm             | `winget install --id OpenJS.NodeJS -e`（LTS 用 OpenJS.NodeJS.LTS） |
   | Python                    | `winget install --id Python.Python.3.13 -e`                        |
+  | uv                        | `winget install --id astral-sh.uv -e`                              |
   | Go                        | `winget install --id GoLang.Go -e`                                 |
   | LuaRocks                  | `winget install --id DEVCOM.Lua -e`（自带 Lua 5.4 + LuaRocks）     |
   | pwsh                      | `winget install --id Microsoft.PowerShell -e`                      |
@@ -199,6 +201,7 @@
   | Rust                      | `sudo pacman -S rustup`                                 |
   | Node.js / npm             | `sudo pacman -S nodejs npm`                             |
   | Python                    | `sudo pacman -S python`                                 |
+  | uv                        | `sudo pacman -S uv`                                     |
   | Go                        | `sudo pacman -S go`                                     |
   | LuaRocks                  | `sudo pacman -S luarocks`                               |
   | pwsh                      | `paru -S powershell-bin`（AUR）                         |
@@ -208,15 +211,16 @@
 
 ### Ubuntu
 
-  | 工具                      | 安装                                             |
-  | ---                       | ---                                              |
-  | Rust                      | `sudo apt install rustup`                        |
-  | Node.js / npm             | `sudo apt install nodejs npm`                    |
-  | Python                    | `sudo apt install python3 python3-venv`          |
-  | Go                        | `sudo apt install golang-go`                     |
-  | LuaRocks                  | `sudo apt install luarocks`                      |
-  | clang / LLVM              | `sudo apt install clang`                         |
-  | Ruby / PHP / Java / Julia | `sudo apt install ruby php openjdk-21-jdk julia` |
+  | 工具                      | 安装                                               |
+  | ---                       | ---                                                |
+  | Rust                      | `sudo apt install rustup`                          |
+  | Node.js / npm             | `sudo apt install nodejs npm`                      |
+  | Python                    | `sudo apt install python3 python3-venv`            |
+  | uv                        | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
+  | Go                        | `sudo apt install golang-go`                       |
+  | LuaRocks                  | `sudo apt install luarocks`                        |
+  | clang / LLVM              | `sudo apt install clang`                           |
+  | Ruby / PHP / Java / Julia | `sudo apt install ruby php openjdk-21-jdk julia`   |
 
 ### Fedora
 
@@ -225,6 +229,7 @@
   | Rust                      | `sudo dnf install rustup`                                          |
   | Node.js / npm             | `sudo dnf install nodejs npm`                                      |
   | Python                    | `sudo dnf install python3`                                         |
+  | uv                        | `sudo dnf install uv`                                              |
   | Go                        | `sudo dnf install golang`                                          |
   | LuaRocks                  | `sudo dnf install luarocks`                                        |
   | pwsh                      | 加微软官方源后 `sudo dnf install powershell`                       |
@@ -237,6 +242,7 @@
   | 工具      | 安装                                                                                     |
   | ---       | ---                                                                                      |
   | Rust      | `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o rustup.sh && sh rustup.sh` |
+  | uv        | `curl -LsSf https://astral.sh/uv/install.sh \| sh`（或 `pip install uv`）                |
   | pwsh      | `sudo snap install powershell --classic`（Ubuntu）                                       |
   | trash CLI | `npm install --global trash-cli`（需 Node，见 C2）                                       |
   | neovide   | 官方 Releases 下载二进制                                                                 |

@@ -211,6 +211,9 @@ Linux 安装**，Linux 按发行版缩进分行；分类为 A 必需 / B 强烈�
 - Neovide 设置只在 GUI（`vim.g.neovide` 为真）里生效，终端里测不出来；
   Neovide 自己的 `config.toml` 与本文件部分项重叠（以实际效果为准）
 - `vim.pack.add` 首次运行会联网拉插件：离线/网络差时启动会失败或变慢，别据此判断代码有 bug
+- vibekit 的斜杠命令在 pi 里是 `/skill:name`（`/skill:vibe`、`/skill:quick` 等），不是
+  `/vibekit:vibe` / `/vibekit:quick`：后者是 Claude Code 的命令格式，vibekit 的 `package.json`
+  里 `pi` 清单只声明 skills，pi 不加载 `commands/` 目录（见 `docs/PI-NEOVIM-WORKFLOW.md`）
 
 ## 8. git 与提交
 
