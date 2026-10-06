@@ -10,9 +10,9 @@
 1. 系统 / 发行版包管理器：Windows `winget`，Linux `pacman`（Arch）/
    `apt`（Ubuntu）/ `dnf`（Fedora）/ `snap`
 2. 语言包管理器：`cargo install`（Rust）、`npm install -g`（Node）、`go install`（Go）
-3. 本配置自带自举：`:ToolsInstall`（或 `scripts/tools.ps1` /
-   `scripts/tools.sh`）按工具走 `uv tool` / 官方 GitHub release /
-   `winget`，统一装到 `~/.local/bin`；B 档那几项交给它即可
+3. 手动安装：B 档里 `lua-language-server` / `stylua` / `panache` / `ruff` /
+   `basedpyright` 建议装到 `~/.local/bin`（两个平台的用户 PATH
+   里本就有这个目录）， 渠道与实测命令见 `docs/tools.md`
 4. 手动下载（官方 Releases / AppImage / 解压后加 PATH）
 
 分类：A 必需（不装会报错或核心功能失效）· B
@@ -31,16 +31,16 @@
 
 ## A 必需
 
-  | 工具                                                                                           | 功能                                         | 备注                         |
-  | ---                                                                                            | ---                                          | ---                          |
-  | [neovim](https://neovim.io/)                                                                   | 编辑器本体，需要 Neovim ≥ 0.12               |                              |
-  | [git](https://git-scm.com/)                                                                    | gitsigns、fzf-lua、vim.pack、Treesitter 依赖 |                              |
-  | [ripgrep](https://github.com/BurntSushi/ripgrep)                                               | fzf-lua 的 live_grep 后端                    |                              |
-  | [fzf](https://github.com/junegunn/fzf)                                                         | fzf-lua 的模糊匹配后端                       |                              |
-  | [tree-sitter-cli](https://github.com/tree-sitter/tree-sitter/blob/master/crates/cli/README.md) | Treesitter 编译 parser 需要                  | ≥ 0.26.1，勿用 npm           |
-  | [zig](https://ziglang.org/)                                                                    | 本配置用 zig cc 编译 Treesitter parser       |                              |
-  | [curl](https://curl.se/)                                                                       | 工具自举：下载归档 + 解析最新 release tag    | Windows 自带；Linux 通常已装 |
-  | [unzip](http://infozip.sourceforge.net/UnZip.html)                                             | 解 zip（Linux 上 stylua 的产物是 zip）       | bsdtar 可替代                |
+  | 工具                                                                                           | 功能                                          | 备注                         |
+  | ---                                                                                            | ---                                           | ---                          |
+  | [neovim](https://neovim.io/)                                                                   | 编辑器本体，需要 Neovim ≥ 0.12                |                              |
+  | [git](https://git-scm.com/)                                                                    | gitsigns、fzf-lua、vim.pack、Treesitter 依赖  |                              |
+  | [ripgrep](https://github.com/BurntSushi/ripgrep)                                               | fzf-lua 的 live_grep 后端                     |                              |
+  | [fzf](https://github.com/junegunn/fzf)                                                         | fzf-lua 的模糊匹配后端                        |                              |
+  | [tree-sitter-cli](https://github.com/tree-sitter/tree-sitter/blob/master/crates/cli/README.md) | Treesitter 编译 parser 需要                   | ≥ 0.26.1，勿用 npm           |
+  | [zig](https://ziglang.org/)                                                                    | 本配置用 zig cc 编译 Treesitter parser        |                              |
+  | [curl](https://curl.se/)                                                                       | 下载归档 / 解析 release tag（手动装工具时用） | Windows 自带；Linux 通常已装 |
+  | [unzip](http://infozip.sourceforge.net/UnZip.html)                                             | 解 zip（Linux 上 stylua 的产物是 zip）        | bsdtar 可替代                |
 
 ### Windows
 
@@ -89,7 +89,7 @@
   | curl    | `sudo dnf install curl`    |
   | unzip   | `sudo dnf install unzip`   |
 
-### 通用（cargo / npm / go / snap / :ToolsInstall）
+### 通用（cargo / npm / go / snap）
 
   | 工具            | 安装                                               |
   | --------------- | -------------------------------------------------- |
@@ -106,9 +106,9 @@
   | [fd](https://github.com/sharkdp/fd)                                 | fzf-lua 找文件后端               |                                                             |
   | [lazygit](https://github.com/jesseduffield/lazygit)                 | dashboard 快捷键 g 打开 Git TUI  |                                                             |
   | [win32yank](https://github.com/equalsraf/win32yank)                 | Windows 剪贴板读写               | 仅 Windows，Linux 可选 xclip / wl-clipboard                 |
-  | [lua-language-server](https://github.com/LuaLS/lua-language-server) | Lua 的 LSP                       | `:ToolsInstall` 自动装到 `~/.local/bin`，可跳过手动         |
-  | [stylua](https://github.com/JohnnyMorganz/StyLua)                   | Lua 格式化（conform 保存时调用） | `:ToolsInstall` 自动装到 `~/.local/bin`，可跳过手动         |
-  | [panache](https://github.com/jolars/panache)                        | Markdown formatter + linter      | `:ToolsInstall` 自动装到 `~/.local/bin`，可跳过手动         |
+  | [lua-language-server](https://github.com/LuaLS/lua-language-server) | Lua 的 LSP                       | 建议手动装到 `~/.local/bin`，见 `docs/tools.md`             |
+  | [stylua](https://github.com/JohnnyMorganz/StyLua)                   | Lua 格式化（conform 保存时调用） | 建议手动装到 `~/.local/bin`，见 `docs/tools.md`             |
+  | [panache](https://github.com/jolars/panache)                        | Markdown formatter + linter      | 建议手动装到 `~/.local/bin`，见 `docs/tools.md`             |
   | [basedpyright](https://github.com/DetachHead/basedpyright)          | Python 的 LSP                    | 由 uv 提供，不装则 Python 无补全 / 类型检查                 |
 
 ### Windows
@@ -144,16 +144,16 @@
   | lazygit | `sudo dnf install lazygit` |
   | stylua  | `sudo dnf install stylua`  |
 
-### 通用（cargo / npm / go / snap / :ToolsInstall）
+### 通用（cargo / npm / go / snap）
 
-  | 工具                | 安装                                                                                                                                           |
-  | ---                 | ---                                                                                                                                            |
-  | fd                  | `cargo install fd-find`                                                                                                                        |
-  | lazygit             | `go install github.com/jesseduffield/lazygit@latest` 或 `sudo snap install lazygit`                                                            |
-  | lua-language-server | `:ToolsInstall`（Windows 走 winget，Arch 走 paru）                                                                                             |
-  | stylua              | `:ToolsInstall`；或 `cargo binstall stylua`（`cargo install` 需要 MSVC 链接器，本机没有）                                                      |
-  | panache             | `:ToolsInstall`（走官方 release；`cargo install` 同样需要链接器）                                                                              |
-  | basedpyright        | `uv add --dev basedpyright` 或 `uv tool install basedpyright`                                                                                  |
+  | 工具                | 安装                                                                                                                                                                                         |
+  | ---                 | ---                                                                                                                                                                                          |
+  | fd                  | `cargo install fd-find`                                                                                                                                                                      |
+  | lazygit             | `go install github.com/jesseduffield/lazygit@latest` 或 `sudo snap install lazygit`                                                                                                          |
+  | lua-language-server | Windows：`winget install --id LuaLS.lua-language-server -e`；Arch：`paru -S lua-language-server`                                                                                             |
+  | stylua              | `cargo binstall stylua`（`cargo install` 需要 MSVC 链接器，本机没有）；或下官方 release，见 `docs/tools.md`                                                                                  |
+  | panache             | 下官方 release（`cargo install` 同样需要链接器），见 `docs/tools.md`                                                                                                                         |
+  | basedpyright        | `uv add --dev basedpyright` 或 `uv tool install basedpyright`                                                                                                                                |
 
 ## C 可选
 
@@ -229,7 +229,7 @@
   | Ruby / PHP / Java / Julia | `sudo dnf install ruby php java-21-openjdk julia`                  |
   | neovide                   | `sudo dnf copr enable agraven/neovide && sudo dnf install neovide` |
 
-### 通用（cargo / npm / go / snap / :ToolsInstall）
+### 通用（cargo / npm / go / snap）
 
   | 工具      | 安装                                                                                     |
   | ---       | ---                                                                                      |
@@ -251,7 +251,7 @@
 
 ## 补充说明
 
-- Linux 包名以发行版仓库为准，个别版本会微调（如 Fedora 的 7-Zip 包名是 p7zip）
+- Linux 包名以发行版仓库为准，个别版本会微调（如 Ubuntu 的 fd 包名是 fd-find）
 - 装完外部工具重开 Neovim（PATH 只在启动时读取），再用
-  :checkhealth、:checkhealth nvim.treesitter 与 `:ToolsStatus` 复查
+  :checkhealth、:checkhealth nvim.treesitter 与 `Get-Command <工具名>` 复查
 - 用 Neovide 建议装一款 Nerd Font（tabline、winbar、listchars 用了图标字形）
