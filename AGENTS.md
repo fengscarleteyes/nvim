@@ -275,7 +275,9 @@ Neovim    ≥ 0.12（本机 0.12.5；vim.pack 依赖它）
 配置目录   Windows: %LOCALAPPDATA%\nvim        Linux: ~/.config/nvim
 数据目录   Windows: %LOCALAPPDATA%\nvim-data   Linux: ~/.local/share/nvim
 Mason 工具 Windows: %LOCALAPPDATA%\nvim-data\mason\bin   Linux: ~/.local/share/nvim/mason/bin
-           已装：stylua（Lua 格式化）、lua-language-server、panache（Markdown）
+           已装：stylua（Lua 格式化）、lua-language-server、panache（Markdown）、
+           basedpyright（Python LSP，含 basedpyright-langserver）、
+           ruff（Python lint / format）
 外部依赖   清单以 docs/DEPENDENCIES.md 为准（A 必需 / B 强烈建议 / C 可选 / D 额外，
            逐发行版给安装命令）。本文件不复制清单，避免两处不一致
 ```
