@@ -3,14 +3,6 @@
 - Install
 
 ```shell
-sudo pacman -S zoxide
-sudo pacman -S fzf
-sudo pacman -S fd
-sudo pacman -S ripgrep
-sudo pacman -S bat
-sudo pacman -S git-delta
-sudo pacman -S chafa viu ueberzugpp
-
 git clone git@github.com:fengscarleteyes/nvim.git
 ```
 
