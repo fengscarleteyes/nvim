@@ -119,6 +119,7 @@
   | [lua-language-server](https://github.com/LuaLS/lua-language-server) | Lua 的 LSP                       | 本配置已由 Mason 自动装，可跳过手动         |
   | [stylua](https://github.com/JohnnyMorganz/StyLua)                   | Lua 格式化（conform 保存时调用） | 本配置已由 Mason 自动装，可跳过手动         |
   | [panache](https://github.com/jolars/panache)                        | Markdown formatter + linter      | 本配置已由 Mason 自动装，可跳过手动         |
+  | [basedpyright](https://github.com/DetachHead/basedpyright)          | Python 的 LSP                    | 由 uv 提供，不装则 Python 无补全 / 类型检查 |
 
 ### Windows
 
@@ -155,13 +156,14 @@
 
 ### 通用（cargo / npm / go / snap / Mason）
 
-  | 工具                | 安装                                                                                |
-  | ---                 | ---                                                                                 |
-  | fd                  | `cargo install fd-find`                                                             |
-  | lazygit             | `go install github.com/jesseduffield/lazygit@latest` 或 `sudo snap install lazygit` |
-  | lua-language-server | Mason `:MasonInstall lua-language-server`                                           |
-  | stylua              | `cargo install stylua` 或 Mason                                                     |
-  | panache             | `cargo install panache`（需 Rust，见 C1）或 Mason                                   |
+  | 工具                | 安装                                                                                 |
+  | ---                 | ---                                                                                  |
+  | fd                  | `cargo install fd-find`                                                              |
+  | lazygit             | `go install github.com/jesseduffield/lazygit@latest` 或 `sudo snap install lazygit`  |
+  | lua-language-server | Mason `:MasonInstall lua-language-server`                                            |
+  | stylua              | `cargo install stylua` 或 Mason                                                      |
+  | panache             | `cargo install panache`（需 Rust，见 C1）或 Mason                                    |
+  | basedpyright        | `uv add --dev basedpyright` 或 `uv tool install basedpyright`                        |
 
 ## C 可选
 
