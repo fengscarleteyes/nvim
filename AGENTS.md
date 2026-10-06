@@ -33,7 +33,8 @@
 | 格式化 / 检查 | stylua（Lua）、panache（Markdown，走 conform + nvim-lint） |
 
 根目录其余配置文件（别乱动）：`.editorconfig` / `.gitattributes`（LF 策略）、`.stylua.toml`
-（格式化规则）、`.luarc.json`（lua_ls 缩进）、`.gitignore`
+（格式化规则）、`.luarc.json`（lua_ls 缩进）、`.gitignore`、`ruff.toml`（ruff 的 lint/format
+规则）、`pyproject.toml`（uv 的 dev 依赖：basedpyright + ruff，配合同级 `.venv/`）
 
 根目录还有两个**目录**，同样别动、也别当垃圾清理：
 
