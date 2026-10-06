@@ -7,8 +7,6 @@ local opts = {
     "stylua", -- formater: lua
     "lua-language-server", -- lsp: lua
     "panache", -- lsp + formatter + linter: Markdown/Quarto/R Markdown
-    "basedpyright", -- python lsp
-    -- "ty", -- python type checker lsp
     "ruff", -- python linter & formater
   },
 }

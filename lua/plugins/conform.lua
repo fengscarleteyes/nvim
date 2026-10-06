@@ -6,7 +6,7 @@ require("conform").setup({
   formatters_by_ft = {
     lua = { "stylua" },
     markdown = { "panache" },
-    python = { "ruff_format", "ruff_fix", "ruff_organize_imports" },
+    python = { "ruff_fix", "ruff_format" },
     -- json = { "prettier" },
     -- jsonc = { "prettier" },
     -- yaml = { "prettier" },
@@ -20,11 +20,4 @@ require("conform").setup({
     -- timeout_ms = 1000,
     lsp_format = "fallback",
   },
-})
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*",
-  callback = function(args)
-    require("conform").format({ bufnr = args.buf })
-  end,
 })
