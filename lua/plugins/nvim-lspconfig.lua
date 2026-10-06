@@ -29,6 +29,10 @@ local lsp_configs = {
     filetype = "markdown",
     lsp = "panache",
   },
+  {
+    filetype = "python",
+    lsp = "basedpyright",
+  },
 }
 
 for _, cfg in ipairs(lsp_configs) do
