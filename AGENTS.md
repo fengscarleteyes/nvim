@@ -2,9 +2,8 @@
 
 > 本文件是给 AI 编码代理（Cline / Pi / Claude Code / Codex 等）看的**项目地图 +
 > 工作约定**， 可直接作为会话开头的 prompt 模板使用。 给人看的文档在
-> `README.md`（用法 / TODO）、`docs/DEPENDENCIES.md`（外部工具清单）、
-> `docs/tools.md`（外部工具怎么装）和
-> `docs/prompt-template.md`（提需求的提示词模板）。
+> `README.md`（用法 / TODO）、`docs/DEPENDENCIES.md`（外部工具清单 +
+> 逐个装法与实测踩坑） 和 `docs/prompt-template.md`（提需求的提示词模板）。
 >
 > 一句话要求：**照着现有风格做最小改动，动手前先跟用户确认目标，改完按第 6
 > 节自检并如实汇报。**
@@ -23,8 +22,9 @@
 - 新增自研功能：先读第 5 节「工作方式」，**用户确认目标后再写代码**
 - 跑全仓库 `glob` / `grep` 时排除 `.venv/`（7000+ 文件，见第 1 节）
 - 外部工具（LSP / 格式化 / lint）**手动装**到 `~/.local/bin`（该目录已在 PATH
-  上， 终端与 Neovim 都能直接解析）：渠道、命令与踩坑见 `docs/tools.md`；mason
-  与旧的 自举模块都已停用 / 移除，不要再引入这类插件管理器
+  上， 终端与 Neovim 都能直接解析）：渠道、命令与踩坑见
+  `docs/DEPENDENCIES.md`；mason 与旧的 自举模块都已停用 /
+  移除，不要再引入这类插件管理器
 
 ## 1. 项目是什么
 
@@ -178,27 +178,29 @@ require("plugin").setup({ ... })
 - 依赖插件在同一个文件里一起 `add`；插件配套的键位/自动命令就地写在这个文件
 - 首次 `vim.pack.add` 会联网下载：验证前先确认网络前提，离线时的表现见第 7 节
 
-**文档写法**（`docs/DEPENDENCIES.md`）：按 **A 必需 / B 强烈建议 / C 可选 / D
-额外** 分章。 A / B / C
-三章的结构是：先一张工具总览表（`工具 | 功能 | 备注`，工具名链到主页），再按
-**Windows / Arch / Ubuntu / Fedora / 通用**
-各给一张安装表（`工具 | 安装`，单元格里直接写 安装命令）；D 章是与 Neovim
-无关的终端代理，只有一张总览表（表头 `工具 | 功能 | 安装`）。
-新增工具要同时进总览表和相关发行版的安装表，并更新开头「目录」里各档的计数。
+**文档写法**（`docs/DEPENDENCIES.md`）：**按平台分章**，每章一张表，表头固定为
+`档 | 工具 | 功能 | 安装`。平台章（Windows / Arch / Ubuntu / Fedora）+「通用」章
+（放跨平台命令）+「D 额外」章（与 Neovim 无关）。「档」列写 A 必需 / B 强烈建议
+/ C 可选 / D
+额外；工具名链到主页，功能与备注合并写在同一列；平台表里没列的工具去
+「通用」章找。 需要额外步骤的 5 个工具（`lua-language-server` / `stylua` /
+`panache` / `ruff` / `basedpyright`）集中在「装到
+`~/.local/bin`」一节，平台表里只留指引。
+新增工具要同时进对应的平台表和「通用」章（如适用）。
 
 ## 4. 常见任务怎么做（cookbook）
 
-  | 想做什么               | 改哪里                                                      | 关键注意                                                                                     |
-  | ---                    | ---                                                         | ---                                                                                          |
-  | 加自研功能             | 新建 `lua/custom/<name>.lua`，再在 `lua/custom.lua` 补一行  | 命令/键位/自动命令都放同一文件；配置项进 `DEFAULTS`                                          |
-  | 加第三方插件           | 新建 `lua/plugins/<name>.lua`                               | 同步 `docs/DEPENDENCIES.md`；停用就移进 `bak/`                                               |
-  | 加/改键位              | `lua/keymaps/<group>.lua`                                   | 必须带 `desc`；先查有无重复 lhs                                                              |
-  | 改选项                 | `lua/options/<topic>.lua`                                   | 同名设置按字典序覆盖，注意别被后面的文件盖掉                                                 |
-  | 换主题                 | `lua/theme/colorscheme.lua`；备选 `bak/tokyonight.lua`      | 启用备选要先把它移出 `bak/`；同目录多个主题文件时字典序最后的生效                            |
-  | 调 LSP / 格式化 / 检查 | `nvim-lspconfig.lua`、`conform.lua`、`nvim-lint.lua`        | 外部工具的渠道与命令见 `docs/tools.md`；新增工具要同时动它与 `docs/DEPENDENCIES.md`          |
-  | 装 / 换外部工具        | `docs/tools.md`                                             | 手动装到 `~/.local/bin`（已在 PATH 上）；装完必须能解析才算成功                              |
-  | 改 Neovide 外观        | `lua/neovide.lua`                                           | 全部在 `if vim.g.neovide then` 内，终端里无法验证，要说明这一点                              |
-  | 文档 / 依赖清单        | `README.md`、`docs/DEPENDENCIES.md`                         | 依赖变了必须动 `docs/DEPENDENCIES.md`                                                        |
+  | 想做什么               | 改哪里                                                      | 关键注意                                                                                             |
+  | ---                    | ---                                                         | ---                                                                                                  |
+  | 加自研功能             | 新建 `lua/custom/<name>.lua`，再在 `lua/custom.lua` 补一行  | 命令/键位/自动命令都放同一文件；配置项进 `DEFAULTS`                                                  |
+  | 加第三方插件           | 新建 `lua/plugins/<name>.lua`                               | 同步 `docs/DEPENDENCIES.md`；停用就移进 `bak/`                                                       |
+  | 加/改键位              | `lua/keymaps/<group>.lua`                                   | 必须带 `desc`；先查有无重复 lhs                                                                      |
+  | 改选项                 | `lua/options/<topic>.lua`                                   | 同名设置按字典序覆盖，注意别被后面的文件盖掉                                                         |
+  | 换主题                 | `lua/theme/colorscheme.lua`；备选 `bak/tokyonight.lua`      | 启用备选要先把它移出 `bak/`；同目录多个主题文件时字典序最后的生效                                    |
+  | 调 LSP / 格式化 / 检查 | `nvim-lspconfig.lua`、`conform.lua`、`nvim-lint.lua`        | 渠道与命令见 `docs/DEPENDENCIES.md`；新增外部工具要同时更新那里的平台表与「装到 `~/.local/bin`」一节 |
+  | 装 / 换外部工具        | `docs/DEPENDENCIES.md`                                      | 手动装到 `~/.local/bin`（已在 PATH 上）；装完必须能解析才算成功                                      |
+  | 改 Neovide 外观        | `lua/neovide.lua`                                           | 全部在 `if vim.g.neovide then` 内，终端里无法验证，要说明这一点                                      |
+  | 文档 / 依赖清单        | `README.md`、`docs/DEPENDENCIES.md`                         | 依赖变了必须动 `docs/DEPENDENCIES.md`                                                                |
 
 ## 5. 工作方式（用户既有约定，优先遵守）
 
@@ -223,16 +225,16 @@ require("plugin").setup({ ... })
 
 ## 6. 做完了怎么自检（本仓库没有测试框架，按这张表走）
 
-  | 项目           | 命令 / 操作                                                                               | 说明                                                                                               |
-  | ---            | ---                                                                                       | ---                                                                                                |
-  | Lua 格式       | `stylua --check .`，或只对改动文件 `stylua <文件>`                                        | `stylua` 由用户手动装到 `~/.local/bin`（已在 PATH 上，终端与 Neovim 都能解析），见 `docs/tools.md` |
-  | Lua 语法       | `nvim --headless -u NONE "+lua assert(loadfile('lua/xxx.lua'))" +qa`                      | `-u NONE` 不加载配置，不会触发 `vim.pack` 联网下载                                                 |
-  | 启动是否有报错 | 正常启动后看 `:messages`（或 `nvim --headless "+lua print('loaded')" +qa`，会联网，谨慎） | 配置加载期的错误会在启动时直接显示                                                                 |
-  | 健康检查       | `:checkhealth`、`:checkhealth vim.treesitter`                                             | 与改动相关的项不能退化                                                                             |
-  | 外部工具       | `Get-Command stylua, panache, ruff, lua-language-server, basedpyright-langserver`         | 动过工具链后确认 5 个工具都在 PATH 上且能跑，见 `docs/tools.md`                                    |
-  | Markdown       | 写 `.md` 时 panache 会自动格式化 + lint（conform + nvim-lint）                            | 改 `README.md` / `docs/DEPENDENCIES.md` / 本文件后确认没有报错                                     |
-  | 行尾           | 保持 LF，`.editorconfig` + `.gitattributes` 已兜底                                        | 在 Windows 上编辑文档尤其注意                                                                      |
-  | 手工验证       | 用命令或键位实际跑一次新功能，再看 `:messages`                                            | 汇报写"实测通过 / 未测"，不要写"应该可以"                                                          |
+  | 项目           | 命令 / 操作                                                                               | 说明                                                                                                      |
+  | ---            | ---                                                                                       | ---                                                                                                       |
+  | Lua 格式       | `stylua --check .`，或只对改动文件 `stylua <文件>`                                        | `stylua` 由用户手动装到 `~/.local/bin`（已在 PATH 上，终端与 Neovim 都能解析），见 `docs/DEPENDENCIES.md` |
+  | Lua 语法       | `nvim --headless -u NONE "+lua assert(loadfile('lua/xxx.lua'))" +qa`                      | `-u NONE` 不加载配置，不会触发 `vim.pack` 联网下载                                                        |
+  | 启动是否有报错 | 正常启动后看 `:messages`（或 `nvim --headless "+lua print('loaded')" +qa`，会联网，谨慎） | 配置加载期的错误会在启动时直接显示                                                                        |
+  | 健康检查       | `:checkhealth`、`:checkhealth vim.treesitter`                                             | 与改动相关的项不能退化                                                                                    |
+  | 外部工具       | `Get-Command stylua, panache, ruff, lua-language-server, basedpyright-langserver`         | 动过工具链后确认 5 个工具都在 PATH 上且能跑，见 `docs/DEPENDENCIES.md` 的「装到 `~/.local/bin`」一节      |
+  | Markdown       | 写 `.md` 时 panache 会自动格式化 + lint（conform + nvim-lint）                            | 改 `README.md` / `docs/DEPENDENCIES.md` / 本文件后确认没有报错                                            |
+  | 行尾           | 保持 LF，`.editorconfig` + `.gitattributes` 已兜底                                        | 在 Windows 上编辑文档尤其注意                                                                             |
+  | 手工验证       | 用命令或键位实际跑一次新功能，再看 `:messages`                                            | 汇报写"实测通过 / 未测"，不要写"应该可以"                                                                 |
 
 **Definition of Done**：格式通过 + 启动无报错 + 相关 `:checkhealth` 不退化 +
 文档同步 （`docs/DEPENDENCIES.md`，必要时 `README.md`）+
@@ -284,7 +286,7 @@ Neovim    ≥ 0.12（本机 0.12.5；vim.pack 依赖它）
 外部工具   落点 Windows: %USERPROFILE%\.local\bin   Linux: ~/.local/bin
            已装：stylua、panache、ruff、lua-language-server、basedpyright-langserver
            全部手动安装（mason 与旧的自举模块都已停用 / 移除）：渠道、命令与踩坑
-           见 docs/tools.md。该目录已在用户 PATH 上，终端与 Neovim 都能直接解析
+           见 docs/DEPENDENCIES.md。该目录已在用户 PATH 上，终端与 Neovim 都能直接解析
 外部依赖   清单以 docs/DEPENDENCIES.md 为准（A 必需 / B 强烈建议 / C 可选 / D 额外，
            逐发行版给安装命令）。本文件不复制清单，避免两处不一致
 ```

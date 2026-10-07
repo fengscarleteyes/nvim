@@ -1,5 +1,5 @@
 -- 【已停用】mason.nvim 已不再使用。外部工具（stylua / panache / ruff / lua-language-server
--- / basedpyright）改为手动装到 ~/.local/bin，渠道、实测命令与踩坑见 docs/tools.md。
+-- / basedpyright）改为手动装到 ~/.local/bin，渠道、实测命令与踩坑见 docs/DEPENDENCIES.md。
 -- 本文件在 bak/ 下不会被加载（glob 不匹配目录）。想回退：把本文件移回 lua/plugins/ 即可。
 vim.pack.add({
   "https://github.com/williamboman/mason.nvim",
