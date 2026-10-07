@@ -1,24 +1,5 @@
 # 外部工具的安装参考
 
-本仓库**不再自带工具安装器**：曾经的 `lua/custom/tools.lua` + `scripts/tools.*`
-已移除， `mason.nvim` 也已停用（见 `lua/plugins/bak/mason.lua`）。LSP / 格式化 /
-lint 用到的外部
-工具改为**手动安装**，本文记录落点、每个工具的权威渠道，以及实测定下来的命令与坑。
-
-整机清单与 A/B/C/D 分档见
-`docs/DEPENDENCIES.md`，**本文不复制那份清单**（复制来的副本 一定会过期）。
-
-## 落点：`~/.local/bin`
-
-  | 平台    | 路径                       |
-  | ------- | -------------------------- |
-  | Windows | `%USERPROFILE%\.local\bin` |
-  | Linux   | `~/.local/bin`             |
-
-选它的理由：两个平台的用户 PATH 里**本来就有**这个目录（`uv tool install`
-的产物默认也 落这里），所以装完之后**终端与 Neovim 都能直接解析**，不需要改
-`vim.env.PATH`、也不需要 任何只在编辑器内生效的补丁。装完用下面的命令确认：
-
 ```powershell
 Get-Command stylua, panache, ruff, lua-language-server, basedpyright-langserver
 ```
@@ -26,20 +7,6 @@ Get-Command stylua, panache, ruff, lua-language-server, basedpyright-langserver
 ```sh
 command -v stylua panache ruff lua-language-server basedpyright-langserver
 ```
-
-## 工具与渠道
-
-  | 工具                | 用途                                                                  | 权威渠道                               | 归档 / 包名                                                                      |
-  | ---                 | ---                                                                   | ---                                    | ---                                                                              |
-  | stylua              | Lua 格式化（conform 保存时调用）                                      | 官方 GitHub release                    | `stylua-windows-x86_64.zip` / `stylua-linux-x86_64.zip`                          |
-  | panache             | Markdown formatter + linter + LSP                                     | 官方 GitHub release                    | `panache-x86_64-pc-windows-msvc.zip` / `panache-x86_64-unknown-linux-gnu.tar.gz` |
-  | ruff                | Python lint / format（conform + nvim-lint）                           | `uv tool`                              | 包名 `ruff`                                                                      |
-  | basedpyright        | Python LSP（`nvim-lspconfig.lua` 实际调用 `basedpyright-langserver`） | `uv tool`                              | 包名 `basedpyright`                                                              |
-  | lua-language-server | Lua LSP                                                               | Windows: `winget`；Arch: AUR（`paru`） | `LuaLS.lua-language-server`                                                      |
-
-Linux 侧写的是 glibc 产物（Arch / Ubuntu / Fedora 都是）。Alpine 等 musl
-发行版把 stylua 换成 `stylua-linux-x86_64-musl.zip`、panache 换成
-`panache-x86_64-unknown-linux-musl.tar.gz`。
 
 ## 逐个安装
 
@@ -54,49 +21,31 @@ uv tool install basedpyright
 
 ### stylua
 
-Windows：
+- https://github.com/JohnnyMorganz/StyLua
 
-```powershell
-$zip = "$env:TEMP\stylua.zip"
-curl --ssl-no-revoke -fsSL -o $zip https://github.com/JohnnyMorganz/StyLua/releases/latest/download/stylua-windows-x86_64.zip
-tar.exe -xf $zip -C "$env:USERPROFILE\.local\bin"
+
+```shell
+winget install --id JohnnyMorganz.StyLua -e
+
+cargo install stylua
+
+pip install git+https://github.com/johnnymorganz/stylua
+uv tool install git+https://github.com/johnnymorganz/stylua
 ```
-
-Linux（注意 GNU tar **不能**解 zip，要用 `unzip` 或
-`bsdtar`，且必须补可执行位）：
-
-```sh
-curl --ssl-no-revoke -fsSL -o /tmp/stylua.zip https://github.com/JohnnyMorganz/StyLua/releases/latest/download/stylua-linux-x86_64.zip
-mkdir -p ~/.local/bin
-unzip -oq /tmp/stylua.zip -d ~/.local/bin
-chmod 755 ~/.local/bin/stylua
-```
-
-`stylua` 的 asset 名**不含版本号**，所以可以直接用
-`releases/latest/download/<asset>` 这个 免版本端点。
 
 ### panache
 
-它的 asset 名也**不含版本号**，但版本号在下载路径里，所以要先从
-`releases/latest` 的 302 跳转里把 tag 读出来（不要用 GitHub API，见下文坑 6）：
+- https://github.com/jolars/panache
 
-```sh
-tag=$(curl --ssl-no-revoke -sIL -o /dev/null -w '%{url_effective}' \
-  https://github.com/jolars/panache/releases/latest | sed 's#.*/tag/##')
-# Linux
-curl --ssl-no-revoke -fsSL -o /tmp/panache.tar.gz \
-  "https://github.com/jolars/panache/releases/download/$tag/panache-x86_64-unknown-linux-gnu.tar.gz"
-tar -xzf /tmp/panache.tar.gz -C ~/.local/bin
-chmod 755 ~/.local/bin/panache
+- For Windows PowerShell:
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://panache.bz/install.ps1 | iex"
 ```
 
-Windows 把最后的 asset 换成 `panache-x86_64-pc-windows-msvc.zip`，用
-`tar.exe -xf` 解到 `%USERPROFILE%\.local\bin`即可（Windows 自带的是 bsdtar，能解
-zip）。
-
-上游还发布 `panache-installer.sh` / `panache-installer.ps1`，落点默认就是
-`~/.local/bin`， 但它们的下载用的是**不带 `--ssl-no-revoke` 的
-curl**，在本机会直接失败（见坑 1），所以这里 自己下载更稳。
+- For macOS and Linux:
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://panache.bz/install | sh
+```
 
 ### lua-language-server
 
@@ -158,11 +107,3 @@ AUR 包会装进 `/usr/bin`，那本就在 PATH 上，**不需要 shim**。
 7. **Linux 解压注意。** GNU tar 不能解 zip（Windows 自带的是 bsdtar 可以）；zip
    用 `unzip -o` 或 `bsdtar -xf`。从归档里解出/复制出来的二进制在 Linux 上**必须
    `chmod 755`**， 否则不可执行。
-
-## 与 `docs/DEPENDENCIES.md` 的分工
-
-- 本文：落点、每个工具的权威渠道、实测可用的命令、踩过的坑（"怎么装才对"）
-- `docs/DEPENDENCIES.md`：整机清单与 A/B/C/D
-  分档、逐发行版命令（"新机器要装什么"）
-
-两处不要复制同一份清单。
