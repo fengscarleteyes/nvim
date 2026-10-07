@@ -40,6 +40,7 @@
   | B   | [panache](https://github.com/jolars/panache)                                                                                       | Markdown formatter + linter                                | 见「装到 `~/.local/bin`」                                            |
   | B   | [ruff](https://github.com/astral-sh/ruff)                                                                                          | Python lint / format（conform + nvim-lint）                | 见「装到 `~/.local/bin`」                                            |
   | B   | [basedpyright](https://github.com/DetachHead/basedpyright)                                                                         | Python 的 LSP                                              | 见「装到 `~/.local/bin`」                                            |
+  | B   | Nerd Font                                                                                                                          | 图标字形（tabline / winbar / listchars）                   | 见「字体（Nerd Font）」                                              |
   | C   | [Rust](https://rustup.rs/)                                                                                                         | `cargo install` 装上面多个工具的前提                       | `winget install --id Rustlang.Rustup -e`                             |
   | C   | [Node.js / npm](https://nodejs.org/)                                                                                               | `npm install -g` 工具和 prettier 需要                      | `winget install --id OpenJS.NodeJS -e`（LTS 用 `OpenJS.NodeJS.LTS`） |
   | C   | [Python](https://www.python.org/)                                                                                                  | pyright / ruff 等 Python 工具需要                          | `winget install --id Python.Python.3.13 -e`                          |
@@ -72,6 +73,7 @@
   | B   | [panache](https://github.com/jolars/panache)                                                                                       | Markdown formatter + linter                                | 见「装到 `~/.local/bin`」                                                 |
   | B   | [ruff](https://github.com/astral-sh/ruff)                                                                                          | Python lint / format（conform + nvim-lint）                | 见「装到 `~/.local/bin`」                                                 |
   | B   | [basedpyright](https://github.com/DetachHead/basedpyright)                                                                         | Python 的 LSP                                              | 见「装到 `~/.local/bin`」                                                 |
+  | B   | Nerd Font                                                                                                                          | 图标字形（tabline / winbar / listchars）                   | 见「字体（Nerd Font）」                                                   |
   | C   | [Rust](https://rustup.rs/)                                                                                                         | `cargo install` 装上面多个工具的前提                       | `sudo pacman -S rustup`                                                   |
   | C   | [Node.js / npm](https://nodejs.org/)                                                                                               | `npm install -g` 工具和 prettier 需要                      | `sudo pacman -S nodejs npm`                                               |
   | C   | [Python](https://www.python.org/)                                                                                                  | pyright / ruff 等 Python 工具需要                          | `sudo pacman -S python`                                                   |
@@ -95,6 +97,7 @@
   | A   | [curl](https://curl.se/)                                                                                                           | 下载归档 / 解析 release tag                                | `sudo apt install curl`（一般已随系统安装）                                                     |
   | A   | [unzip](http://infozip.sourceforge.net/UnZip.html)                                                                                 | 解 zip（Linux 上 stylua 的产物是 zip）                     | `sudo apt install unzip`                                                                        |
   | B   | [fd](https://github.com/sharkdp/fd)                                                                                                | fzf-lua 找文件后端                                         | `sudo apt install fd-find`（命令名是 `fdfind`）                                                 |
+  | B   | Nerd Font                                                                                                                          | 图标字形（tabline / winbar / listchars）                   | 见「字体（Nerd Font）」                                                                         |
   | C   | [Rust](https://rustup.rs/)                                                                                                         | `cargo install` 装上面多个工具的前提                       | `sudo apt install rustup`                                                                       |
   | C   | [Node.js / npm](https://nodejs.org/)                                                                                               | `npm install -g` 工具和 prettier 需要                      | `sudo apt install nodejs npm`                                                                   |
   | C   | [Python](https://www.python.org/)                                                                                                  | pyright / ruff 等 Python 工具需要                          | `sudo apt install python3 python3-venv`                                                         |
@@ -118,6 +121,7 @@
   | B   | [fd](https://github.com/sharkdp/fd)                                                                                                | fzf-lua 找文件后端                                         | `sudo dnf install fd-find`                                                             |
   | B   | [lazygit](https://github.com/jesseduffield/lazygit)                                                                                | dashboard 快捷键 g 打开 Git TUI                            | `sudo dnf install lazygit`                                                             |
   | B   | [stylua](https://github.com/JohnnyMorganz/StyLua)                                                                                  | Lua 格式化（conform 保存时调用）                           | `sudo dnf install stylua`；其他装法见「装到 `~/.local/bin`」                           |
+  | B   | Nerd Font                                                                                                                          | 图标字形（tabline / winbar / listchars）                   | 见「字体（Nerd Font）」                                                                |
   | C   | [Rust](https://rustup.rs/)                                                                                                         | `cargo install` 装上面多个工具的前提                       | `sudo dnf install rustup`                                                              |
   | C   | [Node.js / npm](https://nodejs.org/)                                                                                               | `npm install -g` 工具和 prettier 需要                      | `sudo dnf install nodejs npm`                                                          |
   | C   | [Python](https://www.python.org/)                                                                                                  | pyright / ruff 等 Python 工具需要                          | `sudo dnf install python3`                                                             |
@@ -147,6 +151,7 @@
   | B   | [panache](https://github.com/jolars/panache)                                                   | Markdown formatter + linter                                | 见「装到 `~/.local/bin`」                                                                |
   | B   | [ruff](https://github.com/astral-sh/ruff)                                                      | Python lint / format（conform + nvim-lint）                | `uv tool install ruff`，细节见「装到 `~/.local/bin`」                                    |
   | B   | [basedpyright](https://github.com/DetachHead/basedpyright)                                     | Python 的 LSP                                              | `uv tool install basedpyright`，细节见「装到 `~/.local/bin`」                            |
+  | B   | Nerd Font                                                                                      | 图标字形（tabline / winbar / listchars）                   | 见「字体（Nerd Font）」                                                                  |
   | C   | [Rust](https://rustup.rs/)                                                                     | `cargo install` 装上面多个工具的前提                       | `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o rustup.sh && sh rustup.sh` |
   | C   | [uv](https://docs.astral.sh/uv/)                                                               | Python 包/项目管理器（可装 Python；也是 `uv tool` 的来源） | `curl -LsSf https://astral.sh/uv/install.sh \| sh`（或 `pip install uv`）                |
   | C   | [pwsh](https://github.com/PowerShell/PowerShell)                                               | neo-tree 回收站后端                                        | `sudo snap install powershell --classic`（Ubuntu）                                       |
@@ -250,7 +255,53 @@ AUR 包会装进 `/usr/bin`，那本就在 PATH 上，**不需要 shim**。
 > `lua-language-server` 是**目录型**工具（运行时需要同目录的 `main.lua`、`meta/`
 > 等），不能 只把 exe 复制出来单独放。
 
-## D 额外：Pi 编码代理
+## 字体（Nerd Font）
+
+tabline、winbar、listchars 用了图标字形，缺 Nerd Font
+会显示成方框。下面三款任选一款， 装完在终端 / Neovide 里把它设为字体即可。
+
+  | 字体                                                               | Windows                                            | Arch / Linux                      |
+  | ---                                                                | ---                                                | ---                               |
+  | [JetBrainsMono Nerd Font](https://github.com/ryanoasis/nerd-fonts) | `winget install --id DEVCOM.JetBrainsMonoNerdFont` | 从上游 zip 装（见下）             |
+  | [Fira Code Nerd Font](https://github.com/ryanoasis/nerd-fonts)     | 从上游 zip 装（见下）                              | 从上游 zip 装（见下）             |
+  | [Maple Mono NF CN](https://github.com/subframe7536/maple-font)     | 从上游 zip 装（见下）                              | `paru -S maple-mono-nf-cn`（AUR） |
+
+### 从上游 zip 装
+
+`ryanoasis/nerd-fonts` 的 asset
+名不含版本，可直接用免版本端点（`JetBrainsMono.zip` / `FiraCode.zip`）：
+
+```sh
+# Linux：解到用户字体目录并刷新缓存
+mkdir -p ~/.local/share/fonts/JetBrainsMonoNerdFont
+curl --ssl-no-revoke -fsSL -o /tmp/JetBrainsMono.zip \
+  https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
+unzip -oq /tmp/JetBrainsMono.zip -d ~/.local/share/fonts/JetBrainsMonoNerdFont
+fc-cache -fv
+```
+
+Windows 用同一个 zip，解压后全选 `.ttf` 右键「安装」（或拖进「设置 → 个性化 →
+字体」）。
+
+Maple Mono NF CN 的 asset 名同样不含版本，但**版本只在下载路径里**，要先解析
+tag：
+
+```sh
+tag=$(curl --ssl-no-revoke -sIL -o /dev/null -w '%{url_effective}' \
+  https://github.com/subframe7536/maple-font/releases/latest | sed 's#.*/tag/##')
+curl --ssl-no-revoke -fsSL -o /tmp/MapleMono-NF-CN.zip \
+  "https://github.com/subframe7536/maple-font/releases/download/$tag/MapleMono-NF-CN.zip"
+```
+
+```powershell
+# Windows 取 tag 的等价写法
+$tag = (curl.exe --ssl-no-revoke -sIL -o NUL -w "%{url_effective}" https://github.com/subframe7536/maple-font/releases/latest) -split '/tag/' | Select-Object -Last 1
+```
+
+> Arch 官方仓库的 `extra/ttf-nerd-fonts-symbols`
+> 是**符号专用**字体（只有图标、不含正文），
+> 配任意普通等宽字体即可补全图标；不想多下一个字体包可以用它。 ## D 额外：Pi
+> 编码代理
 
 与 Neovim 配置无关，想在终端用 AI 代理写代码时再装。
 
@@ -296,4 +347,3 @@ AUR 包会装进 `/usr/bin`，那本就在 PATH 上，**不需要 shim**。
 - Linux 包名以发行版仓库为准，个别版本会微调（如 Ubuntu 的 fd 包名是 fd-find）
 - 装完外部工具重开 Neovim（PATH 只在启动时读取），再用
   `:checkhealth`、`:checkhealth nvim.treesitter` 与 `Get-Command <工具名>` 复查
-- 用 Neovide 建议装一款 Nerd Font（tabline、winbar、listchars 用了图标字形）

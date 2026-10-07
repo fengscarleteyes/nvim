@@ -183,10 +183,10 @@ require("plugin").setup({ ... })
 （放跨平台命令）+「D 额外」章（与 Neovim 无关）。「档」列写 A 必需 / B 强烈建议
 / C 可选 / D
 额外；工具名链到主页，功能与备注合并写在同一列；平台表里没列的工具去
-「通用」章找。 需要额外步骤的 5 个工具（`lua-language-server` / `stylua` /
-`panache` / `ruff` / `basedpyright`）集中在「装到
-`~/.local/bin`」一节，平台表里只留指引。
-新增工具要同时进对应的平台表和「通用」章（如适用）。
+「通用」章找。需要额外步骤的条目各有专节，平台表里只留指引：5 个工具
+（`lua-language-server` / `stylua` / `panache` / `ruff` /
+`basedpyright`）在「装到 `~/.local/bin`」一节，Nerd Font 在「字体（Nerd
+Font）」一节。 新增工具要同时进对应的平台表和「通用」章（如适用）。
 
 ## 4. 常见任务怎么做（cookbook）
 
