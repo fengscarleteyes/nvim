@@ -64,12 +64,14 @@ vim.api.nvim_create_autocmd("User", {
       vim.keymap.set("n", lhs, rhs, { buffer = bufnr, silent = true, desc = desc })
     end
 
-    -- 在改动块之间跳
+    -- 在改动块之间跳。显式带 target = "all"：nav_hunk 的默认值是 "unstaged"
+    -- （文档 doc/gitsigns.txt:585-586），只跳未暂存的 hunk —— 那样一旦把某个改动
+    -- 暂存了，]c/[c 就再也扫不到它，审查时容易漏看。
     map("]c", function()
-      gs.nav_hunk("next")
+      gs.nav_hunk("next", { target = "all" })
     end, "Gitsigns: 下一个改动")
     map("[c", function()
-      gs.nav_hunk("prev")
+      gs.nav_hunk("prev", { target = "all" })
     end, "Gitsigns: 上一个改动")
 
     -- 逐块处置：暂存 / 退回 / 撤销暂存
