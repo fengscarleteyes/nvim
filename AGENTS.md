@@ -176,7 +176,9 @@ require("plugin").setup({ ... })
 ```
 
 - 只写 `vim.pack.add` + `setup`，没有 lazy 加载字段（`vim.pack` 是启动即加载）
-- 依赖插件在同一个文件里一起 `add`；插件配套的键位/自动命令就地写在这个文件
+- 依赖插件在同一个文件里一起 `add`；键位统一放 `lua/keymaps/`（见第 4
+  节），只有与该插件强耦合、且必须 buffer 局部或特殊触发时机的才留在插件文件（如
+  `hop.lua` 的 `<A-f>`、`nvim-lspconfig.lua` 的补全 `<Tab>`）
 - 首次 `vim.pack.add` 会联网下载：验证前先确认网络前提，离线时的表现见第 7 节
 
 **文档写法**（`docs/DEPENDENCIES.md`）：**按平台分章**，每章一张表，表头固定为
