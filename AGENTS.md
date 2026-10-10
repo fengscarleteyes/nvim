@@ -77,11 +77,12 @@ options → theme → custom → plugins → keymaps → neovide
 - `lua/custom/`：`notify`（接管 `vim.notify`
   的浮动通知）、`clean`、`yank`、`terminal`、
   `autopair`、`diagnostics`、`tabline`、`winbar`、`lsp`、`dashboard`
-- `lua/options/`：`completion`、`files`、`general`、`indent`、`leader`、`search`、`ui`
-- `lua/keymaps/`：`fzf`、`indent`、`insert`、`neotree`
-- `lua/plugins/`：`blink`、`conform`、`fzf-lua`、`gitsigns`、`hardtime`、`hop`、
-  `live-preview`、`neo-tree`、`nvim-lint`、`nvim-lspconfig`、`nvim-origami`、
-  `nvim-treesitter`、`precognition`、`tiny-inline-diagnostic`、`bak/`（已停用）
+- `lua/options/`：`completion`、`diff`、`files`、`general`、`indent`、`leader`、`search`、`ui`
+- `lua/keymaps/`：`fzf`、`git`、`indent`、`insert`、`neotree`
+- `lua/plugins/`：`blink`、`conform`、`diffview`、`fzf-lua`、`gitsigns`、`hardtime`、
+  `hop`、`live-preview`、`neo-tree`、`nvim-lint`、`nvim-lspconfig`、`nvim-origami`、
+  `nvim-treesitter`、`precognition`、`slimline`、`tiny-inline-diagnostic`、
+  `bak/`（已停用）
 - `lua/theme/`：`colorscheme.lua`（生效中，one_monokai）、`bak/tokyonight.lua`（备选，已停用）
 
 **停用而不删除**（保留用户的选择权，不要"清理"）：
