@@ -174,6 +174,19 @@ Get-Command stylua, panache, ruff, lua-language-server, basedpyright-langserver
 command -v stylua panache ruff lua-language-server basedpyright-langserver
 ```
 
+**不同装法的默认落点**：不是每条命令都直接落在 `~/.local/bin` —— `winget` 落
+`WinGet\Packages`、`cargo` 落 `~/.cargo/bin`、`pip` 落 Python 的 Scripts 目录。
+只有 `uv tool` 与 panache 的官方脚本默认就在目标目录。对照：
+
+  | 装法                              | 默认落点                                       | 要不要补一步（落到 `~/.local/bin`）              |
+  | ---                               | ---                                            | ---                                              |
+  | `uv tool install`                 | `~/.local/bin`                                 | 不用                                             |
+  | panache 官方 install 脚本         | `~/.local/bin`（`PANACHE_INSTALL_DIR` 可改）   | 不用                                             |
+  | `cargo install` / `cargo binstall` | `~/.cargo/bin`                                | 要：binstall 加 `--install-path ~/.local/bin`，或装完复制 exe |
+  | `pip install`                     | Python 的 `Scripts`（Windows）/ `bin`（Linux）  | 要：装完复制 exe 到 `~/.local/bin`               |
+  | `winget install`（portable 包）    | `%LOCALAPPDATA%\Microsoft\WinGet\Packages`     | 要：补 `.cmd` shim（坑 3）                       |
+  | 系统包管理器（pacman / apt / dnf） | `/usr/bin` 等                                   | 不用（本就在 PATH，无需 `~/.local/bin`）         |
+
 ### ruff / basedpyright（两个平台完全相同）
 
 ```sh
@@ -185,22 +198,28 @@ uv add --dev ruff
 uv add --dev basedpyright
 ```
 
-`uv tool install` 默认就把可执行文件放进 `~/.local/bin`，无需额外参数；Neovim
-用的是这一条。
+对照上面的表：这两条走 `uv tool install`，默认就落在 `~/.local/bin`，和
+panache 的官方脚本一样**装完不用补任何步骤**。Neovim 用的就是这一条。
 
 ### stylua
 
 - <https://github.com/JohnnyMorganz/StyLua>
 
 ```shell
-winget install --id JohnnyMorganz.StyLua -e
+# 推荐：直接落 ~/.local/bin（uv tool 默认 bin 目录）
+uv tool install git+https://github.com/johnnymorganz/stylua
 
+# 推荐：binstall 用 --install-path 指定落点（需已装 cargo-binstall）
+cargo binstall stylua --install-path ~/.local/bin --disable-strategies compile
+
+# 默认落 ~/.cargo/bin（已在 PATH 能用；想统一进 ~/.local/bin 就装完复制 exe 过去）
 cargo install stylua
 
-cargo binstall stylua
-
+# 默认落 Python 的 Scripts / bin（装完复制 exe 到 ~/.local/bin）
 pip install git+https://github.com/johnnymorganz/stylua
-uv tool install git+https://github.com/johnnymorganz/stylua
+
+# 默认落 WinGet Packages 且不建 shim（坑 3），装完补 .cmd shim 或复制 exe
+winget install --id JohnnyMorganz.StyLua -e
 ```
 
 `cargo install` 需要链接器（MSVC / gcc），没装链接器的机器用 `cargo binstall`
@@ -209,6 +228,9 @@ uv tool install git+https://github.com/johnnymorganz/stylua
 ### panache
 
 - <https://github.com/jolars/panache>
+
+两个平台的脚本**默认都装到 `~/.local/bin`**（脚本里写死 `$HOME/.local/bin`；
+想换位置就设环境变量 `PANACHE_INSTALL_DIR` 再跑），装完无需补步骤。
 
 Windows PowerShell：
 
@@ -234,10 +256,10 @@ Windows：
 winget install --id LuaLS.lua-language-server -e --accept-package-agreements --accept-source-agreements
 ```
 
-它会被装到
+这条走 winget：默认落在
 `%LOCALAPPDATA%\Microsoft\WinGet\Packages\LuaLS.lua-language-server_*\bin\`
-下，但 **winget 不会建 shim**（见坑 3），所以要自己补一个
-`%USERPROFILE%\.local\bin\lua-language-server.cmd`：
+下，**不在 PATH**，且 winget 不为 portable 包建 shim（坑 3），所以要自己补
+一个 `%USERPROFILE%\.local\bin\lua-language-server.cmd`：
 
 ```bat
 @echo off
@@ -250,7 +272,8 @@ Arch：
 paru -S lua-language-server
 ```
 
-AUR 包会装进 `/usr/bin`，那本就在 PATH 上，**不需要 shim**。
+AUR 包走系统包管理器，装进 `/usr/bin`（本就在 PATH 上），**不需要 shim**，
+也无需 `~/.local/bin`。
 
 > `lua-language-server` 是**目录型**工具（运行时需要同目录的 `main.lua`、`meta/`
 > 等），不能 只把 exe 复制出来单独放。
