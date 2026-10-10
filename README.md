@@ -7,6 +7,14 @@ git clone git@github.com:fengscarleteyes/nvim.git
 ```
 
 ```shell
+# 只克隆 vim_pack 一个分支（不拉其余分支的历史）
+git clone --branch vim_pack --single-branch git@github.com:fengscarleteyes/nvim.git
+
+# 直连 GitHub 被重置时改用 Gitee 镜像（同样含 vim_pack 分支）
+git clone --branch vim_pack --single-branch https://gitee.com/fengscarleteyes/nvim.git
+```
+
+```shell
 # 格式化当前目录及其所有子文件夹
 stylua .
 
