@@ -77,7 +77,14 @@ vim.api.nvim_create_autocmd("User", {
     map("<leader>hr", gs.reset_hunk, "Gitsigns: 退回本块改动")
     map("<leader>hS", gs.stage_buffer, "Gitsigns: 暂存整个文件")
     map("<leader>hR", gs.reset_buffer, "Gitsigns: 退回整个文件")
-    map("<leader>hu", gs.undo_stage_hunk, "Gitsigns: 撤销上次暂存")
+    -- 原先这里绑的是 <leader>hu → gs.undo_stage_hunk。它已被 gitsigns 标为弃用
+    -- （源码 actions.lua:434 `@deprecated use gitsigns.stage_hunk() on staged signs`，
+    -- 文档 doc/gitsigns.txt:610 同），弃用标记会经 lazydev 传给 lua_ls 弹出提示，
+    -- 且未来版本可能直接移除（那时按键才会运行时报错），所以已删除。
+    -- 取消暂存的做法：把光标移到那条 staged 记号上按 <leader>hs —— stage_hunk 在
+    -- 找不到未暂存 hunk 时会自动 invert 成 unstage（源码 actions.lua:317-321）。
+    -- 若要「整个文件取消暂存」，gitsigns 另有 gs.reset_buffer_index()（文档 :589，
+    -- 注意它是真的对文件跑 git reset），需要的话再绑。
 
     -- 看：浮窗预览 / 整屏对比 / 本行来历
     map("<leader>hp", gs.preview_hunk, "Gitsigns: 预览本块改动")
