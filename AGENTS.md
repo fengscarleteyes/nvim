@@ -79,10 +79,10 @@ options → theme → custom → plugins → keymaps → neovide
   `autopair`、`diagnostics`、`tabline`、`winbar`、`lsp`、`dashboard`
 - `lua/options/`：`completion`、`diff`、`files`、`general`、`indent`、`leader`、`search`、`ui`
 - `lua/keymaps/`：`fzf`、`git`、`indent`、`insert`、`neotree`
-- `lua/plugins/`：`blink`、`conform`、`diffs`、`diffview`、`fzf-lua`、`gitsigns`、
+- `lua/plugins/`：`blink`、`conform`、`diffview`、`fzf-lua`、`gitsigns`、
   `hardtime`、`hop`、`live-preview`、`neo-tree`、`nvim-lint`、`nvim-lspconfig`、
   `nvim-origami`、`nvim-treesitter`、`precognition`、`slimline`、
-  `tiny-inline-diagnostic`、`unified`、`bak/`（已停用）
+  `tiny-inline-diagnostic`、`bak/`（已停用）
 - `lua/theme/`：`colorscheme.lua`（生效中，one_monokai）、`bak/tokyonight.lua`（备选，已停用）
 
 **停用而不删除**（保留用户的选择权，不要"清理"）：
