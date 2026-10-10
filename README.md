@@ -31,10 +31,6 @@ stylua -g *.lua -g !*.spec.lua -- .
 stylua --check .
 ```
 
-## version manager
-
-> <https://github.com/y3owk1n/nvs>
-
 ## Python
 
 ### VENV
