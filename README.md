@@ -89,6 +89,45 @@ zi    -- 全局切换折叠功能 (Toggle folding enable/disable)
   | Buffer 内容区域                  | no bar             |
   | Statusline（底部）               | ← 最经典的 bar     |
 
+## Review workflow
+
+键位：`<leader>` = 空格；想查全部键位用 `<leader>fk`（FzfLua keymaps）。
+
+定义位置：选择器与 diffview 在 `lua/keymaps/git.lua`，gitsigns 的显示配置在
+`lua/plugins/gitsigns.lua`。
+
+```lua
+-- 选择器（fzf-lua，全部是内置 provider，不需要额外插件）
+<leader>gs     -- 工作区的改动文件列表
+<leader>gb     -- 当前文件的提交历史
+<leader>gc     -- 整个仓库的提交历史
+<leader>gd     -- 改动的 diff 视图
+<leader>gF     -- 只列 git 跟踪的文件
+<leader>gB     -- 分支列表 / 切换
+
+-- 全局对比（diffview：一次看完本次改动涉及的所有文件）
+<leader>dv     -- 打开（左侧改动文件树 + 右侧并排 diff）
+<leader>dt     -- 打开 / 关闭切换
+<leader>dc     -- 关闭
+<leader>dh     -- 当前文件的提交历史
+
+-- 逐块处置：gitsigns 有意不绑键位，直接用命令
+-- （40 个子命令可 :Gitsigns <Tab> 补全；标志用双横线）
+:Gitsigns nav_hunk next --target=all   -- 下一个改动；--target=all 才会扫到已暂存的
+:Gitsigns nav_hunk prev --target=all   -- 上一个改动
+:Gitsigns stage_hunk                   -- 暂存本块（在已暂存的记号上执行 = 取消暂存）
+:Gitsigns reset_hunk                   -- 退回（丢弃）本块
+:Gitsigns stage_buffer                 -- 暂存整个文件
+:Gitsigns reset_buffer                 -- 退回整个文件
+:Gitsigns reset_buffer_index           -- 整个文件取消暂存（真的对文件跑 git reset）
+:Gitsigns preview_hunk                 -- 浮窗预览本块改动
+:Gitsigns diffthis                     -- 本块与本块基线对比
+:Gitsigns blame_line --full            -- 本行 blame
+:Gitsigns setqflist attached --open    -- 本文件改动 → quickfix
+:Gitsigns toggle_word_diff             -- 词级差异开关
+:Gitsigns toggle_current_line_blame    -- 本行 blame 开关
+```
+
 ## TODO
 
 - tabline add extend callback statusline add
