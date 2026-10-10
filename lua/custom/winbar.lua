@@ -52,6 +52,7 @@ local NO_WINBAR_FILETYPES = {
   fzf = true,
   terminal = true,
   custom_diag = true, -- custom.diagnostics 的底部 / 右侧面板
+  review_panel = true, -- custom.review 的改动文件面板
 }
 --- 语句块 / 占位符类符号名（LuaLS 会把 if / for / return、匿名表也报成符号）：
 --- 它们不是可跳转的位置，放进面包屑只会制造 "normalize > if > convert" 这种噪声，

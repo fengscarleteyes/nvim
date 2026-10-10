@@ -45,7 +45,7 @@ local M = {}
 
 --- 默认配置
 local DEFAULTS = {
-  disable_filetypes = { "mason", "dashboard" },
+  disable_filetypes = { "mason", "dashboard", "review_panel" },
   width = 50,
   height = 20,
   border = "single",

@@ -99,27 +99,28 @@ zi    -- 全局切换折叠功能 (Toggle folding enable/disable)
 ### 流程
 
 1. **先看范围** ------ 代理一次常改好几个文件，别急着逐行读。 `<leader>gs`
-   列出改动的文件（fzf 里可直接预览）； 想一屏铺开全部改动就 `<leader>dv` 开
-   diffview（左改动文件树 + 右并排 diff）， 在里面按 `g?`
-   看它自己的键位；文件面板上 `-` / `s` 暂存或取消暂存选中的那个条目，`S` / `U`
-   则是全部暂存 / 全部取消暂存。
+   列出改动的文件（fzf 里可直接预览）； 想一屏铺开全部改动就 `<leader>dv`
+   打开 review 的改动文件面板（`lua/custom/review.lua`，diffview 已停用）：
+   面板里 `j` / `k` 移动、`<CR>` 打开该文件的并排 diff、`q` / `<Esc>` 关闭。
 2. **再逐块看** ------ 回到文件里靠 gitsigns
    的行内标记定位（`numhl`，改过的行号变色）。 `:Gitsigns preview_hunk`
    浮窗看这块改了什么；配置里开了 `word_diff`，所以 "一行里只换了个
    token"也看得出来。 要看上下文用 `:Gitsigns diffthis`（本块 vs 基线），或回到
-   diffview 并排看。 跳改动：`:Gitsigns nav_hunk next --target=all`（`prev`
-   同）。
+   review 的并排 diff 看。 跳改动：`:Gitsigns nav_hunk next --target=all`
+   （`prev` 同）。
 3. **判断与处置** ------ 满意的块 `:Gitsigns stage_hunk`；不要的
    `:Gitsigns reset_hunk` （丢弃）；整个文件不要
    `:Gitsigns reset_buffer`；整个文件取消暂存 `:Gitsigns reset_buffer_index`。
+   文件级处置也有短命令：`:ReviewStage`（git add）/ `:ReviewReset`
+   （git checkout --，带确认）。
    想逐个过一遍：`:Gitsigns setqflist attached --open` 把本文件所有改动灌进
    quickfix，再用 `:cnext` / `:cprev` 跳。
 4. **验证代理的改动** ------ 行内诊断由 tiny-inline-diagnostic 显示，汇总看
    `:DiagToggle` 面板与 `:DiagNext` / `:DiagPrev`；保存时 conform + nvim-lint 会
    自动格式化并跑 lint（stylua / panache / ruff）。 只想搜 git 跟踪的文件（避开
    `.venv/` 之类的噪音）用 `<leader>gF`。
-5. **回溯来历** ------ `<leader>gb` 当前文件的提交历史、`<leader>dh` diffview
-   的单文件 历史、`:Gitsigns blame_line --full` 本行 blame。
+5. **回溯来历** ------ `<leader>gb` 当前文件的提交历史（fzf 选择器）、
+   `:Gitsigns blame_line --full` 本行 blame。
    兜底还有持久化撤销（`undofile`，`lua/options/files.lua`）：代理改坏了，除了
    git 之外还能跨会话撤销。
 
@@ -136,7 +137,8 @@ zi    -- 全局切换折叠功能 (Toggle folding enable/disable)
 
 键位：`<leader>` = 空格；想查全部键位用 `<leader>fk`（FzfLua keymaps）。
 
-定义位置：选择器与 diffview 在 `lua/keymaps/git.lua`，gitsigns 的显示配置在
+定义位置：选择器在 `lua/keymaps/git.lua`，审查视图在 `lua/custom/review.lua`
+（用法与配置见该文件头部注释），gitsigns 的显示配置在
 `lua/plugins/gitsigns.lua`。
 
 ```lua
@@ -148,11 +150,15 @@ zi    -- 全局切换折叠功能 (Toggle folding enable/disable)
 <leader>gF     -- 只列 git 跟踪的文件
 <leader>gB     -- 分支列表 / 切换
 
--- 全局对比（diffview：一次看完本次改动涉及的所有文件）
-<leader>dv     -- 打开（左侧改动文件树 + 右侧并排 diff）
-<leader>dt     -- 打开 / 关闭切换
-<leader>dc     -- 关闭
-<leader>dh     -- 当前文件的提交历史
+-- 全局对比（custom.review：改动文件面板 + 并排 diff；diffview 已停用）
+<leader>dv     -- 刷新磁盘改动并打开文件面板（:Review）
+<leader>dt     -- 开关文件面板（:ReviewToggle）
+<leader>dc     -- 关闭 diff 与面板（:ReviewClose）
+:ReviewDiff    -- 打开当前文件 diff
+:ReviewStage   -- 暂存当前文件（git add）
+:ReviewReset   -- 丢弃当前文件的工作区改动（带确认）
+:ReviewStatus  -- 审查进度（一行通知）
+:ReviewRefresh -- 重新读取 git status 刷新列表
 
 -- 逐块处置：gitsigns 有意不绑键位，直接用命令
 -- （40 个子命令可 :Gitsigns <Tab> 补全；标志用双横线）

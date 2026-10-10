@@ -18,6 +18,7 @@
 --   tabline.lua      单条信息栏 tabline（buffer / tab / window 数量 + 当前文件名）
 --   winbar.lua       窗口顶栏面包屑（LSP documentSymbol 的符号层级路径）
 --   lsp.lua          LSP 实用命令（悬停 / 定义 / 代码操作 / 预览 / 查找 / 重命名…）+ :Lsp* 命令
+--   review.lua       审查工作流：改动文件面板 + 并排 diff（diffview 的自研替代，默认不绑键位）+:Review* 命令
 --   dashboard.lua    启动仪表盘（历史文件数字键 + 自定义快捷功能 + 自带配色）+:Dashboard* 命令
 --
 -- 模块约定（标准 Neovim 插件写法）：
@@ -75,3 +76,8 @@ require("custom.winbar").setup()
 require("custom.dashboard").setup()
 
 require("custom.lsp").setup()
+
+-- 审查工作流：改动文件面板 + 并排 diff；默认不绑键位（map_keys = true 才绑），:Review* 命令使用
+-- 命令：:Review / :ReviewFiles / :ReviewDiff / :ReviewClose / :ReviewToggle / :ReviewStage /
+-- :ReviewReset / :ReviewStatus / :ReviewRefresh；diffview 已停用（lua/plugins/bak/）
+require("custom.review").setup()

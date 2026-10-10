@@ -1,5 +1,5 @@
 -- ============================================================
--- diff 模式显示：审查代码改动（:DiffviewOpen、:diffsplit、git diff）时的对比外观
+-- diff 模式显示：审查代码改动（:ReviewDiff 的并排 diff、:diffsplit、git diff）时的对比外观
 -- （由 lua/options.lua 通过 :runtime! lua/options/*.lua 加载）
 -- ------------------------------------------------------------
 -- 用 :append 追加而不是覆盖：Neovim 0.12 的默认值已经很好，实测为

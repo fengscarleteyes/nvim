@@ -1,5 +1,5 @@
 -- ============================================================
--- git / 审查相关键位：选择器（fzf-lua）与全局对比（diffview）
+-- git / 审查相关键位：选择器（fzf-lua）与审查视图（lua/custom/review.lua）
 -- （由 lua/keymaps.lua 通过 :runtime! lua/keymaps/*.lua 加载，文件名决定加载顺序）
 -- ------------------------------------------------------------
 -- 选择器名取自 fzf-lua 的注册表（init.lua 里的 git_files / git_status / git_diff /
@@ -36,20 +36,17 @@ vim.keymap.set("n", "<leader>gF", "<Cmd>FzfLua git_files<CR>", { silent = true, 
 vim.keymap.set("n", "<leader>gB", "<Cmd>FzfLua git_branches<CR>", { silent = true, desc = "Git branches" })
 
 -- ============================================================
--- diffview：全局对比（一次看完本次改动涉及的所有文件）
+-- review 模块：全局对比（一次看完本次改动涉及的所有文件）
+-- （diffview 已停用：lua/plugins/bak/diffview.lua；键位改指向 :Review*，
+--   用法见 lua/custom/review.lua 头部注释）
 -- ============================================================
 
-vim.keymap.set("n", "<leader>dv", "<Cmd>DiffviewOpen<CR>", {
+vim.keymap.set("n", "<leader>dv", "<Cmd>Review<CR>", {
   silent = true,
-  desc = "Diffview: 打开（工作区全部改动）",
+  desc = "Review: 刷新磁盘改动并打开文件面板",
 })
 
--- 开 / 关切换（fork 的命令：已开则关、未开则开）
-vim.keymap.set("n", "<leader>dt", "<Cmd>DiffviewToggle<CR>", { silent = true, desc = "Diffview: 打开 / 关闭" })
+-- 开 / 关切换（文件面板）
+vim.keymap.set("n", "<leader>dt", "<Cmd>ReviewToggle<CR>", { silent = true, desc = "Review: 开关文件面板" })
 
-vim.keymap.set("n", "<leader>dc", "<Cmd>DiffviewClose<CR>", { silent = true, desc = "Diffview: 关闭" })
-
-vim.keymap.set("n", "<leader>dh", "<Cmd>DiffviewFileHistory %<CR>", {
-  silent = true,
-  desc = "Diffview: 当前文件的提交历史",
-})
+vim.keymap.set("n", "<leader>dc", "<Cmd>ReviewClose<CR>", { silent = true, desc = "Review: 关闭 diff 与面板" })
