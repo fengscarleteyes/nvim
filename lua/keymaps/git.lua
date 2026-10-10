@@ -105,6 +105,8 @@ vim.keymap.set(
   "<Cmd>DiffviewOpen<CR>",
   { silent = true, desc = "Diffview: 打开（工作区全部改动）" }
 )
+-- 开 / 关切换（fork 的命令：已开则关、未开则开）
+vim.keymap.set("n", "<leader>dt", "<Cmd>DiffviewToggle<CR>", { silent = true, desc = "Diffview: 打开 / 关闭" })
 vim.keymap.set("n", "<leader>dc", "<Cmd>DiffviewClose<CR>", { silent = true, desc = "Diffview: 关闭" })
 vim.keymap.set("n", "<leader>dh", "<Cmd>DiffviewFileHistory %<CR>", {
   silent = true,
