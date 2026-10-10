@@ -76,13 +76,13 @@ options → theme → custom → plugins → keymaps → neovide
 
 - `lua/custom/`：`notify`（接管 `vim.notify`
   的浮动通知）、`clean`、`yank`、`terminal`、
-  `autopair`、`diagnostics`、`tabline`、`winbar`、`lsp`、`dashboard`
+  `autopair`、`diagnostics`、`tabline`、`winbar`、`lsp`、`dashboard`、`review`
 - `lua/options/`：`completion`、`diff`、`files`、`general`、`indent`、`leader`、`search`、`ui`
 - `lua/keymaps/`：`fzf`、`git`、`indent`、`insert`、`neotree`
-- `lua/plugins/`：`blink`、`conform`、`diffview`、`fzf-lua`、`gitsigns`、
+- `lua/plugins/`：`blink`、`conform`、`fzf-lua`、`gitsigns`、
   `hardtime`、`hop`、`live-preview`、`neo-tree`、`nvim-lint`、`nvim-lspconfig`、
   `nvim-origami`、`nvim-treesitter`、`precognition`、`slimline`、
-  `tiny-inline-diagnostic`、`bak/`（已停用）
+  `tiny-inline-diagnostic`、`bak/`（已停用，含 `diffview`）
 - `lua/theme/`：`colorscheme.lua`（生效中，one_monokai）、`bak/tokyonight.lua`（备选，已停用）
 
 **停用而不删除**（保留用户的选择权，不要"清理"）：
@@ -274,6 +274,16 @@ Font）」一节。 新增工具要同时进对应的平台表和「通用」章
   等），不是 `/vibekit:vibe` / `/vibekit:quick`：后者是 Claude Code
   的命令格式，vibekit 的 `package.json` 里 `pi` 清单只声明 skills，pi 不加载
   `commands/` 目录（见 `docs/PI-NEOVIM-WORKFLOW.md`）
+- lua_ls 报 `Undefined global 'vim'`：lua-language-server（Lua 的 LSP，手动装在
+  `~/.local/bin`）默认不认识 Neovim 的 `vim` 全局，必须把 Neovim runtime 加进它
+  的 library 才不报。编辑器里由 lazydev.nvim 注入（`lua/plugins/nvim-lspconfig.lua`
+  的 library 表：`${3rd}/luv/library` + `$VIMRUNTIME` 系列路径），`.luarc.json`
+  只放格式配置（缩进），不要在这里重复写 library。命令行复现 / 自检用
+  `lua-language-server --check=<仓库根> --configpath=<临时json>`，临时 json 里写
+  `Lua.workspace.library` 指向 `<VIMRUNTIME>/lua`、`/lua/vim`、`/lua/vim/lsp`；
+  不带 library 时 --check 会输出满屏 `Undefined global vim`（全是误报，不是代码
+  问题）。同一文件里 `nvim_buf_add_highlight` 已废弃（lua_ls 报 Deprecated），
+  改用 `nvim_buf_set_extmark`（见 `lua/custom/review.lua` 的 render_panel 注释）
 
 ## 8. git 与提交
 
@@ -296,6 +306,9 @@ Neovim    ≥ 0.12（本机 0.12.5；vim.pack 依赖它）
            已装：stylua、panache、ruff、lua-language-server、basedpyright-langserver
            全部手动安装（mason 与旧的自举模块都已停用 / 移除）：渠道、命令与踩坑
            见 docs/DEPENDENCIES.md。该目录已在用户 PATH 上，终端与 Neovim 都能直接解析
+           lua_ls 的 library（让 lua_ls 认识 vim / vim.uv）：编辑器里由 lazydev.nvim
+           注入（见 lua/plugins/nvim-lspconfig.lua），.luarc.json 只放格式配置；
+           命令行自检（--check）与误报处理见第 7 节「lua_ls 报 Undefined global 'vim'」
 外部依赖   清单以 docs/DEPENDENCIES.md 为准（A 必需 / B 强烈建议 / C 可选 / D 额外，
            逐发行版给安装命令）。本文件不复制清单，避免两处不一致
 ```
