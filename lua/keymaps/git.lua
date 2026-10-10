@@ -1,18 +1,16 @@
 -- ============================================================
--- git / 审查相关键位：选择器（fzf-lua）、逐块处置（gitsigns）、全局对比（diffview）
+-- git / 审查相关键位：选择器（fzf-lua）与全局对比（diffview）
 -- （由 lua/keymaps.lua 通过 :runtime! lua/keymaps/*.lua 加载，文件名决定加载顺序）
 -- ------------------------------------------------------------
 -- 选择器名取自 fzf-lua 的注册表（init.lua 里的 git_files / git_status / git_diff /
 -- git_commits / git_bcommits / git_branches）。
--- 分工：<leader>g* = 选择器，<leader>h* = gitsigns 逐块处置，<leader>d* = diffview。
+-- 分工：<leader>g* = 选择器，<leader>d* = diffview。
 --
--- gitsigns 的键位为什么靠事件绑、而不是直接全局绑：
---   1. 它的动作在未 attach 的 buffer 上会打印 "Buffer is not attached."，
---      全局绑会让非 git 文件里按 <leader>hs 变成报错；
---   2. ]c / [c 是 diff 模式的内置键（跳到下一处差异），全局覆盖会把它吃掉。
--- 所以监听 gitsigns 的 `User GitSignsUpdate`（源码 status.lua:15 用 data.buffer 传出
--- buffer 号），只对 attach 到的那个 buffer 做局部绑定 —— 效果与写在插件 on_attach 里
--- 一致，但键位定义集中在 keymaps/。
+-- gitsigns **有意不在这里绑键位**，改用 :Gitsigns <子命令> 直接操作；命令清单与参数
+-- 写在其插件文件 lua/plugins/gitsigns.lua 的头部注释里。
+-- 这么定的原因：它的动作只在 git 仓库的 buffer 上有效（否则报 "Buffer is not
+-- attached."），而 ]c/[c 又是 diff 模式的内置键，要绑就得监听它的 attach 事件做
+-- buffer 局部绑定 —— 复杂度与收益不成比例。
 -- ============================================================
 
 -- ============================================================
@@ -38,96 +36,19 @@ vim.keymap.set("n", "<leader>gF", "<Cmd>FzfLua git_files<CR>", { silent = true, 
 vim.keymap.set("n", "<leader>gB", "<Cmd>FzfLua git_branches<CR>", { silent = true, desc = "Git branches" })
 
 -- ============================================================
--- gitsigns：逐块处置（buffer 局部，attach 之后才绑）
--- ============================================================
-
-local bound = {} -- 已绑过键位的 buffer：GitSignsUpdate 会随每次状态更新重复触发
-
-vim.api.nvim_create_autocmd("BufDelete", {
-  callback = function(args)
-    bound[args.buf] = nil
-  end,
-})
-
-vim.api.nvim_create_autocmd("User", {
-  pattern = "GitSignsUpdate",
-  callback = function(args)
-    local bufnr = args.data and args.data.buffer
-    if not bufnr or bound[bufnr] then
-      return
-    end
-    bound[bufnr] = true
-
-    local gs = require("gitsigns")
-
-    local function map(lhs, rhs, desc)
-      vim.keymap.set("n", lhs, rhs, { buffer = bufnr, silent = true, desc = desc })
-    end
-
-    -- 在改动块之间跳。显式带 target = "all"：nav_hunk 的默认值是 "unstaged"
-    -- （文档 doc/gitsigns.txt:585-586），只跳未暂存的 hunk —— 那样一旦把某个改动
-    -- 暂存了，]c/[c 就再也扫不到它，审查时容易漏看。
-    --
-    -- 两处 disable-next-line 压的是 lua_ls 的 missing-fields 警告，那是 gitsigns
-    -- 注解自己的问题：公开 API 写的是完整类型（actions.lua:558
-    -- `@param opts Gitsigns.NavOpts?`），内部归一化函数却用 Partial
-    -- （actions/nav.lua:41），而这些字段在运行时全都有动态默认值
-    -- （nav.lua:47-69：wrap←wrapscan、foldopen←foldopen 含 search、
-    -- navigation_message←shortmess、count←v:count1、greedy=true）。
-    -- 不要为了消警告把字段补全 —— 那会把 <count>]c 和用户自己的 'wrapscan'
-    -- 设置一起废掉。
-    map("]c", function()
-      ---@diagnostic disable-next-line: missing-fields
-      gs.nav_hunk("next", { target = "all" })
-    end, "Gitsigns: 下一个改动")
-    map("[c", function()
-      ---@diagnostic disable-next-line: missing-fields
-      gs.nav_hunk("prev", { target = "all" })
-    end, "Gitsigns: 上一个改动")
-
-    -- 逐块处置：暂存 / 退回 / 撤销暂存
-    map("<leader>hs", gs.stage_hunk, "Gitsigns: 暂存本块改动")
-    map("<leader>hr", gs.reset_hunk, "Gitsigns: 退回本块改动")
-    map("<leader>hS", gs.stage_buffer, "Gitsigns: 暂存整个文件")
-    map("<leader>hR", gs.reset_buffer, "Gitsigns: 退回整个文件")
-    -- 原先这里绑的是 <leader>hu → gs.undo_stage_hunk。它已被 gitsigns 标为弃用
-    -- （源码 actions.lua:434 `@deprecated use gitsigns.stage_hunk() on staged signs`，
-    -- 文档 doc/gitsigns.txt:610 同），弃用标记会经 lazydev 传给 lua_ls 弹出提示，
-    -- 且未来版本可能直接移除（那时按键才会运行时报错），所以已删除。
-    -- 取消暂存的做法：把光标移到那条 staged 记号上按 <leader>hs —— stage_hunk 在
-    -- 找不到未暂存 hunk 时会自动 invert 成 unstage（源码 actions.lua:317-321）。
-    -- 若要「整个文件取消暂存」，gitsigns 另有 gs.reset_buffer_index()（文档 :589，
-    -- 注意它是真的对文件跑 git reset），需要的话再绑。
-
-    -- 看：浮窗预览 / 整屏对比 / 本行来历
-    map("<leader>hp", gs.preview_hunk, "Gitsigns: 预览本块改动")
-    map("<leader>hd", gs.diffthis, "Gitsigns: 本块与本块基线对比")
-    map("<leader>hb", function()
-      gs.blame_line({ full = true })
-    end, "Gitsigns: 本行 blame")
-
-    -- 把本文件所有改动灌进 quickfix，用 :cnext / :copen 逐条过
-    map("<leader>hq", gs.setqflist, "Gitsigns: 改动列表 → quickfix")
-
-    -- 显示开关
-    map("<leader>hw", gs.toggle_word_diff, "Gitsigns: 词级差异开关")
-    map("<leader>hB", gs.toggle_current_line_blame, "Gitsigns: 本行 blame 开关")
-  end,
-})
-
--- ============================================================
 -- diffview：全局对比（一次看完本次改动涉及的所有文件）
 -- ============================================================
 
-vim.keymap.set(
-  "n",
-  "<leader>dv",
-  "<Cmd>DiffviewOpen<CR>",
-  { silent = true, desc = "Diffview: 打开（工作区全部改动）" }
-)
+vim.keymap.set("n", "<leader>dv", "<Cmd>DiffviewOpen<CR>", {
+  silent = true,
+  desc = "Diffview: 打开（工作区全部改动）",
+})
+
 -- 开 / 关切换（fork 的命令：已开则关、未开则开）
 vim.keymap.set("n", "<leader>dt", "<Cmd>DiffviewToggle<CR>", { silent = true, desc = "Diffview: 打开 / 关闭" })
+
 vim.keymap.set("n", "<leader>dc", "<Cmd>DiffviewClose<CR>", { silent = true, desc = "Diffview: 关闭" })
+
 vim.keymap.set("n", "<leader>dh", "<Cmd>DiffviewFileHistory %<CR>", {
   silent = true,
   desc = "Diffview: 当前文件的提交历史",
