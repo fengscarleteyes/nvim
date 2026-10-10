@@ -91,6 +91,49 @@ zi    -- 全局切换折叠功能 (Toggle folding enable/disable)
 
 ## Review workflow
 
+配合 CLI 编码代理（本仓库用 pi + vibekit，见 `docs/DEPENDENCIES.md` 的 D
+档）审查 代码的推荐流程。前提在配置里已经就绪：`autoread` + `checktime`
+（`lua/options/files.lua`）让代理写盘后你切回窗口就是新版，`updatetime = 200`
+让它足够灵敏。
+
+### 流程
+
+1. **先看范围** ------ 代理一次常改好几个文件，别急着逐行读。 `<leader>gs`
+   列出改动的文件（fzf 里可直接预览）； 想一屏铺开全部改动就 `<leader>dv` 开
+   diffview（左改动文件树 + 右并排 diff）， 在里面按 `g?`
+   看它自己的键位；文件面板上 `-` / `s` 暂存或取消暂存选中的那个条目，`S` / `U`
+   则是全部暂存 / 全部取消暂存。
+2. **再逐块看** ------ 回到文件里靠 gitsigns
+   的行内标记定位（`numhl`，改过的行号变色）。 `:Gitsigns preview_hunk`
+   浮窗看这块改了什么；配置里开了 `word_diff`，所以 "一行里只换了个
+   token"也看得出来。 要看上下文用 `:Gitsigns diffthis`（本块 vs 基线），或回到
+   diffview 并排看。 跳改动：`:Gitsigns nav_hunk next --target=all`（`prev`
+   同）。
+3. **判断与处置** ------ 满意的块 `:Gitsigns stage_hunk`；不要的
+   `:Gitsigns reset_hunk` （丢弃）；整个文件不要
+   `:Gitsigns reset_buffer`；整个文件取消暂存 `:Gitsigns reset_buffer_index`。
+   想逐个过一遍：`:Gitsigns setqflist attached --open` 把本文件所有改动灌进
+   quickfix，再用 `:cnext` / `:cprev` 跳。
+4. **验证代理的改动** ------ 行内诊断由 tiny-inline-diagnostic 显示，汇总看
+   `:DiagToggle` 面板与 `:DiagNext` / `:DiagPrev`；保存时 conform + nvim-lint 会
+   自动格式化并跑 lint（stylua / panache / ruff）。 只想搜 git 跟踪的文件（避开
+   `.venv/` 之类的噪音）用 `<leader>gF`。
+5. **回溯来历** ------ `<leader>gb` 当前文件的提交历史、`<leader>dh` diffview
+   的单文件 历史、`:Gitsigns blame_line --full` 本行 blame。
+   兜底还有持久化撤销（`undofile`，`lua/options/files.lua`）：代理改坏了，除了
+   git 之外还能跨会话撤销。
+
+### 两个容易踩的点
+
+- **`nav_hunk` 默认只跳未暂存的 hunk**（`--target=unstaged`）------
+  也就是说某个改动 一旦被你暂存，默认就再也跳不到它了。审查时统一带
+  `--target=all`。
+- **gitsigns 有意不绑键位**，所以上面出现的都是命令而不是按键。完整清单见
+  `lua/plugins/gitsigns.lua` 头部注释（共 40 个子命令，`:Gitsigns <Tab>`
+  可补全， 标志用双横线如 `--full`）。
+
+### 键位与命令速查
+
 键位：`<leader>` = 空格；想查全部键位用 `<leader>fk`（FzfLua keymaps）。
 
 定义位置：选择器与 diffview 在 `lua/keymaps/git.lua`，gitsigns 的显示配置在
