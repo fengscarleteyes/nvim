@@ -313,10 +313,15 @@ $tag = (curl.exe --ssl-no-revoke -sIL -o NUL -w "%{url_effective}" https://githu
 
 ## 实测踩过的坑
 
-1. **curl 必须加 `--ssl-no-revoke`。** 否则报
+1. **curl 与 git 都要跳过证书吊销检查（Windows schannel）。** curl 报
    `curl: (35) schannel: next InitializeSecurityContext failed: CRYPT_E_NO_REVOCATION_CHECK (0x80092012)`
-   ------访问不到证书吊销服务器，一个字节都下不来。`cargo` / `winget` 用各自的
-   TLS 栈，不受影响。
+   ------访问不到证书吊销服务器，一个字节都下不来；git 直连 github
+   被同样的原因拦住， 表现为
+   `Recv failure: Connection was reset`。两者的解法互不影响（各用各的 TLS 栈）：
+   curl 加 `--ssl-no-revoke`；git 用
+   `git config --global http.schannelCheckRevoke false` 写进 `~/.gitconfig`
+   一次搞定（`vim.pack` 拉插件走的就是 git，所以这条是**新增插件的
+   前提**）。`cargo` / `winget` 用各自的 TLS 栈，不受影响。
 2. **`cargo install` 在没装链接器的机器上不可用。** 例如 `rustc` 的 host 是
    `x86_64-pc-windows-msvc`，但机器上没有 `link.exe` / `cl.exe` / VS Build Tools
    / gcc， 链接阶段必然失败。要装 Rust 程序就用
