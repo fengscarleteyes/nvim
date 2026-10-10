@@ -67,10 +67,21 @@ vim.api.nvim_create_autocmd("User", {
     -- 在改动块之间跳。显式带 target = "all"：nav_hunk 的默认值是 "unstaged"
     -- （文档 doc/gitsigns.txt:585-586），只跳未暂存的 hunk —— 那样一旦把某个改动
     -- 暂存了，]c/[c 就再也扫不到它，审查时容易漏看。
+    --
+    -- 两处 disable-next-line 压的是 lua_ls 的 missing-fields 警告，那是 gitsigns
+    -- 注解自己的问题：公开 API 写的是完整类型（actions.lua:558
+    -- `@param opts Gitsigns.NavOpts?`），内部归一化函数却用 Partial
+    -- （actions/nav.lua:41），而这些字段在运行时全都有动态默认值
+    -- （nav.lua:47-69：wrap←wrapscan、foldopen←foldopen 含 search、
+    -- navigation_message←shortmess、count←v:count1、greedy=true）。
+    -- 不要为了消警告把字段补全 —— 那会把 <count>]c 和用户自己的 'wrapscan'
+    -- 设置一起废掉。
     map("]c", function()
+      ---@diagnostic disable-next-line: missing-fields
       gs.nav_hunk("next", { target = "all" })
     end, "Gitsigns: 下一个改动")
     map("[c", function()
+      ---@diagnostic disable-next-line: missing-fields
       gs.nav_hunk("prev", { target = "all" })
     end, "Gitsigns: 上一个改动")
 
