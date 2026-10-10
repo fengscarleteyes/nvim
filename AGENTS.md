@@ -1,30 +1,33 @@
 # AGENTS.md
 
-> 本文件是给 AI 编码代理（Cline / Pi / Claude Code / Codex 等）看的**项目地图 +
-> 工作约定**， 可直接作为会话开头的 prompt 模板使用。 给人看的文档在
-> `README.md`（用法 / TODO）、`docs/DEPENDENCIES.md`（外部工具清单 +
-> 逐个装法与实测踩坑） 和 `docs/prompt-template.md`（提需求的提示词模板）。
->
-> 一句话要求：**照着现有风格做最小改动，动手前先跟用户确认目标，改完按第 6
-> 节自检并如实汇报。**
+- 本文件是给 AI 编码代理（Cline / Pi / Claude Code / Codex 等）看的 **项目地图 + 工作约定**
+- 可直接作为会话开头的 prompt 模板使用
+- 给人看的文档在 `README.md`（用法 / TODO）
+- 外部工具清单: `docs/DEPENDENCIES.md`
+- 提需求的提示词模板: `docs/prompt-template.md`
+- 一句话要求：**照着现有风格做最小改动，动手前先跟用户确认目标，改完按第 6 节自检并如实汇报。**
 
 ## 0. 速查（TL;DR）
 
 - 这是什么：个人 Neovim 配置，**纯 Lua**，Windows 与 Arch Linux 共用一份
 - 硬前提：**Neovim ≥ 0.12**（用了内置插件管理器 `vim.pack`）
 - 插件管理器是 `vim.pack`，**不是** lazy.nvim / packer / LazyVim，不要"顺手迁移"
-- 改代码前的读法：`init.lua`（加载顺序）→ 对应入口 `lua/<层>.lua` →
-  同目录已有同类文件
-- 四个入口文件必须待在各自子目录**外面**（`lua/plugins.lua`、`lua/options.lua`、
-  `lua/keymaps.lua`、`lua/theme.lua`），放进去会自我递归 source
+- 改代码前的读法：`init.lua`（加载顺序）→ 对应入口 `lua/<层>.lua` → 同目录已有同类文件
+- 四个入口文件必须待在各自子目录**外面**
+  - `lua/plugins.lua`
+  - `lua/options.lua`
+  - `lua/keymaps.lua`
+  - `lua/theme.lua`
+  - 放进去会自我递归 source
 - 改完必跑：`stylua --check .`（或至少对改动文件跑 `stylua`）
 - 新增插件 / 外部工具：必须同步更新 `docs/DEPENDENCIES.md`
 - 新增自研功能：先读第 5 节「工作方式」，**用户确认目标后再写代码**
-- 跑全仓库 `glob` / `grep` 时排除 `.venv/`（7000+ 文件，见第 1 节）
-- 外部工具（LSP / 格式化 / lint）**手动装**到 `~/.local/bin`（该目录已在 PATH
-  上， 终端与 Neovim 都能直接解析）：渠道、命令与踩坑见
-  `docs/DEPENDENCIES.md`；mason 与旧的 自举模块都已停用 /
-  移除，不要再引入这类插件管理器
+- 跑全仓库 `glob` / `grep` 时排除 `.venv/`
+- 外部工具（LSP / 格式化 / lint）**手动装**到 `~/.local/bin`
+  - 该目录已在 PATH 上
+  - 终端与 Neovim 都能直接解析
+  - 渠道、命令与踩坑见 `docs/DEPENDENCIES.md`
+  - mason 与旧的 自举模块都已停用 / 移除，不要再引入这类插件管理器
 
 ## 1. 项目是什么
 
@@ -39,19 +42,18 @@
   | 文档语言      | 注释与说明文档用**中文**；`git log` 的提交信息用英文短句                |
   | 格式化 / 检查 | stylua（Lua）、panache（Markdown，走 conform + nvim-lint）              |
 
-根目录其余配置文件（别乱动）：`.editorconfig` / `.gitattributes`（LF
-策略）、`.stylua.toml` （格式化规则）、`.luarc.json`（lua_ls
-缩进）、`.gitignore`、`ruff.toml`（ruff 的 lint/format
-规则）、`pyproject.toml`（uv 的 dev 依赖：basedpyright + ruff，配合同级
-`.venv/`）
+- 根目录其余配置文件（别乱动）：
+  - `.editorconfig` / `.gitattributes`（LF策略）
+  - `.stylua.toml` （格式化规则）
+  - `.luarc.json`（lua_ls缩进）
+  - `.gitignore`、`ruff.toml`（ruff 的 lint/format规则）
+  - `pyproject.toml`（uv 的 dev 依赖：basedpyright + ruff，配合同级`.venv/`）
 
-根目录还有两个**目录**，同样别动、也别当垃圾清理：
-
-- `.venv/`：README 里用 `uv venv .venv --python 3.15` 建的 Python
-  虚拟环境，site-packages 里有 `basedpyright`、`ruff` 和 `nodejs_wheel`（Node
-  24）。已在 `.gitignore` 里，但文件数 7000+：跑全仓库 `glob` / `grep`
-  时排除它，否则结果会被淹没（其中不含 `.lua`，所以 `stylua` 不受影响）
-- `.ruff_cache/`：ruff 的缓存目录，自带 `.gitignore`，不用管
+- 根目录还有两个**目录**，同样别动、也别当垃圾清理：
+  - `.venv/`：README 里用 `uv venv .venv --python 3.15` 建的 Python虚拟环境
+    - site-packages 里有 `basedpyright`、`ruff` 和 `nodejs_wheel`（Node24）
+  - 已在 `.gitignore` 里，但文件数 7000+：跑全仓库 `glob` / `grep`时排除它，否则结果会被淹没（其中不含 `.lua`，所以 `stylua` 不受影响）
+  - `.ruff_cache/`：ruff 的缓存目录，自带 `.gitignore`，不用管
 
 ## 2. 目录结构与加载顺序
 
@@ -72,26 +74,10 @@ options → theme → custom → plugins → keymaps → neovide
   | `lua/keymaps.lua` + `lua/keymaps/*.lua` | 键位映射             | `:runtime!`，文件名字典序       | 新建 `lua/keymaps/xxx.lua`        |
   | `lua/neovide.lua`                       | Neovide GUI 专属设置 | 仅 `vim.g.neovide` 为真时生效   | 直接改                            |
 
-现有子文件（改功能前先按名字找对文件）：
-
-- `lua/custom/`：`notify`（接管 `vim.notify`
-  的浮动通知）、`clean`、`yank`、`terminal`、
-  `autopair`、`diagnostics`、`tabline`、`winbar`、`lsp`、`dashboard`、`review`
-- `lua/options/`：`completion`、`diff`、`files`、`general`、`indent`、`leader`、`search`、`ui`
-- `lua/keymaps/`：`fzf`、`git`、`indent`、`insert`、`neotree`
-- `lua/plugins/`：`blink`、`conform`、`fzf-lua`、`gitsigns`、
-  `hardtime`、`hop`、`live-preview`、`neo-tree`、`nvim-lint`、`nvim-lspconfig`、
-  `nvim-origami`、`nvim-treesitter`、`precognition`、`slimline`、
-  `tiny-inline-diagnostic`、`bak/`（已停用，含 `diffview`）
-- `lua/theme/`：`colorscheme.lua`（生效中，one_monokai）、`bak/tokyonight.lua`（备选，已停用）
-
 **停用而不删除**（保留用户的选择权，不要"清理"）：
 
-- 整个文件：改名 `xxx.lua.disabled`，或移进 `bak/` 子目录（glob
-  不匹配目录，因此不会加载）
-- 单行 / 单块：用户注释掉的备选项（如 `lua/options/ui.lua` 里多组 `listchars`、
-  `lua/plugins/bak/mason.lua` 里注释的工具、`conform.lua` 里注释的 formatter）
-  **是刻意留下的开关，保持原样，不要取消注释也不要删**
+- 整个文件：改名 `xxx.lua.disabled`，或移进 `bak/` 子目录（glob不匹配目录，因此不会加载）
+- 单行 / 单块：用户注释掉的备选项 **是刻意留下的开关，保持原样，不要取消注释也不要删**
 
 几条容易踩的顺序规则：
 

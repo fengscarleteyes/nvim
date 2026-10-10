@@ -177,3 +177,4 @@ zi    -- 全局切换折叠功能 (Toggle folding enable/disable)
 
 - tabline add extend callback statusline add
 - hop
+- notify history
